@@ -31,3 +31,16 @@ No server exists yet, which is useful. Run the API suite against (a) nothing lis
 - `COVERAGE.md` and `SELF_CHECK.md` are written.
 - Spec problems are appended to a `PROPOSALS.md` in your workspace (ID, problem, suggested change). Don't edit `spec/`.
 - Final report: test counts per suite, requirements with no test or gray-box-only coverage, and any spec ambiguity you had to interpret, stating which interpretation you chose.
+
+---
+
+## Erratum (sent to run 4 mid-run, 2026-10-17)
+
+This prompt was written before spec reviews #1 and #2 and wasn't updated before run 4 started. The coordinator noticed and sent the following correction while the agent was working:
+
+> Where this prompt conflicts with spec/SPEC.md, the SPEC wins.
+> 1. R-ALIAS-5: use N=20 concurrent requests with distinct urls, as SPEC states, not 50.
+> 2. COVERAGE.md must account for every requirement ID in SPEC (72), including R-UI-11/12, R-ROUTE-1..3, R-DATA-1..3, R-ERR-6..8, R-HEALTH-2/3, R-LINK-7/8, R-REDIR-7..9 and R-OAS-1, using SPEC's labels to decide how each is covered or reported.
+> 3. SPEC's "Verification rules" section is binding on the harness and overrides any looser guidance in this prompt.
+
+Future harness-author runs (the gap loop) receive this prompt with the erratum already applied.

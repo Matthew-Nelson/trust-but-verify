@@ -1,6 +1,6 @@
 # Shortlink spec (system under test)
 
-**Status: RELEASE CANDIDATE. Awaiting sign-off.** Revised after two blind adversarial reviews by different models: #1 Opus (`spec/reviews/01-*`) and #2 Fable (`spec/reviews/02-*`), each with a disposition file accounting for every finding. When signed off, this file is frozen and tagged `spec-v1`. Changes after that go through `spec/PROPOSALS.md` and need a new tag.
+**Status: SIGNED OFF by Matthew Nelson on 2026-10-17. Frozen at tag `spec-v1`.** Revised after two blind adversarial reviews by different models: #1 Opus (`spec/reviews/01-*`) and #2 Fable (`spec/reviews/02-*`), each with a disposition file accounting for every finding. When signed off, this file is frozen and tagged `spec-v1`. Changes after that go through `spec/PROPOSALS.md` and need a new tag.
 
 This is the single statement of intent that everything else answers to. The harness tests it, the implementations build to it, and the mutants violate it. Field-level request and response shapes are in `spec/openapi.json`. This file covers the rules a schema can't express, and where the two seem to differ, **this file wins**.
 

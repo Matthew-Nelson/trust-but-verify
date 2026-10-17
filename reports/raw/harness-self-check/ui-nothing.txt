@@ -1,0 +1,792 @@
+$ PLAYWRIGHT_BROWSERS_PATH=0 playwright test --config playwright.config.ts
+
+Running 35 tests using 1 worker
+
+  ✘   1 tests/ui/a11y.spec.ts:14:3 › accessibility › [R-UI-10] / with an empty form (126ms)
+  ✘   2 tests/ui/a11y.spec.ts:20:3 › accessibility › [R-UI-10] / after a success (105ms)
+  ✘   3 tests/ui/a11y.spec.ts:28:3 › accessibility › [R-UI-10] / after an error (94ms)
+  ✘   4 tests/ui/a11y.spec.ts:36:3 › accessibility › [R-UI-10] / with a delete confirmation revealed (65ms)
+  ✘   5 tests/ui/a11y.spec.ts:43:3 › accessibility › [R-UI-10] /links/{code} for each days link (71ms)
+  ✘   6 tests/ui/a11y.spec.ts:52:3 › accessibility › [R-UI-10] /links/{unknown} (90ms)
+  ✘   7 tests/ui/home.spec.ts:11:3 › home page / › [R-UI-1] form has the Destination URL and Custom alias (optional) textboxes and a Shorten button, with no constraint validation (91ms)
+  ✘   8 tests/ui/home.spec.ts:49:5 › home page / › [R-UI-2] destination: bare host gets https:// (90ms)
+  ✘   9 tests/ui/home.spec.ts:49:5 › home page / › [R-UI-2] destination: bare host and path gets https:// (90ms)
+  ✘  10 tests/ui/home.spec.ts:49:5 › home page / › [R-UI-2] destination: an explicit upper-case scheme is sent unchanged (90ms)
+  ✘  11 tests/ui/home.spec.ts:49:5 › home page / › [R-UI-2] destination: host:port without a scheme gets https:// (90ms)
+  ✘  12 tests/ui/home.spec.ts:49:5 › home page / › [R-UI-2] destination: surrounding ASCII whitespace is trimmed (90ms)
+  ✘  13 tests/ui/home.spec.ts:60:3 › home page / › [R-UI-2] the alias field is trimmed; a whitespace-only alias is omitted (generated code) (90ms)
+  ✘  14 tests/ui/home.spec.ts:78:3 › home page / › [R-UI-3] success shows a status with a link to the shortUrl and a working "Copy short link" button (90ms)
+  ✘  15 tests/ui/home.spec.ts:103:5 › home page / › [R-UI-4] API error (invalid alias) shows exactly the invalid_alias message in an alert (90ms)
+  ✘  16 tests/ui/home.spec.ts:103:5 › home page / › [R-UI-4] API error (reserved alias (mixed case)) shows exactly the alias_reserved message in an alert (90ms)
+  ✘  17 tests/ui/home.spec.ts:103:5 › home page / › [R-UI-4] API error (unsupported scheme) shows exactly the invalid_url message in an alert (91ms)
+  ✘  18 tests/ui/home.spec.ts:103:5 › home page / › [R-UI-4] API error (URL over 2048 code points) shows exactly the invalid_url message in an alert (89ms)
+  ✘  19 tests/ui/home.spec.ts:114:3 › home page / › [R-UI-4] taken alias shows exactly the alias_taken message (64ms)
+  ✘  20 tests/ui/home.spec.ts:125:3 › home page / › [R-UI-5] "Your links" table: exactly one header row with Short link, Destination, Clicks, Created (65ms)
+  ✘  21 tests/ui/home.spec.ts:133:3 › home page / › [R-UI-5] the table lists the 20 newest links in API order (65ms)
+  ✘  22 tests/ui/home.spec.ts:147:3 › home page / › [R-UI-5] row cells: shortUrl link, url, clickCount as a plain integer, createdAt as UTC YYYY-MM-DD HH:MM; Stats and Delete controls (69ms)
+  -  23 tests/ui/home.spec.ts:164:3 › home page / › [R-UI-5][gray-box] Clicks has no thousands separator and Created truncates seconds (hh:mm:59.9 is not rounded up)
+  ✘  24 tests/ui/home.spec.ts:178:3 › home page / › [R-UI-5] after a successful create the table is re-fetched without a full page reload (79ms)
+  ✘  25 tests/ui/home.spec.ts:190:3 › home page / › [R-UI-6] Delete reveals "Confirm delete" in the same row; only one open at a time; nothing deleted until confirmed (66ms)
+  ✘  26 tests/ui/home.spec.ts:223:3 › home page / › [R-UI-12] an empty or whitespace-only destination shows the invalid_url alert and sends no network request (90ms)
+  ✘  27 tests/ui/network.spec.ts:6:1 › [R-UI-11] a full create -> stats -> delete -> error journey sends no browser request to /api/ (96ms)
+  ✘  28 tests/ui/stats-page.spec.ts:47:3 › stats page /links/{code} › [R-UI-7] heading, totals and the four tables match the API stats (default window) (66ms)
+  ✘  29 tests/ui/stats-page.spec.ts:53:3 › stats page /links/{code} › [R-UI-7] a link with no clicks: zero totals and breakdown tables with a header row and no body rows (65ms)
+  -  30 tests/ui/stats-page.spec.ts:61:3 › stats page /links/{code} › [R-UI-7][gray-box] totals are base-10 integers without separators
+  ✘  31 tests/ui/stats-page.spec.ts:71:3 › stats page /links/{code} › [R-UI-8] the 7/30/90 days links set ?days= and the matching one has aria-current="page" (54ms)
+  ✘  32 tests/ui/stats-page.spec.ts:91:3 › stats page /links/{code} › [R-UI-8] a valid days without a link is honored (1 and 365) and no link is current (65ms)
+  ✘  33 tests/ui/stats-page.spec.ts:100:3 › stats page /links/{code} › [R-UI-8] missing or invalid days behaves exactly like days=30, including aria-current on "30 days" (66ms)
+  ✘  34 tests/ui/stats-page.spec.ts:112:3 › stats page /links/{code} › [R-UI-9] an unknown code responds 404 with the level-1 heading "Link not found" (89ms)
+  ✘  35 tests/ui/stats-page.spec.ts:118:3 › stats page /links/{code} › [R-UI-9][R-DEL-1] a deleted link's page responds 404 "Link not found" (65ms)
+
+
+  1) tests/ui/a11y.spec.ts:14:3 › accessibility › [R-UI-10] / with an empty form ───────────────────
+
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/
+    Call log:
+      - navigating to "http://127.0.0.1:59998/", waiting until "load"
+
+
+      13 | test.describe('accessibility', () => {
+      14 |   test('[R-UI-10] / with an empty form', async ({ page }) => {
+    > 15 |     await page.goto('/');
+         |                ^
+      16 |     await expect(form(page).shorten).toBeVisible();
+      17 |     await expectNoSeriousViolations(page, 'empty form');
+      18 |   });
+        at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/a11y.spec.ts:15:16
+
+    Error Context: test-results/a11y-accessibility-R-UI-10-with-an-empty-form/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/a11y-accessibility-R-UI-10-with-an-empty-form/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/a11y-accessibility-R-UI-10-with-an-empty-form/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests/ui/a11y.spec.ts:20:3 › accessibility › [R-UI-10] / after a success ──────────────────────
+
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/
+    Call log:
+      - navigating to "http://127.0.0.1:59998/", waiting until "load"
+
+
+      19 |
+      20 |   test('[R-UI-10] / after a success', async ({ page }) => {
+    > 21 |     await page.goto('/');
+         |                ^
+      22 |     await form(page).dest.fill(uurl('a11y'));
+      23 |     await form(page).shorten.click();
+      24 |     await expect(statusRegion(page).getByRole('link')).toHaveCount(1);
+        at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/a11y.spec.ts:21:16
+
+    Error Context: test-results/a11y-accessibility-R-UI-10-after-a-success/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/a11y-accessibility-R-UI-10-after-a-success/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/a11y-accessibility-R-UI-10-after-a-success/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) tests/ui/a11y.spec.ts:28:3 › accessibility › [R-UI-10] / after an error ───────────────────────
+
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/
+    Call log:
+      - navigating to "http://127.0.0.1:59998/", waiting until "load"
+
+
+      27 |
+      28 |   test('[R-UI-10] / after an error', async ({ page }) => {
+    > 29 |     await page.goto('/');
+         |                ^
+      30 |     await form(page).dest.fill(`ftp://example.com/${uid()}`);
+      31 |     await form(page).shorten.click();
+      32 |     await expect(alertRegion(page)).toHaveCount(1);
+        at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/a11y.spec.ts:29:16
+
+    Error Context: test-results/a11y-accessibility-R-UI-10-after-an-error/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/a11y-accessibility-R-UI-10-after-an-error/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/a11y-accessibility-R-UI-10-after-an-error/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) tests/ui/a11y.spec.ts:36:3 › accessibility › [R-UI-10] / with a delete confirmation revealed ──
+
+    TypeError: fetch failed
+    [cause]: Error: connect ECONNREFUSED 127.0.0.1:59999
+
+    Error Context: test-results/a11y-accessibility-R-UI-10-76941-elete-confirmation-revealed/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/a11y-accessibility-R-UI-10-76941-elete-confirmation-revealed/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/a11y-accessibility-R-UI-10-76941-elete-confirmation-revealed/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5) tests/ui/a11y.spec.ts:43:3 › accessibility › [R-UI-10] /links/{code} for each days link ───────
+
+    TypeError: fetch failed
+    [cause]: Error: connect ECONNREFUSED 127.0.0.1:59999
+
+    Error Context: test-results/a11y-accessibility-R-UI-10-links-code-for-each-days-link/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/a11y-accessibility-R-UI-10-links-code-for-each-days-link/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/a11y-accessibility-R-UI-10-links-code-for-each-days-link/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6) tests/ui/a11y.spec.ts:52:3 › accessibility › [R-UI-10] /links/{unknown} ───────────────────────
+
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/links/nope-hm5c35c1g0
+    Call log:
+      - navigating to "http://127.0.0.1:59998/links/nope-hm5c35c1g0", waiting until "load"
+
+
+      51 |
+      52 |   test('[R-UI-10] /links/{unknown}', async ({ page }) => {
+    > 53 |     await page.goto(`/links/nope-${uid()}`);
+         |                ^
+      54 |     await expect(page.getByRole('heading', { level: 1, name: 'Link not found', exact: true })).toBeVisible();
+      55 |     await expectNoSeriousViolations(page, '/links/{unknown}');
+      56 |   });
+        at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/a11y.spec.ts:53:16
+
+    Error Context: test-results/a11y-accessibility-R-UI-10-links-unknown-/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/a11y-accessibility-R-UI-10-links-unknown-/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/a11y-accessibility-R-UI-10-links-unknown-/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  7) tests/ui/home.spec.ts:11:3 › home page / › [R-UI-1] form has the Destination URL and Custom alias (optional) textboxes and a Shorten button, with no constraint validation 
+
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/
+    Call log:
+      - navigating to "http://127.0.0.1:59998/", waiting until "load"
+
+
+      10 | test.describe('home page /', () => {
+      11 |   test('[R-UI-1] form has the Destination URL and Custom alias (optional) textboxes and a Shorten button, with no constraint validation', async ({ page }) => {
+    > 12 |     await page.goto('/');
+         |                ^
+      13 |     const f = form(page);
+      14 |     await expect(f.dest).toBeVisible();
+      15 |     await expect(f.alias).toBeVisible();
+        at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:12:16
+
+    Error Context: test-results/home-home-page-R-UI-1-form-c5725-th-no-constraint-validation/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/home-home-page-R-UI-1-form-c5725-th-no-constraint-validation/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/home-home-page-R-UI-1-form-c5725-th-no-constraint-validation/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  8) tests/ui/home.spec.ts:49:5 › home page / › [R-UI-2] destination: bare host gets https:// ──────
+
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/
+    Call log:
+      - navigating to "http://127.0.0.1:59998/", waiting until "load"
+
+
+      49 |     test(`[R-UI-2] destination: ${label}`, async ({ page }) => {
+      50 |       const id = uid();
+    > 51 |       await page.goto('/');
+         |                  ^
+      52 |       const f = form(page);
+      53 |       await f.dest.fill(input(id));
+      54 |       await f.shorten.click();
+        at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:51:18
+
+    Error Context: test-results/home-home-page-R-UI-2-destination-bare-host-gets-https-/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/home-home-page-R-UI-2-destination-bare-host-gets-https-/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/home-home-page-R-UI-2-destination-bare-host-gets-https-/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  9) tests/ui/home.spec.ts:49:5 › home page / › [R-UI-2] destination: bare host and path gets https:// 
+
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/
+    Call log:
+      - navigating to "http://127.0.0.1:59998/", waiting until "load"
+
+
+      49 |     test(`[R-UI-2] destination: ${label}`, async ({ page }) => {
+      50 |       const id = uid();
+    > 51 |       await page.goto('/');
+         |                  ^
+      52 |       const f = form(page);
+      53 |       await f.dest.fill(input(id));
+      54 |       await f.shorten.click();
+        at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:51:18
+
+    Error Context: test-results/home-home-page-R-UI-2-dest-55f0a-e-host-and-path-gets-https-/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/home-home-page-R-UI-2-dest-55f0a-e-host-and-path-gets-https-/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/home-home-page-R-UI-2-dest-55f0a-e-host-and-path-gets-https-/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  10) tests/ui/home.spec.ts:49:5 › home page / › [R-UI-2] destination: an explicit upper-case scheme is sent unchanged 
+
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/
+    Call log:
+      - navigating to "http://127.0.0.1:59998/", waiting until "load"
+
+
+      49 |     test(`[R-UI-2] destination: ${label}`, async ({ page }) => {
+      50 |       const id = uid();
+    > 51 |       await page.goto('/');
+         |                  ^
+      52 |       const f = form(page);
+      53 |       await f.dest.fill(input(id));
+      54 |       await f.shorten.click();
+        at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:51:18
+
+    Error Context: test-results/home-home-page-R-UI-2-dest-eddc2-se-scheme-is-sent-unchanged/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/home-home-page-R-UI-2-dest-eddc2-se-scheme-is-sent-unchanged/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/home-home-page-R-UI-2-dest-eddc2-se-scheme-is-sent-unchanged/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  11) tests/ui/home.spec.ts:49:5 › home page / › [R-UI-2] destination: host:port without a scheme gets https:// 
+
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/
+    Call log:
+      - navigating to "http://127.0.0.1:59998/", waiting until "load"
+
+
+      49 |     test(`[R-UI-2] destination: ${label}`, async ({ page }) => {
+      50 |       const id = uid();
+    > 51 |       await page.goto('/');
+         |                  ^
+      52 |       const f = form(page);
+      53 |       await f.dest.fill(input(id));
+      54 |       await f.shorten.click();
+        at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:51:18
+
+    Error Context: test-results/home-home-page-R-UI-2-dest-81bb9-ithout-a-scheme-gets-https-/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/home-home-page-R-UI-2-dest-81bb9-ithout-a-scheme-gets-https-/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/home-home-page-R-UI-2-dest-81bb9-ithout-a-scheme-gets-https-/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  12) tests/ui/home.spec.ts:49:5 › home page / › [R-UI-2] destination: surrounding ASCII whitespace is trimmed 
+
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/
+    Call log:
+      - navigating to "http://127.0.0.1:59998/", waiting until "load"
+
+
+      49 |     test(`[R-UI-2] destination: ${label}`, async ({ page }) => {
+      50 |       const id = uid();
+    > 51 |       await page.goto('/');
+         |                  ^
+      52 |       const f = form(page);
+      53 |       await f.dest.fill(input(id));
+      54 |       await f.shorten.click();
+        at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:51:18
+
+    Error Context: test-results/home-home-page-R-UI-2-dest-ef311-ASCII-whitespace-is-trimmed/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/home-home-page-R-UI-2-dest-ef311-ASCII-whitespace-is-trimmed/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/home-home-page-R-UI-2-dest-ef311-ASCII-whitespace-is-trimmed/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  13) tests/ui/home.spec.ts:60:3 › home page / › [R-UI-2] the alias field is trimmed; a whitespace-only alias is omitted (generated code) 
+
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/
+    Call log:
+      - navigating to "http://127.0.0.1:59998/", waiting until "load"
+
+
+      60 |   test('[R-UI-2] the alias field is trimmed; a whitespace-only alias is omitted (generated code)', async ({ page }) => {
+      61 |     const a = alias('ui2');
+    > 62 |     await page.goto('/');
+         |                ^
+      63 |     const f = form(page);
+      64 |     await f.dest.fill(uurl('ui2'));
+      65 |     await f.alias.fill(`  ${a}\t `);
+        at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:62:16
+
+    Error Context: test-results/home-home-page-R-UI-2-the--06209--is-omitted-generated-code-/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/home-home-page-R-UI-2-the--06209--is-omitted-generated-code-/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/home-home-page-R-UI-2-the--06209--is-omitted-generated-code-/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  14) tests/ui/home.spec.ts:78:3 › home page / › [R-UI-3] success shows a status with a link to the shortUrl and a working "Copy short link" button 
+
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/
+    Call log:
+      - navigating to "http://127.0.0.1:59998/", waiting until "load"
+
+
+      80 |     const a = alias('ui3');
+      81 |     const url = uurl('ui3');
+    > 82 |     await page.goto('/');
+         |                ^
+      83 |     const f = form(page);
+      84 |     await f.dest.fill(url);
+      85 |     await f.alias.fill(a);
+        at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:82:16
+
+    Error Context: test-results/home-home-page-R-UI-3-succ-59fd9-king-Copy-short-link-button/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/home-home-page-R-UI-3-succ-59fd9-king-Copy-short-link-button/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/home-home-page-R-UI-3-succ-59fd9-king-Copy-short-link-button/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  15) tests/ui/home.spec.ts:103:5 › home page / › [R-UI-4] API error (invalid alias) shows exactly the invalid_alias message in an alert 
+
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/
+    Call log:
+      - navigating to "http://127.0.0.1:59998/", waiting until "load"
+
+
+      103 |     test(`[R-UI-4] API error (${label}) shows exactly the ${code} message in an alert`, async ({ page }) => {
+      104 |       const input = mk(uid());
+    > 105 |       await page.goto('/');
+          |                  ^
+      106 |       const f = form(page);
+      107 |       await f.dest.fill(input.url);
+      108 |       if (input.alias) await f.alias.fill(input.alias);
+        at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:105:18
+
+    Error Context: test-results/home-home-page-R-UI-4-API--ea76e-d-alias-message-in-an-alert/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/home-home-page-R-UI-4-API--ea76e-d-alias-message-in-an-alert/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/home-home-page-R-UI-4-API--ea76e-d-alias-message-in-an-alert/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  16) tests/ui/home.spec.ts:103:5 › home page / › [R-UI-4] API error (reserved alias (mixed case)) shows exactly the alias_reserved message in an alert 
+
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/
+    Call log:
+      - navigating to "http://127.0.0.1:59998/", waiting until "load"
+
+
+      103 |     test(`[R-UI-4] API error (${label}) shows exactly the ${code} message in an alert`, async ({ page }) => {
+      104 |       const input = mk(uid());
+    > 105 |       await page.goto('/');
+          |                  ^
+      106 |       const f = form(page);
+      107 |       await f.dest.fill(input.url);
+      108 |       if (input.alias) await f.alias.fill(input.alias);
+        at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:105:18
+
+    Error Context: test-results/home-home-page-R-UI-4-API--d4f75-eserved-message-in-an-alert/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/home-home-page-R-UI-4-API--d4f75-eserved-message-in-an-alert/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/home-home-page-R-UI-4-API--d4f75-eserved-message-in-an-alert/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  17) tests/ui/home.spec.ts:103:5 › home page / › [R-UI-4] API error (unsupported scheme) shows exactly the invalid_url message in an alert 
+
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/
+    Call log:
+      - navigating to "http://127.0.0.1:59998/", waiting until "load"
+
+
+      103 |     test(`[R-UI-4] API error (${label}) shows exactly the ${code} message in an alert`, async ({ page }) => {
+      104 |       const input = mk(uid());
+    > 105 |       await page.goto('/');
+          |                  ^
+      106 |       const f = form(page);
+      107 |       await f.dest.fill(input.url);
+      108 |       if (input.alias) await f.alias.fill(input.alias);
+        at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:105:18
+
+    Error Context: test-results/home-home-page-R-UI-4-API--571f8-lid-url-message-in-an-alert/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/home-home-page-R-UI-4-API--571f8-lid-url-message-in-an-alert/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/home-home-page-R-UI-4-API--571f8-lid-url-message-in-an-alert/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  18) tests/ui/home.spec.ts:103:5 › home page / › [R-UI-4] API error (URL over 2048 code points) shows exactly the invalid_url message in an alert 
+
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/
+    Call log:
+      - navigating to "http://127.0.0.1:59998/", waiting until "load"
+
+
+      103 |     test(`[R-UI-4] API error (${label}) shows exactly the ${code} message in an alert`, async ({ page }) => {
+      104 |       const input = mk(uid());
+    > 105 |       await page.goto('/');
+          |                  ^
+      106 |       const f = form(page);
+      107 |       await f.dest.fill(input.url);
+      108 |       if (input.alias) await f.alias.fill(input.alias);
+        at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:105:18
+
+    Error Context: test-results/home-home-page-R-UI-4-API--29930-lid-url-message-in-an-alert/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/home-home-page-R-UI-4-API--29930-lid-url-message-in-an-alert/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/home-home-page-R-UI-4-API--29930-lid-url-message-in-an-alert/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  19) tests/ui/home.spec.ts:114:3 › home page / › [R-UI-4] taken alias shows exactly the alias_taken message 
+
+    TypeError: fetch failed
+    [cause]: Error: connect ECONNREFUSED 127.0.0.1:59999
+
+    Error Context: test-results/home-home-page-R-UI-4-take-37008-tly-the-alias-taken-message/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/home-home-page-R-UI-4-take-37008-tly-the-alias-taken-message/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/home-home-page-R-UI-4-take-37008-tly-the-alias-taken-message/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  20) tests/ui/home.spec.ts:125:3 › home page / › [R-UI-5] "Your links" table: exactly one header row with Short link, Destination, Clicks, Created 
+
+    TypeError: fetch failed
+    [cause]: Error: connect ECONNREFUSED 127.0.0.1:59999
+
+    Error Context: test-results/home-home-page-R-UI-5-Your-8ae11--Destination-Clicks-Created/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/home-home-page-R-UI-5-Your-8ae11--Destination-Clicks-Created/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/home-home-page-R-UI-5-Your-8ae11--Destination-Clicks-Created/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  21) tests/ui/home.spec.ts:133:3 › home page / › [R-UI-5] the table lists the 20 newest links in API order 
+
+    TypeError: fetch failed
+    [cause]: Error: connect ECONNREFUSED 127.0.0.1:59999
+
+    Error Context: test-results/home-home-page-R-UI-5-the--c0724-0-newest-links-in-API-order/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/home-home-page-R-UI-5-the--c0724-0-newest-links-in-API-order/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/home-home-page-R-UI-5-the--c0724-0-newest-links-in-API-order/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  22) tests/ui/home.spec.ts:147:3 › home page / › [R-UI-5] row cells: shortUrl link, url, clickCount as a plain integer, createdAt as UTC YYYY-MM-DD HH:MM; Stats and Delete controls 
+
+    TypeError: fetch failed
+    [cause]: Error: connect ECONNREFUSED 127.0.0.1:59999
+
+    Error Context: test-results/home-home-page-R-UI-5-row--a175e-M-Stats-and-Delete-controls/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/home-home-page-R-UI-5-row--a175e-M-Stats-and-Delete-controls/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/home-home-page-R-UI-5-row--a175e-M-Stats-and-Delete-controls/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  23) tests/ui/home.spec.ts:178:3 › home page / › [R-UI-5] after a successful create the table is re-fetched without a full page reload 
+
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/
+    Call log:
+      - navigating to "http://127.0.0.1:59998/", waiting until "load"
+
+
+      177 |
+      178 |   test('[R-UI-5] after a successful create the table is re-fetched without a full page reload', async ({ page }) => {
+    > 179 |     await page.goto('/');
+          |                ^
+      180 |     await markDocument(page);
+      181 |     const a = alias('ui5r');
+      182 |     const f = form(page);
+        at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:179:16
+
+    Error Context: test-results/home-home-page-R-UI-5-afte-ec063--without-a-full-page-reload/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/home-home-page-R-UI-5-afte-ec063--without-a-full-page-reload/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/home-home-page-R-UI-5-afte-ec063--without-a-full-page-reload/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  24) tests/ui/home.spec.ts:190:3 › home page / › [R-UI-6] Delete reveals "Confirm delete" in the same row; only one open at a time; nothing deleted until confirmed 
+
+    TypeError: fetch failed
+    [cause]: Error: connect ECONNREFUSED 127.0.0.1:59999
+
+    Error Context: test-results/home-home-page-R-UI-6-Dele-2d83d-ing-deleted-until-confirmed/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/home-home-page-R-UI-6-Dele-2d83d-ing-deleted-until-confirmed/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/home-home-page-R-UI-6-Dele-2d83d-ing-deleted-until-confirmed/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  25) tests/ui/home.spec.ts:223:3 › home page / › [R-UI-12] an empty or whitespace-only destination shows the invalid_url alert and sends no network request 
+
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/
+    Call log:
+      - navigating to "http://127.0.0.1:59998/", waiting until "load"
+
+
+      223 |   test('[R-UI-12] an empty or whitespace-only destination shows the invalid_url alert and sends no network request', async ({ page }) => {
+      224 |     for (const value of ['', '  \t  ']) {
+    > 225 |       await page.goto('/');
+          |                  ^
+      226 |       await page.waitForLoadState('networkidle');
+      227 |       const requests: string[] = [];
+      228 |       const onReq = (r: { method(): string; url(): string }) => requests.push(`${r.method()} ${r.url()}`);
+        at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:225:18
+
+    Error Context: test-results/home-home-page-R-UI-12-an--3e566-nd-sends-no-network-request/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/home-home-page-R-UI-12-an--3e566-nd-sends-no-network-request/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/home-home-page-R-UI-12-an--3e566-nd-sends-no-network-request/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  26) tests/ui/network.spec.ts:6:1 › [R-UI-11] a full create -> stats -> delete -> error journey sends no browser request to /api/ 
+
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/
+    Call log:
+      - navigating to "http://127.0.0.1:59998/", waiting until "load"
+
+
+       8 |   page.on('request', (r) => seen.push(r.url()));
+       9 |   const a = alias('net');
+    > 10 |   await page.goto('/');
+         |              ^
+      11 |   await form(page).dest.fill(uurl('net'));
+      12 |   await form(page).alias.fill(a);
+      13 |   await form(page).shorten.click();
+        at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/network.spec.ts:10:14
+
+    Error Context: test-results/network--R-UI-11-a-full-cr-ae6dd--no-browser-request-to-api-/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/network--R-UI-11-a-full-cr-ae6dd--no-browser-request-to-api-/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/network--R-UI-11-a-full-cr-ae6dd--no-browser-request-to-api-/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  27) tests/ui/stats-page.spec.ts:47:3 › stats page /links/{code} › [R-UI-7] heading, totals and the four tables match the API stats (default window) 
+
+    TypeError: fetch failed
+    [cause]: Error: connect ECONNREFUSED 127.0.0.1:59999
+
+    Error Context: test-results/stats-page-stats-page-link-e7a25-e-API-stats-default-window-/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/stats-page-stats-page-link-e7a25-e-API-stats-default-window-/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/stats-page-stats-page-link-e7a25-e-API-stats-default-window-/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  28) tests/ui/stats-page.spec.ts:53:3 › stats page /links/{code} › [R-UI-7] a link with no clicks: zero totals and breakdown tables with a header row and no body rows 
+
+    TypeError: fetch failed
+    [cause]: Error: connect ECONNREFUSED 127.0.0.1:59999
+
+    Error Context: test-results/stats-page-stats-page-link-60d82-header-row-and-no-body-rows/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/stats-page-stats-page-link-60d82-header-row-and-no-body-rows/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/stats-page-stats-page-link-60d82-header-row-and-no-body-rows/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  29) tests/ui/stats-page.spec.ts:71:3 › stats page /links/{code} › [R-UI-8] the 7/30/90 days links set ?days= and the matching one has aria-current="page" 
+
+    TypeError: fetch failed
+    [cause]: Error: connect ECONNREFUSED 127.0.0.1:59999
+
+    Error Context: test-results/stats-page-stats-page-link-37daf--one-has-aria-current-page-/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/stats-page-stats-page-link-37daf--one-has-aria-current-page-/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/stats-page-stats-page-link-37daf--one-has-aria-current-page-/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  30) tests/ui/stats-page.spec.ts:91:3 › stats page /links/{code} › [R-UI-8] a valid days without a link is honored (1 and 365) and no link is current 
+
+    TypeError: fetch failed
+    [cause]: Error: connect ECONNREFUSED 127.0.0.1:59999
+
+    Error Context: test-results/stats-page-stats-page-link-d5758--365-and-no-link-is-current/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/stats-page-stats-page-link-d5758--365-and-no-link-is-current/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/stats-page-stats-page-link-d5758--365-and-no-link-is-current/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  31) tests/ui/stats-page.spec.ts:100:3 › stats page /links/{code} › [R-UI-8] missing or invalid days behaves exactly like days=30, including aria-current on "30 days" 
+
+    TypeError: fetch failed
+    [cause]: Error: connect ECONNREFUSED 127.0.0.1:59999
+
+    Error Context: test-results/stats-page-stats-page-link-60c9f-ng-aria-current-on-30-days-/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/stats-page-stats-page-link-60c9f-ng-aria-current-on-30-days-/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/stats-page-stats-page-link-60c9f-ng-aria-current-on-30-days-/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  32) tests/ui/stats-page.spec.ts:112:3 › stats page /links/{code} › [R-UI-9] an unknown code responds 404 with the level-1 heading "Link not found" 
+
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/links/nope-kudrf2fu7v
+    Call log:
+      - navigating to "http://127.0.0.1:59998/links/nope-kudrf2fu7v", waiting until "load"
+
+
+      111 |
+      112 |   test('[R-UI-9] an unknown code responds 404 with the level-1 heading "Link not found"', async ({ page }) => {
+    > 113 |     const resp = await page.goto(`/links/nope-${uid()}`);
+          |                             ^
+      114 |     expect(resp!.status()).toBe(404);
+      115 |     await expect(page.getByRole('heading', { level: 1, name: 'Link not found', exact: true })).toBeVisible();
+      116 |   });
+        at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/stats-page.spec.ts:113:29
+
+    Error Context: test-results/stats-page-stats-page-link-b3ddd-l-1-heading-Link-not-found-/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/stats-page-stats-page-link-b3ddd-l-1-heading-Link-not-found-/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/stats-page-stats-page-link-b3ddd-l-1-heading-Link-not-found-/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  33) tests/ui/stats-page.spec.ts:118:3 › stats page /links/{code} › [R-UI-9][R-DEL-1] a deleted link's page responds 404 "Link not found" 
+
+    TypeError: fetch failed
+    [cause]: Error: connect ECONNREFUSED 127.0.0.1:59999
+
+    Error Context: test-results/stats-page-stats-page-link-37449-esponds-404-Link-not-found-/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/stats-page-stats-page-link-37449-esponds-404-Link-not-found-/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/stats-page-stats-page-link-37449-esponds-404-Link-not-found-/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  33 failed
+    tests/ui/a11y.spec.ts:14:3 › accessibility › [R-UI-10] / with an empty form ────────────────────
+    tests/ui/a11y.spec.ts:20:3 › accessibility › [R-UI-10] / after a success ───────────────────────
+    tests/ui/a11y.spec.ts:28:3 › accessibility › [R-UI-10] / after an error ────────────────────────
+    tests/ui/a11y.spec.ts:36:3 › accessibility › [R-UI-10] / with a delete confirmation revealed ───
+    tests/ui/a11y.spec.ts:43:3 › accessibility › [R-UI-10] /links/{code} for each days link ────────
+    tests/ui/a11y.spec.ts:52:3 › accessibility › [R-UI-10] /links/{unknown} ────────────────────────
+    tests/ui/home.spec.ts:11:3 › home page / › [R-UI-1] form has the Destination URL and Custom alias (optional) textboxes and a Shorten button, with no constraint validation 
+    tests/ui/home.spec.ts:49:5 › home page / › [R-UI-2] destination: bare host gets https:// ───────
+    tests/ui/home.spec.ts:49:5 › home page / › [R-UI-2] destination: bare host and path gets https:// 
+    tests/ui/home.spec.ts:49:5 › home page / › [R-UI-2] destination: an explicit upper-case scheme is sent unchanged 
+    tests/ui/home.spec.ts:49:5 › home page / › [R-UI-2] destination: host:port without a scheme gets https:// 
+    tests/ui/home.spec.ts:49:5 › home page / › [R-UI-2] destination: surrounding ASCII whitespace is trimmed 
+    tests/ui/home.spec.ts:60:3 › home page / › [R-UI-2] the alias field is trimmed; a whitespace-only alias is omitted (generated code) 
+    tests/ui/home.spec.ts:78:3 › home page / › [R-UI-3] success shows a status with a link to the shortUrl and a working "Copy short link" button 
+    tests/ui/home.spec.ts:103:5 › home page / › [R-UI-4] API error (invalid alias) shows exactly the invalid_alias message in an alert 
+    tests/ui/home.spec.ts:103:5 › home page / › [R-UI-4] API error (reserved alias (mixed case)) shows exactly the alias_reserved message in an alert 
+    tests/ui/home.spec.ts:103:5 › home page / › [R-UI-4] API error (unsupported scheme) shows exactly the invalid_url message in an alert 
+    tests/ui/home.spec.ts:103:5 › home page / › [R-UI-4] API error (URL over 2048 code points) shows exactly the invalid_url message in an alert 
+    tests/ui/home.spec.ts:114:3 › home page / › [R-UI-4] taken alias shows exactly the alias_taken message 
+    tests/ui/home.spec.ts:125:3 › home page / › [R-UI-5] "Your links" table: exactly one header row with Short link, Destination, Clicks, Created 
+    tests/ui/home.spec.ts:133:3 › home page / › [R-UI-5] the table lists the 20 newest links in API order 
+    tests/ui/home.spec.ts:147:3 › home page / › [R-UI-5] row cells: shortUrl link, url, clickCount as a plain integer, createdAt as UTC YYYY-MM-DD HH:MM; Stats and Delete controls 
+    tests/ui/home.spec.ts:178:3 › home page / › [R-UI-5] after a successful create the table is re-fetched without a full page reload 
+    tests/ui/home.spec.ts:190:3 › home page / › [R-UI-6] Delete reveals "Confirm delete" in the same row; only one open at a time; nothing deleted until confirmed 
+    tests/ui/home.spec.ts:223:3 › home page / › [R-UI-12] an empty or whitespace-only destination shows the invalid_url alert and sends no network request 
+    tests/ui/network.spec.ts:6:1 › [R-UI-11] a full create -> stats -> delete -> error journey sends no browser request to /api/ 
+    tests/ui/stats-page.spec.ts:47:3 › stats page /links/{code} › [R-UI-7] heading, totals and the four tables match the API stats (default window) 
+    tests/ui/stats-page.spec.ts:53:3 › stats page /links/{code} › [R-UI-7] a link with no clicks: zero totals and breakdown tables with a header row and no body rows 
+    tests/ui/stats-page.spec.ts:71:3 › stats page /links/{code} › [R-UI-8] the 7/30/90 days links set ?days= and the matching one has aria-current="page" 
+    tests/ui/stats-page.spec.ts:91:3 › stats page /links/{code} › [R-UI-8] a valid days without a link is honored (1 and 365) and no link is current 
+    tests/ui/stats-page.spec.ts:100:3 › stats page /links/{code} › [R-UI-8] missing or invalid days behaves exactly like days=30, including aria-current on "30 days" 
+    tests/ui/stats-page.spec.ts:112:3 › stats page /links/{code} › [R-UI-9] an unknown code responds 404 with the level-1 heading "Link not found" 
+    tests/ui/stats-page.spec.ts:118:3 › stats page /links/{code} › [R-UI-9][R-DEL-1] a deleted link's page responds 404 "Link not found" 
+  2 skipped
+[ELIFECYCLE] Command failed with exit code 1.

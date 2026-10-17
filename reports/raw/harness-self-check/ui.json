@@ -1,0 +1,2367 @@
+{
+  "config": {
+    "argv": [
+      "/opt/homebrew/Cellar/node/26.7.0/bin/node",
+      "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/node_modules/@playwright/test/cli.js",
+      "test",
+      "--config",
+      "playwright.config.ts"
+    ],
+    "configFile": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/playwright.config.ts",
+    "rootDir": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "results/ui.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "a11y.spec.ts",
+      "file": "a11y.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "accessibility",
+          "file": "a11y.spec.ts",
+          "line": 13,
+          "column": 6,
+          "specs": [
+            {
+              "title": "[R-UI-10] / with an empty form",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 126,
+                      "error": {
+                        "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n",
+                        "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/a11y.spec.ts:15:16",
+                        "location": {
+                          "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/a11y.spec.ts",
+                          "column": 16,
+                          "line": 15
+                        },
+                        "snippet": "  13 | test.describe('accessibility', () => {\n  14 |   test('[R-UI-10] / with an empty form', async ({ page }) => {\n> 15 |     await page.goto('/');\n     |                ^\n  16 |     await expect(form(page).shorten).toBeVisible();\n  17 |     await expectNoSeriousViolations(page, 'empty form');\n  18 |   });"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/a11y.spec.ts",
+                            "column": 16,
+                            "line": 15
+                          },
+                          "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n\n\n  13 | test.describe('accessibility', () => {\n  14 |   test('[R-UI-10] / with an empty form', async ({ page }) => {\n> 15 |     await page.goto('/');\n     |                ^\n  16 |     await expect(form(page).shorten).toBeVisible();\n  17 |     await expectNoSeriousViolations(page, 'empty form');\n  18 |   });\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/a11y.spec.ts:15:16"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T21:20:16.744Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/a11y-accessibility-R-UI-10-with-an-empty-form/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/a11y-accessibility-R-UI-10-with-an-empty-form/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/a11y.spec.ts",
+                        "column": 16,
+                        "line": 15
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "aa3ad05f8c0e05077efb-0c2276161788402d7ecb",
+              "file": "a11y.spec.ts",
+              "line": 14,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-10] / after a success",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 105,
+                      "error": {
+                        "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n",
+                        "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/a11y.spec.ts:21:16",
+                        "location": {
+                          "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/a11y.spec.ts",
+                          "column": 16,
+                          "line": 21
+                        },
+                        "snippet": "  19 |\n  20 |   test('[R-UI-10] / after a success', async ({ page }) => {\n> 21 |     await page.goto('/');\n     |                ^\n  22 |     await form(page).dest.fill(uurl('a11y'));\n  23 |     await form(page).shorten.click();\n  24 |     await expect(statusRegion(page).getByRole('link')).toHaveCount(1);"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/a11y.spec.ts",
+                            "column": 16,
+                            "line": 21
+                          },
+                          "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n\n\n  19 |\n  20 |   test('[R-UI-10] / after a success', async ({ page }) => {\n> 21 |     await page.goto('/');\n     |                ^\n  22 |     await form(page).dest.fill(uurl('a11y'));\n  23 |     await form(page).shorten.click();\n  24 |     await expect(statusRegion(page).getByRole('link')).toHaveCount(1);\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/a11y.spec.ts:21:16"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T21:20:19.570Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/a11y-accessibility-R-UI-10-after-a-success/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/a11y-accessibility-R-UI-10-after-a-success/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/a11y.spec.ts",
+                        "column": 16,
+                        "line": 21
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "aa3ad05f8c0e05077efb-a1d17f1bf4c8c54fb39a",
+              "file": "a11y.spec.ts",
+              "line": 20,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-10] / after an error",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 94,
+                      "error": {
+                        "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n",
+                        "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/a11y.spec.ts:29:16",
+                        "location": {
+                          "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/a11y.spec.ts",
+                          "column": 16,
+                          "line": 29
+                        },
+                        "snippet": "  27 |\n  28 |   test('[R-UI-10] / after an error', async ({ page }) => {\n> 29 |     await page.goto('/');\n     |                ^\n  30 |     await form(page).dest.fill(`ftp://example.com/${uid()}`);\n  31 |     await form(page).shorten.click();\n  32 |     await expect(alertRegion(page)).toHaveCount(1);"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/a11y.spec.ts",
+                            "column": 16,
+                            "line": 29
+                          },
+                          "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n\n\n  27 |\n  28 |   test('[R-UI-10] / after an error', async ({ page }) => {\n> 29 |     await page.goto('/');\n     |                ^\n  30 |     await form(page).dest.fill(`ftp://example.com/${uid()}`);\n  31 |     await form(page).shorten.click();\n  32 |     await expect(alertRegion(page)).toHaveCount(1);\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/a11y.spec.ts:29:16"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T21:20:19.999Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/a11y-accessibility-R-UI-10-after-an-error/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/a11y-accessibility-R-UI-10-after-an-error/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/a11y.spec.ts",
+                        "column": 16,
+                        "line": 29
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "aa3ad05f8c0e05077efb-e3ba8d79ceeaf6ab97fd",
+              "file": "a11y.spec.ts",
+              "line": 28,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-10] / with a delete confirmation revealed",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 65,
+                      "error": {
+                        "message": "TypeError: fetch failed",
+                        "stack": "TypeError: fetch failed",
+                        "cause": {
+                          "message": "Error: connect ECONNREFUSED 127.0.0.1:59999",
+                          "stack": "Error: connect ECONNREFUSED 127.0.0.1:59999"
+                        }
+                      },
+                      "errors": [
+                        {
+                          "message": "TypeError: fetch failed\n[cause]: Error: connect ECONNREFUSED 127.0.0.1:59999"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T21:20:20.389Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/a11y-accessibility-R-UI-10-76941-elete-confirmation-revealed/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/a11y-accessibility-R-UI-10-76941-elete-confirmation-revealed/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "aa3ad05f8c0e05077efb-328c546d8cd9c632b78d",
+              "file": "a11y.spec.ts",
+              "line": 36,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-10] /links/{code} for each days link",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 71,
+                      "error": {
+                        "message": "TypeError: fetch failed",
+                        "stack": "TypeError: fetch failed",
+                        "cause": {
+                          "message": "Error: connect ECONNREFUSED 127.0.0.1:59999",
+                          "stack": "Error: connect ECONNREFUSED 127.0.0.1:59999"
+                        }
+                      },
+                      "errors": [
+                        {
+                          "message": "TypeError: fetch failed\n[cause]: Error: connect ECONNREFUSED 127.0.0.1:59999"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T21:20:20.749Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/a11y-accessibility-R-UI-10-links-code-for-each-days-link/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/a11y-accessibility-R-UI-10-links-code-for-each-days-link/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "aa3ad05f8c0e05077efb-6c0a1b2aa52e7d0d8f19",
+              "file": "a11y.spec.ts",
+              "line": 43,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-10] /links/{unknown}",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 5,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 90,
+                      "error": {
+                        "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/links/nope-hm5c35c1g0\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/links/nope-hm5c35c1g0\", waiting until \"load\"\u001b[22m\n",
+                        "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/links/nope-hm5c35c1g0\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/links/nope-hm5c35c1g0\", waiting until \"load\"\u001b[22m\n\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/a11y.spec.ts:53:16",
+                        "location": {
+                          "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/a11y.spec.ts",
+                          "column": 16,
+                          "line": 53
+                        },
+                        "snippet": "  51 |\n  52 |   test('[R-UI-10] /links/{unknown}', async ({ page }) => {\n> 53 |     await page.goto(`/links/nope-${uid()}`);\n     |                ^\n  54 |     await expect(page.getByRole('heading', { level: 1, name: 'Link not found', exact: true })).toBeVisible();\n  55 |     await expectNoSeriousViolations(page, '/links/{unknown}');\n  56 |   });"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/a11y.spec.ts",
+                            "column": 16,
+                            "line": 53
+                          },
+                          "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/links/nope-hm5c35c1g0\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/links/nope-hm5c35c1g0\", waiting until \"load\"\u001b[22m\n\n\n  51 |\n  52 |   test('[R-UI-10] /links/{unknown}', async ({ page }) => {\n> 53 |     await page.goto(`/links/nope-${uid()}`);\n     |                ^\n  54 |     await expect(page.getByRole('heading', { level: 1, name: 'Link not found', exact: true })).toBeVisible();\n  55 |     await expectNoSeriousViolations(page, '/links/{unknown}');\n  56 |   });\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/a11y.spec.ts:53:16"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T21:20:21.115Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/a11y-accessibility-R-UI-10-links-unknown-/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/a11y-accessibility-R-UI-10-links-unknown-/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/a11y.spec.ts",
+                        "column": 16,
+                        "line": 53
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "aa3ad05f8c0e05077efb-7f162cea90791498a600",
+              "file": "a11y.spec.ts",
+              "line": 52,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "home.spec.ts",
+      "file": "home.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "home page /",
+          "file": "home.spec.ts",
+          "line": 10,
+          "column": 6,
+          "specs": [
+            {
+              "title": "[R-UI-1] form has the Destination URL and Custom alias (optional) textboxes and a Shorten button, with no constraint validation",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 6,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 91,
+                      "error": {
+                        "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n",
+                        "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:12:16",
+                        "location": {
+                          "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                          "column": 16,
+                          "line": 12
+                        },
+                        "snippet": "  10 | test.describe('home page /', () => {\n  11 |   test('[R-UI-1] form has the Destination URL and Custom alias (optional) textboxes and a Shorten button, with no constraint validation', async ({ page }) => {\n> 12 |     await page.goto('/');\n     |                ^\n  13 |     const f = form(page);\n  14 |     await expect(f.dest).toBeVisible();\n  15 |     await expect(f.alias).toBeVisible();"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                            "column": 16,
+                            "line": 12
+                          },
+                          "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n\n\n  10 | test.describe('home page /', () => {\n  11 |   test('[R-UI-1] form has the Destination URL and Custom alias (optional) textboxes and a Shorten button, with no constraint validation', async ({ page }) => {\n> 12 |     await page.goto('/');\n     |                ^\n  13 |     const f = form(page);\n  14 |     await expect(f.dest).toBeVisible();\n  15 |     await expect(f.alias).toBeVisible();\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:12:16"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T21:20:21.489Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-1-form-c5725-th-no-constraint-validation/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-1-form-c5725-th-no-constraint-validation/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                        "column": 16,
+                        "line": 12
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-6914aefa6939f5a8d6b9",
+              "file": "home.spec.ts",
+              "line": 11,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-2] destination: bare host gets https://",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 7,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 90,
+                      "error": {
+                        "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n",
+                        "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:51:18",
+                        "location": {
+                          "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                          "column": 18,
+                          "line": 51
+                        },
+                        "snippet": "  49 |     test(`[R-UI-2] destination: ${label}`, async ({ page }) => {\n  50 |       const id = uid();\n> 51 |       await page.goto('/');\n     |                  ^\n  52 |       const f = form(page);\n  53 |       await f.dest.fill(input(id));\n  54 |       await f.shorten.click();"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                            "column": 18,
+                            "line": 51
+                          },
+                          "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n\n\n  49 |     test(`[R-UI-2] destination: ${label}`, async ({ page }) => {\n  50 |       const id = uid();\n> 51 |       await page.goto('/');\n     |                  ^\n  52 |       const f = form(page);\n  53 |       await f.dest.fill(input(id));\n  54 |       await f.shorten.click();\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:51:18"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T21:20:21.865Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-2-destination-bare-host-gets-https-/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-2-destination-bare-host-gets-https-/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                        "column": 18,
+                        "line": 51
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-d80ac4805a2bc05b90a3",
+              "file": "home.spec.ts",
+              "line": 49,
+              "column": 5
+            },
+            {
+              "title": "[R-UI-2] destination: bare host and path gets https://",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 8,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 90,
+                      "error": {
+                        "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n",
+                        "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:51:18",
+                        "location": {
+                          "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                          "column": 18,
+                          "line": 51
+                        },
+                        "snippet": "  49 |     test(`[R-UI-2] destination: ${label}`, async ({ page }) => {\n  50 |       const id = uid();\n> 51 |       await page.goto('/');\n     |                  ^\n  52 |       const f = form(page);\n  53 |       await f.dest.fill(input(id));\n  54 |       await f.shorten.click();"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                            "column": 18,
+                            "line": 51
+                          },
+                          "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n\n\n  49 |     test(`[R-UI-2] destination: ${label}`, async ({ page }) => {\n  50 |       const id = uid();\n> 51 |       await page.goto('/');\n     |                  ^\n  52 |       const f = form(page);\n  53 |       await f.dest.fill(input(id));\n  54 |       await f.shorten.click();\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:51:18"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T21:20:22.240Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-2-dest-55f0a-e-host-and-path-gets-https-/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-2-dest-55f0a-e-host-and-path-gets-https-/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                        "column": 18,
+                        "line": 51
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-e0b165cbb4f244786937",
+              "file": "home.spec.ts",
+              "line": 49,
+              "column": 5
+            },
+            {
+              "title": "[R-UI-2] destination: an explicit upper-case scheme is sent unchanged",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 9,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 90,
+                      "error": {
+                        "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n",
+                        "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:51:18",
+                        "location": {
+                          "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                          "column": 18,
+                          "line": 51
+                        },
+                        "snippet": "  49 |     test(`[R-UI-2] destination: ${label}`, async ({ page }) => {\n  50 |       const id = uid();\n> 51 |       await page.goto('/');\n     |                  ^\n  52 |       const f = form(page);\n  53 |       await f.dest.fill(input(id));\n  54 |       await f.shorten.click();"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                            "column": 18,
+                            "line": 51
+                          },
+                          "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n\n\n  49 |     test(`[R-UI-2] destination: ${label}`, async ({ page }) => {\n  50 |       const id = uid();\n> 51 |       await page.goto('/');\n     |                  ^\n  52 |       const f = form(page);\n  53 |       await f.dest.fill(input(id));\n  54 |       await f.shorten.click();\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:51:18"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T21:20:22.615Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-2-dest-eddc2-se-scheme-is-sent-unchanged/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-2-dest-eddc2-se-scheme-is-sent-unchanged/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                        "column": 18,
+                        "line": 51
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-c60ed5fa783ee4a6d104",
+              "file": "home.spec.ts",
+              "line": 49,
+              "column": 5
+            },
+            {
+              "title": "[R-UI-2] destination: host:port without a scheme gets https://",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 10,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 90,
+                      "error": {
+                        "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n",
+                        "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:51:18",
+                        "location": {
+                          "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                          "column": 18,
+                          "line": 51
+                        },
+                        "snippet": "  49 |     test(`[R-UI-2] destination: ${label}`, async ({ page }) => {\n  50 |       const id = uid();\n> 51 |       await page.goto('/');\n     |                  ^\n  52 |       const f = form(page);\n  53 |       await f.dest.fill(input(id));\n  54 |       await f.shorten.click();"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                            "column": 18,
+                            "line": 51
+                          },
+                          "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n\n\n  49 |     test(`[R-UI-2] destination: ${label}`, async ({ page }) => {\n  50 |       const id = uid();\n> 51 |       await page.goto('/');\n     |                  ^\n  52 |       const f = form(page);\n  53 |       await f.dest.fill(input(id));\n  54 |       await f.shorten.click();\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:51:18"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T21:20:22.990Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-2-dest-81bb9-ithout-a-scheme-gets-https-/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-2-dest-81bb9-ithout-a-scheme-gets-https-/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                        "column": 18,
+                        "line": 51
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-c07c6350f9401d5c70ad",
+              "file": "home.spec.ts",
+              "line": 49,
+              "column": 5
+            },
+            {
+              "title": "[R-UI-2] destination: surrounding ASCII whitespace is trimmed",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 11,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 90,
+                      "error": {
+                        "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n",
+                        "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:51:18",
+                        "location": {
+                          "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                          "column": 18,
+                          "line": 51
+                        },
+                        "snippet": "  49 |     test(`[R-UI-2] destination: ${label}`, async ({ page }) => {\n  50 |       const id = uid();\n> 51 |       await page.goto('/');\n     |                  ^\n  52 |       const f = form(page);\n  53 |       await f.dest.fill(input(id));\n  54 |       await f.shorten.click();"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                            "column": 18,
+                            "line": 51
+                          },
+                          "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n\n\n  49 |     test(`[R-UI-2] destination: ${label}`, async ({ page }) => {\n  50 |       const id = uid();\n> 51 |       await page.goto('/');\n     |                  ^\n  52 |       const f = form(page);\n  53 |       await f.dest.fill(input(id));\n  54 |       await f.shorten.click();\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:51:18"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T21:20:23.363Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-2-dest-ef311-ASCII-whitespace-is-trimmed/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-2-dest-ef311-ASCII-whitespace-is-trimmed/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                        "column": 18,
+                        "line": 51
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-196d0214b978213ffa57",
+              "file": "home.spec.ts",
+              "line": 49,
+              "column": 5
+            },
+            {
+              "title": "[R-UI-2] the alias field is trimmed; a whitespace-only alias is omitted (generated code)",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 12,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 90,
+                      "error": {
+                        "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n",
+                        "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:62:16",
+                        "location": {
+                          "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                          "column": 16,
+                          "line": 62
+                        },
+                        "snippet": "  60 |   test('[R-UI-2] the alias field is trimmed; a whitespace-only alias is omitted (generated code)', async ({ page }) => {\n  61 |     const a = alias('ui2');\n> 62 |     await page.goto('/');\n     |                ^\n  63 |     const f = form(page);\n  64 |     await f.dest.fill(uurl('ui2'));\n  65 |     await f.alias.fill(`  ${a}\\t `);"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                            "column": 16,
+                            "line": 62
+                          },
+                          "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n\n\n  60 |   test('[R-UI-2] the alias field is trimmed; a whitespace-only alias is omitted (generated code)', async ({ page }) => {\n  61 |     const a = alias('ui2');\n> 62 |     await page.goto('/');\n     |                ^\n  63 |     const f = form(page);\n  64 |     await f.dest.fill(uurl('ui2'));\n  65 |     await f.alias.fill(`  ${a}\\t `);\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:62:16"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T21:20:23.738Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-2-the--06209--is-omitted-generated-code-/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-2-the--06209--is-omitted-generated-code-/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                        "column": 16,
+                        "line": 62
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-496c809722afe92120fb",
+              "file": "home.spec.ts",
+              "line": 60,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-3] success shows a status with a link to the shortUrl and a working \"Copy short link\" button",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 13,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 90,
+                      "error": {
+                        "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n",
+                        "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:82:16",
+                        "location": {
+                          "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                          "column": 16,
+                          "line": 82
+                        },
+                        "snippet": "  80 |     const a = alias('ui3');\n  81 |     const url = uurl('ui3');\n> 82 |     await page.goto('/');\n     |                ^\n  83 |     const f = form(page);\n  84 |     await f.dest.fill(url);\n  85 |     await f.alias.fill(a);"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                            "column": 16,
+                            "line": 82
+                          },
+                          "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n\n\n  80 |     const a = alias('ui3');\n  81 |     const url = uurl('ui3');\n> 82 |     await page.goto('/');\n     |                ^\n  83 |     const f = form(page);\n  84 |     await f.dest.fill(url);\n  85 |     await f.alias.fill(a);\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:82:16"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T21:20:24.113Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-3-succ-59fd9-king-Copy-short-link-button/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-3-succ-59fd9-king-Copy-short-link-button/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                        "column": 16,
+                        "line": 82
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-d2396925e1a5054c9813",
+              "file": "home.spec.ts",
+              "line": 78,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-4] API error (invalid alias) shows exactly the invalid_alias message in an alert",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 14,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 90,
+                      "error": {
+                        "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n",
+                        "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:105:18",
+                        "location": {
+                          "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                          "column": 18,
+                          "line": 105
+                        },
+                        "snippet": "  103 |     test(`[R-UI-4] API error (${label}) shows exactly the ${code} message in an alert`, async ({ page }) => {\n  104 |       const input = mk(uid());\n> 105 |       await page.goto('/');\n      |                  ^\n  106 |       const f = form(page);\n  107 |       await f.dest.fill(input.url);\n  108 |       if (input.alias) await f.alias.fill(input.alias);"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                            "column": 18,
+                            "line": 105
+                          },
+                          "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n\n\n  103 |     test(`[R-UI-4] API error (${label}) shows exactly the ${code} message in an alert`, async ({ page }) => {\n  104 |       const input = mk(uid());\n> 105 |       await page.goto('/');\n      |                  ^\n  106 |       const f = form(page);\n  107 |       await f.dest.fill(input.url);\n  108 |       if (input.alias) await f.alias.fill(input.alias);\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:105:18"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T21:20:24.489Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-4-API--ea76e-d-alias-message-in-an-alert/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-4-API--ea76e-d-alias-message-in-an-alert/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                        "column": 18,
+                        "line": 105
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-450b121da5c9cdd6a768",
+              "file": "home.spec.ts",
+              "line": 103,
+              "column": 5
+            },
+            {
+              "title": "[R-UI-4] API error (reserved alias (mixed case)) shows exactly the alias_reserved message in an alert",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 15,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 90,
+                      "error": {
+                        "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n",
+                        "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:105:18",
+                        "location": {
+                          "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                          "column": 18,
+                          "line": 105
+                        },
+                        "snippet": "  103 |     test(`[R-UI-4] API error (${label}) shows exactly the ${code} message in an alert`, async ({ page }) => {\n  104 |       const input = mk(uid());\n> 105 |       await page.goto('/');\n      |                  ^\n  106 |       const f = form(page);\n  107 |       await f.dest.fill(input.url);\n  108 |       if (input.alias) await f.alias.fill(input.alias);"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                            "column": 18,
+                            "line": 105
+                          },
+                          "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n\n\n  103 |     test(`[R-UI-4] API error (${label}) shows exactly the ${code} message in an alert`, async ({ page }) => {\n  104 |       const input = mk(uid());\n> 105 |       await page.goto('/');\n      |                  ^\n  106 |       const f = form(page);\n  107 |       await f.dest.fill(input.url);\n  108 |       if (input.alias) await f.alias.fill(input.alias);\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:105:18"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T21:20:24.863Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-4-API--d4f75-eserved-message-in-an-alert/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-4-API--d4f75-eserved-message-in-an-alert/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                        "column": 18,
+                        "line": 105
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-ee18cb03d67cd81847f2",
+              "file": "home.spec.ts",
+              "line": 103,
+              "column": 5
+            },
+            {
+              "title": "[R-UI-4] API error (unsupported scheme) shows exactly the invalid_url message in an alert",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 16,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 91,
+                      "error": {
+                        "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n",
+                        "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:105:18",
+                        "location": {
+                          "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                          "column": 18,
+                          "line": 105
+                        },
+                        "snippet": "  103 |     test(`[R-UI-4] API error (${label}) shows exactly the ${code} message in an alert`, async ({ page }) => {\n  104 |       const input = mk(uid());\n> 105 |       await page.goto('/');\n      |                  ^\n  106 |       const f = form(page);\n  107 |       await f.dest.fill(input.url);\n  108 |       if (input.alias) await f.alias.fill(input.alias);"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                            "column": 18,
+                            "line": 105
+                          },
+                          "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n\n\n  103 |     test(`[R-UI-4] API error (${label}) shows exactly the ${code} message in an alert`, async ({ page }) => {\n  104 |       const input = mk(uid());\n> 105 |       await page.goto('/');\n      |                  ^\n  106 |       const f = form(page);\n  107 |       await f.dest.fill(input.url);\n  108 |       if (input.alias) await f.alias.fill(input.alias);\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:105:18"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T21:20:25.238Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-4-API--571f8-lid-url-message-in-an-alert/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-4-API--571f8-lid-url-message-in-an-alert/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                        "column": 18,
+                        "line": 105
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-c0e0ea91469aaa97b923",
+              "file": "home.spec.ts",
+              "line": 103,
+              "column": 5
+            },
+            {
+              "title": "[R-UI-4] API error (URL over 2048 code points) shows exactly the invalid_url message in an alert",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 17,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 89,
+                      "error": {
+                        "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n",
+                        "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:105:18",
+                        "location": {
+                          "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                          "column": 18,
+                          "line": 105
+                        },
+                        "snippet": "  103 |     test(`[R-UI-4] API error (${label}) shows exactly the ${code} message in an alert`, async ({ page }) => {\n  104 |       const input = mk(uid());\n> 105 |       await page.goto('/');\n      |                  ^\n  106 |       const f = form(page);\n  107 |       await f.dest.fill(input.url);\n  108 |       if (input.alias) await f.alias.fill(input.alias);"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                            "column": 18,
+                            "line": 105
+                          },
+                          "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n\n\n  103 |     test(`[R-UI-4] API error (${label}) shows exactly the ${code} message in an alert`, async ({ page }) => {\n  104 |       const input = mk(uid());\n> 105 |       await page.goto('/');\n      |                  ^\n  106 |       const f = form(page);\n  107 |       await f.dest.fill(input.url);\n  108 |       if (input.alias) await f.alias.fill(input.alias);\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:105:18"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T21:20:25.615Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-4-API--29930-lid-url-message-in-an-alert/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-4-API--29930-lid-url-message-in-an-alert/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                        "column": 18,
+                        "line": 105
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-600102502e5a5739599c",
+              "file": "home.spec.ts",
+              "line": 103,
+              "column": 5
+            },
+            {
+              "title": "[R-UI-4] taken alias shows exactly the alias_taken message",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 18,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 64,
+                      "error": {
+                        "message": "TypeError: fetch failed",
+                        "stack": "TypeError: fetch failed",
+                        "cause": {
+                          "message": "Error: connect ECONNREFUSED 127.0.0.1:59999",
+                          "stack": "Error: connect ECONNREFUSED 127.0.0.1:59999"
+                        }
+                      },
+                      "errors": [
+                        {
+                          "message": "TypeError: fetch failed\n[cause]: Error: connect ECONNREFUSED 127.0.0.1:59999"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T21:20:25.990Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-4-take-37008-tly-the-alias-taken-message/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-4-take-37008-tly-the-alias-taken-message/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-2c548c3c3803a39fc01c",
+              "file": "home.spec.ts",
+              "line": 114,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-5] \"Your links\" table: exactly one header row with Short link, Destination, Clicks, Created",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 19,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 65,
+                      "error": {
+                        "message": "TypeError: fetch failed",
+                        "stack": "TypeError: fetch failed",
+                        "cause": {
+                          "message": "Error: connect ECONNREFUSED 127.0.0.1:59999",
+                          "stack": "Error: connect ECONNREFUSED 127.0.0.1:59999"
+                        }
+                      },
+                      "errors": [
+                        {
+                          "message": "TypeError: fetch failed\n[cause]: Error: connect ECONNREFUSED 127.0.0.1:59999"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T21:20:26.346Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-5-Your-8ae11--Destination-Clicks-Created/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-5-Your-8ae11--Destination-Clicks-Created/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-1e12a0ddf13ef7961743",
+              "file": "home.spec.ts",
+              "line": 125,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-5] the table lists the 20 newest links in API order",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 20,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 65,
+                      "error": {
+                        "message": "TypeError: fetch failed",
+                        "stack": "TypeError: fetch failed",
+                        "cause": {
+                          "message": "Error: connect ECONNREFUSED 127.0.0.1:59999",
+                          "stack": "Error: connect ECONNREFUSED 127.0.0.1:59999"
+                        }
+                      },
+                      "errors": [
+                        {
+                          "message": "TypeError: fetch failed\n[cause]: Error: connect ECONNREFUSED 127.0.0.1:59999"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T21:20:26.698Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-5-the--c0724-0-newest-links-in-API-order/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-5-the--c0724-0-newest-links-in-API-order/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-f1c5ddfa9f42b7d685af",
+              "file": "home.spec.ts",
+              "line": 133,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-5] row cells: shortUrl link, url, clickCount as a plain integer, createdAt as UTC YYYY-MM-DD HH:MM; Stats and Delete controls",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 21,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 69,
+                      "error": {
+                        "message": "TypeError: fetch failed",
+                        "stack": "TypeError: fetch failed",
+                        "cause": {
+                          "message": "Error: connect ECONNREFUSED 127.0.0.1:59999",
+                          "stack": "Error: connect ECONNREFUSED 127.0.0.1:59999"
+                        }
+                      },
+                      "errors": [
+                        {
+                          "message": "TypeError: fetch failed\n[cause]: Error: connect ECONNREFUSED 127.0.0.1:59999"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T21:20:27.052Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-5-row--a175e-M-Stats-and-Delete-controls/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-5-row--a175e-M-Stats-and-Delete-controls/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-c5dced42eea59e818aa5",
+              "file": "home.spec.ts",
+              "line": 147,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-5][gray-box] Clicks has no thousands separator and Created truncates seconds (hh:mm:59.9 is not rounded up)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "gray-box: DATABASE_URL is unset, so this test is skipped (set DATABASE_URL to the api database to run it)",
+                      "location": {
+                        "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                        "line": 165,
+                        "column": 10
+                      }
+                    }
+                  ],
+                  "expectedStatus": "skipped",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 22,
+                      "parallelIndex": 0,
+                      "status": "skipped",
+                      "duration": 45,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T21:20:27.405Z",
+                      "annotations": [
+                        {
+                          "type": "skip",
+                          "description": "gray-box: DATABASE_URL is unset, so this test is skipped (set DATABASE_URL to the api database to run it)",
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                            "line": 165,
+                            "column": 10
+                          }
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-91229fa0ba56f55a2a65",
+              "file": "home.spec.ts",
+              "line": 164,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-5] after a successful create the table is re-fetched without a full page reload",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 22,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 79,
+                      "error": {
+                        "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n",
+                        "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:179:16",
+                        "location": {
+                          "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                          "column": 16,
+                          "line": 179
+                        },
+                        "snippet": "  177 |\n  178 |   test('[R-UI-5] after a successful create the table is re-fetched without a full page reload', async ({ page }) => {\n> 179 |     await page.goto('/');\n      |                ^\n  180 |     await markDocument(page);\n  181 |     const a = alias('ui5r');\n  182 |     const f = form(page);"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                            "column": 16,
+                            "line": 179
+                          },
+                          "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n\n\n  177 |\n  178 |   test('[R-UI-5] after a successful create the table is re-fetched without a full page reload', async ({ page }) => {\n> 179 |     await page.goto('/');\n      |                ^\n  180 |     await markDocument(page);\n  181 |     const a = alias('ui5r');\n  182 |     const f = form(page);\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:179:16"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T21:20:27.526Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-5-afte-ec063--without-a-full-page-reload/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-5-afte-ec063--without-a-full-page-reload/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                        "column": 16,
+                        "line": 179
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-dbcc985f94695dfeae26",
+              "file": "home.spec.ts",
+              "line": 178,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-6] Delete reveals \"Confirm delete\" in the same row; only one open at a time; nothing deleted until confirmed",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 23,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 66,
+                      "error": {
+                        "message": "TypeError: fetch failed",
+                        "stack": "TypeError: fetch failed",
+                        "cause": {
+                          "message": "Error: connect ECONNREFUSED 127.0.0.1:59999",
+                          "stack": "Error: connect ECONNREFUSED 127.0.0.1:59999"
+                        }
+                      },
+                      "errors": [
+                        {
+                          "message": "TypeError: fetch failed\n[cause]: Error: connect ECONNREFUSED 127.0.0.1:59999"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T21:20:27.815Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-6-Dele-2d83d-ing-deleted-until-confirmed/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-6-Dele-2d83d-ing-deleted-until-confirmed/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-21f5ff727b020b9915c2",
+              "file": "home.spec.ts",
+              "line": 190,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-12] an empty or whitespace-only destination shows the invalid_url alert and sends no network request",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 24,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 90,
+                      "error": {
+                        "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n",
+                        "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:225:18",
+                        "location": {
+                          "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                          "column": 18,
+                          "line": 225
+                        },
+                        "snippet": "  223 |   test('[R-UI-12] an empty or whitespace-only destination shows the invalid_url alert and sends no network request', async ({ page }) => {\n  224 |     for (const value of ['', '  \\t  ']) {\n> 225 |       await page.goto('/');\n      |                  ^\n  226 |       await page.waitForLoadState('networkidle');\n  227 |       const requests: string[] = [];\n  228 |       const onReq = (r: { method(): string; url(): string }) => requests.push(`${r.method()} ${r.url()}`);"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                            "column": 18,
+                            "line": 225
+                          },
+                          "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n\n\n  223 |   test('[R-UI-12] an empty or whitespace-only destination shows the invalid_url alert and sends no network request', async ({ page }) => {\n  224 |     for (const value of ['', '  \\t  ']) {\n> 225 |       await page.goto('/');\n      |                  ^\n  226 |       await page.waitForLoadState('networkidle');\n  227 |       const requests: string[] = [];\n  228 |       const onReq = (r: { method(): string; url(): string }) => requests.push(`${r.method()} ${r.url()}`);\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:225:18"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T21:20:28.160Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-12-an--3e566-nd-sends-no-network-request/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-12-an--3e566-nd-sends-no-network-request/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                        "column": 18,
+                        "line": 225
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-35b3f2778c78ae57ae34",
+              "file": "home.spec.ts",
+              "line": 223,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "network.spec.ts",
+      "file": "network.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "[R-UI-11] a full create -> stats -> delete -> error journey sends no browser request to /api/",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 25,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 96,
+                  "error": {
+                    "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n",
+                    "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/network.spec.ts:10:14",
+                    "location": {
+                      "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/network.spec.ts",
+                      "column": 14,
+                      "line": 10
+                    },
+                    "snippet": "   8 |   page.on('request', (r) => seen.push(r.url()));\n   9 |   const a = alias('net');\n> 10 |   await page.goto('/');\n     |              ^\n  11 |   await form(page).dest.fill(uurl('net'));\n  12 |   await form(page).alias.fill(a);\n  13 |   await form(page).shorten.click();"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/network.spec.ts",
+                        "column": 14,
+                        "line": 10
+                      },
+                      "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/\", waiting until \"load\"\u001b[22m\n\n\n   8 |   page.on('request', (r) => seen.push(r.url()));\n   9 |   const a = alias('net');\n> 10 |   await page.goto('/');\n     |              ^\n  11 |   await form(page).dest.fill(uurl('net'));\n  12 |   await form(page).alias.fill(a);\n  13 |   await form(page).shorten.click();\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/network.spec.ts:10:14"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-17T21:20:28.529Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/network--R-UI-11-a-full-cr-ae6dd--no-browser-request-to-api-/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/network--R-UI-11-a-full-cr-ae6dd--no-browser-request-to-api-/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/network.spec.ts",
+                    "column": 14,
+                    "line": 10
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "5567a9004528a7a67849-d097598c82cdd93b4935",
+          "file": "network.spec.ts",
+          "line": 6,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "stats-page.spec.ts",
+      "file": "stats-page.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "stats page /links/{code}",
+          "file": "stats-page.spec.ts",
+          "line": 46,
+          "column": 6,
+          "specs": [
+            {
+              "title": "[R-UI-7] heading, totals and the four tables match the API stats (default window)",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 26,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 66,
+                      "error": {
+                        "message": "TypeError: fetch failed",
+                        "stack": "TypeError: fetch failed",
+                        "cause": {
+                          "message": "Error: connect ECONNREFUSED 127.0.0.1:59999",
+                          "stack": "Error: connect ECONNREFUSED 127.0.0.1:59999"
+                        }
+                      },
+                      "errors": [
+                        {
+                          "message": "TypeError: fetch failed\n[cause]: Error: connect ECONNREFUSED 127.0.0.1:59999"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T21:20:28.923Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/stats-page-stats-page-link-e7a25-e-API-stats-default-window-/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/stats-page-stats-page-link-e7a25-e-API-stats-default-window-/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "feddb1a36edbf83baea8-51d98c1b7ee89bad5acd",
+              "file": "stats-page.spec.ts",
+              "line": 47,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-7] a link with no clicks: zero totals and breakdown tables with a header row and no body rows",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 27,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 65,
+                      "error": {
+                        "message": "TypeError: fetch failed",
+                        "stack": "TypeError: fetch failed",
+                        "cause": {
+                          "message": "Error: connect ECONNREFUSED 127.0.0.1:59999",
+                          "stack": "Error: connect ECONNREFUSED 127.0.0.1:59999"
+                        }
+                      },
+                      "errors": [
+                        {
+                          "message": "TypeError: fetch failed\n[cause]: Error: connect ECONNREFUSED 127.0.0.1:59999"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T21:20:29.279Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/stats-page-stats-page-link-60d82-header-row-and-no-body-rows/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/stats-page-stats-page-link-60d82-header-row-and-no-body-rows/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "feddb1a36edbf83baea8-1a89e0502aad08b590c8",
+              "file": "stats-page.spec.ts",
+              "line": 53,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-7][gray-box] totals are base-10 integers without separators",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "gray-box: DATABASE_URL is unset, so this test is skipped (set DATABASE_URL to the api database to run it)",
+                      "location": {
+                        "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/stats-page.spec.ts",
+                        "line": 62,
+                        "column": 10
+                      }
+                    }
+                  ],
+                  "expectedStatus": "skipped",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 28,
+                      "parallelIndex": 0,
+                      "status": "skipped",
+                      "duration": 44,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T21:20:29.631Z",
+                      "annotations": [
+                        {
+                          "type": "skip",
+                          "description": "gray-box: DATABASE_URL is unset, so this test is skipped (set DATABASE_URL to the api database to run it)",
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/stats-page.spec.ts",
+                            "line": 62,
+                            "column": 10
+                          }
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "feddb1a36edbf83baea8-4962ed102e64d10d5909",
+              "file": "stats-page.spec.ts",
+              "line": 61,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-8] the 7/30/90 days links set ?days= and the matching one has aria-current=\"page\"",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 28,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 54,
+                      "error": {
+                        "message": "TypeError: fetch failed",
+                        "stack": "TypeError: fetch failed",
+                        "cause": {
+                          "message": "Error: connect ECONNREFUSED 127.0.0.1:59999",
+                          "stack": "Error: connect ECONNREFUSED 127.0.0.1:59999"
+                        }
+                      },
+                      "errors": [
+                        {
+                          "message": "TypeError: fetch failed\n[cause]: Error: connect ECONNREFUSED 127.0.0.1:59999"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T21:20:29.754Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/stats-page-stats-page-link-37daf--one-has-aria-current-page-/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/stats-page-stats-page-link-37daf--one-has-aria-current-page-/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "feddb1a36edbf83baea8-94d9f4fd1ccf0c8ae8a7",
+              "file": "stats-page.spec.ts",
+              "line": 71,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-8] a valid days without a link is honored (1 and 365) and no link is current",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 29,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 65,
+                      "error": {
+                        "message": "TypeError: fetch failed",
+                        "stack": "TypeError: fetch failed",
+                        "cause": {
+                          "message": "Error: connect ECONNREFUSED 127.0.0.1:59999",
+                          "stack": "Error: connect ECONNREFUSED 127.0.0.1:59999"
+                        }
+                      },
+                      "errors": [
+                        {
+                          "message": "TypeError: fetch failed\n[cause]: Error: connect ECONNREFUSED 127.0.0.1:59999"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T21:20:30.018Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/stats-page-stats-page-link-d5758--365-and-no-link-is-current/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/stats-page-stats-page-link-d5758--365-and-no-link-is-current/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "feddb1a36edbf83baea8-def9199a5592cf7a5b03",
+              "file": "stats-page.spec.ts",
+              "line": 91,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-8] missing or invalid days behaves exactly like days=30, including aria-current on \"30 days\"",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 30,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 66,
+                      "error": {
+                        "message": "TypeError: fetch failed",
+                        "stack": "TypeError: fetch failed",
+                        "cause": {
+                          "message": "Error: connect ECONNREFUSED 127.0.0.1:59999",
+                          "stack": "Error: connect ECONNREFUSED 127.0.0.1:59999"
+                        }
+                      },
+                      "errors": [
+                        {
+                          "message": "TypeError: fetch failed\n[cause]: Error: connect ECONNREFUSED 127.0.0.1:59999"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T21:20:30.367Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/stats-page-stats-page-link-60c9f-ng-aria-current-on-30-days-/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/stats-page-stats-page-link-60c9f-ng-aria-current-on-30-days-/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "feddb1a36edbf83baea8-cde4c90ffeca7b029d7e",
+              "file": "stats-page.spec.ts",
+              "line": 100,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-9] an unknown code responds 404 with the level-1 heading \"Link not found\"",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 31,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 89,
+                      "error": {
+                        "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/links/nope-kudrf2fu7v\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/links/nope-kudrf2fu7v\", waiting until \"load\"\u001b[22m\n",
+                        "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/links/nope-kudrf2fu7v\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/links/nope-kudrf2fu7v\", waiting until \"load\"\u001b[22m\n\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/stats-page.spec.ts:113:29",
+                        "location": {
+                          "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/stats-page.spec.ts",
+                          "column": 29,
+                          "line": 113
+                        },
+                        "snippet": "  111 |\n  112 |   test('[R-UI-9] an unknown code responds 404 with the level-1 heading \"Link not found\"', async ({ page }) => {\n> 113 |     const resp = await page.goto(`/links/nope-${uid()}`);\n      |                             ^\n  114 |     expect(resp!.status()).toBe(404);\n  115 |     await expect(page.getByRole('heading', { level: 1, name: 'Link not found', exact: true })).toBeVisible();\n  116 |   });"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/stats-page.spec.ts",
+                            "column": 29,
+                            "line": 113
+                          },
+                          "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/links/nope-kudrf2fu7v\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:59998/links/nope-kudrf2fu7v\", waiting until \"load\"\u001b[22m\n\n\n  111 |\n  112 |   test('[R-UI-9] an unknown code responds 404 with the level-1 heading \"Link not found\"', async ({ page }) => {\n> 113 |     const resp = await page.goto(`/links/nope-${uid()}`);\n      |                             ^\n  114 |     expect(resp!.status()).toBe(404);\n  115 |     await expect(page.getByRole('heading', { level: 1, name: 'Link not found', exact: true })).toBeVisible();\n  116 |   });\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/stats-page.spec.ts:113:29"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T21:20:30.713Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/stats-page-stats-page-link-b3ddd-l-1-heading-Link-not-found-/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/stats-page-stats-page-link-b3ddd-l-1-heading-Link-not-found-/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/stats-page.spec.ts",
+                        "column": 29,
+                        "line": 113
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "feddb1a36edbf83baea8-18aa73250df2845a0193",
+              "file": "stats-page.spec.ts",
+              "line": 112,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-9][R-DEL-1] a deleted link's page responds 404 \"Link not found\"",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 32,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 65,
+                      "error": {
+                        "message": "TypeError: fetch failed",
+                        "stack": "TypeError: fetch failed",
+                        "cause": {
+                          "message": "Error: connect ECONNREFUSED 127.0.0.1:59999",
+                          "stack": "Error: connect ECONNREFUSED 127.0.0.1:59999"
+                        }
+                      },
+                      "errors": [
+                        {
+                          "message": "TypeError: fetch failed\n[cause]: Error: connect ECONNREFUSED 127.0.0.1:59999"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T21:20:31.091Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/stats-page-stats-page-link-37449-esponds-404-Link-not-found-/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/stats-page-stats-page-link-37449-esponds-404-Link-not-found-/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "feddb1a36edbf83baea8-26c0af7d85ccc199d330",
+              "file": "stats-page.spec.ts",
+              "line": 118,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-17T21:20:16.417Z",
+    "duration": 14838.323,
+    "expected": 0,
+    "skipped": 2,
+    "unexpected": 33,
+    "flaky": 0
+  }
+}

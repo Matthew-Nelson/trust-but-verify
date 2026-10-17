@@ -1,0 +1,92 @@
+$ vitest run --config vitest.invariants.config.ts
+
+ RUN  v4.1.11 /Users/matthewnelson/Workspace/tbv-ws/harness/harness
+
+
+[harness] TARGET_API=http://127.0.0.1:4010
+[harness] PUBLIC_BASE_URL (expected)=http://localhost:8080
+[harness] COUNTRY_HEADER (expected)=cf-ipcountry
+[harness] gray-box: DATABASE_URL is unset, so this test is skipped (set DATABASE_URL to the api database to run it)
+[harness] gray-box: API_BIN is unset, so this spawned-instance test is skipped (set API_BIN to the api executable to run it)
+
+ ❯ tests/invariants/unique-codes.test.ts (1 test | 1 failed) 407ms
+   × [R-LINK-6][R-LINK-7][R-LINK-1] 1,000 sequential creates with no alias: all 201, 1,000 distinct well-formed codes, none reserved 407ms
+ ❯ tests/invariants/alias-race.test.ts (3 tests | 3 failed) 33ms
+   × [R-ALIAS-5] 1: 20 concurrent creates of one new alias -> exactly one 201, nineteen 409 alias_taken, nothing else 19ms
+   × [R-ALIAS-5] 2: 20 concurrent creates of one new alias -> exactly one 201, nineteen 409 alias_taken, nothing else 7ms
+   × [R-ALIAS-5] 3: 20 concurrent creates of one new alias -> exactly one 201, nineteen 409 alias_taken, nothing else 6ms
+ ❯ tests/invariants/redirect-burst.test.ts (1 test | 1 failed) 120ms
+   × [R-REDIR-5] 500 GET /{code} with >= 100 in flight: all 302, clickCount = start + 500 at 2 s and again at 4 s 119ms
+ ✓ tests/invariants/list-total.test.ts (1 test) 12ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/invariants/alias-race.test.ts > [R-ALIAS-5] 1: 20 concurrent creates of one new alias -> exactly one 201, nineteen 409 alias_taken, nothing else
+ FAIL  tests/invariants/alias-race.test.ts > [R-ALIAS-5] 2: 20 concurrent creates of one new alias -> exactly one 201, nineteen 409 alias_taken, nothing else
+ FAIL  tests/invariants/alias-race.test.ts > [R-ALIAS-5] 3: 20 concurrent creates of one new alias -> exactly one 201, nineteen 409 alias_taken, nothing else
+AssertionError: statuses: 201,201,201,201,201,201,201,201,201,201,201,201,201,201,201,201,201,201,201,201: expected [ 201, 201, 201, 201, 201, 201, …(14) ] to have a length of 1 but got 20
+
+- Expected
++ Received
+
+- 1
++ 20
+
+ ❯ tests/invariants/alias-race.test.ts:12:80
+     10|   const results = await Promise.all(urls.map((url) => create({ url, al…
+     11|   const statuses = results.map((r) => r.status);
+     12|   expect(statuses.filter((s) => s === 201), `statuses: ${statuses.join…
+       |                                                                                ^
+     13|   expect(statuses.filter((s) => s === 409)).toHaveLength(N - 1);
+     14|   for (const r of results) if (r.status === 409) expectError(r, 409, '…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯
+
+ FAIL  tests/invariants/redirect-burst.test.ts > [R-REDIR-5] 500 GET /{code} with >= 100 in flight: all 302, clickCount = start + 500 at 2 s and again at 4 s
+AssertionError: expected [ 'string' ] to deeply equal [ 'https://www.rust-lang.org/learn' ]
+
+- Expected
++ Received
+
+  [
+-   "https://www.rust-lang.org/learn",
++   "string",
+  ]
+
+ ❯ tests/invariants/redirect-burst.test.ts:36:26
+     34|   expect(maxInFlight, 'harness must keep >= 100 requests in flight').t…
+     35|   expect(statuses.filter((s) => s !== 302), 'non-302 statuses').toEqua…
+     36|   expect([...locations]).toEqual([l.url]);
+       |                          ^
+     37|   await sleepUntil(lastResponseAt, 2000);
+     38|   expect((await getLinkOk(l.code)).clickCount).toBe(start + TOTAL);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/5]⎯
+
+ FAIL  tests/invariants/unique-codes.test.ts > [R-LINK-6][R-LINK-7][R-LINK-1] 1,000 sequential creates with no alias: all 201, 1,000 distinct well-formed codes, none reserved
+AssertionError: expected 1 to be 1000 // Object.is equality
+
+- Expected
++ Received
+
+- 1000
++ 1
+
+ ❯ tests/invariants/unique-codes.test.ts:14:31
+     12|     codes.push(l.code);
+     13|   }
+     14|   expect(new Set(codes).size).toBe(1000);
+       |                               ^
+     15|   for (const c of codes) expect(RESERVED).not.toContain(c.toLowerCase(…
+     16| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/5]⎯
+
+
+ Test Files  3 failed | 1 passed (4)
+      Tests  5 failed | 1 passed (6)
+   Start at  14:16:40
+   Duration  988ms (transform 23ms, setup 98ms, import 14ms, tests 573ms, environment 0ms)
+
+JSON report written to /Users/matthewnelson/Workspace/tbv-ws/harness/harness/results/invariants.json
+[ELIFECYCLE] Command failed with exit code 1.

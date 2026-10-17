@@ -1,0 +1,98 @@
+$ vitest run --config vitest.invariants.config.ts
+
+ RUN  v4.1.11 /Users/matthewnelson/Workspace/tbv-ws/harness/harness
+
+
+[harness] TARGET_API=http://127.0.0.1:4010
+[harness] PUBLIC_BASE_URL (expected)=http://localhost:8080
+[harness] COUNTRY_HEADER (expected)=cf-ipcountry
+[harness] gray-box: DATABASE_URL is unset, so this test is skipped (set DATABASE_URL to the api database to run it)
+[harness] gray-box: API_BIN is unset, so this spawned-instance test is skipped (set API_BIN to the api executable to run it)
+
+ ❯ tests/invariants/redirect-burst.test.ts (1 test | 1 failed) 12ms
+   × [R-REDIR-5] 500 GET /{code} with >= 100 in flight: all 302, clickCount = start + 500 at 2 s and again at 4 s 11ms
+ ❯ tests/invariants/list-total.test.ts (1 test | 1 failed) 12ms
+   × [R-LIST-2][R-LIST-1] total equals the number of distinct links reachable by paging; pages do not overlap 11ms
+ ❯ tests/invariants/alias-race.test.ts (3 tests | 3 failed) 33ms
+   × [R-ALIAS-5] 1: 20 concurrent creates of one new alias -> exactly one 201, nineteen 409 alias_taken, nothing else 19ms
+   × [R-ALIAS-5] 2: 20 concurrent creates of one new alias -> exactly one 201, nineteen 409 alias_taken, nothing else 6ms
+   × [R-ALIAS-5] 3: 20 concurrent creates of one new alias -> exactly one 201, nineteen 409 alias_taken, nothing else 6ms
+ ❯ tests/invariants/unique-codes.test.ts (1 test | 1 failed) 420ms
+   × [R-LINK-6][R-LINK-7][R-LINK-1] 1,000 sequential creates with no alias: all 201, 1,000 distinct well-formed codes, none reserved 419ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 6 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/invariants/alias-race.test.ts > [R-ALIAS-5] 1: 20 concurrent creates of one new alias -> exactly one 201, nineteen 409 alias_taken, nothing else
+ FAIL  tests/invariants/alias-race.test.ts > [R-ALIAS-5] 2: 20 concurrent creates of one new alias -> exactly one 201, nineteen 409 alias_taken, nothing else
+ FAIL  tests/invariants/alias-race.test.ts > [R-ALIAS-5] 3: 20 concurrent creates of one new alias -> exactly one 201, nineteen 409 alias_taken, nothing else
+AssertionError: statuses: 201,201,201,201,201,201,201,201,201,201,201,201,201,201,201,201,201,201,201,201: expected [ 201, 201, 201, 201, 201, 201, …(14) ] to have a length of 1 but got 20
+
+- Expected
++ Received
+
+- 1
++ 20
+
+ ❯ tests/invariants/alias-race.test.ts:12:80
+     10|   const results = await Promise.all(urls.map((url) => create({ url, al…
+     11|   const statuses = results.map((r) => r.status);
+     12|   expect(statuses.filter((s) => s === 201), `statuses: ${statuses.join…
+       |                                                                                ^
+     13|   expect(statuses.filter((s) => s === 409)).toHaveLength(N - 1);
+     14|   for (const r of results) if (r.status === 409) expectError(r, 409, '…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/6]⎯
+
+ FAIL  tests/invariants/list-total.test.ts > [R-LIST-2][R-LIST-1] total equals the number of distinct links reachable by paging; pages do not overlap
+Error: setup: POST /api/links {"url":"https://example.com/total/isgjznlmryf3"} -> url "https://www.rust-lang.org/learn", expected "https://example.com/total/isgjznlmryf3"
+ ❯ createOk lib/links.ts:61:30
+     59|   // A created link must echo what was asked for (R-LINK-2, R-URL-5); …
+     60|   const want = whatwg(body.url.replace(/^[\t\n\f\r ]+|[\t\n\f\r ]+$/g,…
+     61|   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringif…
+       |                              ^
+     62|   if (typeof body.alias === 'string' && body.alias !== '' && l.code !=…
+     63|     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expect…
+ ❯ tests/invariants/list-total.test.ts:15:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/6]⎯
+
+ FAIL  tests/invariants/redirect-burst.test.ts > [R-REDIR-5] 500 GET /{code} with >= 100 in flight: all 302, clickCount = start + 500 at 2 s and again at 4 s
+Error: setup: POST /api/links {"url":"https://example.com/burst/vaj41bxk0qj8","alias":"burst-78aq13ux6q"} -> url "https://www.rust-lang.org/learn", expected "https://example.com/burst/vaj41bxk0qj8"
+ ❯ createOk lib/links.ts:61:30
+     59|   // A created link must echo what was asked for (R-LINK-2, R-URL-5); …
+     60|   const want = whatwg(body.url.replace(/^[\t\n\f\r ]+|[\t\n\f\r ]+$/g,…
+     61|   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringif…
+       |                              ^
+     62|   if (typeof body.alias === 'string' && body.alias !== '' && l.code !=…
+     63|     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expect…
+ ❯ tests/invariants/redirect-burst.test.ts:5:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/6]⎯
+
+ FAIL  tests/invariants/unique-codes.test.ts > [R-LINK-6][R-LINK-7][R-LINK-1] 1,000 sequential creates with no alias: all 201, 1,000 distinct well-formed codes, none reserved
+AssertionError: expected 1 to be 1000 // Object.is equality
+
+- Expected
++ Received
+
+- 1000
++ 1
+
+ ❯ tests/invariants/unique-codes.test.ts:14:31
+     12|     codes.push(l.code);
+     13|   }
+     14|   expect(new Set(codes).size).toBe(1000);
+       |                               ^
+     15|   for (const c of codes) expect(RESERVED).not.toContain(c.toLowerCase(…
+     16| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/6]⎯
+
+
+ Test Files  4 failed (4)
+      Tests  6 failed (6)
+   Start at  14:16:38
+   Duration  845ms (transform 23ms, setup 92ms, import 14ms, tests 476ms, environment 0ms)
+
+JSON report written to /Users/matthewnelson/Workspace/tbv-ws/harness/harness/results/invariants.json
+[ELIFECYCLE] Command failed with exit code 1.

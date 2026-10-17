@@ -1,0 +1,284 @@
+schemathesis: schemathesis==4.29.1
+target: http://127.0.0.1:4010
+seed: 20261017
+max-examples per operation: 5
+checks: all except positive_data_acceptance
+mode: all (positive + negative); redirects not followed
+format "uri" stripped at: #/paths//{code}/head/responses/302/headers/Location/schema, #/components/schemas/Link/properties/shortUrl
+command: uvx --from schemathesis==4.29.1 schemathesis run /Users/matthewnelson/Workspace/tbv-ws/harness/harness/fuzz/out/openapi.fuzz.json --url http://127.0.0.1:4010 --checks all --exclude-checks positive_data_acceptance --mode all --seed 20261017 --max-examples 5 --max-redirects 0 --request-timeout 10 --report junit,ndjson --report-dir /Users/matthewnelson/Workspace/tbv-ws/harness/harness/fuzz/out
+
+Schemathesis v4.29.1
+━━━━━━━━━━━━━━━━━━━━
+
+
+ ✅  Loaded specification from                                                  
+ /Users/matthewnelson/Workspace/tbv-ws/harness/harness/fuzz/out/openapi.fuzz.js 
+ on (in 1.43s)                                                                  
+
+     Base URL:         http://127.0.0.1:4010                                    
+     Specification:    Open API 3.1.0                                           
+     Operations:       12 selected / 12 total                                   
+
+
+ ✅  API capabilities:                                                          
+
+     Supports NULL byte in headers:                            ✘                
+     Accepts backslash and control characters in URL paths:    ✘                
+
+ 🚫  Examples (in 0.14s)                                                        
+                                                                                
+     ✅  6 passed  🚫  2 errors  ⏭   4 skipped                                  
+
+ ❌  Coverage (in 0.72s)                                                        
+                                                                                
+     ✅  2 passed  ❌ 10 failed                                                 
+
+ 🚫  Fuzzing (in 70.47s)                                                        
+                                                                                
+     ✅  9 passed  🚫  3 errors                                                 
+
+ ✅  Stateful (in 0.12s)                                                        
+
+     Scenarios:    5                                                            
+     API Links:    8 covered / 14 selected / 14 total (14 inferred)             
+
+     ✅ 5 passed                                                                
+
+==================================== ERRORS ====================================
+_________________________________ GET /{code} __________________________________
+Network Error
+
+Exceeded 0 redirects.
+_________________________________ HEAD /{code} _________________________________
+Network Error
+
+Exceeded 0 redirects.
+_______________________________ POST /api/links ________________________________
+Network Error
+
+Read timed out after 10.0 seconds
+
+Reproduce with:
+
+    curl -X POST -H 'Content-Type: application/json' -d $'\x00' http://127.0.0.1:4010/api/links
+
+Need more help?
+    Join our Discord server: https://discord.gg/R9ASRAmHnA
+=================================== FAILURES ===================================
+___________________________ DELETE /api/links/{code} ___________________________
+1. Test Case ID: 5pqIjy
+
+- Undocumented HTTP status code
+
+    Received: 422
+    Documented: 204, 404, 500
+
+[422] Unprocessable Content:
+
+    `{"type":"https://stoplight.io/prism/errors#UNPROCESSABLE_ENTITY","title":"Invalid request","status":422,"detail":"Your request is not valid and no HTTP validation response was found in the spec, so Prism is generating this error for you.","validation":[{"location":["path","code"],"severity":"Error","code":"pattern","message":"Request path parameter code must match pattern \"^[^/%.]+$\""}]}`
+
+Reproduce with:
+
+    curl -X DELETE http://127.0.0.1:4010/api/links/.%F1%B1%AF%A9%F3%8A%8C%93%C3%BAo%C2%85%F1%A2%B5%A9%EE%AD%81
+    
+    st replay 5pqIjy
+
+________________________________ GET /api/links ________________________________
+1. Test Case ID: OZS4GE
+
+- API accepted schema-violating request
+
+    Invalid data should have been rejected
+    Expected: 400, 401, 403, 404, 405, 406, 409, 415, 422, 428, 429, 5xx
+    Invalid component: in query - object with unexpected properties
+
+[200] OK:
+
+    `{"items":[{"code":"aZ3kQ9x","url":"https://www.rust-lang.org/learn","shortUrl":"http://localhost:8080/aZ3kQ9x","isCustom":false,"createdAt":"2026-10-17T15:04:05Z","clickCount":42,"lastClickedAt":"2026-10-17T18:22:10Z"}],"total":1,"limit":20,"offset":0}`
+
+Reproduce with:
+
+    curl -X GET 'http://127.0.0.1:4010/api/links?offset=0&x-schemathesis-unknown-property=42'
+    
+    st replay OZS4GE
+
+_______________________________ HEAD /api/links ________________________________
+1. Test Case ID: iLNc7x
+
+- API accepted schema-violating request
+
+    Invalid data should have been rejected
+    Expected: 400, 401, 403, 404, 405, 406, 409, 415, 422, 428, 429, 5xx
+    Invalid component: in query - object with unexpected properties
+
+[200] OK:
+
+    <EMPTY>
+
+Reproduce with:
+
+    curl -X HEAD 'http://127.0.0.1:4010/api/links?offset=0&x-schemathesis-unknown-property=42'
+    
+    st replay iLNc7x
+
+____________________________ HEAD /api/links/{code} ____________________________
+1. Test Case ID: ta7u0M
+
+- Undocumented HTTP status code
+
+    Received: 422
+    Documented: 200, 404, 500
+
+[422] Unprocessable Content:
+
+    <EMPTY>
+
+Reproduce with:
+
+    curl -X HEAD http://127.0.0.1:4010/api/links/.%F1%B1%AF%A9%F3%8A%8C%93%C3%BAo%C2%85%F1%A2%B5%A9%EE%AD%81
+    
+    st replay ta7u0M
+
+_________________________________ HEAD /{code} _________________________________
+1. Test Case ID: epoAlo
+
+- Undocumented HTTP status code
+
+    Received: 422
+    Documented: 302, 404
+
+[422] Unprocessable Content:
+
+    <EMPTY>
+
+Reproduce with:
+
+    curl -X HEAD http://127.0.0.1:4010/.%F1%B1%AF%A9%F3%8A%8C%93%C3%BAo%C2%85%F1%A2%B5%A9%EE%AD%81
+    
+    st replay epoAlo
+
+_______________________________ TRACE /api/links _______________________________
+1. Test Case ID: uzlRhF
+
+- Unsupported methods
+
+    TRACE returned 405 without required `Allow` header
+
+    Add `Allow` header listing supported methods (required by RFC 9110)
+
+[405] Method Not Allowed:
+
+    `{"type":"https://stoplight.io/prism/errors#NO_METHOD_MATCHED_ERROR","title":"Route resolved, but no method matched","status":405,"detail":"The route /api/links has been matched, but it does not have \"trace\" method defined"}`
+
+Reproduce with:
+
+    curl -X TRACE -H 'Content-Type: application/json' -d '{"url": "https://www.rust-lang.org/learn", "alias": "rust-learn"}' http://127.0.0.1:4010/api/links
+    
+    st replay uzlRhF
+
+___________________________ TRACE /api/links/{code} ____________________________
+1. Test Case ID: PN1Ro1
+
+- Unsupported methods
+
+    TRACE returned 405 without required `Allow` header
+
+    Add `Allow` header listing supported methods (required by RFC 9110)
+
+[405] Method Not Allowed:
+
+    `{"type":"https://stoplight.io/prism/errors#NO_METHOD_MATCHED_ERROR","title":"Route resolved, but no method matched","status":405,"detail":"The route /api/links/aZ3kQ9x has been matched, but it does not have \"trace\" method defined"}`
+
+Reproduce with:
+
+    curl -X TRACE http://127.0.0.1:4010/api/links/aZ3kQ9x
+    
+    st replay PN1Ro1
+
+________________________ TRACE /api/links/{code}/stats _________________________
+1. Test Case ID: FU69g9
+
+- Unsupported methods
+
+    TRACE returned 405 without required `Allow` header
+
+    Add `Allow` header listing supported methods (required by RFC 9110)
+
+[405] Method Not Allowed:
+
+    `{"type":"https://stoplight.io/prism/errors#NO_METHOD_MATCHED_ERROR","title":"Route resolved, but no method matched","status":405,"detail":"The route /api/links/aZ3kQ9x/stats has been matched, but it does not have \"trace\" method defined"}`
+
+Reproduce with:
+
+    curl -X TRACE 'http://127.0.0.1:4010/api/links/aZ3kQ9x/stats?days=30'
+    
+    st replay FU69g9
+
+________________________________ TRACE /healthz ________________________________
+1. Test Case ID: 4ejopD
+
+- Unsupported methods
+
+    TRACE returned 405 without required `Allow` header
+
+    Add `Allow` header listing supported methods (required by RFC 9110)
+
+[405] Method Not Allowed:
+
+    `{"type":"https://stoplight.io/prism/errors#NO_METHOD_MATCHED_ERROR","title":"Route resolved, but no method matched","status":405,"detail":"The route /healthz has been matched, but it does not have \"trace\" method defined"}`
+
+Reproduce with:
+
+    curl -X TRACE http://127.0.0.1:4010/healthz
+    
+    st replay 4ejopD
+
+________________________________ TRACE /{code} _________________________________
+1. Test Case ID: Essiqt
+
+- Unsupported methods
+
+    TRACE returned 405 without required `Allow` header
+
+    Add `Allow` header listing supported methods (required by RFC 9110)
+
+[405] Method Not Allowed:
+
+    `{"type":"https://stoplight.io/prism/errors#NO_METHOD_MATCHED_ERROR","title":"Route resolved, but no method matched","status":405,"detail":"The route /aZ3kQ9x has been matched, but it does not have \"trace\" method defined"}`
+
+Reproduce with:
+
+    curl -X TRACE http://127.0.0.1:4010/aZ3kQ9x
+    
+    st replay Essiqt
+
+=================================== SUMMARY ====================================
+
+API Operations:
+  Selected: 12/12
+  Tested: 12
+
+Test Phases:
+  🚫 Examples
+  ❌ Coverage
+  🚫 Fuzzing
+  ✅ Stateful
+
+Failures:
+  ❌ API accepted schema-violating request: 2
+  ❌ Undocumented HTTP status code: 3
+  ❌ Unsupported methods: 5
+
+Errors:
+  🚫 Network Error: 3
+
+Test cases:
+  134 generated, 10 found 10 unique failures, 29 skipped
+
+Reports:
+  - JUNIT: /Users/matthewnelson/Workspace/tbv-ws/harness/harness/fuzz/out/junit-20261017T142106Z.xml
+  - NDJSON: /Users/matthewnelson/Workspace/tbv-ws/harness/harness/fuzz/out/ndjson-20261017T142106Z.ndjson
+
+Seed: 20261017
+
+======================= 10 failures, 3 errors in 71.52s ========================

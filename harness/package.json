@@ -1,0 +1,29 @@
+{
+  "name": "shortlink-acceptance-harness",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Independent acceptance harness for the Shortlink spec (spec-v1).",
+  "scripts": {
+    "test:api": "vitest run --config vitest.api.config.ts",
+    "test:invariants": "vitest run --config vitest.invariants.config.ts",
+    "test:ui": "PLAYWRIGHT_BROWSERS_PATH=0 playwright test --config playwright.config.ts",
+    "setup:ui": "PLAYWRIGHT_BROWSERS_PATH=0 playwright install chromium",
+    "fuzz": "node scripts/fuzz.mjs",
+    "test:holdout": "node scripts/run-holdout.mjs",
+    "coverage:manifest": "node scripts/coverage.mjs",
+    "mock": "bash scripts/mock.sh",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "packageManager": "pnpm@11.20.0",
+  "devDependencies": {
+    "@axe-core/playwright": "4.13.0",
+    "@playwright/test": "1.63.0",
+    "@stoplight/prism-cli": "5.16.0",
+    "@types/node": "22.20.5",
+    "@types/pg": "8.23.1",
+    "pg": "8.23.0",
+    "typescript": "5.9.3",
+    "vitest": "4.1.11"
+  }
+}

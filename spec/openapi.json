@@ -2,23 +2,40 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Shortlink API",
-    "version": "0.1.0",
-    "description": "URL shortener with click analytics. Field-level contract for the system under test. Requirement rules (with IDs) live in spec/SPEC.md."
+    "version": "1.0.0",
+    "description": "URL shortener with click analytics. Field-level contract for the system under test. Requirement rules (with IDs) live in spec/SPEC.md. Where this file and SPEC.md seem to differ, SPEC.md wins."
   },
   "servers": [
-    { "url": "http://localhost:8080", "description": "Local api" },
-    { "url": "http://localhost:4010", "description": "Prism mock of this file" }
+    {
+      "url": "http://localhost:8080",
+      "description": "Local api"
+    },
+    {
+      "url": "http://localhost:4010",
+      "description": "Prism mock of this file"
+    }
   ],
   "security": [],
   "tags": [
-    { "name": "links", "description": "Create, list, inspect and delete short links" },
-    { "name": "redirect", "description": "Public short-link redirect" },
-    { "name": "ops", "description": "Operational endpoints" }
+    {
+      "name": "links",
+      "description": "Create, list, inspect and delete short links"
+    },
+    {
+      "name": "redirect",
+      "description": "Public short-link redirect"
+    },
+    {
+      "name": "ops",
+      "description": "Operational endpoints"
+    }
   ],
   "paths": {
     "/healthz": {
       "get": {
-        "tags": ["ops"],
+        "tags": [
+          "ops"
+        ],
         "operationId": "health",
         "summary": "Liveness and database check",
         "responses": {
@@ -26,7 +43,9 @@
             "description": "Service and database are reachable",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/Health" }
+                "schema": {
+                  "$ref": "#/components/schemas/Health"
+                }
               }
             }
           },
@@ -34,23 +53,32 @@
             "description": "Database unreachable",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
             }
+          },
+          "500": {
+            "$ref": "#/components/responses/Internal"
           }
         }
       }
     },
     "/api/links": {
       "post": {
-        "tags": ["links"],
+        "tags": [
+          "links"
+        ],
         "operationId": "createLink",
         "summary": "Shorten a URL, optionally with a custom alias",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/CreateLinkRequest" }
+              "schema": {
+                "$ref": "#/components/schemas/CreateLinkRequest"
+              }
             }
           }
         },
@@ -59,18 +87,27 @@
             "description": "Link created",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/Link" }
+                "schema": {
+                  "$ref": "#/components/schemas/Link"
+                }
               }
             }
           },
-          "400": { "$ref": "#/components/responses/BadRequest" },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
           "409": {
             "description": "Alias already in use (error.code = alias_taken)",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
                 "example": {
-                  "error": { "code": "alias_taken", "message": "The alias 'launch' is already in use." }
+                  "error": {
+                    "code": "alias_taken",
+                    "message": "The alias 'launch' is already in use."
+                  }
                 }
               }
             }
@@ -79,17 +116,27 @@
             "description": "Validation failed (error.code = invalid_url | invalid_alias | alias_reserved)",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
                 "example": {
-                  "error": { "code": "invalid_url", "message": "URL must start with http:// or https://." }
+                  "error": {
+                    "code": "invalid_url",
+                    "message": "URL must start with http:// or https://."
+                  }
                 }
               }
             }
+          },
+          "500": {
+            "$ref": "#/components/responses/Internal"
           }
         }
       },
       "get": {
-        "tags": ["links"],
+        "tags": [
+          "links"
+        ],
         "operationId": "listLinks",
         "summary": "List links, newest first",
         "parameters": [
@@ -97,13 +144,22 @@
             "name": "limit",
             "in": "query",
             "required": false,
-            "schema": { "type": "integer", "minimum": 1, "maximum": 100, "default": 20 }
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
           },
           {
             "name": "offset",
             "in": "query",
             "required": false,
-            "schema": { "type": "integer", "minimum": 0, "default": 0 }
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0
+            }
           }
         ],
         "responses": {
@@ -111,18 +167,31 @@
             "description": "A page of links",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/LinkPage" }
+                "schema": {
+                  "$ref": "#/components/schemas/LinkPage"
+                }
               }
             }
           },
-          "400": { "$ref": "#/components/responses/BadRequest" }
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "500": {
+            "$ref": "#/components/responses/Internal"
+          }
         }
       }
     },
     "/api/links/{code}": {
-      "parameters": [{ "$ref": "#/components/parameters/Code" }],
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/Code"
+        }
+      ],
       "get": {
-        "tags": ["links"],
+        "tags": [
+          "links"
+        ],
         "operationId": "getLink",
         "summary": "Get one link",
         "responses": {
@@ -130,27 +199,49 @@
             "description": "The link",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/Link" }
+                "schema": {
+                  "$ref": "#/components/schemas/Link"
+                }
               }
             }
           },
-          "404": { "$ref": "#/components/responses/NotFound" }
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/Internal"
+          }
         }
       },
       "delete": {
-        "tags": ["links"],
+        "tags": [
+          "links"
+        ],
         "operationId": "deleteLink",
         "summary": "Delete a link and all of its clicks",
         "responses": {
-          "204": { "description": "Deleted" },
-          "404": { "$ref": "#/components/responses/NotFound" }
+          "204": {
+            "description": "Deleted"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/Internal"
+          }
         }
       }
     },
     "/api/links/{code}/stats": {
-      "parameters": [{ "$ref": "#/components/parameters/Code" }],
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/Code"
+        }
+      ],
       "get": {
-        "tags": ["links"],
+        "tags": [
+          "links"
+        ],
         "operationId": "getLinkStats",
         "summary": "Click analytics for one link over the last N days (UTC)",
         "parameters": [
@@ -158,7 +249,12 @@
             "name": "days",
             "in": "query",
             "required": false,
-            "schema": { "type": "integer", "minimum": 1, "maximum": 365, "default": 30 }
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 365,
+              "default": 30
+            }
           }
         ],
         "responses": {
@@ -166,19 +262,34 @@
             "description": "Stats for the link",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/LinkStats" }
+                "schema": {
+                  "$ref": "#/components/schemas/LinkStats"
+                }
               }
             }
           },
-          "400": { "$ref": "#/components/responses/BadRequest" },
-          "404": { "$ref": "#/components/responses/NotFound" }
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/Internal"
+          }
         }
       }
     },
     "/{code}": {
-      "parameters": [{ "$ref": "#/components/parameters/Code" }],
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/Code"
+        }
+      ],
       "get": {
-        "tags": ["redirect"],
+        "tags": [
+          "redirect"
+        ],
         "operationId": "followLink",
         "summary": "Redirect to the destination URL and record a click",
         "responses": {
@@ -187,11 +298,17 @@
             "headers": {
               "Location": {
                 "description": "The destination URL",
-                "schema": { "type": "string", "format": "uri" }
+                "schema": {
+                  "type": "string",
+                  "format": "uri"
+                }
               },
               "Cache-Control": {
                 "description": "Always no-store so every visit is counted",
-                "schema": { "type": "string", "example": "no-store" }
+                "schema": {
+                  "type": "string",
+                  "example": "no-store"
+                }
               }
             }
           },
@@ -199,9 +316,44 @@
             "description": "Unknown code",
             "content": {
               "text/plain": {
-                "schema": { "type": "string", "example": "Short link not found" }
+                "schema": {
+                  "type": "string",
+                  "example": "Short link not found"
+                }
               }
             }
+          }
+        },
+        "description": "Query strings are ignored (R-REDIR-8). Methods other than GET/HEAD get 405 text/plain with Allow: GET, HEAD (R-REDIR-9)."
+      },
+      "head": {
+        "tags": [
+          "redirect"
+        ],
+        "operationId": "peekLink",
+        "summary": "Same status and headers as GET, but records no click (R-REDIR-7)",
+        "responses": {
+          "302": {
+            "description": "Redirect to the destination",
+            "headers": {
+              "Location": {
+                "description": "The destination URL",
+                "schema": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              },
+              "Cache-Control": {
+                "description": "Always no-store so every visit is counted",
+                "schema": {
+                  "type": "string",
+                  "example": "no-store"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown code"
           }
         }
       }
@@ -213,8 +365,10 @@
         "name": "code",
         "in": "path",
         "required": true,
-        "description": "Generated code or custom alias (case-sensitive)",
-        "schema": { "type": "string", "pattern": "^[A-Za-z0-9_-]{3,32}$" },
+        "description": "Generated code or custom alias (case-sensitive). Any value that isn't an existing code gets a 404 (R-ERR-5).",
+        "schema": {
+          "type": "string"
+        },
         "example": "aZ3kQ9x"
       }
     },
@@ -223,9 +377,14 @@
         "description": "Malformed JSON, missing fields or out-of-range query parameters (error.code = bad_request)",
         "content": {
           "application/json": {
-            "schema": { "$ref": "#/components/schemas/ErrorResponse" },
+            "schema": {
+              "$ref": "#/components/schemas/ErrorResponse"
+            },
             "example": {
-              "error": { "code": "bad_request", "message": "Request body must be JSON with a 'url' field." }
+              "error": {
+                "code": "bad_request",
+                "message": "Request body must be JSON with a 'url' field."
+              }
             }
           }
         }
@@ -234,9 +393,30 @@
         "description": "No link with that code (error.code = not_found)",
         "content": {
           "application/json": {
-            "schema": { "$ref": "#/components/schemas/ErrorResponse" },
+            "schema": {
+              "$ref": "#/components/schemas/ErrorResponse"
+            },
             "example": {
-              "error": { "code": "not_found", "message": "No link with code 'nope'." }
+              "error": {
+                "code": "not_found",
+                "message": "No link with code 'nope'."
+              }
+            }
+          }
+        }
+      },
+      "Internal": {
+        "description": "Unexpected server error (R-ERR-7)",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorResponse"
+            },
+            "example": {
+              "error": {
+                "code": "internal",
+                "message": "Internal server error."
+              }
             }
           }
         }
@@ -245,106 +425,225 @@
     "schemas": {
       "Health": {
         "type": "object",
-        "required": ["status"],
+        "required": [
+          "status"
+        ],
         "properties": {
-          "status": { "type": "string", "const": "ok" }
+          "status": {
+            "type": "string",
+            "const": "ok"
+          }
         },
-        "example": { "status": "ok" }
+        "example": {
+          "status": "ok"
+        }
       },
       "CreateLinkRequest": {
         "type": "object",
-        "required": ["url"],
-        "additionalProperties": false,
+        "required": [
+          "url"
+        ],
         "properties": {
           "url": {
             "type": "string",
-            "maxLength": 2048,
-            "description": "Absolute http(s) URL. Leading and trailing whitespace is trimmed.",
+            "description": "Absolute http(s) URL. At most 2048 code points after trimming ASCII whitespace; otherwise 422 invalid_url (R-URL-1..3).",
             "example": "https://www.rust-lang.org/learn"
           },
           "alias": {
-            "type": ["string", "null"],
-            "pattern": "^[A-Za-z0-9_-]{3,32}$",
-            "description": "Optional custom code. Omitted, null or an empty string means generate one.",
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Optional custom code. Omitted, null or \"\" means generate one (R-LINK-3). Otherwise it must match ^[A-Za-z0-9_-]{3,32}$, or the server returns 422 invalid_alias (R-ALIAS-1).",
             "example": "rust-learn"
           }
-        }
+        },
+        "description": "Unknown fields are ignored (R-LINK-8). Content rules (length, URL syntax, alias format) are enforced by the server with 422, not by this schema (R-ERR-2)."
       },
       "Link": {
         "type": "object",
-        "required": ["code", "url", "shortUrl", "isCustom", "createdAt", "clickCount", "lastClickedAt"],
+        "required": [
+          "code",
+          "url",
+          "shortUrl",
+          "isCustom",
+          "createdAt",
+          "clickCount",
+          "lastClickedAt"
+        ],
         "properties": {
-          "code": { "type": "string", "example": "aZ3kQ9x" },
-          "url": { "type": "string", "format": "uri", "example": "https://www.rust-lang.org/learn" },
+          "code": {
+            "type": "string",
+            "example": "aZ3kQ9x"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "example": "https://www.rust-lang.org/learn"
+          },
           "shortUrl": {
             "type": "string",
             "format": "uri",
             "description": "PUBLIC_BASE_URL + '/' + code",
             "example": "http://localhost:8080/aZ3kQ9x"
           },
-          "isCustom": { "type": "boolean", "example": false },
-          "createdAt": { "type": "string", "format": "date-time", "example": "2026-10-17T15:04:05Z" },
-          "clickCount": { "type": "integer", "minimum": 0, "example": 42 },
-          "lastClickedAt": {
-            "type": ["string", "null"],
+          "isCustom": {
+            "type": "boolean",
+            "example": false
+          },
+          "createdAt": {
+            "type": "string",
             "format": "date-time",
-            "example": "2026-10-17T18:22:10Z"
+            "example": "2026-10-17T15:04:05Z"
+          },
+          "clickCount": {
+            "type": "integer",
+            "minimum": 0,
+            "example": 42,
+            "description": "Count of click rows, all-time (R-GET-1, R-DATA-1)"
+          },
+          "lastClickedAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time",
+            "example": "2026-10-17T18:22:10Z",
+            "description": "max(clicked_at) at full stored precision, or null (R-GET-1)"
           }
         }
       },
       "LinkPage": {
         "type": "object",
-        "required": ["items", "total", "limit", "offset"],
+        "required": [
+          "items",
+          "total",
+          "limit",
+          "offset"
+        ],
         "properties": {
-          "items": { "type": "array", "items": { "$ref": "#/components/schemas/Link" } },
-          "total": { "type": "integer", "minimum": 0, "description": "Total links, ignoring pagination", "example": 1 },
-          "limit": { "type": "integer", "example": 20 },
-          "offset": { "type": "integer", "example": 0 }
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Link"
+            }
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Total links, ignoring pagination",
+            "example": 1
+          },
+          "limit": {
+            "type": "integer",
+            "example": 20
+          },
+          "offset": {
+            "type": "integer",
+            "example": 0
+          }
         }
       },
       "DailyClicks": {
         "type": "object",
-        "required": ["date", "clicks"],
+        "required": [
+          "date",
+          "clicks"
+        ],
         "properties": {
-          "date": { "type": "string", "format": "date", "description": "UTC calendar day", "example": "2026-10-17" },
-          "clicks": { "type": "integer", "minimum": 0, "example": 7 }
+          "date": {
+            "type": "string",
+            "format": "date",
+            "description": "UTC calendar day",
+            "example": "2026-10-17"
+          },
+          "clicks": {
+            "type": "integer",
+            "minimum": 0,
+            "example": 7
+          }
         }
       },
       "Breakdown": {
         "type": "object",
-        "required": ["name", "clicks"],
+        "required": [
+          "name",
+          "clicks"
+        ],
         "properties": {
-          "name": { "type": "string", "example": "news.ycombinator.com" },
-          "clicks": { "type": "integer", "minimum": 0, "example": 12 }
+          "name": {
+            "type": "string",
+            "example": "news.ycombinator.com"
+          },
+          "clicks": {
+            "type": "integer",
+            "minimum": 0,
+            "example": 12
+          }
         }
       },
       "LinkStats": {
         "type": "object",
-        "required": ["code", "days", "totalClicks", "rangeClicks", "daily", "topReferrers", "topCountries", "devices"],
+        "required": [
+          "code",
+          "days",
+          "totalClicks",
+          "rangeClicks",
+          "daily",
+          "topReferrers",
+          "topCountries",
+          "devices"
+        ],
         "properties": {
-          "code": { "type": "string", "example": "aZ3kQ9x" },
-          "days": { "type": "integer", "example": 7 },
-          "totalClicks": { "type": "integer", "minimum": 0, "description": "All-time clicks", "example": 42 },
-          "rangeClicks": { "type": "integer", "minimum": 0, "description": "Clicks inside the window; equals the sum of daily", "example": 30 },
+          "code": {
+            "type": "string",
+            "example": "aZ3kQ9x",
+            "description": "Echoes the path code (R-STATS-1)"
+          },
+          "days": {
+            "type": "integer",
+            "example": 7,
+            "description": "Echoes the days in effect (R-STATS-1)"
+          },
+          "totalClicks": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "All-time clicks",
+            "example": 42
+          },
+          "rangeClicks": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Clicks inside the window; equals the sum of daily",
+            "example": 30
+          },
           "daily": {
             "type": "array",
             "description": "Exactly `days` entries, oldest first, ending today (UTC), zero-filled",
-            "items": { "$ref": "#/components/schemas/DailyClicks" }
+            "items": {
+              "$ref": "#/components/schemas/DailyClicks"
+            }
           },
           "topReferrers": {
             "type": "array",
             "description": "Up to 5, inside the window. name is the referrer host, or 'direct'.",
-            "items": { "$ref": "#/components/schemas/Breakdown" }
+            "items": {
+              "$ref": "#/components/schemas/Breakdown"
+            }
           },
           "topCountries": {
             "type": "array",
-            "description": "Up to 5, inside the window. name is an ISO 3166-1 alpha-2 code, or 'unknown'.",
-            "items": { "$ref": "#/components/schemas/Breakdown" }
+            "description": "Up to 5, inside the window. name is two uppercase ASCII letters (not validated against ISO 3166-1), or 'unknown'.",
+            "items": {
+              "$ref": "#/components/schemas/Breakdown"
+            }
           },
           "devices": {
             "type": "array",
             "description": "Every device class seen inside the window: desktop | mobile | tablet | bot | unknown",
-            "items": { "$ref": "#/components/schemas/Breakdown" }
+            "items": {
+              "$ref": "#/components/schemas/Breakdown"
+            }
           }
         },
         "example": {
@@ -353,44 +652,110 @@
           "totalClicks": 42,
           "rangeClicks": 30,
           "daily": [
-            { "date": "2026-10-11", "clicks": 0 },
-            { "date": "2026-10-12", "clicks": 3 },
-            { "date": "2026-10-13", "clicks": 5 },
-            { "date": "2026-10-14", "clicks": 2 },
-            { "date": "2026-10-15", "clicks": 9 },
-            { "date": "2026-10-16", "clicks": 4 },
-            { "date": "2026-10-17", "clicks": 7 }
+            {
+              "date": "2026-10-11",
+              "clicks": 0
+            },
+            {
+              "date": "2026-10-12",
+              "clicks": 3
+            },
+            {
+              "date": "2026-10-13",
+              "clicks": 5
+            },
+            {
+              "date": "2026-10-14",
+              "clicks": 2
+            },
+            {
+              "date": "2026-10-15",
+              "clicks": 9
+            },
+            {
+              "date": "2026-10-16",
+              "clicks": 4
+            },
+            {
+              "date": "2026-10-17",
+              "clicks": 7
+            }
           ],
           "topReferrers": [
-            { "name": "direct", "clicks": 14 },
-            { "name": "news.ycombinator.com", "clicks": 9 },
-            { "name": "t.co", "clicks": 7 }
+            {
+              "name": "direct",
+              "clicks": 14
+            },
+            {
+              "name": "news.ycombinator.com",
+              "clicks": 9
+            },
+            {
+              "name": "t.co",
+              "clicks": 7
+            }
           ],
           "topCountries": [
-            { "name": "US", "clicks": 18 },
-            { "name": "GB", "clicks": 6 },
-            { "name": "unknown", "clicks": 6 }
+            {
+              "name": "US",
+              "clicks": 18
+            },
+            {
+              "name": "GB",
+              "clicks": 6
+            },
+            {
+              "name": "unknown",
+              "clicks": 6
+            }
           ],
           "devices": [
-            { "name": "desktop", "clicks": 17 },
-            { "name": "mobile", "clicks": 11 },
-            { "name": "bot", "clicks": 2 }
+            {
+              "name": "desktop",
+              "clicks": 17
+            },
+            {
+              "name": "mobile",
+              "clicks": 11
+            },
+            {
+              "name": "bot",
+              "clicks": 2
+            }
           ]
         }
       },
       "ErrorResponse": {
         "type": "object",
-        "required": ["error"],
+        "required": [
+          "error"
+        ],
         "properties": {
           "error": {
             "type": "object",
-            "required": ["code", "message"],
+            "required": [
+              "code",
+              "message"
+            ],
             "properties": {
               "code": {
                 "type": "string",
-                "enum": ["bad_request", "invalid_url", "invalid_alias", "alias_reserved", "alias_taken", "not_found", "unavailable", "internal"]
+                "enum": [
+                  "bad_request",
+                  "invalid_url",
+                  "invalid_alias",
+                  "alias_reserved",
+                  "alias_taken",
+                  "not_found",
+                  "method_not_allowed",
+                  "unavailable",
+                  "internal"
+                ]
               },
-              "message": { "type": "string", "description": "Human-readable; safe to show to users" }
+              "message": {
+                "type": "string",
+                "description": "Human-readable; safe to show to users"
+              }
             }
           }
         }

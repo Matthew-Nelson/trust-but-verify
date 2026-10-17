@@ -1,10 +1,13 @@
 # Shortlink spec (system under test)
 
-**Status: DRAFT. Not yet signed off.** When signed off, this file is frozen and tagged `spec-v1`. Changes after that go through `spec/PROPOSALS.md` and need a new tag.
+**Status: RELEASE CANDIDATE. Awaiting sign-off.** Revised after adversarial review #1 (`spec/reviews/01-opus-adversarial.md`; dispositions in `spec/reviews/01-disposition.md`). When signed off, this file is frozen and tagged `spec-v1`. Changes after that go through `spec/PROPOSALS.md` and need a new tag.
 
-This is the single statement of intent that everything else answers to. The harness tests it, the implementations build to it, and the mutants violate it. Field-level request and response shapes are in `spec/openapi.json`. This file covers the rules a schema can't express.
+This is the single statement of intent that everything else answers to. The harness tests it, the implementations build to it, and the mutants violate it. Field-level request and response shapes are in `spec/openapi.json`. This file covers the rules a schema can't express, and where the two seem to differ, **this file wins**.
 
-Each rule has an ID (`R-AREA-n`). Every test names the ID(s) it checks, every mutant names the ID it breaks, and the verification report has one row per ID. An ID with no passing test is reported as **unverified**.
+Each rule has an ID (`R-AREA-n`). IDs are never renumbered. Every test names the ID(s) it checks, every mutant names the ID it breaks, and the verification report has one row per ID. Labels after a rule say how it is verified when that isn't plain black-box HTTP or browser testing:
+- *(gray-box)*: the harness reads or seeds the database, or reads api logs, using the contracts in this file.
+- *(mutant-verified)*: the behavior can only be shown by breaking it deliberately.
+- *(probabilistic)*: a pass shows the race wasn't observed, not that it can't happen. Always paired with a mutant.
 
 ## The system
 
@@ -15,7 +18,16 @@ browser ──► web UI (:3000) ──server-side──► api (:8080) ──�
    └────────── GET /{code} (short link) ──────┘
 ```
 
-Short URLs point at the api (`PUBLIC_BASE_URL`). The web UI calls the api only from the server; the browser never calls `/api/*`.
+Short URLs point at the api (`PUBLIC_BASE_URL`). The web UI calls the api only from its server (R-UI-11).
+
+## Shared definitions
+
+- **URL parsing.** Every URL in this spec is parsed with the **WHATWG URL Standard** basic URL parser, with no base URL. "Hostname" means the parser's `hostname`: lowercased, IDNA/punycode-encoded and without the port. "Serialized" means the parser's `href`.
+- **ASCII whitespace.** U+0009, U+000A, U+000C, U+000D and U+0020. Nothing else.
+- **Query integer.** A query parameter value matching `^(0|[1-9][0-9]*)$`, appearing at most once. Empty values, signs, decimals, exponents, leading zeros, repeated parameters and values too large for a 64-bit signed integer are **not** query integers. Unknown query parameters are ignored.
+- **Timestamps.** Timestamps are RFC 3339 in UTC with the `Z` suffix, with optional fractional seconds of at most 6 digits.
+- **Clock.** "Now" and "today" are taken from the **database clock** (`now()` at UTC) when the request runs.
+- **Name order.** "Name ascending" means Unicode code-point order, equivalent to `COLLATE "C"`.
 
 ---
 
@@ -26,135 +38,181 @@ Short URLs point at the api (`PUBLIC_BASE_URL`). The web UI calls the api only f
 | ID | Rule |
 |---|---|
 | R-LINK-1 | A valid request with no alias returns **201** and a `Link` whose `code` is exactly 7 characters from `[A-Za-z0-9]` and whose `isCustom` is `false`. |
-| R-LINK-2 | A valid request with an alias returns **201** with `code` equal to the alias and `isCustom` `true`. |
-| R-LINK-3 | An `alias` that is omitted, `null` or `""` is treated as no alias (R-LINK-1). |
-| R-LINK-4 | `shortUrl` equals `PUBLIC_BASE_URL + "/" + code`. |
+| R-LINK-2 | A valid request with an alias returns **201** with `code` equal to the alias, exactly as sent, and `isCustom` `true`. |
+| R-LINK-3 | An `alias` that is omitted, `null` or exactly `""` is treated as no alias (R-LINK-1). The alias is never trimmed. `"   "` is an alias and fails R-ALIAS-1. |
+| R-LINK-4 | `shortUrl` equals `PUBLIC_BASE_URL + "/" + code`. `PUBLIC_BASE_URL` is an origin with no path and no trailing slash. |
 | R-LINK-5 | A new link has `clickCount` 0 and `lastClickedAt` `null`. |
-| R-LINK-6 | Generated codes are unique. 1,000 sequential creates produce 1,000 distinct codes. |
+| R-LINK-6 | Generated codes are unique. 1,000 sequential creates with no alias produce 1,000 distinct codes. |
+| R-LINK-7 | A generated code never equals an existing code and never matches a reserved alias case-insensitively; on a collision the server regenerates. A request with no alias never returns 409. |
+| R-LINK-8 | Unknown fields in the request body are ignored. |
 
 ### URL validation
 
 | ID | Rule |
 |---|---|
-| R-URL-1 | Leading and trailing whitespace in `url` is trimmed before validation. |
-| R-URL-2 | `url` must parse as an absolute URL with scheme `http` or `https` and a non-empty host. Otherwise **422** `invalid_url`. This covers `javascript:`, `data:`, `ftp:`, relative URLs and bare words. |
-| R-URL-3 | `url` longer than 2048 characters after trimming → **422** `invalid_url`. Exactly 2048 is accepted. |
-| R-URL-4 | `url` whose host equals the host of `PUBLIC_BASE_URL` → **422** `invalid_url`. This prevents short links that point at other short links. |
-| R-URL-5 | The stored URL is the parser's normalized form. `https://example.com` is returned as `https://example.com/`. |
+| R-URL-1 | Leading and trailing ASCII whitespace in `url` is trimmed. The result is passed to the WHATWG parser unchanged; the parser itself removes internal tab, LF and CR. |
+| R-URL-2 | A URL is valid if and only if parsing succeeds, the scheme is `http` or `https`, and the hostname is non-empty. Otherwise → **422** `invalid_url`. That includes `""` and whitespace-only strings. |
+| R-URL-3 | The trimmed input may be at most 2048 Unicode code points, measured **before** parsing. Longer → **422** `invalid_url`. Exactly 2048 is accepted, even if the normalized form is longer. |
+| R-URL-4 | A URL whose hostname equals the hostname of `PUBLIC_BASE_URL` → **422** `invalid_url`. Ports are ignored, and no DNS or IP equivalence applies: `127.0.0.1` is not `localhost`. |
+| R-URL-5 | The stored URL, the returned `url` and the redirect `Location` are the parser's serialization, byte for byte. Normative examples are below. |
+
+**R-URL-5 normative examples:**
+
+| Input | Result |
+|---|---|
+| `https://example.com` | `https://example.com/` |
+| `HTTPS://Example.COM:443/a/../b` | `https://example.com/b` |
+| `https://bücher.example/ä` | `https://xn--bcher-kva.example/%C3%A4` |
+| `https://example.com/a b` | `https://example.com/a%20b` |
+| `http:example.com` | `http://example.com/` |
+| `http:///example.com` | `http://example.com/` |
+| `https://example.com\path` | `https://example.com/path` |
+| `"  https://example.com/x  "` | `https://example.com/x` |
+| `javascript:alert(1)`, `ftp://example.com/`, `/relative`, `example.com` | 422 `invalid_url` |
 
 ### Alias validation
 
 | ID | Rule |
 |---|---|
-| R-ALIAS-1 | An alias must match `^[A-Za-z0-9_-]{3,32}$`. Otherwise **422** `invalid_alias`. |
-| R-ALIAS-2 | Reserved aliases → **422** `alias_reserved`. They are compared case-insensitively: `api`, `healthz`, `openapi.json`, `docs`, `admin`, `static`, `assets`, `favicon.ico`, `robots.txt`, `login`, `logout`. |
+| R-ALIAS-1 | An alias must match `^[A-Za-z0-9_-]{3,32}$`. Otherwise → **422** `invalid_alias`. |
+| R-ALIAS-2 | Reserved aliases → **422** `alias_reserved`, compared case-insensitively: `api`, `healthz`, `docs`, `admin`, `static`, `assets`, `login`, `logout`. (Paths like `favicon.ico`, `robots.txt` and `openapi.json` also can't be aliases, but R-ALIAS-1 rejects them first with `invalid_alias`.) |
 | R-ALIAS-3 | An alias already in use → **409** `alias_taken`. |
 | R-ALIAS-4 | Codes are case-sensitive. `Launch` and `launch` are different links. |
-| R-ALIAS-5 | Under concurrency: when N simultaneous requests ask for the same new alias, exactly one gets 201 and N−1 get 409 `alias_taken`. None get a 5xx. |
+| R-ALIAS-5 | When N=20 requests with the same new alias and 20 distinct `url` values are released together, exactly one gets 201 and 19 get 409 `alias_taken`, with no other status. Afterwards, `GET /api/links/{alias}` returns the `url` from the request that got 201. *(probabilistic; paired with a mutant that removes the uniqueness guarantee)* |
 
 ### Errors
 
 | ID | Rule |
 |---|---|
-| R-ERR-1 | Every 4xx/5xx JSON response body is `{"error":{"code","message"}}`, with `code` from the enum in `openapi.json`. |
-| R-ERR-2 | Precedence for `POST /api/links`, where the first failing rule wins: malformed body (bad JSON, wrong types, missing `url`) → **400** `bad_request`; then R-URL; then R-ALIAS-1; then R-ALIAS-2; then R-ALIAS-3. |
-| R-ERR-3 | Out-of-range or non-integer query parameters (`limit`, `offset`, `days`) → **400** `bad_request`. |
-| R-ERR-4 | Error messages never contain SQL, stack traces, file paths or internal type names. |
-| R-ERR-5 | A request for an unknown code on any `/api/links/{code}*` route → **404** `not_found`. |
+| R-ERR-1 | Every 4xx/5xx response from `/healthz` or any path under `/api/` has `Content-Type: application/json` and the body `{"error":{"code","message"}}`, with `code` from the enum in `openapi.json`. The only non-JSON errors are on `/{code}` (R-REDIR-3, R-REDIR-9). |
+| R-ERR-2 | Precedence for `POST /api/links`, where the first failing rule wins: (1) **400** `bad_request` for a malformed body: invalid JSON, an empty body, a top-level value that isn't an object, `url` absent or not a string (including `null`), `alias` present but neither a string nor `null`, or a body larger than 64 KiB; (2) R-URL; (3) R-ALIAS-1; (4) R-ALIAS-2; (5) R-ALIAS-3. Checks on string content (length, pattern, URL syntax, reserved, taken) are never 400. `Content-Type` is ignored and the body is always parsed as JSON. |
+| R-ERR-3 | `limit`, `offset` and `days`, when present, must be query integers within their ranges (R-LIST-1, R-STATS-1). Otherwise → **400** `bad_request`, never 5xx. Nothing is clamped. |
+| R-ERR-4 | No error `message` matches any of these case-insensitive patterns: `\b(select|insert|update|delete)\b.+\b(from|into|set|where)\b`, `(traceback|exception|panic|goroutine|sqlstate|stack)`, `(/Users/|/home/|/usr/|/var/|/app/|[A-Z]:\\)`, `\.(js|ts|py|go|rs|java|rb):\d+`. |
+| R-ERR-5 | On `/api/links/{code}*`, a code that doesn't identify an existing link, including values no code could have, → **404** `not_found`. Query validation (R-ERR-3) runs **before** the code lookup. Path segments are percent-decoded once before lookup. |
+| R-ERR-6 | A known path under `/api/` or `/healthz` requested with an unsupported method → **405** `method_not_allowed` with an `Allow` header. An unrouted path under `/api/` → **404** `not_found`. |
+| R-ERR-7 | Every 500 response body is exactly `{"error":{"code":"internal","message":"Internal server error."}}`. *(mutant-verified)* |
 
 ### Reading and deleting
 
 | ID | Rule |
 |---|---|
-| R-LIST-1 | `GET /api/links` returns links newest-first. Default `limit` is 20 (max 100) and default `offset` is 0. |
-| R-LIST-2 | `total` is the count of all links, ignoring pagination. `limit` and `offset` echo the values in effect. |
-| R-GET-1 | `GET /api/links/{code}` returns the `Link`. `clickCount` and `lastClickedAt` are all-time and reflect recorded clicks. |
-| R-DEL-1 | `DELETE /api/links/{code}` returns **204**. After that, the code 404s on every route, including the redirect. |
+| R-LIST-1 | `GET /api/links` orders by `createdAt` descending, then by internal id descending. `limit` is 1–100 (default 20) and `offset` is ≥ 0 (default 0). |
+| R-LIST-2 | `total` is the count of all links, ignoring pagination. The response `limit` and `offset` equal the requested values, or the defaults. If `offset` ≥ `total`, the response is 200 with `items: []`. |
+| R-GET-1 | `GET /api/links/{code}` returns the `Link`. `clickCount` is the number of click rows for the link, and `lastClickedAt` is the maximum `clicked_at` at full stored precision, or `null` if there are none (R-DATA-1). |
+| R-DEL-1 | `DELETE /api/links/{code}` returns **204**. Afterwards the code gets a 404 on `GET` and `DELETE /api/links/{code}`, on `GET /api/links/{code}/stats`, on `GET /{code}`, and on the UI page `/links/{code}` (R-UI-9). |
 | R-DEL-2 | After deletion the code can be reused as an alias. |
 
 ### Redirect: `GET /{code}`
 
 | ID | Rule |
 |---|---|
-| R-REDIR-1 | A known code → **302** with `Location` set to the stored URL. |
-| R-REDIR-2 | The redirect response includes `Cache-Control: no-store`. |
-| R-REDIR-3 | An unknown code → **404** with a `text/plain` body. |
-| R-REDIR-4 | Each redirect records exactly one click. Within 2 seconds of the redirect response, the click is visible in `clickCount` and stats. |
-| R-REDIR-5 | Under concurrency: after N simultaneous redirects (N=500), `clickCount` rises by exactly N. No clicks are lost or duplicated. |
-| R-REDIR-6 | A failure to record a click never changes the redirect response. *(Gray-box: verified by a mutant, not by a black-box test.)* |
+| R-REDIR-1 | A known code → **302** with `Location` set to the stored URL (R-URL-5). |
+| R-REDIR-2 | The redirect's `Cache-Control` header contains the `no-store` directive. Other directives may also appear. |
+| R-REDIR-3 | An unknown code (R-ERR-5 semantics) → **404** with media type `text/plain`. Parameters such as `charset` are allowed, and the body is non-empty with unspecified content. This includes `GET /api` and `GET /api/`. |
+| R-REDIR-4 | Each `GET` redirect records exactly one click. It's visible in `clickCount`, `lastClickedAt` and stats for any request sent 2 s or more after the client receives the redirect response headers, and no further clicks from that redirect appear later. |
+| R-REDIR-5 | 500 `GET /{code}` requests for one link, with at least 100 in flight at once, all get 302. `clickCount` read 2 s or more after the last response equals the starting value + 500, and the same value is read again at 4 s. *(probabilistic; paired with a mutant that loses concurrent clicks)* |
+| R-REDIR-6 | A failure to record a click never changes the redirect response or delays it beyond normal latency. *(mutant-verified)* |
+| R-REDIR-7 | `HEAD /{code}` returns the same status and headers as `GET` and records **no** click. |
+| R-REDIR-8 | The query string of a redirect request is ignored. `Location` is exactly the stored URL, and exactly one click is recorded. |
+| R-REDIR-9 | Any method other than `GET` or `HEAD` on `/{code}` → **405** `text/plain` with `Allow: GET, HEAD`. |
+| R-ROUTE-1 | Paths match exactly. A trailing slash is a different path: `/{code}/` → 404 `text/plain`, and `/api/links/` or `/api/links/{code}/` → 404 `not_found`. |
 
 ### What a click records
 
+These describe the values that are **stored**. Normalization happens when the click is written (R-DATA-2).
+
 | ID | Rule |
 |---|---|
-| R-CLICK-1 | Referrer: the host of the `Referer` header, lowercased, with one leading `www.` stripped. Missing or unparseable → reported as `direct`. |
-| R-CLICK-2 | Country: the value of the header named by `COUNTRY_HEADER` (default `cf-ipcountry`), uppercased, accepted only if it's exactly 2 ASCII letters. Anything else → reported as `unknown`. |
-| R-CLICK-3 | Device: the first matching rule wins, case-insensitive. No `User-Agent` → `unknown`; contains `bot`, `crawl`, `spider`, `preview` or `facebookexternalhit` → `bot`; contains `ipad` or `tablet` → `tablet`; contains `mobi`, `iphone` or `android` → `mobile`; anything else → `desktop`. |
-| R-PRIV-1 | Client IP addresses are never stored. *(Gray-box: verified by inspecting the schema.)* |
+| R-CLICK-1 | Referrer: if the `Referer` header is absent, fails to parse, has a scheme other than `http`/`https`, or has an empty hostname → `direct`. Otherwise use the hostname, and remove one leading `www.` if something remains after it. Examples: `https://WWW.Example.com:8443/x` → `example.com`; `https://www.www.a.io/` → `www.a.io`; `example.com/page` → `direct`; `android-app://com.slack/` → `direct`. |
+| R-CLICK-2 | Country: read the header named by `COUNTRY_HEADER` (name matched case-insensitively) and trim surrounding spaces and tabs. If the header appears more than once → `unknown`. If the value is exactly two ASCII letters, record it uppercased (not checked against ISO 3166-1, so `xx` → `XX`). Otherwise → `unknown`. |
+| R-CLICK-3 | Device: if `User-Agent` is absent, empty or whitespace-only → `unknown`. Otherwise the first matching rule wins, case-insensitive: contains `bot`, `crawl`, `spider`, `preview` or `facebookexternalhit` → `bot`; contains `ipad` or `tablet` → `tablet`; contains `mobi`, `iphone` or `android` → `mobile`; anything else → `desktop`. |
+| R-PRIV-1 | Client IP addresses are never stored in the database or written to api logs. *(gray-box: schema inspection, plus a search of the api's stdout and stderr for the test client's address)* |
 
 ### Stats: `GET /api/links/{code}/stats?days=N`
 
 | ID | Rule |
 |---|---|
-| R-STATS-1 | `days` defaults to 30 and must be 1–365. |
-| R-STATS-2 | `daily` has exactly `days` entries, oldest first. The last entry is today (UTC), and days with no clicks appear with `clicks: 0`. |
-| R-STATS-3 | A click at `T` counts toward the UTC calendar date of `T`. The window includes clicks from 00:00:00 UTC on the first day through now. Clicks before the window are excluded from everything except `totalClicks`. |
-| R-STATS-4 | `rangeClicks` equals the sum of `daily[].clicks`. `totalClicks` is all-time. |
-| R-STATS-5 | `topReferrers` and `topCountries` count only clicks in the window. Each has at most 5 entries, sorted by clicks descending, then name ascending. |
-| R-STATS-6 | `devices` lists every device class seen in the window, in the same sort order. |
+| R-STATS-1 | `days` defaults to 30 and must be 1–365. The response `code` and `days` echo the path code and the `days` in effect. |
+| R-STATS-2 | `daily` has exactly `days` entries, oldest first. The last entry is today, and days with no clicks appear with `clicks: 0`. Entries are never cut off at `createdAt`: a link created today with `days=30` gets 30 entries. *(gray-box: seeded rows)* |
+| R-STATS-3 | The window is `[00:00:00Z of the first day, 00:00:00Z of the day after today)`. A click counts toward the UTC date of its `clicked_at`. Clicks outside the window are excluded from everything except `totalClicks`. *(gray-box: seeded rows)* |
+| R-STATS-4 | `rangeClicks` equals the sum of `daily[].clicks`. `totalClicks` is the all-time count, equal to `clickCount` from `GET /api/links/{code}` when there are no clicks in between. |
+| R-STATS-5 | `topReferrers` and `topCountries` count only clicks in the window. Each has at most 5 entries, sorted by clicks descending, then name ascending. `direct` and `unknown` are ordinary entries. |
+| R-STATS-6 | `devices` lists every device class with at least 1 click in the window, in the same sort order. |
+
+### Data contract
+
+| ID | Rule |
+|---|---|
+| R-DATA-1 | Every click-derived field (`clickCount`, `lastClickedAt`, `totalClicks`, `rangeClicks`, `daily`, `topReferrers`, `topCountries`, `devices`) is computed from the `clicks` rows when the request runs, with no counters, rollups or caches. A row inserted directly into `clicks` appears in every such field on the next request. *(gray-box)* |
+| R-DATA-2 | Columns are encoded as follows. `referrer_host` holds the normalized host per R-CLICK-1, or `NULL` for `direct`, and never `''` or `'direct'`. `country` holds two uppercase ASCII letters, or `NULL` for `unknown`. `device` holds one of the five lowercase values. The api reports stored values unchanged, mapping `NULL` to `direct`/`unknown`. *(gray-box)* |
+| R-DATA-3 | The implementation's migrations create exactly the schema below. Extra indexes and a migration-bookkeeping table are allowed. Triggers, and columns or tables that duplicate click data or store request data, are not. *(gray-box: schema inspection)* |
 
 ### Operations
 
 | ID | Rule |
 |---|---|
-| R-HEALTH-1 | `GET /healthz` → 200 `{"status":"ok"}` when the database is reachable, otherwise 503 `unavailable`. |
-| R-OAS-1 | Every response from every operation conforms to `spec/openapi.json`. This is checked by property-based fuzzing (Schemathesis). |
+| R-HEALTH-1 | `GET /healthz` runs `SELECT 1` on every request, with a timeout of at most 2 s. It responds within 3 s: 200 `{"status":"ok"}` on success, otherwise 503 with `code` `unavailable`. *(The 503 branch is gray-box: a second api instance is started with `DATABASE_URL` pointing at a closed port.)* |
+| R-OAS-1 | Every response conforms to `spec/openapi.json` under the Schemathesis run defined in "Verification rules". Any 5xx observed during that run fails this requirement. |
 
 ---
 
 ## Web UI requirements (minimal)
 
-The UI is verified through its accessible roles and names, the same way a screen-reader user experiences it. The names below are **contract**: the UI must use them exactly, and the harness selects elements by them.
+The UI is verified through its accessible roles and names, the same way a screen-reader user experiences it. The names below are **contract**: the UI must use them exactly, and the harness selects elements by them. Text matches are exact after trimming.
 
 | ID | Rule |
 |---|---|
-| R-UI-1 | `/` has a textbox labeled **"Destination URL"**, a textbox labeled **"Custom alias (optional)"** and a button named **"Shorten"**. |
-| R-UI-2 | If the destination has no scheme, `https://` is added before submitting. Entering `example.com` creates a link to `https://example.com/`. |
-| R-UI-3 | On success, an element with role `status` contains a link whose name and `href` are the new `shortUrl`, plus a button named **"Copy short link"**. |
-| R-UI-4 | On an API error, an element with role `alert` shows the message for that error code from the table below. |
-| R-UI-5 | `/` shows a table named **"Your links"** with column headers **Short link**, **Destination**, **Clicks**, **Created**, newest first. Each row has a link named **"Stats for {code}"** to `/links/{code}` and a button named **"Delete {code}"**. |
-| R-UI-6 | Clicking "Delete {code}" reveals a button named **"Confirm delete"**. Confirming removes the row; nothing is deleted without confirming. No native browser dialogs are used. |
-| R-UI-7 | `/links/{code}` has a level-1 heading containing the code. It shows the text **"Total clicks: N"** and **"Clicks in range: N"**, a table named **"Clicks per day"** (columns **Date**, **Clicks**, one row per day in the window), and tables named **"Top referrers"**, **"Top countries"** and **"Devices"** (columns **Name**, **Clicks**). |
-| R-UI-8 | `/links/{code}` has links named **"7 days"**, **"30 days"** and **"90 days"** that set `?days=`. The current one has `aria-current="page"`. |
+| R-UI-1 | `/` has a form with a textbox labeled **"Destination URL"**, a textbox labeled **"Custom alias (optional)"** and a button named **"Shorten"**. The form uses no browser constraint validation (`novalidate`, no `type="url"`, no `required`). |
+| R-UI-2 | The UI trims ASCII whitespace from the destination. If the trimmed value doesn't match `^[A-Za-z][A-Za-z0-9+.-]*://`, it prefixes `https://`; otherwise it sends the value unchanged. So `example.com` creates a link to `https://example.com/`, `HTTP://x.com` is sent unchanged, and `localhost:3000/x` becomes `https://localhost:3000/x`. |
+| R-UI-3 | On success, an element with role `status` contains a link whose name and `href` are the new `shortUrl`, and a button named **"Copy short link"** that writes `shortUrl` to the clipboard when activated. |
+| R-UI-4 | On an API error, an element with role `alert` shows exactly the message for that error code from the table below. |
+| R-UI-5 | `/` shows a table named **"Your links"** with column headers **Short link**, **Destination**, **Clicks**, **Created**, listing the 20 newest links in API order. It's re-fetched after every successful create or delete, with no full page reload. Each row has a link named **"Stats for {code}"** to `/links/{code}` and a button named **"Delete {code}"**. Cell contents: Short link is a link whose name and `href` are `shortUrl`; Destination is `url`; Clicks is `clickCount` as a plain integer; Created is `createdAt` in UTC as `YYYY-MM-DD HH:MM`. |
+| R-UI-6 | Clicking "Delete {code}" reveals a button named **"Confirm delete"** inside the same row. At most one is open at a time: opening another closes the first. Confirming removes the row within 2 s, and the link is deleted in the api. Nothing is deleted without confirmation, and no native browser dialogs are used. |
+| R-UI-7 | `/links/{code}` has a level-1 heading containing the code. It shows the text **"Total clicks: N"** and **"Clicks in range: N"**, where N is a base-10 integer without separators. It has a table named **"Clicks per day"** (columns **Date**, **Clicks**; dates `YYYY-MM-DD` UTC; oldest first; one body row per `daily` entry) and tables named **"Top referrers"**, **"Top countries"** and **"Devices"** (columns **Name**, **Clicks**; one body row per API entry; an empty table has no body rows, and any "no data" text is outside the table). Each table has exactly one header row. |
+| R-UI-8 | `/links/{code}` has links named **"7 days"**, **"30 days"** and **"90 days"** that set `?days=`. With no `days`, the page uses 30. Any `days` from 1 to 365 is honored, and the matching link, if there is one, has `aria-current="page"`. An invalid `days` value renders as if `days=30`. |
 | R-UI-9 | `/links/{unknown}` responds with HTTP 404 and a level-1 heading **"Link not found"**. |
-| R-UI-10 | Every page has zero `serious` or `critical` axe-core accessibility violations. |
+| R-UI-10 | axe-core (version pinned in the harness lockfile, default rules) reports zero `serious` or `critical` violations in these states: `/` with an empty form, after a success, after an error, and with a delete confirmation revealed; `/links/{code}` for each `days` link; and `/links/{unknown}`. |
+| R-UI-11 | During all UI tests, the browser sends no request to any `/api/` path. *(checked by network capture)* |
+| R-UI-12 | Submitting an empty or whitespace-only destination shows the `invalid_url` message with role `alert` and sends no request to the api. |
 
-### Error messages (R-UI-4)
+### Error messages (R-UI-4, R-UI-12)
 
 | `error.code` | Message shown |
 |---|---|
 | `invalid_url` | Enter a valid http or https URL. |
-| `invalid_alias` | Aliases are 3–32 letters, numbers, hyphens or underscores. |
+| `invalid_alias` | Aliases are 3 to 32 letters, numbers, hyphens or underscores. |
 | `alias_reserved` | That alias is reserved. Try another. |
 | `alias_taken` | That alias is taken. Try another. |
 | anything else | Something went wrong. Please try again. |
 
 ---
 
-## Data model (contract for gray-box tests)
+## Data model
 
-The harness is black-box wherever it can be. Time-window rules (R-STATS-2/3) can't be tested over HTTP alone, because a test can't record a click "yesterday". For those, the harness seeds backdated rows directly. That makes this schema part of the contract:
+Gray-box tests depend on this schema (R-DATA-1..3):
 
 ```sql
-links  (id BIGINT IDENTITY PK, code TEXT UNIQUE NOT NULL, url TEXT NOT NULL,
+links  (id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY, code TEXT UNIQUE NOT NULL, url TEXT NOT NULL,
         is_custom BOOLEAN NOT NULL DEFAULT FALSE, created_at TIMESTAMPTZ NOT NULL DEFAULT now())
-clicks (id BIGINT IDENTITY PK, link_id BIGINT NOT NULL REFERENCES links(id) ON DELETE CASCADE,
+clicks (id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+        link_id BIGINT NOT NULL REFERENCES links(id) ON DELETE CASCADE,
         clicked_at TIMESTAMPTZ NOT NULL DEFAULT now(), referrer_host TEXT, country CHAR(2),
         device TEXT NOT NULL CHECK (device IN ('desktop','mobile','tablet','bot','unknown')))
 INDEX ON clicks (link_id, clicked_at)
 ```
 
-No other tables or columns exist that store request data (R-PRIV-1).
+The harness never supplies `id` values. It may insert `links` rows with an explicit `created_at`, and `clicks` rows with any `clicked_at`, using only R-DATA-2 encodings.
+
+## Verification rules (binding on the harness)
+
+These rules keep the tests deterministic against a shared, live system.
+
+- **Shared database.** The database isn't assumed empty, and the harness never truncates during a run. Tests don't assert absolute `total` values or absolute list positions. They assert the relative order of their own links, and that `total` has grown by at least the number of links they created. Every alias a test uses includes a unique random suffix.
+- **Time.** Tests take "today" from `daily[last].date` or from the database `now()`, never from the harness clock. Seeded timestamps are absolute and anchored to that date (for example `D 00:00:00Z`, or `D-1 23:59:59.999999Z`), never offsets from the current time. A test that depends on the date of a click recorded through the API uses `days ≥ 2`, or retries once if the date changed during the test.
+- **Eventual visibility (R-REDIR-4).** Poll until the click is visible, and fail if it isn't by 2.5 s. Then read again at 4 s or later and assert nothing changed.
+- **Client headers.** Tests set `User-Agent` explicitly, because HTTP clients send their own defaults.
+- **Fuzzing (R-OAS-1).** Schemathesis, version pinned in the harness lockfile, runs with all checks, in positive and negative modes, with a fixed seed recorded in the report and at least 100 examples per operation. It does not follow redirects, and it runs against a **dedicated database**, separate from the functional suites.
+- **Configuration.** The harness tests the default values in "Configuration". The only exception is the R-HEALTH-1 503 phase.
 
 ## Configuration
 
@@ -162,11 +220,12 @@ No other tables or columns exist that store request data (R-PRIV-1).
 |---|---|---|
 | `DATABASE_URL` | api, harness (gray-box) | required. Local: `postgres://matthewnelson@localhost:5432/shortlink` |
 | `PORT` | api | `8080` |
-| `PUBLIC_BASE_URL` | api | `http://localhost:8080` |
+| `PUBLIC_BASE_URL` | api | `http://localhost:8080` (an origin with no trailing slash) |
 | `COUNTRY_HEADER` | api | `cf-ipcountry` |
-| `CORS_ALLOWED_ORIGIN` | api | `http://localhost:3000` |
 | `API_URL` | web (server-side) | `http://localhost:8080` |
 | `TARGET_API` / `TARGET_WEB` | harness | `http://localhost:8080` / `http://localhost:3000` |
 
+The api sends no CORS headers, since no browser calls it cross-origin.
+
 ## Explicitly out of scope (v1)
-Authentication and per-user links, rate limiting, link expiry, editing links, GeoIP lookup, bot filtering from counts, and horizontal scaling. The verification report lists these under "what this does not prove".
+Authentication and per-user links, rate limiting, link expiry, editing links, GeoIP lookup, excluding bots from counts, forwarding query strings, CORS, and horizontal scaling. The verification report lists these under "what this does not prove".

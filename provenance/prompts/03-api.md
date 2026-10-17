@@ -8,7 +8,8 @@ Build the URL-shortener API in Rust so it satisfies `spec/SPEC.md` and `spec/ope
 
 ## Stack
 Add dependencies with `cargo add` so you get current stable versions. Use edition 2024.
-- `axum` and `tokio` (axum 0.8 path syntax, `/{code}`), `tower-http` (cors, trace), `tracing` + `tracing-subscriber`
+- `axum` and `tokio` (axum 0.8 path syntax, `/{code}`), `tower-http` (trace), `tracing` + `tracing-subscriber`. No CORS (see SPEC "Configuration").
+- `url`: this crate implements the WHATWG URL Standard, which SPEC requires.
 - `sqlx` (postgres, runtime-tokio, tls-rustls, macros, migrate, chrono). Use compile-time-checked `query!`/`query_as!` and commit `.sqlx/` from `cargo sqlx prepare` so the build doesn't need a live DB.
 - `serde` (camelCase on API types), `thiserror`, `url`, `rand`, `chrono`
 - Migrations in `impls/api/migrations/`, run on startup. The schema must match SPEC "Data model" exactly, because gray-box tests depend on it.

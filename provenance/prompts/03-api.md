@@ -12,7 +12,7 @@ Add dependencies with `cargo add` so you get current stable versions. Use editio
 - `url`: this crate implements the WHATWG URL Standard, which SPEC requires.
 - `sqlx` (postgres, runtime-tokio, tls-rustls, macros, migrate, chrono). Use compile-time-checked `query!`/`query_as!` and commit `.sqlx/` from `cargo sqlx prepare` so the build doesn't need a live DB.
 - `serde` (camelCase on API types), `thiserror`, `url`, `rand`, `chrono`
-- Migrations in `impls/api/migrations/`, run on startup. The schema must match SPEC "Data model" exactly, because gray-box tests depend on it.
+- Migrations in `impls/api/migrations/`, applied at startup. If the database is unreachable, keep serving `/healthz` (503) and retry; never exit (R-HEALTH-2). The schema must match SPEC "Data model" exactly, because gray-box tests depend on it.
 
 ## Code standards
 - `#![forbid(unsafe_code)]` in `main.rs`. `cargo clippy --all-targets -- -D warnings` and `cargo fmt --check` must pass.

@@ -1,0 +1,15 @@
+# Role: verifier (coordinator session)
+
+Runs in the main repo after `mutants-v1`. Produces the evidence and the report.
+
+1. **Reveal the holdout.** Copy the hidden holdout suite into `harness/holdout/` and commit it after `impl-v1`, with a message stating its source and that it was hidden until now.
+2. **Audit isolation.** Search the implementer agents' transcripts for any access to the holdout location, and the red team's for any access to `harness/`. Record the method and the result.
+3. **Build `tools/`.**
+   - `mutate`: for each patch in `mutants/`, create a temporary worktree at `impl-v1`, apply the patch, build, and start the service on a free port against a fresh database. Run public + holdout + invariants (+ UI for web mutants), record **killed / survived**, and record whether the killing test carries the mutant's requirement ID ("targeted kill") or a different one ("incidental kill").
+   - `trace`: parse every `R-*` ID from `spec/SPEC.md`, join it with the test results (Vitest/Playwright JSON reporters) and `harness/COVERAGE.md`, and mark each ID **verified**, **gray-box verified**, **mutant-verified only**, **failing** or **unverified**.
+   - `report`: write `reports/VERIFICATION.md` and an HTML version with the results table from the README, the traceability matrix, the mutant table, fuzzing stats, public-vs-holdout pass rates, the cargo-mutants score (labeled as implementer-test quality), audit results, the isolation audit, and the "what this does not prove" section from METHOD.md.
+4. **Run everything** and save the raw outputs under `reports/raw/`.
+5. **Gap loop.** For each surviving mutant, describe the missed behavior **in spec terms only** (requirement ID + the observable behavior that went undetected, without the patch) and hand that to a fresh harness-author agent working in a spec-only workspace. Re-run. Log every round in `provenance/LOG.md`. Any real implementation bug found along the way goes to a fresh implementer agent, and the fix is re-verified.
+6. **Make it reproducible.** Add `make verify`, which runs the whole pipeline from a clean clone. Add a GitHub Actions workflow with a Postgres service that runs it on every push, fails if `harness/` changes in the same commit as `impls/`, and publishes the HTML report to GitHub Pages.
+7. **Write the human acceptance checklist.** Write `reports/HUMAN_ACCEPTANCE.md`: a 10–15 step script Matthew runs against the live app, with a place to record pass/fail and notes.
+8. **Update the README** results table with real numbers and tag `verified-v1`.

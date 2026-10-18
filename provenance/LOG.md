@@ -45,6 +45,13 @@ One row per agent run. "Could see" describes the workspace actually given to the
 - `prism.log` was not imported, because it may contain holdout requests.
 - Holdout results and the holdout itself were moved out of the workspace into the seal-2 bundle.
 
+**Prompt updates before `harness-v1` (2026-10-18):**
+- `03-api` no longer tells the implementer to use axum's `Json` and `Query` extractors, which would contradict R-ERR-2 and the query-integer rule. It now names the stack defaults that break SPEC (HEAD runs the GET handler, routing and decoding, logging the client address), adds `API_BIN`/`FUZZ_API`, and requires gray-box tests to run rather than skip.
+- `04-web` requires a client-side R-UI-12 check and a production build.
+- `05-redteam` requires a mutant for every mutant-paired ID.
+- `06-verify` verifies both seals and reports skipped gray-box tests as pending (HP-20).
+- Coordinator's own review against `spec-v1.1`. No agent had used these prompts yet.
+
 **Prompt for run 1:** `provenance/prompts/01-spec-review.md` verbatim, preceded by a header giving the workspace paths, the read restriction and the output location.
 
 ## Planned model assignment

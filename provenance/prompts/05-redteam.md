@@ -25,7 +25,7 @@ Write at least 20 mutants across these categories, and spread them across the re
 - side effects (recorded too often, too rarely, or not at all)
 - UI: accessible names, roles, confirmation flow (at least 3 mutants against `impls/web/`)
 
-Include at least 2 mutants for R-REDIR-6, such as a click-insert failure that breaks or delays the redirect. They must be triggerable; describe how the verifier can trigger the failure.
+Include at least one mutant for every requirement SPEC labels *(mutant-verified)* or pairs with a mutant: R-ERR-7, R-REDIR-6, R-HEALTH-3 (a cached health result), R-ALIAS-5 (lost uniqueness under concurrency) and R-REDIR-5 (lost concurrent clicks). Include at least 2 mutants for R-REDIR-6, such as a click-insert failure that breaks or delays the redirect. They must be triggerable; describe how the verifier can trigger the failure.
 
 ## Done means
 - Every patch applies cleanly to `impl-v1` (`git apply --check`) and the patched program builds.

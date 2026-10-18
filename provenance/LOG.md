@@ -11,6 +11,8 @@ One row per agent run. "Could see" describes the workspace actually given to the
 | 4 | 2026-10-17 | harness | harness author | Opus (fresh context, background subagent) | `tbv-ws/harness/spec/{SPEC.md,openapi.json}` exported from `spec-v1`; npm/PyPI and public docs | repo, reviews, METHOD, other prompts, any implementation (none exists) | public harness (387 tests + fuzz script) imported to `harness/`; holdout (102 tests) sealed outside the repo (`provenance/HOLDOUT_SEAL.md`); 19 proposals (HP-01..19) | subagent transcript (audited) |
 | – | 2026-10-18 | spec amendment | coordinator | claude-opus-5-5 | `PROPOSALS.md` HP-01..19 | — | `spec-v1.1` (commit `5401891`, disposition `spec/reviews/03-*`); Matthew approved amending before any code exists ("sure") | this session |
 | 5 | 2026-10-18 | harness update | harness author (run 4 agent, resumed) | Opus (same agent `a1fa35d76a896a0d7`, resumed from its transcript) | `tbv-ws/harness` with `spec/` replaced by the `spec-v1.1` export and its holdout restored from the seal-1 bundle | repo, reviews, dispositions, METHOD, other prompts | public suite updated (API 346 → 372; R-UI-12 changed); holdout 102 → 105, re-sealed as seal 2; HP-20 | subagent transcript (audited) |
+| 5b | 2026-10-18 | harness review | harness reviewer (sign-off gate) | Fable (fresh context, background subagent) | `tbv-ws/harness-review`: `spec-v1.1` SPEC + openapi, PROPOSALS, HP disposition, public `harness/` at `f6d203e` | repo, holdout, METHOD, other prompts | `spec/reviews/04-fable-harness-review.md`: **BLOCK** (3 blocking, 13 nits), copied unmodified; disposition `04-disposition.md`; `spec-v1.2` | subagent transcript (audited) |
+| 6 | 2026-10-18 | harness update | harness author (resumed) | Opus (`a1fa35d76a896a0d7`) | `tbv-ws/harness` with `spec-v1.2`, `HARNESS_REVIEW.md`, seal-2 holdout restored | repo, dispositions, METHOD, other prompts | *in progress* | subagent transcript |
 
 **Deviation (run 1):** the plan assigned Fable 5.1 to spec review. Matthew chose Opus. The reviewer is therefore the same model family as the spec's author, which raises the risk of shared blind spots for this review. Mitigation: the harness author also reviews the spec in practice (it must interpret every rule), and its interpretations are reported.
 
@@ -51,6 +53,14 @@ One row per agent run. "Could see" describes the workspace actually given to the
 - `05-redteam` requires a mutant for every mutant-paired ID.
 - `06-verify` verifies both seals and reports skipped gray-box tests as pending (HP-20).
 - Coordinator's own review against `spec-v1.1`. No agent had used these prompts yet.
+
+**Sign-off delegation (run 5b):** Matthew: "spawn a review agent. If they give signoff then i approve as well." A BLOCK therefore goes to fixes and re-review, not to tagging.
+
+**Prompt for run 5b:** `provenance/prompts/07-harness-review.md`, passed verbatim inside the agent prompt. Coordinator slip: the first line of the agent prompt named the repo path of that prompt file, then told the agent not to open it. That disclosed where the repo is.
+
+**Isolation audit (run 5b):** 72 tool calls (Read 58, Bash 12, Write 1, hand-back 1), with 72 workspace references detected as a positive control. There were zero paths outside the workspace: the agent did not follow the disclosed repo path. No Bash command used `../`, `$HOME` or the repo name. No web access.
+
+**Coordinator checks on run 5b:** HR-01 and HR-02 were confirmed in the code. HR-03 was tested empirically against a throwaway axum 0.8 server with `DefaultBodyLimit::max(65536)`, through the harness's own `raw()`: 300 of 300 probes were correct at each size (65,536 → 201, 65,537 → 400, 200,000 → 400). It did not reproduce, so it was downgraded to a nit, per the reviewer's own rule.
 
 **Prompt for run 1:** `provenance/prompts/01-spec-review.md` verbatim, preceded by a header giving the workspace paths, the read restriction and the output location.
 

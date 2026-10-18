@@ -24,7 +24,7 @@ export const hasBin = !!API_BIN;
 export const GRAY_SKIP =
   'gray-box: DATABASE_URL is unset, so this test is skipped (set DATABASE_URL to the api database to run it)';
 export const SPAWN_SKIP =
-  'gray-box: API_BIN is unset, so this spawned-instance test is skipped (set API_BIN to the api executable to run it)';
+  'pending (gray-box): API_BIN is unset, so this spawned-instance test is not run (set API_BIN to the command that starts the api)';
 
 /** Explicit client User-Agent (SPEC "Client headers"); R-CLICK-3 classifies it as desktop. */
 export const UA = 'ShortlinkAcceptance/1.0 (Macintosh; harness)';

@@ -162,3 +162,26 @@ describe('URL validation', () => {
     },
   );
 });
+
+describe('URL validation: leading C0 controls (spec-v1.1)', () => {
+  test('[R-URL-5][R-URL-1][R-REDIR-1] normative: "\\u000Bhttps://example.com/x" (leading vertical tab) is valid -> https://example.com/x', async () => {
+    const r = await create({ url: '\u000Bhttps://example.com/x' });
+    expect(r.status, r.text).toBe(201);
+    expectNewLink(r.json, { url: 'https://example.com/x' });
+    const g = await follow(r.json.code);
+    expect(g.status).toBe(302);
+    expect(g.headers['location']).toBe('https://example.com/x');
+  });
+
+  test('[R-URL-3][R-URL-1] a leading U+000B counts toward the limit: 2048 code points including it -> 201; 2049 -> 422', async () => {
+    const prefix = `\u000Bhttps://example.com/vt/${uid()}/`;
+    const ok = urlOfLength(2048, prefix);
+    const r = await create({ url: ok });
+    expect(r.status, r.text.slice(0, 200)).toBe(201);
+    expect(r.json.url).toBe(whatwg(ok.slice(1)));
+    const bad = urlOfLength(2049, prefix);
+    expectError(await create({ url: bad }), 422, 'invalid_url');
+    // Without the U+000B the same 2048 characters are fine, so the 422 above is the vertical tab counting.
+    expect((await create({ url: bad.slice(1) })).status).toBe(201);
+  });
+});

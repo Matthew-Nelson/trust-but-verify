@@ -4,3 +4,5 @@ test-results/
 playwright-report/
 fuzz/out/
 schemathesis-report/
+.hypothesis/
+.schemathesis/

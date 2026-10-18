@@ -1,6 +1,6 @@
 # Shortlink acceptance harness
 
-An independent acceptance suite for `../spec/SPEC.md` and `../spec/openapi.json` (tag `spec-v1`). It tests the spec, not an implementation. Every test title starts with the requirement ID(s) it checks, for example `[R-STATS-2][gray-box] ...`. `COVERAGE.md` maps every SPEC ID to its tests, and `SELF_CHECK.md` shows that the tests fail when nothing correct is running.
+An independent acceptance suite for `../spec/SPEC.md` and `../spec/openapi.json` (tag `spec-v1.1`). It tests the spec, not an implementation. Every test title starts with the requirement ID(s) it checks, for example `[R-STATS-2][gray-box] ...`. `COVERAGE.md` maps every SPEC ID to its tests, and `SELF_CHECK.md` shows that the tests fail when nothing correct is running.
 
 ## Setup
 
@@ -35,7 +35,7 @@ You need Node 22 or later and pnpm. `pnpm fuzz` also needs `uv`/`uvx`; Schemathe
 | `PUBLIC_BASE_URL` | `http://localhost:8080` | what the api was started with (R-LINK-4 `shortUrl`, R-URL-4 own-host check) |
 | `COUNTRY_HEADER` | `cf-ipcountry` | what the api was started with (R-CLICK-2) |
 | `DATABASE_URL` | unset | gray-box: seeding backdated clicks, reading stored encodings and schema. **Leave it unset and gray-box tests skip.** Never point it at a database you care about: tests insert rows. |
-| `API_BIN` | unset | gray-box: path or command for the api executable. The harness then starts its own instances on free ports, with `DATABASE_URL` pointed at a harness-owned TCP listener, for R-HEALTH-1 (the 503 branch), R-HEALTH-2 and R-HEALTH-3, and captures stdout/stderr for R-PRIV-1. |
+| `API_BIN` | unset | gray-box: the command that starts the api (SPEC Configuration). Tests that need it skip with a note beginning `pending` when it is unset. The harness then starts its own instances on free ports, with `DATABASE_URL` pointed at a harness-owned TCP listener, for R-HEALTH-1 (the 503 branch), R-HEALTH-2 and R-HEALTH-3, and captures stdout/stderr for R-PRIV-1. |
 | `FUZZ_API` | falls back to `TARGET_API`, with a warning | dedicated api instance for `pnpm fuzz` |
 | `FUZZ_SEED`, `FUZZ_MAX_EXAMPLES` | `20261017`, `100` | fuzz run parameters |
 | `HOLDOUT_DIR`, `HOLDOUT_SKIP_UI` | `../holdout`, unset | holdout runner |

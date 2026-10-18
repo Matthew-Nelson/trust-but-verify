@@ -1,4 +1,5 @@
 import { GRAY_SKIP, PUBLIC_BASE_URL, TARGET_WEB, hasDb } from '../../lib/config.ts';
+import type { Request } from '@playwright/test';
 import { api } from '../../lib/http.ts';
 import { alias, createOk, follow, getLink, uid, uurl, waitForClickCount } from '../../lib/links.ts';
 import { db, dbNow, seedClicks } from '../../lib/db.ts';
@@ -220,20 +221,24 @@ test.describe('home page /', () => {
     expect(dialogs, 'native dialogs were opened').toEqual([]);
   });
 
-  test('[R-UI-12] an empty or whitespace-only destination shows the invalid_url alert and sends no network request', async ({ page }) => {
+  test('[R-UI-12] an empty or whitespace-only destination shows the invalid_url alert; submitting causes no navigation and no non-GET/HEAD request', async ({ page }) => {
     for (const value of ['', '  \t  ']) {
       await page.goto('/');
       await page.waitForLoadState('networkidle');
-      const requests: string[] = [];
-      const onReq = (r: { method(): string; url(): string }) => requests.push(`${r.method()} ${r.url()}`);
-      page.on('request', onReq);
       const f = form(page);
       await f.dest.fill(value);
+      // Capture from activating "Shorten" until 1 s after the alert appears (SPEC R-UI-12, spec-v1.1).
+      const offending: string[] = [];
+      const onReq = (r: Request) => {
+        if (r.isNavigationRequest()) offending.push(`navigation ${r.method()} ${r.url()}`);
+        else if (r.method() !== 'GET' && r.method() !== 'HEAD') offending.push(`${r.method()} ${r.url()}`);
+      };
+      page.on('request', onReq);
       await f.shorten.click();
       await expect(alertRegion(page)).toHaveText(MSG.invalid_url);
       await page.waitForTimeout(1000);
       page.off('request', onReq);
-      expect(requests, `requests after submitting ${JSON.stringify(value)}`).toEqual([]);
+      expect(offending, `requests after submitting ${JSON.stringify(value)}`).toEqual([]);
     }
   });
 });

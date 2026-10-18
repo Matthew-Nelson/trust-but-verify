@@ -29,3 +29,12 @@ These are problems found in `spec/SPEC.md` / `spec/openapi.json` (spec-v1) while
 | HP-17 | **openapi.json** puts `format: "uri"` on `Link.shortUrl` and on the HEAD `/{code}` `Location` header (the GET one has none). SPEC says WHATWG serializations aren't always RFC 3986 and that format validation is off for URL-valued fields. | Remove `format: "uri"` from those two places. | `pnpm fuzz` strips `format: "uri"` from a derived copy and keeps date/date-time format checks. |
 | HP-18 | **openapi.json** documents no `405` responses and no `404` for unmatched `/api/...` paths, though R-ERR-6 makes both normative. Schemathesis conformance checks therefore rely on SPEC text for them. | Document 405 (with `Allow`) on each operation, or note it in the description. | No change. The harness tests these directly (R-ERR-6). |
 | HP-19 | The harness brief asked for R-ALIAS-5 with 50 concurrent requests, but SPEC says N=20 (the coordinator confirmed SPEC wins). | No spec change. Noted for the record. | N=20, run 3 times. |
+
+## From harness run 5 (2026-10-18), copied verbatim
+
+| ID | Problem | Suggested change | Harness interpretation today |
+|---|---|---|---|
+| HP-20 | **Configuration / `API_BIN`**: "Tests that need it are reported as pending when it is unset." Vitest has no separate "pending" status for a test skipped at runtime, so its JSON report shows them as `skipped`, the same as tests skipped for a missing `DATABASE_URL`. | Allow "skipped, with a note saying pending", or have the verification report map these tests to "pending" by note text. | Tests that need `API_BIN` skip with a note that starts `pending (gray-box): API_BIN is unset ...`, so a report can tell them apart from `DATABASE_URL` skips (`gray-box: DATABASE_URL is unset ...`). |
+
+**Coordinator disposition (2026-10-18): no spec change.** "Reported as pending" is a rule for the verification report, not for the test runner. The report generator (phase 6) will show every skipped gray-box test as *pending*, never as passed, and will use the note prefix to say which variable was missing.
+

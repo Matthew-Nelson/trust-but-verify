@@ -1,5 +1,52 @@
 # Self-check: the tests can fail
 
+## Run 5 update (spec-v1.1, 2026-10-18)
+
+26 public API tests were added (HP-05 percent-decoded `/{code}`: 3; HP-06 encoded dot segments: 21; HP-07 leading U+000B: 2), and R-UI-12 was changed for HP-10. The whole API suite was re-run against both targets. **0 of 372 API tests pass against either target.**
+
+| Target | API tests | Failed | Passed | Skipped (gray-box) | Failure causes |
+|---|---|---|---|---|---|
+| (a) nothing listening | 372 | 355 | **0** | 17 | 355 connection refused |
+| (b) Prism, strict | 372 | 355 | **0** | 17 | 172 own assertion, 173 setup echo check, 10 R-ERR-1 envelope |
+| (b) Prism, lenient | 372 | 355 | **0** | 17 | 304 own assertion, 28 R-ERR-1 envelope, 23 connection error (Prism crash/reset) |
+
+How each of the 26 new tests fails:
+
+- **(a) nothing listening:** connection refused, all 26.
+- **(b) Prism, strict:** the 24 new redirect/route tests fail the setup echo check, because they need a real link. The 2 U+000B tests fail on their own assertions.
+- **(b) Prism, lenient:**
+  - 17 fail on their own assertions. Prism normalizes decoded dot segments, so `GET /api/x/%2e%2e/links/{code}`, `/api/%2E%2E/healthz` and `/api/links/{code}/%2e%2e/{code}` return 200, and `/x/%2E%2E/{code}` and `/%2e/{code}` return 302. Other failures: `/%2e` gets a 422, the 302 `Location` is not the created URL, and the stored URL is not the requested one.
+  - 7 fail as R-ERR-1 envelope violations (Prism's `application/problem+json` 404/422).
+  - 2 (the encoded-HEAD and encoded-unknown-code tests) hit a Prism crash. Re-run alone in lenient mode, all 3 `R-REDIR-3` tests failed on their own assertions.
+- **R-UI-12 (changed):** fails with nothing listening and with `TARGET_WEB` pointed at Prism, where the form is missing. The rest of the UI suite: 33 failed, 0 passed, 2 skipped (gray-box) with nothing listening.
+
+Per file, run 5 (failed / passed):
+
+| File | Tests | Gray-box skipped | (a) nothing | (b) strict | (b) lenient |
+|---|---|---|---|---|---|
+| `tests/api/alias.test.ts` | 42 | 0 | 42 / 0 | 42 / 0 | 42 / 0 |
+| `tests/api/click.test.ts` | 57 | 0 | 57 / 0 | 57 / 0 | 57 / 0 |
+| `tests/api/create.test.ts` | 16 | 0 | 16 / 0 | 16 / 0 | 16 / 0 |
+| `tests/api/data.graybox.test.ts` | 4 | 4 | 0 / 0 | 0 / 0 | 0 / 0 |
+| `tests/api/errors.test.ts` | 83 | 0 | 83 / 0 | 83 / 0 | 83 / 0 |
+| `tests/api/health.test.ts` | 1 | 0 | 1 / 0 | 1 / 0 | 1 / 0 |
+| `tests/api/list.test.ts` | 9 | 1 | 8 / 0 | 8 / 0 | 8 / 0 |
+| `tests/api/read-delete.test.ts` | 6 | 0 | 6 / 0 | 6 / 0 | 6 / 0 |
+| `tests/api/redirect.test.ts` | 11 | 0 | 11 / 0 | 11 / 0 | 11 / 0 |
+| `tests/api/routes.test.ts` | 69 | 0 | 69 / 0 | 69 / 0 | 69 / 0 |
+| `tests/api/spawned.graybox.test.ts` | 5 | 5 | 0 / 0 | 0 / 0 | 0 / 0 |
+| `tests/api/stats.graybox.test.ts` | 7 | 7 | 0 / 0 | 0 / 0 | 0 / 0 |
+| `tests/api/stats.test.ts` | 14 | 0 | 14 / 0 | 14 / 0 | 14 / 0 |
+| `tests/api/url.test.ts` | 48 | 0 | 48 / 0 | 48 / 0 | 48 / 0 |
+
+Holdout, run 5: 90 Vitest tests (2 gray-box) + 15 Playwright, with 3 new tests and 1 changed. Results: (a) 88 failed / 0 passed; (b) strict 88 failed / 0 passed; (b) lenient 88 failed / 0 passed; UI with nothing listening 15 failed / 0 passed. Each new or changed holdout test fails against both targets.
+
+Invariants (6 tests) were not changed, so the run-1 results below still apply.
+
+The rest of this file is the original run-1 record against spec-v1. The tables below show the counts from that run.
+
+---
+
 No implementation exists, so every behavioral test should fail. Each suite was run against two targets:
 
 - **(a) nothing listening** (`TARGET_API=http://127.0.0.1:59999`, `TARGET_WEB=http://127.0.0.1:59998`)

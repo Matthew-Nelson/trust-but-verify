@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { api, rawSocket, cacheDirectives } from '../../lib/http.ts';
+import { api, raw, rawSocket, cacheDirectives } from '../../lib/http.ts';
 import { alias, createOk, enc, follow, getLinkOk, getStatsOk, sleepUntil, uid, uurl, waitForClickCount } from '../../lib/links.ts';
 import { expectPlain404 } from '../../lib/assert.ts';
 
@@ -99,5 +99,54 @@ describe('GET /{code}', () => {
       expect(r.status, q).toBe(302);
       expect(r.headers['location'], q).toBe(l.url);
     }
+  });
+});
+
+describe('R-REDIR-3 percent-decoding of /{code} (spec-v1.1)', () => {
+  test('[R-REDIR-3][R-REDIR-1][R-REDIR-4] GET on a percent-encoded known code (/pct%2Dx) -> 302 to its URL, and records exactly one click', async () => {
+    const id = uid();
+    const a = `pct-${id}`;
+    const l = await createOk({ url: uurl('r3d'), alias: a });
+    const r = await raw('GET', `/pct%2D${id}`);
+    expect(r.status).toBe(302);
+    expect(r.headers['location']).toBe(l.url);
+    expect(cacheDirectives(r)).toContain('no-store');
+    await waitForClickCount(a, 1, r.headersAt);
+    // Lower-case hex and an encoded letter decode to the same code.
+    const r2 = await raw('GET', `/%70ct%2d${id}`);
+    expect(r2.status).toBe(302);
+    expect(r2.headers['location']).toBe(l.url);
+    await waitForClickCount(a, 2, r2.headersAt);
+    await sleepUntil(r2.headersAt, 4000);
+    expect((await getLinkOk(a)).clickCount).toBe(2);
+  });
+
+  test('[R-REDIR-3][R-REDIR-7] HEAD on a percent-encoded known code -> 302 with the same Location and Cache-Control as GET, no body, and no click', async () => {
+    const id = uid();
+    const a = `pch-${id}`;
+    const l = await createOk({ url: uurl('r3h'), alias: a });
+    const h = await raw('HEAD', `/pch%2D${id}`);
+    expect(h.status).toBe(302);
+    expect(h.headers['location']).toBe(l.url);
+    const sock = await rawSocket('HEAD', `/%70ch-${id}`);
+    expect(sock.status).toBe(302);
+    expect(sock.afterHeaders.length).toBe(0);
+    await sleepUntil(h.headersAt, 2500);
+    expect((await getLinkOk(a)).clickCount).toBe(0);
+    const g = await raw('GET', `/pch%2D${id}`);
+    expect(h.headers['cache-control']).toBe(g.headers['cache-control']);
+    await waitForClickCount(a, 1, g.headersAt);
+  });
+
+  test('[R-REDIR-3] a percent-encoded unknown code -> 404 text/plain; decoding happens only once', async () => {
+    const id = uid();
+    const a = `pcu-${id}`;
+    await createOk({ url: uurl('r3u'), alias: a });
+    expectPlain404(await raw('GET', `/nope%2D${id}`));
+    expectPlain404(await raw('HEAD', `/nope%2D${id}`));
+    // Double-encoded: one decode gives "pcu%2D…", which is not the code.
+    expectPlain404(await raw('GET', `/pcu%252D${id}`));
+    // The single-encoded form of the same code does redirect.
+    expect((await raw('GET', `/pcu%2D${id}`)).status).toBe(302);
   });
 });

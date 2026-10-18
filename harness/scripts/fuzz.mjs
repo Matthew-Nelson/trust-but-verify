@@ -5,7 +5,8 @@
 //   - positive and negative modes (--mode all), fixed seed, >= 100 examples per operation
 //   - redirects are not followed (--max-redirects 0)
 //   - format validation off for URL-valued fields: `format: uri` is stripped from a derived copy of the
-//     schema (Schemathesis only offers a global switch, and date/date-time formats must stay checked)
+//     schema (Schemathesis only offers a global switch, and date/date-time formats must stay checked;
+//     openapi v1.1 no longer carries any `format: uri`, so the strip is kept only as a guard)
 //   - run against a DEDICATED api instance + database: FUZZ_API (falls back to TARGET_API with a warning)
 import { spawnSync } from 'node:child_process';
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';

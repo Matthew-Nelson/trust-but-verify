@@ -109,3 +109,73 @@ describe('R-ROUTE-3 nothing at / or reserved paths', () => {
     expect(mediaType(r)).toBe('text/plain');
   });
 });
+
+describe('R-ROUTE-2 encoded dot segments (spec-v1.1)', () => {
+  const never = [200, 302, 405];
+
+  test.each([
+    '/api/links/%2e',
+    '/api/links/%2E%2E',
+    '/api/links/.%2E',
+    '/api/links/%2e.',
+    '/api/%2e/links',
+    '/api/%2E%2E/healthz',
+    '/api/links/%2e%2e/links',
+    '/api/links/{code}/%2e',
+    '/api/links/{code}/%2e%2e/{code}',
+    '/api/links/{code}/stats/.%2e',
+    '/api/links/%2e%2e/%2e%2e/healthz',
+  ])('[R-ROUTE-2] GET %s -> 404 not_found (never 200/302/405)', async (p) => {
+    const r = await raw('GET', p.replaceAll('{code}', enc((await getLink()).code)));
+    expect(never).not.toContain(r.status);
+    expectError(r, 404, 'not_found');
+    expect(r.headers['location']).toBeUndefined();
+  });
+
+  test.each(['/%2e', '/%2E%2E', '/.%2e', '/%2e/{code}', '/x/%2E%2E/{code}', '/{code}/%2e', '/y/.%2E/{code}', '/%2e%2e/{code}'])(
+    '[R-ROUTE-2] GET %s -> 404 text/plain (never 200/302/405)',
+    async (p) => {
+      const r = await raw('GET', p.replaceAll('{code}', enc((await getLink()).code)));
+      expect(never).not.toContain(r.status);
+      expectPlain404(r);
+    },
+  );
+
+  test('[R-ROUTE-2][R-ERR-6] encoded dot-segment paths are unmatched for every method: PUT /api/links/%2e%2e -> 404 not_found', async () => {
+    const code = enc((await getLink()).code);
+    for (const [m, p] of [
+      ['PUT', '/api/links/%2e%2e'],
+      ['POST', '/api/links/%2e'],
+      ['DELETE', `/api/links/%2E%2E/links/${code}`],
+      ['PATCH', `/api/links/${code}/%2e`],
+      ['HEAD', '/api/links/.%2E'],
+      ['OPTIONS', '/api/%2e%2e/healthz'],
+    ]) {
+      const r = await raw(m, p);
+      expect(never, `${m} ${p}`).not.toContain(r.status);
+      expect(r.status, `${m} ${p}`).toBe(404);
+      expect(mediaType(r), `${m} ${p}`).toBe('application/json');
+      if (m !== 'HEAD') expect(r.json?.error?.code).toBe('not_found');
+    }
+    for (const m of ['POST', 'DELETE', 'PUT']) {
+      const r = await raw(m, `/x/%2E%2E/${code}`);
+      expect(never, `${m} /x/%2E%2E/{code}`).not.toContain(r.status);
+      expectPlain404(r);
+    }
+  });
+
+  test('[R-ROUTE-2] decode-then-normalize would land on a real link, but the path is still unmatched: 404 and nothing deleted', async () => {
+    const l = await createOk({ url: uurl('dots'), alias: alias('dots') });
+    const c = enc(l.code);
+    const viaApi = await raw('GET', `/api/x/%2e%2e/links/${c}`);
+    expectError(viaApi, 404, 'not_found');
+    expectError(await raw('GET', `/api/links/x/%2E%2E/${c}/stats`), 404, 'not_found');
+    expectError(await raw('DELETE', `/api/x/%2e%2e/links/${c}`), 404, 'not_found');
+    const viaRoot = await raw('GET', `/x/%2E%2E/${c}`);
+    expectPlain404(viaRoot);
+    expect(viaRoot.headers['location']).toBeUndefined();
+    expectPlain404(await raw('GET', `/%2e/${c}`));
+    const g = await getLinkOk(l.code);
+    expect(g.url).toBe(l.url);
+  });
+});

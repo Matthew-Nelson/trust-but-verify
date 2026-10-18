@@ -7,7 +7,7 @@
 Build the URL-shortener API in Rust so it satisfies `spec/SPEC.md` and `spec/openapi.json` (tag `spec-v1.1`). Where this prompt and SPEC disagree, SPEC wins. An independent harness in `harness/` checks it. You may run the harness but not change it. A hidden holdout suite tests **the same requirements with different inputs**, so implement the rules generally. Code that special-cases test inputs will be caught. Later, a red team will read your code to plant realistic bugs, and the harness will be judged on catching them.
 
 ## Stack
-Add dependencies with `cargo add` so you get current stable versions. Use edition 2024.
+Add dependencies with `cargo add` so you get current stable versions. Use edition 2024. Pin the compiler with `impls/api/rust-toolchain.toml` (the exact stable version you build with, plus `clippy` and `rustfmt` components), so CI and anyone cloning the repo use the same toolchain.
 - `axum` and `tokio` (axum 0.8 path syntax, `/{code}`), `tower-http` (trace), `tracing` + `tracing-subscriber`. No CORS (see SPEC "Configuration").
 - `url`: this crate implements the WHATWG URL Standard, which SPEC requires.
 - `sqlx` (postgres, runtime-tokio, tls-rustls, macros, migrate, chrono). Use compile-time-checked `query!`/`query_as!` and commit `.sqlx/` from `cargo sqlx prepare` so the build doesn't need a live DB.

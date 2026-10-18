@@ -1,6 +1,6 @@
 // Shared UI fixtures. Elements are selected only by role and accessible name (R-UI contract).
 import { test as base, expect, type Locator, type Page } from '@playwright/test';
-import { TARGET_WEB } from '../../lib/config.ts';
+import { PUBLIC_BASE_URL, TARGET_WEB } from '../../lib/config.ts';
 import { createOk, getLinkOk, type Link } from '../../lib/links.ts';
 
 /** R-UI-11: every UI test records browser requests and fails if any targets an /api/ path. */
@@ -63,7 +63,8 @@ export async function columnHeaders(table: Locator): Promise<string[]> {
 
 /** createdAt in UTC as YYYY-MM-DD HH:MM, seconds truncated (R-UI-5). */
 export function formatCreated(createdAt: string): string {
-  return `${createdAt.slice(0, 10)} ${createdAt.slice(11, 16)}`;
+  // Parsed as an instant, rendered in UTC; slicing to minutes truncates the seconds.
+  return new Date(createdAt).toISOString().slice(0, 16).replace('T', ' ');
 }
 
 /** Codes of the body rows of "Your links", in order, read from each row's "Stats for {code}" link href. */
@@ -93,11 +94,22 @@ export async function gotoWithLink(page: Page, body: { url: string; alias?: stri
   return l;
 }
 
+const escapeRegExp = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+/**
+ * The success short link inside the status region: the link whose accessible name starts with
+ * PUBLIC_BASE_URL + "/" (R-UI-3). Other links in the region (e.g. "View stats") are ignored.
+ */
+export function shortLinkIn(page: Page): Locator {
+  return statusRegion(page).getByRole('link', { name: new RegExp(`^${escapeRegExp(PUBLIC_BASE_URL)}/`) });
+}
+
 /** Read the short code from the success status link. */
 export async function createdCode(page: Page): Promise<{ code: string; shortUrl: string }> {
-  const link = statusRegion(page).getByRole('link');
+  const link = shortLinkIn(page);
   await expect(link).toHaveCount(1);
   const shortUrl = (await link.getAttribute('href'))!;
+  expect(shortUrl.startsWith(`${PUBLIC_BASE_URL}/`), `short link href ${shortUrl}`).toBe(true);
   return { code: decodeURIComponent(new URL(shortUrl).pathname.slice(1)), shortUrl };
 }
 

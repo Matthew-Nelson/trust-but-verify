@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Independent acceptance harness for the Shortlink spec (spec-v1).",
+  "description": "Independent acceptance harness for the Shortlink spec (spec-v1.2).",
   "scripts": {
     "test:api": "vitest run --config vitest.api.config.ts",
     "test:invariants": "vitest run --config vitest.invariants.config.ts",

@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright';
 import type { Page } from '@playwright/test';
 import { alias, createOk, enc, uid, uurl } from '../../lib/links.ts';
-import { alertRegion, expect, form, gotoWithLink, rowFor, statusRegion, test } from './fixtures.ts';
+import { alertRegion, expect, form, gotoWithLink, rowFor, shortLinkIn, test } from './fixtures.ts';
 
 /** R-UI-10: default axe rules, zero serious or critical violations. */
 async function expectNoSeriousViolations(page: Page, state: string): Promise<void> {
@@ -21,7 +21,7 @@ test.describe('accessibility', () => {
     await page.goto('/');
     await form(page).dest.fill(uurl('a11y'));
     await form(page).shorten.click();
-    await expect(statusRegion(page).getByRole('link')).toHaveCount(1);
+    await expect(shortLinkIn(page)).toHaveCount(1);
     await expectNoSeriousViolations(page, 'after success');
   });
 

@@ -1,7 +1,7 @@
 import { randomInt } from 'node:crypto';
 import { describe, expect, test } from 'vitest';
 import { alias, create, createOk, follow, getLink, getLinkOk, uid, uurl, RESERVED } from '../../lib/links.ts';
-import { expectError, expectNewLink } from '../../lib/assert.ts';
+import { expectError, expectNewLink, expectSameInstant } from '../../lib/assert.ts';
 
 const ALIAS_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-';
 const randAlias = (n: number) => Array.from({ length: n }, () => ALIAS_CHARS[randomInt(ALIAS_CHARS.length)]).join('');
@@ -106,7 +106,7 @@ describe('alias validation', () => {
     expectError(await create({ url: first.url, alias: a }), 409, 'alias_taken', [a]);
     const g = await getLinkOk(a);
     expect(g.url).toBe(first.url);
-    expect(g.createdAt).toBe(first.createdAt);
+    expectSameInstant(g.createdAt, first.createdAt, 'createdAt');
   });
 
   test('[R-ALIAS-3] an alias equal to an existing generated code -> 409 alias_taken', async () => {

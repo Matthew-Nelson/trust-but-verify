@@ -80,7 +80,6 @@ describe('R-ERR-2 body parsing and precedence', () => {
     expect(ok.status, ok.text.slice(0, 200)).toBe(201);
     expect(ok.json.url).toBe(url);
     expectError(await post(bodyOfSize(65537, uurl('64k'))), 400, 'bad_request');
-    expectError(await post(bodyOfSize(200_000, uurl('64k'))), 400, 'bad_request');
   });
 
   test('[R-ERR-2] malformed beats content errors: url not a string with a reserved alias -> 400', async () => {

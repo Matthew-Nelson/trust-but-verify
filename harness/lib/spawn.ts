@@ -81,7 +81,7 @@ export type ProxyMode = 'refuse' | 'blackhole' | 'forward';
 /**
  * A harness-owned TCP listener standing in for Postgres.
  * - refuse:    accept and immediately close every connection
- * - blackhole: accept and never respond; existing forwarded connections are frozen too
+ * - blackhole: accept and never respond; existing forwarded connections are unpiped and frozen too
  * - forward:   pipe to the real database
  */
 export class TcpProxy {
@@ -102,8 +102,14 @@ export class TcpProxy {
     this.mode = mode;
     for (const c of this.conns) {
       if (mode === 'blackhole') {
+        // unpipe() both directions first: a piped source is resumed on the destination's 'drain',
+        // which would silently re-enable forwarding.
+        if (c.upstream) {
+          c.client.unpipe(c.upstream);
+          c.upstream.unpipe(c.client);
+          c.upstream.pause();
+        }
         c.client.pause();
-        c.upstream?.pause();
       } else if (prev === 'blackhole') {
         // Drop frozen connections so the api's pool reconnects cleanly.
         c.client.destroy();

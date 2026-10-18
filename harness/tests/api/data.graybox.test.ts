@@ -61,7 +61,10 @@ describe('storage (gray-box)', () => {
         ORDER BY table_name, ordinal_position`,
     );
     const shape = cols.map((c: any) => [c.table_name, c.column_name, c.data_type, c.is_nullable, c.is_identity === 'YES' ? c.identity_generation : '', c.character_maximum_length]);
-    expect(shape).toEqual([
+    // Compared as a set: column order is not observable and no rule depends on it.
+    const key = (r: unknown[]) => `${r[0]}.${r[1]}`;
+    const sorted = (rows: unknown[][]) => [...rows].sort((a, b) => key(a).localeCompare(key(b)));
+    expect(sorted(shape)).toEqual(sorted([
       ['clicks', 'id', 'bigint', 'NO', 'ALWAYS', null],
       ['clicks', 'link_id', 'bigint', 'NO', '', null],
       ['clicks', 'clicked_at', 'timestamp with time zone', 'NO', '', null],
@@ -73,7 +76,7 @@ describe('storage (gray-box)', () => {
       ['links', 'url', 'text', 'NO', '', null],
       ['links', 'is_custom', 'boolean', 'NO', '', null],
       ['links', 'created_at', 'timestamp with time zone', 'NO', '', null],
-    ]);
+    ]));
     const def = (t: string, c: string) => cols.find((x: any) => x.table_name === t && x.column_name === c)!.column_default ?? '';
     expect(def('links', 'is_custom')).toMatch(/^false$/i);
     expect(def('links', 'created_at')).toMatch(/now\(\)|CURRENT_TIMESTAMP/i);
@@ -130,7 +133,10 @@ describe('storage (gray-box)', () => {
     const r = await followRaw(l.code, []);
     await waitForRangeClicks(l.code, 1, r.headersAt);
     const rows = await db().query(`SELECT row_to_json(c)::text AS j FROM clicks c WHERE link_id = $1`, [await linkId(l.code)]);
-    for (const row of rows.rows) for (const form of addressForms(addr)) expect(row.j, `client address ${form} stored`).not.toContain(form);
-    await ctx.annotate(`R-PRIV-1: searched click rows for client address ${addr} (${addressForms(addr).join(', ')})`);
+    // fetch/node:http may resolve "localhost" to the other address family than our probe did: search both.
+    const families = new URL(TARGET_API).hostname === 'localhost' ? [addr, '127.0.0.1', '::1'] : [addr];
+    const forms = [...new Set(families.flatMap(addressForms))];
+    for (const row of rows.rows) for (const form of forms) expect(row.j, `client address ${form} stored`).not.toContain(form);
+    await ctx.annotate(`R-PRIV-1: searched click rows for ${forms.join(', ')} (probe connection came from ${addr})`);
   });
 });

@@ -156,17 +156,18 @@ describe('stats with seeded clicks (gray-box)', () => {
 
   test('[R-DATA-2][gray-box] the api reports stored values unchanged, mapping NULL to direct/unknown', async (ctx) => {
     ctx.skip(!hasDb, GRAY_SKIP);
-    const { today: D } = await dbNow();
-    const l = await createOk({ url: uurl('gv') });
-    const at = D + 'T01:00:00Z';
-    await seedClicks(l.code, [
-      { at, referrer: 'xn--bcher-kva.example', country: 'ZZ', device: 'bot', count: 3 },
-      { at, referrer: null, country: null, device: 'unknown', count: 2 },
-      { at, referrer: '[::1]', country: 'QX', device: 'mobile' },
-    ]);
-    const s = await getStatsOk(l.code, '?days=1');
-    expect(s.topReferrers).toEqual([{ name: 'xn--bcher-kva.example', clicks: 3 }, { name: 'direct', clicks: 2 }, { name: '[::1]', clicks: 1 }]);
-    expect(s.topCountries).toEqual([{ name: 'ZZ', clicks: 3 }, { name: 'unknown', clicks: 2 }, { name: 'QX', clicks: 1 }]);
-    expect(s.devices).toEqual([{ name: 'bot', clicks: 3 }, { name: 'unknown', clicks: 2 }, { name: 'mobile', clicks: 1 }]);
+    await anchoredToToday(async (D) => {
+      const l = await createOk({ url: uurl('gv') });
+      const at = D + 'T01:00:00Z';
+      await seedClicks(l.code, [
+        { at, referrer: 'xn--bcher-kva.example', country: 'ZZ', device: 'bot', count: 3 },
+        { at, referrer: null, country: null, device: 'unknown', count: 2 },
+        { at, referrer: '[::1]', country: 'QX', device: 'mobile' },
+      ]);
+      const s = await getStatsOk(l.code, '?days=1');
+      expect(s.topReferrers).toEqual([{ name: 'xn--bcher-kva.example', clicks: 3 }, { name: 'direct', clicks: 2 }, { name: '[::1]', clicks: 1 }]);
+      expect(s.topCountries).toEqual([{ name: 'ZZ', clicks: 3 }, { name: 'unknown', clicks: 2 }, { name: 'QX', clicks: 1 }]);
+      expect(s.devices).toEqual([{ name: 'bot', clicks: 3 }, { name: 'unknown', clicks: 2 }, { name: 'mobile', clicks: 1 }]);
+    });
   });
 });

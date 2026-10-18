@@ -1,7 +1,7 @@
 // R-UI-11 is enforced on every UI test by the auto fixture in fixtures.ts. This test walks a whole
 // journey (create, stats, days switch, delete, error) so the check sees every UI code path at least once.
 import { alias, enc, uurl } from '../../lib/links.ts';
-import { alertRegion, expect, form, rowFor, statusRegion, test } from './fixtures.ts';
+import { alertRegion, expect, form, rowFor, shortLinkIn, test } from './fixtures.ts';
 
 test('[R-UI-11] a full create -> stats -> delete -> error journey sends no browser request to /api/', async ({ page, apiRequests }) => {
   const seen: string[] = [];
@@ -11,7 +11,7 @@ test('[R-UI-11] a full create -> stats -> delete -> error journey sends no brows
   await form(page).dest.fill(uurl('net'));
   await form(page).alias.fill(a);
   await form(page).shorten.click();
-  await expect(statusRegion(page).getByRole('link')).toHaveCount(1);
+  await expect(shortLinkIn(page)).toHaveCount(1);
   await page.getByRole('link', { name: `Stats for ${a}`, exact: true }).click();
   await expect(page).toHaveURL(new RegExp(`/links/${enc(a)}`));
   await page.getByRole('link', { name: '7 days', exact: true }).click();

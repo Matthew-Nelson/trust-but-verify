@@ -38,3 +38,11 @@ These are problems found in `spec/SPEC.md` / `spec/openapi.json` (spec-v1) while
 
 **Coordinator disposition (2026-10-18): no spec change.** "Reported as pending" is a rule for the verification report, not for the test runner. The report generator (phase 6) will show every skipped gray-box test as *pending*, never as passed, and will use the note prefix to say which variable was missing.
 
+## From harness run 6 (2026-10-18), copied verbatim
+
+| ID | Problem | Suggested change | Harness interpretation today |
+|---|---|---|---|
+| HP-21 | **R-PRIV-1** (log search) doesn't say what to do when the client address coincides with the `DATABASE_URL` host (for example both are `127.0.0.1`). A correct api may log its database host on reconnect, which the search would read as a logged client IP. | Add: "forms equal to the `DATABASE_URL` host are excluded from the search and reported." | Excludes forms equal to the `DATABASE_URL` host and annotates which were excluded (HR-01). Requests carry `Host: localhost:{port}`. |
+| HP-22 | **R-UI-12**: the normative sentence says "no network request", while the verification note limits the check to navigations and non-GET/HEAD requests. A reader can't tell whether the note narrows the rule or only its verification (review, "five coordinator choices"). | State that the parenthetical is the scope of verification, not a narrowing of the rule. | Verifies only the scoped capture. The client-side GET part is reported unverified (COVERAGE.md). |
+
+**Disposed in `spec-v1.3`:** see `spec/reviews/04-disposition.md` (HP-21 accepted with an inconclusive guard, implemented in harness run 7; HP-22 accepted, wording only).

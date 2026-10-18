@@ -46,13 +46,16 @@ describe('GET /api/links/{code}/stats', () => {
   });
 
   test('[R-STATS-2][R-STATS-3] a click now lands on the last entry (today), for days=1, 7 and 365', async () => {
-    const l = await createOk({ url: uurl('s3'), alias: alias('s3') });
-    const r = await followRaw(l.code, []);
-    expect(r.status).toBe(302);
-    await waitForRangeClicks(l.code, 1, r.headersAt);
+    // "Today" is read from a probe link; create + click + assertions all run inside the retry, so a run
+    // that crosses midnight UTC starts over from the create (SPEC "Time").
+    const probe = await createOk({ url: uurl('s3probe') });
     await retryIfDayChanged(
-      async () => (await getStatsOk(l.code, '?days=1')).daily[0].date,
+      async () => (await getStatsOk(probe.code, '?days=1')).daily[0].date,
       async (today) => {
+        const l = await createOk({ url: uurl('s3'), alias: alias('s3') });
+        const r = await followRaw(l.code, []);
+        expect(r.status).toBe(302);
+        await waitForRangeClicks(l.code, 1, r.headersAt);
         for (const days of [1, 7, 365]) {
           const s = await getStatsOk(l.code, `?days=${days}`);
           expectStatsShape(s, days, l.code);

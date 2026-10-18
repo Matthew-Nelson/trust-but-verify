@@ -10,3 +10,11 @@ export function addressForms(addr: string): string[] {
   }
   return addr === '::1' ? ['::1', '0:0:0:0:0:0:0:1'] : [addr];
 }
+
+/**
+ * The plain textual forms the api itself would see for this client: the address as observed on the
+ * socket, and its unmapped IPv4 form. If a log search excludes one of these, it cannot pass (R-PRIV-1).
+ */
+export function canonicalForms(addr: string): string[] {
+  return [...new Set([addressForms(addr)[0], addr])];
+}

@@ -169,7 +169,7 @@ test.describe('home page /', () => {
     await db().query(`UPDATE links SET created_at = date_trunc('minute', now()) + interval '59.9 seconds' WHERE code = $1`, [l.code]);
     await seedClicks(l.code, [{ at: `${today}T00:00:00Z`, count: 1234 }]);
     const fresh = await apiLink(l.code);
-    expect(fresh.createdAt.slice(17, 19)).toBe('59');
+    expect(new Date(fresh.createdAt).getUTCSeconds()).toBe(59);
     await gotoWithLink(page, { url: l.url }, fresh);
     const c = cells(rowFor(page, l.code));
     await expect(c.nth(2)).toHaveText('1234');
@@ -224,8 +224,9 @@ test.describe('home page /', () => {
   test('[R-UI-12] an empty or whitespace-only destination shows the invalid_url alert; submitting causes no navigation and no non-GET/HEAD request', async ({ page }) => {
     for (const value of ['', '  \t  ']) {
       await page.goto('/');
-      await page.waitForLoadState('networkidle');
       const f = form(page);
+      await expect(f.dest).toBeVisible();
+      await expect(f.shorten).toBeVisible();
       await f.dest.fill(value);
       // Capture from activating "Shorten" until 1 s after the alert appears (SPEC R-UI-12, spec-v1.1).
       const offending: string[] = [];

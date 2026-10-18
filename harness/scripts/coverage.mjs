@@ -49,7 +49,7 @@ for (const f of files) {
 byId['R-OAS-1'].push({ file: 'scripts/fuzz.mjs', title: '`pnpm fuzz`: Schemathesis run (all checks except positive_data_acceptance, positive + negative, fixed seed, 100 examples/op)', gray: false });
 
 const NO_TEST = {
-  'R-ERR-7': 'Mutant-verified per SPEC; no dedicated test, because a 500 cannot be forced from outside. Checked opportunistically: `lib/http.ts` rejects any 500 the harness receives whose body is not exactly the canonical internal error, which fails the test that saw it. Reported **unverified** unless a 500 was observed.',
+  'R-ERR-7': 'Mutant-verified per SPEC; no dedicated test, because a 500 cannot be forced from outside. Checked opportunistically: `lib/http.ts` rejects any 500 the harness receives whose body is not JSON-equal to the canonical internal error (SPEC v1.1), which fails the test that saw it. Reported **unverified** unless a 500 was observed.',
   'R-REDIR-6': 'Mutant-verified per SPEC. A click-recording failure cannot be caused from outside without a test backdoor (v1 has none); holding a lock on `clicks` would show a delay, not a failure, so the harness does not claim it. Reported **unverified** by this harness.',
 };
 const NOTES = {
@@ -58,7 +58,7 @@ const NOTES = {
   'R-ERR-4': 'Also enforced on every error the harness receives (message patterns); echo checks use unique probe values.',
   'R-REDIR-5': '**Probabilistic** (SPEC): a pass shows lost clicks were not observed.',
   'R-ALIAS-5': '**Probabilistic** (SPEC). Run 3 times per suite run.',
-  'R-PRIV-1': '**Gray-box only** (SPEC). Schema (no inet columns) and stored click rows need DATABASE_URL; the log search needs API_BIN + DATABASE_URL and, as SPEC v1.1 states, runs on an instance spawned with API_BIN, searching its stdout/stderr after the first request for the client address in IPv4, IPv4-mapped IPv6 and hex forms; the searched address is recorded as a test annotation.',
+  'R-PRIV-1': '**Gray-box only** (SPEC). Schema (no inet columns) and stored click rows need DATABASE_URL; the log search needs API_BIN + DATABASE_URL and, as SPEC v1.1 states, runs on an instance spawned with API_BIN, searching its stdout/stderr after the first request for the client address in IPv4, IPv4-mapped IPv6 and hex forms; the searched address is recorded as a test annotation. Forms equal to the DATABASE_URL host are excluded and reported (SPEC v1.3); if that excludes the client\'s canonical form, the test skips as `inconclusive (gray-box)` and is reported pending, never passed.',
   'R-DATA-1': '**Gray-box only** (rows inserted directly into `clicks`).',
   'R-DATA-2': '**Gray-box only** (reads stored columns; seeds NULL/encoded values).',
   'R-DATA-3': '**Gray-box only** (schema inspection via information_schema / pg_catalog).',
@@ -68,11 +68,11 @@ const NOTES = {
   'R-STATS-2': 'Black-box for length/order/zero-fill/"today" via createdAt and daily[last]; exact per-day placement is **gray-box** (seeded rows at absolute instants anchored to the database date).',
   'R-STATS-3': 'Black-box only for "a click now counts today"; window edges are **gray-box** (seeded rows).',
   'R-UI-3': 'Clipboard checked in Chromium with clipboard permissions via navigator.clipboard.readText().',
-  'R-UI-4': 'The "anything else -> Something went wrong" row is **unverifiable** (SPEC v1.1: no UI input produces another error code) and reported unverified; every other row is tested.',
+  'R-UI-4': 'The "anything else -> Something went wrong" row is **unverifiable** (SPEC v1.2: R-UI-4 covers the create form only, and no create-form input produces another error code) and reported unverified; every other row is tested.',
   'R-UI-5': 'The empty state ("with no links it has no body rows") is **unverifiable** (SPEC v1.1: the shared database is never empty) and reported unverified. Only the first four headers are checked; further columns may follow (SPEC v1.1). Thousands-separator and seconds-truncation edge cases are gray-box.',
   'R-UI-12': 'Per SPEC v1.1 the capture runs from activating Shorten until 1 s after the alert: no document navigation and no request with a method other than GET/HEAD. A client-side GET caused by the submit is **unverifiable** (SPEC) and reported unverified.',
   'R-REDIR-3': 'Includes SPEC v1.1 percent-decoding of the /{code} segment (GET and HEAD on an encoded known code; encoded and double-encoded unknown codes).',
-  'R-ROUTE-2': 'Includes SPEC v1.1 encoded dot segments (%2e/%2E in any mix) under /api/ and /, for several methods, including paths that would reach a real link if decoded and normalized.',
+  'R-ROUTE-2': 'Includes SPEC v1.1 encoded dot segments (%2e/%2E in any mix) under /api/ and /, for several methods, including paths that would reach a real link if decoded and normalized; and SPEC v1.2 matching on the undecoded path (%2F does not split a segment).',
   'R-UI-11': 'Enforced in every UI test by an auto fixture (network capture), plus a dedicated journey test.',
   'R-OAS-1': 'Not a Vitest test. Needs a dedicated api instance + database (FUZZ_API).',
 };

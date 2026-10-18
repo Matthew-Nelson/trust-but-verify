@@ -2,41 +2,41 @@ $ PLAYWRIGHT_BROWSERS_PATH=0 playwright test --config playwright.config.ts
 
 Running 35 tests using 1 worker
 
-  ✘   1 tests/ui/a11y.spec.ts:14:3 › accessibility › [R-UI-10] / with an empty form (325ms)
-  ✘   2 tests/ui/a11y.spec.ts:20:3 › accessibility › [R-UI-10] / after a success (117ms)
-  ✘   3 tests/ui/a11y.spec.ts:28:3 › accessibility › [R-UI-10] / after an error (115ms)
-  ✘   4 tests/ui/a11y.spec.ts:36:3 › accessibility › [R-UI-10] / with a delete confirmation revealed (85ms)
-  ✘   5 tests/ui/a11y.spec.ts:43:3 › accessibility › [R-UI-10] /links/{code} for each days link (87ms)
-  ✘   6 tests/ui/a11y.spec.ts:52:3 › accessibility › [R-UI-10] /links/{unknown} (121ms)
-  ✘   7 tests/ui/home.spec.ts:12:3 › home page / › [R-UI-1] form has the Destination URL and Custom alias (optional) textboxes and a Shorten button, with no constraint validation (119ms)
-  ✘   8 tests/ui/home.spec.ts:50:5 › home page / › [R-UI-2] destination: bare host gets https:// (119ms)
-  ✘   9 tests/ui/home.spec.ts:50:5 › home page / › [R-UI-2] destination: bare host and path gets https:// (118ms)
-  ✘  10 tests/ui/home.spec.ts:50:5 › home page / › [R-UI-2] destination: an explicit upper-case scheme is sent unchanged (117ms)
-  ✘  11 tests/ui/home.spec.ts:50:5 › home page / › [R-UI-2] destination: host:port without a scheme gets https:// (120ms)
-  ✘  12 tests/ui/home.spec.ts:50:5 › home page / › [R-UI-2] destination: surrounding ASCII whitespace is trimmed (124ms)
-  ✘  13 tests/ui/home.spec.ts:61:3 › home page / › [R-UI-2] the alias field is trimmed; a whitespace-only alias is omitted (generated code) (116ms)
-  ✘  14 tests/ui/home.spec.ts:79:3 › home page / › [R-UI-3] success shows a status with a link to the shortUrl and a working "Copy short link" button (117ms)
-  ✘  15 tests/ui/home.spec.ts:104:5 › home page / › [R-UI-4] API error (invalid alias) shows exactly the invalid_alias message in an alert (111ms)
-  ✘  16 tests/ui/home.spec.ts:104:5 › home page / › [R-UI-4] API error (reserved alias (mixed case)) shows exactly the alias_reserved message in an alert (114ms)
-  ✘  17 tests/ui/home.spec.ts:104:5 › home page / › [R-UI-4] API error (unsupported scheme) shows exactly the invalid_url message in an alert (119ms)
-  ✘  18 tests/ui/home.spec.ts:104:5 › home page / › [R-UI-4] API error (URL over 2048 code points) shows exactly the invalid_url message in an alert (114ms)
-  ✘  19 tests/ui/home.spec.ts:115:3 › home page / › [R-UI-4] taken alias shows exactly the alias_taken message (90ms)
-  ✘  20 tests/ui/home.spec.ts:126:3 › home page / › [R-UI-5] "Your links" table: exactly one header row with Short link, Destination, Clicks, Created (87ms)
-  ✘  21 tests/ui/home.spec.ts:134:3 › home page / › [R-UI-5] the table lists the 20 newest links in API order (88ms)
-  ✘  22 tests/ui/home.spec.ts:148:3 › home page / › [R-UI-5] row cells: shortUrl link, url, clickCount as a plain integer, createdAt as UTC YYYY-MM-DD HH:MM; Stats and Delete controls (86ms)
+  ✘   1 tests/ui/a11y.spec.ts:14:3 › accessibility › [R-UI-10] / with an empty form (250ms)
+  ✘   2 tests/ui/a11y.spec.ts:20:3 › accessibility › [R-UI-10] / after a success (99ms)
+  ✘   3 tests/ui/a11y.spec.ts:28:3 › accessibility › [R-UI-10] / after an error (93ms)
+  ✘   4 tests/ui/a11y.spec.ts:36:3 › accessibility › [R-UI-10] / with a delete confirmation revealed (68ms)
+  ✘   5 tests/ui/a11y.spec.ts:43:3 › accessibility › [R-UI-10] /links/{code} for each days link (70ms)
+  ✘   6 tests/ui/a11y.spec.ts:52:3 › accessibility › [R-UI-10] /links/{unknown} (92ms)
+  ✘   7 tests/ui/home.spec.ts:12:3 › home page / › [R-UI-1] form has the Destination URL and Custom alias (optional) textboxes and a Shorten button, with no constraint validation (93ms)
+  ✘   8 tests/ui/home.spec.ts:50:5 › home page / › [R-UI-2] destination: bare host gets https:// (97ms)
+  ✘   9 tests/ui/home.spec.ts:50:5 › home page / › [R-UI-2] destination: bare host and path gets https:// (93ms)
+  ✘  10 tests/ui/home.spec.ts:50:5 › home page / › [R-UI-2] destination: an explicit upper-case scheme is sent unchanged (93ms)
+  ✘  11 tests/ui/home.spec.ts:50:5 › home page / › [R-UI-2] destination: host:port without a scheme gets https:// (95ms)
+  ✘  12 tests/ui/home.spec.ts:50:5 › home page / › [R-UI-2] destination: surrounding ASCII whitespace is trimmed (127ms)
+  ✘  13 tests/ui/home.spec.ts:61:3 › home page / › [R-UI-2] the alias field is trimmed; a whitespace-only alias is omitted (generated code) (103ms)
+  ✘  14 tests/ui/home.spec.ts:79:3 › home page / › [R-UI-3] success shows a status with a link to the shortUrl and a working "Copy short link" button (100ms)
+  ✘  15 tests/ui/home.spec.ts:104:5 › home page / › [R-UI-4] API error (invalid alias) shows exactly the invalid_alias message in an alert (106ms)
+  ✘  16 tests/ui/home.spec.ts:104:5 › home page / › [R-UI-4] API error (reserved alias (mixed case)) shows exactly the alias_reserved message in an alert (97ms)
+  ✘  17 tests/ui/home.spec.ts:104:5 › home page / › [R-UI-4] API error (unsupported scheme) shows exactly the invalid_url message in an alert (99ms)
+  ✘  18 tests/ui/home.spec.ts:104:5 › home page / › [R-UI-4] API error (URL over 2048 code points) shows exactly the invalid_url message in an alert (100ms)
+  ✘  19 tests/ui/home.spec.ts:115:3 › home page / › [R-UI-4] taken alias shows exactly the alias_taken message (68ms)
+  ✘  20 tests/ui/home.spec.ts:126:3 › home page / › [R-UI-5] "Your links" table: exactly one header row with Short link, Destination, Clicks, Created (68ms)
+  ✘  21 tests/ui/home.spec.ts:134:3 › home page / › [R-UI-5] the table lists the 20 newest links in API order (76ms)
+  ✘  22 tests/ui/home.spec.ts:148:3 › home page / › [R-UI-5] row cells: shortUrl link, url, clickCount as a plain integer, createdAt as UTC YYYY-MM-DD HH:MM; Stats and Delete controls (69ms)
   -  23 tests/ui/home.spec.ts:165:3 › home page / › [R-UI-5][gray-box] Clicks has no thousands separator and Created truncates seconds (hh:mm:59.9 is not rounded up)
-  ✘  24 tests/ui/home.spec.ts:179:3 › home page / › [R-UI-5] after a successful create the table is re-fetched without a full page reload (96ms)
-  ✘  25 tests/ui/home.spec.ts:191:3 › home page / › [R-UI-6] Delete reveals "Confirm delete" in the same row; only one open at a time; nothing deleted until confirmed (89ms)
-  ✘  26 tests/ui/home.spec.ts:224:3 › home page / › [R-UI-12] an empty or whitespace-only destination shows the invalid_url alert; submitting causes no navigation and no non-GET/HEAD request (113ms)
-  ✘  27 tests/ui/network.spec.ts:6:1 › [R-UI-11] a full create -> stats -> delete -> error journey sends no browser request to /api/ (115ms)
-  ✘  28 tests/ui/stats-page.spec.ts:47:3 › stats page /links/{code} › [R-UI-7] heading, totals and the four tables match the API stats (default window) (83ms)
-  ✘  29 tests/ui/stats-page.spec.ts:53:3 › stats page /links/{code} › [R-UI-7] a link with no clicks: zero totals and breakdown tables with a header row and no body rows (89ms)
-  -  30 tests/ui/stats-page.spec.ts:61:3 › stats page /links/{code} › [R-UI-7][gray-box] totals are base-10 integers without separators
-  ✘  31 tests/ui/stats-page.spec.ts:71:3 › stats page /links/{code} › [R-UI-8] the 7/30/90 days links set ?days= and the matching one has aria-current="page" (71ms)
-  ✘  32 tests/ui/stats-page.spec.ts:91:3 › stats page /links/{code} › [R-UI-8] a valid days without a link is honored (1 and 365) and no link is current (84ms)
-  ✘  33 tests/ui/stats-page.spec.ts:100:3 › stats page /links/{code} › [R-UI-8] missing or invalid days behaves exactly like days=30, including aria-current on "30 days" (87ms)
-  ✘  34 tests/ui/stats-page.spec.ts:112:3 › stats page /links/{code} › [R-UI-9] an unknown code responds 404 with the level-1 heading "Link not found" (116ms)
-  ✘  35 tests/ui/stats-page.spec.ts:118:3 › stats page /links/{code} › [R-UI-9][R-DEL-1] a deleted link's page responds 404 "Link not found" (88ms)
+  ✘  24 tests/ui/home.spec.ts:179:3 › home page / › [R-UI-5] after a successful create the table is re-fetched without a full page reload (85ms)
+  ✘  25 tests/ui/home.spec.ts:191:3 › home page / › [R-UI-6] Delete reveals "Confirm delete" in the same row; only one open at a time; nothing deleted until confirmed (67ms)
+  ✘  26 tests/ui/home.spec.ts:224:3 › home page / › [R-UI-12] an empty or whitespace-only destination shows the invalid_url alert; submitting causes no navigation and no non-GET/HEAD request (100ms)
+  ✘  27 tests/ui/network.spec.ts:6:1 › [R-UI-11] a full create -> stats -> delete -> error journey sends no browser request to /api/ (96ms)
+  ✘  28 tests/ui/stats-page.spec.ts:47:3 › stats page /links/{code} › [R-UI-7] heading, totals and the four tables match the API stats (default window) (68ms)
+  ✘  29 tests/ui/stats-page.spec.ts:56:3 › stats page /links/{code} › [R-UI-7] a link with no clicks: zero totals and breakdown tables with a header row and no body rows (69ms)
+  -  30 tests/ui/stats-page.spec.ts:66:3 › stats page /links/{code} › [R-UI-7][gray-box] totals are base-10 integers without separators
+  ✘  31 tests/ui/stats-page.spec.ts:76:3 › stats page /links/{code} › [R-UI-8] the 7/30/90 days links set ?days= and the matching one has aria-current="page" (57ms)
+  ✘  32 tests/ui/stats-page.spec.ts:98:3 › stats page /links/{code} › [R-UI-8] a valid days without a link is honored (1 and 365) and no link is current (68ms)
+  ✘  33 tests/ui/stats-page.spec.ts:107:3 › stats page /links/{code} › [R-UI-8] missing or invalid days behaves exactly like days=30, including aria-current on "30 days" (73ms)
+  ✘  34 tests/ui/stats-page.spec.ts:121:3 › stats page /links/{code} › [R-UI-9] an unknown code responds 404 with the level-1 heading "Link not found" (105ms)
+  ✘  35 tests/ui/stats-page.spec.ts:127:3 › stats page /links/{code} › [R-UI-9][R-DEL-1] a deleted link's page responds 404 "Link not found" (77ms)
 
 
   1) tests/ui/a11y.spec.ts:14:3 › accessibility › [R-UI-10] / with an empty form ───────────────────
@@ -78,7 +78,7 @@ Running 35 tests using 1 worker
          |                ^
       22 |     await form(page).dest.fill(uurl('a11y'));
       23 |     await form(page).shorten.click();
-      24 |     await expect(statusRegion(page).getByRole('link')).toHaveCount(1);
+      24 |     await expect(shortLinkIn(page)).toHaveCount(1);
         at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/a11y.spec.ts:21:16
 
     Error Context: test-results/a11y-accessibility-R-UI-10-after-a-success/error-context.md
@@ -149,9 +149,9 @@ Running 35 tests using 1 worker
 
   6) tests/ui/a11y.spec.ts:52:3 › accessibility › [R-UI-10] /links/{unknown} ───────────────────────
 
-    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/links/nope-f8mzkcpuyg
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/links/nope-ytxt1pb1qm
     Call log:
-      - navigating to "http://127.0.0.1:59998/links/nope-f8mzkcpuyg", waiting until "load"
+      - navigating to "http://127.0.0.1:59998/links/nope-ytxt1pb1qm", waiting until "load"
 
 
       51 |
@@ -597,9 +597,9 @@ Running 35 tests using 1 worker
       225 |     for (const value of ['', '  \t  ']) {
     > 226 |       await page.goto('/');
           |                  ^
-      227 |       await page.waitForLoadState('networkidle');
-      228 |       const f = form(page);
-      229 |       await f.dest.fill(value);
+      227 |       const f = form(page);
+      228 |       await expect(f.dest).toBeVisible();
+      229 |       await expect(f.shorten).toBeVisible();
         at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:226:18
 
     Error Context: test-results/home-home-page-R-UI-12-an--24096-and-no-non-GET-HEAD-request/error-context.md
@@ -653,7 +653,7 @@ Running 35 tests using 1 worker
 
     ────────────────────────────────────────────────────────────────────────────────────────────────
 
-  28) tests/ui/stats-page.spec.ts:53:3 › stats page /links/{code} › [R-UI-7] a link with no clicks: zero totals and breakdown tables with a header row and no body rows 
+  28) tests/ui/stats-page.spec.ts:56:3 › stats page /links/{code} › [R-UI-7] a link with no clicks: zero totals and breakdown tables with a header row and no body rows 
 
     TypeError: fetch failed
     [cause]: Error: connect ECONNREFUSED 127.0.0.1:59999
@@ -668,7 +668,7 @@ Running 35 tests using 1 worker
 
     ────────────────────────────────────────────────────────────────────────────────────────────────
 
-  29) tests/ui/stats-page.spec.ts:71:3 › stats page /links/{code} › [R-UI-8] the 7/30/90 days links set ?days= and the matching one has aria-current="page" 
+  29) tests/ui/stats-page.spec.ts:76:3 › stats page /links/{code} › [R-UI-8] the 7/30/90 days links set ?days= and the matching one has aria-current="page" 
 
     TypeError: fetch failed
     [cause]: Error: connect ECONNREFUSED 127.0.0.1:59999
@@ -683,7 +683,7 @@ Running 35 tests using 1 worker
 
     ────────────────────────────────────────────────────────────────────────────────────────────────
 
-  30) tests/ui/stats-page.spec.ts:91:3 › stats page /links/{code} › [R-UI-8] a valid days without a link is honored (1 and 365) and no link is current 
+  30) tests/ui/stats-page.spec.ts:98:3 › stats page /links/{code} › [R-UI-8] a valid days without a link is honored (1 and 365) and no link is current 
 
     TypeError: fetch failed
     [cause]: Error: connect ECONNREFUSED 127.0.0.1:59999
@@ -698,7 +698,7 @@ Running 35 tests using 1 worker
 
     ────────────────────────────────────────────────────────────────────────────────────────────────
 
-  31) tests/ui/stats-page.spec.ts:100:3 › stats page /links/{code} › [R-UI-8] missing or invalid days behaves exactly like days=30, including aria-current on "30 days" 
+  31) tests/ui/stats-page.spec.ts:107:3 › stats page /links/{code} › [R-UI-8] missing or invalid days behaves exactly like days=30, including aria-current on "30 days" 
 
     TypeError: fetch failed
     [cause]: Error: connect ECONNREFUSED 127.0.0.1:59999
@@ -713,21 +713,21 @@ Running 35 tests using 1 worker
 
     ────────────────────────────────────────────────────────────────────────────────────────────────
 
-  32) tests/ui/stats-page.spec.ts:112:3 › stats page /links/{code} › [R-UI-9] an unknown code responds 404 with the level-1 heading "Link not found" 
+  32) tests/ui/stats-page.spec.ts:121:3 › stats page /links/{code} › [R-UI-9] an unknown code responds 404 with the level-1 heading "Link not found" 
 
-    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/links/nope-t1djwljysc
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:59998/links/nope-rwpjp71lcb
     Call log:
-      - navigating to "http://127.0.0.1:59998/links/nope-t1djwljysc", waiting until "load"
+      - navigating to "http://127.0.0.1:59998/links/nope-rwpjp71lcb", waiting until "load"
 
 
-      111 |
-      112 |   test('[R-UI-9] an unknown code responds 404 with the level-1 heading "Link not found"', async ({ page }) => {
-    > 113 |     const resp = await page.goto(`/links/nope-${uid()}`);
+      120 |
+      121 |   test('[R-UI-9] an unknown code responds 404 with the level-1 heading "Link not found"', async ({ page }) => {
+    > 122 |     const resp = await page.goto(`/links/nope-${uid()}`);
           |                             ^
-      114 |     expect(resp!.status()).toBe(404);
-      115 |     await expect(page.getByRole('heading', { level: 1, name: 'Link not found', exact: true })).toBeVisible();
-      116 |   });
-        at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/stats-page.spec.ts:113:29
+      123 |     expect(resp!.status()).toBe(404);
+      124 |     await expect(page.getByRole('heading', { level: 1, name: 'Link not found', exact: true })).toBeVisible();
+      125 |   });
+        at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/stats-page.spec.ts:122:29
 
     Error Context: test-results/stats-page-stats-page-link-b3ddd-l-1-heading-Link-not-found-/error-context.md
 
@@ -739,7 +739,7 @@ Running 35 tests using 1 worker
 
     ────────────────────────────────────────────────────────────────────────────────────────────────
 
-  33) tests/ui/stats-page.spec.ts:118:3 › stats page /links/{code} › [R-UI-9][R-DEL-1] a deleted link's page responds 404 "Link not found" 
+  33) tests/ui/stats-page.spec.ts:127:3 › stats page /links/{code} › [R-UI-9][R-DEL-1] a deleted link's page responds 404 "Link not found" 
 
     TypeError: fetch failed
     [cause]: Error: connect ECONNREFUSED 127.0.0.1:59999
@@ -782,11 +782,11 @@ Running 35 tests using 1 worker
     tests/ui/home.spec.ts:224:3 › home page / › [R-UI-12] an empty or whitespace-only destination shows the invalid_url alert; submitting causes no navigation and no non-GET/HEAD request 
     tests/ui/network.spec.ts:6:1 › [R-UI-11] a full create -> stats -> delete -> error journey sends no browser request to /api/ 
     tests/ui/stats-page.spec.ts:47:3 › stats page /links/{code} › [R-UI-7] heading, totals and the four tables match the API stats (default window) 
-    tests/ui/stats-page.spec.ts:53:3 › stats page /links/{code} › [R-UI-7] a link with no clicks: zero totals and breakdown tables with a header row and no body rows 
-    tests/ui/stats-page.spec.ts:71:3 › stats page /links/{code} › [R-UI-8] the 7/30/90 days links set ?days= and the matching one has aria-current="page" 
-    tests/ui/stats-page.spec.ts:91:3 › stats page /links/{code} › [R-UI-8] a valid days without a link is honored (1 and 365) and no link is current 
-    tests/ui/stats-page.spec.ts:100:3 › stats page /links/{code} › [R-UI-8] missing or invalid days behaves exactly like days=30, including aria-current on "30 days" 
-    tests/ui/stats-page.spec.ts:112:3 › stats page /links/{code} › [R-UI-9] an unknown code responds 404 with the level-1 heading "Link not found" 
-    tests/ui/stats-page.spec.ts:118:3 › stats page /links/{code} › [R-UI-9][R-DEL-1] a deleted link's page responds 404 "Link not found" 
+    tests/ui/stats-page.spec.ts:56:3 › stats page /links/{code} › [R-UI-7] a link with no clicks: zero totals and breakdown tables with a header row and no body rows 
+    tests/ui/stats-page.spec.ts:76:3 › stats page /links/{code} › [R-UI-8] the 7/30/90 days links set ?days= and the matching one has aria-current="page" 
+    tests/ui/stats-page.spec.ts:98:3 › stats page /links/{code} › [R-UI-8] a valid days without a link is honored (1 and 365) and no link is current 
+    tests/ui/stats-page.spec.ts:107:3 › stats page /links/{code} › [R-UI-8] missing or invalid days behaves exactly like days=30, including aria-current on "30 days" 
+    tests/ui/stats-page.spec.ts:121:3 › stats page /links/{code} › [R-UI-9] an unknown code responds 404 with the level-1 heading "Link not found" 
+    tests/ui/stats-page.spec.ts:127:3 › stats page /links/{code} › [R-UI-9][R-DEL-1] a deleted link's page responds 404 "Link not found" 
   2 skipped
 [ELIFECYCLE] Command failed with exit code 1.

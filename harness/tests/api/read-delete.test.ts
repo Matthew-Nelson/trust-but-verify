@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'vitest';
 import { api } from '../../lib/http.ts';
 import { alias, create, createOk, del, enc, follow, getLink, getLinkOk, getStats, getStatsOk, micros, uid, uurl, waitForClickCount } from '../../lib/links.ts';
-import { expectError, expectLink, expectNewLink, expectPlain404 } from '../../lib/assert.ts';
+import { expectError, expectLink, expectNewLink, expectPlain404, expectSameLink } from '../../lib/assert.ts';
 
 describe('GET /api/links/{code}', () => {
   test('[R-GET-1] returns the same Link the create returned (every field)', async () => {
@@ -10,7 +10,7 @@ describe('GET /api/links/{code}', () => {
       const r = await getLink(created.code);
       expect(r.status).toBe(200);
       expectNewLink(r.json);
-      expect(r.json).toEqual(created);
+      expectSameLink(r.json, created);
     }
   });
 

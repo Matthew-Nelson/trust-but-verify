@@ -3,10 +3,10 @@
 import net from 'node:net';
 import { afterEach, describe, expect, test } from 'vitest';
 import { DATABASE_URL, GRAY_SKIP, SPAWN_SKIP, hasBin, hasDb } from '../../lib/config.ts';
-import { api, sleep, type Res } from '../../lib/http.ts';
+import { api, raw, sleep, type Res } from '../../lib/http.ts';
 import { uid, uurl } from '../../lib/links.ts';
 import { expectError } from '../../lib/assert.ts';
-import { addressForms } from '../../lib/addr.ts';
+import { addressForms, canonicalForms } from '../../lib/addr.ts';
 import { TcpProxy, dbTarget, freePort, startApi, viaPort, waitForPort, type Instance } from '../../lib/spawn.ts';
 
 const cleanups: (() => Promise<void>)[] = [];
@@ -58,7 +58,7 @@ describe('spawned api instance (gray-box)', () => {
     expectError(await healthz(inst), 503, 'unavailable');
   });
 
-  test('[R-HEALTH-2][gray-box] once the database becomes reachable the api recovers (migrations applied, links work)', async (ctx) => {
+  test('[R-HEALTH-2][gray-box] once the database becomes reachable the api recovers (/healthz 200 and a create succeed)', async (ctx) => {
     ctx.skip(!hasBin, SPAWN_SKIP);
     ctx.skip(!hasDb, GRAY_SKIP);
     const proxy = new TcpProxy('refuse', dbTarget(DATABASE_URL!));
@@ -107,20 +107,40 @@ describe('spawned api instance (gray-box)', () => {
       const s = net.connect({ host: '127.0.0.1', port: inst.port }, () => (resolve(s.localAddress!), s.destroy()));
       s.on('error', reject);
     });
+    // Connect to 127.0.0.1 but send Host: localhost:{port}, so no request header contains the searched address.
+    const base = `http://127.0.0.1:${inst.port}`;
+    const host = ['Host', `localhost:${inst.port}`];
+    const send = (method: string, path: string, extra: string[] = [], body?: string) => raw(method, path, { base, headers: [...host, ...extra], body });
     const firstRequestAt = performance.now();
-    const base = inst.base.replace('localhost', '127.0.0.1');
-    const c = await api('POST', '/api/links', { base, json: { url: uurl('priv') } });
+    const c = await send('POST', '/api/links', ['Content-Type', 'application/json'], JSON.stringify({ url: uurl('priv') }));
     expect(c.status).toBe(201);
     const code = c.json.code;
-    await api('GET', `/${code}`, { base, headers: { referer: 'https://example.com/' } });
-    await api('GET', `/nope-${uid()}`, { base });
-    await api('GET', `/api/links/nope-${uid()}`, { base });
-    await api('POST', '/api/links', { base, body: '{' });
-    await api('GET', `/api/links/${code}/stats`, { base });
+    expect((await send('GET', `/${code}`, ['Referer', 'https://example.com/'])).status).toBe(302);
+    await send('GET', `/nope-${uid()}`);
+    await send('GET', `/api/links/nope-${uid()}`);
+    await send('POST', '/api/links', [], '{');
+    await send('GET', `/api/links/${code}/stats`);
     await sleep(2500);
-    const forms = addressForms(addr);
+    // A form equal to the database host may legitimately appear (e.g. a reconnect message): exclude it
+    // and report it (SPEC R-PRIV-1, spec-v1.3).
+    const dbHost = new URL(DATABASE_URL!).hostname.replace(/^\[|\]$/g, '').toLowerCase();
+    const all = addressForms(addr);
+    const forms = all.filter((f) => f.toLowerCase() !== dbHost);
+    const excluded = all.filter((f) => f.toLowerCase() === dbHost);
+    // If that removes the client's canonical form, the search would miss the most likely leak: it is
+    // inconclusive and must not pass.
+    const lostCanonical = canonicalForms(addr).filter((f) => excluded.includes(f));
+    if (lostCanonical.length) {
+      const note =
+        `inconclusive (gray-box): R-PRIV-1 log search cannot run: the client address is ${addr} and the DATABASE_URL host ` +
+        `equals its canonical form, so these forms would be excluded: ${excluded.join(', ')}. ` +
+        `Remedy: name the database host differently from the client address in DATABASE_URL (e.g. localhost).`;
+      await ctx.annotate(note);
+      ctx.skip(note);
+    }
     const after = inst.lines.filter((l) => l.at >= firstRequestAt).map((l) => l.text);
     for (const line of after) for (const f of forms) expect(line, `log line contains client address ${f}`).not.toContain(f);
+    await ctx.annotate(`R-PRIV-1: client connected from ${addr} with Host: localhost:${inst.port}; excluded (equal to the DATABASE_URL host): ${excluded.join(', ') || 'none'}`);
     await ctx.annotate(`R-PRIV-1: searched ${after.length} log lines for ${forms.join(', ')}`);
   });
 });

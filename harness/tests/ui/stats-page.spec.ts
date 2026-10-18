@@ -1,6 +1,6 @@
 import type { Page } from '@playwright/test';
 import { COUNTRY_HEADER, GRAY_SKIP, TARGET_WEB, hasDb } from '../../lib/config.ts';
-import { alias, createOk, del, enc, followRaw, getStatsOk, uid, uurl, waitForRangeClicks, type Stats } from '../../lib/links.ts';
+import { alias, apiToday, createOk, del, enc, followRaw, getStatsOk, retryIfDayChanged, uid, uurl, waitForRangeClicks, type Stats } from '../../lib/links.ts';
 import { dbNow, seedClicks } from '../../lib/db.ts';
 import { bodyRows, cells, columnHeaders, expect, headerRows, test } from './fixtures.ts';
 
@@ -46,16 +46,21 @@ async function linkWithClicks() {
 test.describe('stats page /links/{code}', () => {
   test('[R-UI-7] heading, totals and the four tables match the API stats (default window)', async ({ page }) => {
     const l = await linkWithClicks();
-    await page.goto(`/links/${enc(l.code)}`);
-    await expectPageMatchesStats(page, await getStatsOk(l.code, '?days=30'));
+    // Page and API read are compared together; if "today" changes in between, start over (SPEC "Time").
+    await retryIfDayChanged(() => apiToday(l.code), async () => {
+      await page.goto(`/links/${enc(l.code)}`);
+      await expectPageMatchesStats(page, await getStatsOk(l.code, '?days=30'));
+    });
   });
 
   test('[R-UI-7] a link with no clicks: zero totals and breakdown tables with a header row and no body rows', async ({ page }) => {
     const l = await createOk({ url: uurl('ui7e'), alias: alias('ui7e') });
-    await page.goto(`/links/${enc(l.code)}`);
-    const s = await getStatsOk(l.code);
-    expect(s.totalClicks).toBe(0);
-    await expectPageMatchesStats(page, s);
+    await retryIfDayChanged(() => apiToday(l.code), async () => {
+      await page.goto(`/links/${enc(l.code)}`);
+      const s = await getStatsOk(l.code);
+      expect(s.totalClicks).toBe(0);
+      await expectPageMatchesStats(page, s);
+    });
   });
 
   test('[R-UI-7][gray-box] totals are base-10 integers without separators', async ({ page }) => {
@@ -70,22 +75,24 @@ test.describe('stats page /links/{code}', () => {
 
   test('[R-UI-8] the 7/30/90 days links set ?days= and the matching one has aria-current="page"', async ({ page }) => {
     const l = await linkWithClicks();
-    for (const days of [7, 30, 90]) {
-      await page.goto(`/links/${enc(l.code)}`);
-      const link = page.getByRole('link', { name: `${days} days`, exact: true });
-      const href = new URL((await link.getAttribute('href'))!, `${TARGET_WEB}/links/${enc(l.code)}`);
-      expect(href.pathname).toBe(`/links/${enc(l.code)}`);
-      expect(href.searchParams.getAll('days')).toEqual([String(days)]);
-      await link.click();
-      await expect(page).toHaveURL(new RegExp(`[?&]days=${days}(&|$)`));
-      await expect(bodyRows(page, table(page, 'Clicks per day'))).toHaveCount(days);
-      for (const other of [7, 30, 90]) {
-        const o = page.getByRole('link', { name: `${other} days`, exact: true });
-        if (other === days) await expect(o).toHaveAttribute('aria-current', 'page');
-        else expect(await o.getAttribute('aria-current')).not.toBe('page');
+    await retryIfDayChanged(() => apiToday(l.code), async () => {
+      for (const days of [7, 30, 90]) {
+        await page.goto(`/links/${enc(l.code)}`);
+        const link = page.getByRole('link', { name: `${days} days`, exact: true });
+        const href = new URL((await link.getAttribute('href'))!, `${TARGET_WEB}/links/${enc(l.code)}`);
+        expect(href.pathname).toBe(`/links/${enc(l.code)}`);
+        expect(href.searchParams.getAll('days')).toEqual([String(days)]);
+        await link.click();
+        await expect(page).toHaveURL(new RegExp(`[?&]days=${days}(&|$)`));
+        await expect(bodyRows(page, table(page, 'Clicks per day'))).toHaveCount(days);
+        for (const other of [7, 30, 90]) {
+          const o = page.getByRole('link', { name: `${other} days`, exact: true });
+          if (other === days) await expect(o).toHaveAttribute('aria-current', 'page');
+          else expect(await o.getAttribute('aria-current')).not.toBe('page');
+        }
+        await expectPageMatchesStats(page, await getStatsOk(l.code, `?days=${days}`));
       }
-      await expectPageMatchesStats(page, await getStatsOk(l.code, `?days=${days}`));
-    }
+    });
   });
 
   test('[R-UI-8] a valid days without a link is honored (1 and 365) and no link is current', async ({ page }) => {
@@ -99,14 +106,16 @@ test.describe('stats page /links/{code}', () => {
 
   test('[R-UI-8] missing or invalid days behaves exactly like days=30, including aria-current on "30 days"', async ({ page }) => {
     const l = await linkWithClicks();
-    const s30 = await getStatsOk(l.code, '?days=30');
-    for (const q of ['', '?days=0', '?days=366', '?days=abc', '?days=07', '?days=-1', '?days=1.5', '?days=', '?days=7&days=7', '?days=%2B7']) {
-      await page.goto(`/links/${enc(l.code)}${q}`);
-      await expect(bodyRows(page, table(page, 'Clicks per day')), `query ${q}`).toHaveCount(30);
-      await expect(page.getByRole('link', { name: '30 days', exact: true })).toHaveAttribute('aria-current', 'page');
-      for (const n of [7, 90]) expect(await page.getByRole('link', { name: `${n} days`, exact: true }).getAttribute('aria-current')).not.toBe('page');
-      await expect(page.getByText(`Clicks in range: ${s30.rangeClicks}`, { exact: true })).toBeVisible();
-    }
+    await retryIfDayChanged(() => apiToday(l.code), async () => {
+      const s30 = await getStatsOk(l.code, '?days=30');
+      for (const q of ['', '?days=0', '?days=366', '?days=abc', '?days=07', '?days=-1', '?days=1.5', '?days=', '?days=7&days=7', '?days=%2B7']) {
+        await page.goto(`/links/${enc(l.code)}${q}`);
+        await expect(bodyRows(page, table(page, 'Clicks per day')), `query ${q}`).toHaveCount(30);
+        await expect(page.getByRole('link', { name: '30 days', exact: true })).toHaveAttribute('aria-current', 'page');
+        for (const n of [7, 90]) expect(await page.getByRole('link', { name: `${n} days`, exact: true }).getAttribute('aria-current')).not.toBe('page');
+        await expect(page.getByText(`Clicks in range: ${s30.rangeClicks}`, { exact: true })).toBeVisible();
+      }
+    });
   });
 
   test('[R-UI-9] an unknown code responds 404 with the level-1 heading "Link not found"', async ({ page }) => {

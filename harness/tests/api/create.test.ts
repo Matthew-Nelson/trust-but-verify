@@ -97,7 +97,7 @@ describe('POST /api/links', () => {
     expectNewLink(r.json, { url, isCustom: false });
     expectGenerated(r.json);
     expect(r.json.code).not.toBe('zzzzzzz');
-    expect(r.json.createdAt.startsWith('2000')).toBe(false);
+    expect(new Date(r.json.createdAt).getUTCFullYear()).not.toBe(2000);
   });
 
   test('[R-LINK-8] unknown fields next to an alias are ignored', async () => {

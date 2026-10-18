@@ -1,5 +1,65 @@
 # Self-check: the tests can fail
 
+## Run 7 note (spec-v1.3, 2026-10-18)
+
+One gray-box change: the spawned-instance R-PRIV-1 log test now skips at runtime as `inconclusive (gray-box): ...` (naming the client address, the excluded forms and the remedy) whenever excluding forms equal to the `DATABASE_URL` host would remove the client's canonical address form. Before this change, that case was a false pass. Both suites type-check. The exclusion logic was checked offline for three database hosts with a client at `127.0.0.1`:
+- `localhost`: nothing excluded, all four forms searched.
+- `::ffff:127.0.0.1`: that form excluded, `127.0.0.1` still searched.
+- `127.0.0.1`: inconclusive skip.
+
+With `DATABASE_URL`/`API_BIN` unset, the API suite still reports 17 gray-box tests skipped and 0 passed. No other test changed. Run-6 counts below stand.
+
+
+## Run 6 update (review HR-01..16, spec-v1.2, 2026-10-18)
+
+Changes: fixes for the independent review (HR-01..08, HR-11..14), two new tests for the spec-v1.2 undecoded-path rule (R-ROUTE-2, `%2F`), and two list tests moved into the sequential invariants suite (HR-07). Every suite was re-run. **No test passes against either target.**
+
+| Suite | Target | Tests | Failed | Passed | Skipped (gray-box) | Failure causes |
+|---|---|---|---|---|---|---|
+| API | (a) nothing listening | 372 | 355 | **0** | 17 | 355 connection refused |
+| API | (b) Prism, strict | 372 | 355 | **0** | 17 | 173 own assertion, 171 setup echo check, 11 R-ERR-1 envelope |
+| API | (b) Prism, lenient | 372 | 355 | **0** | 17 | 305 own assertion, 29 R-ERR-1 envelope, 21 connection error (Prism crash/reset) |
+| Invariants | (a) nothing | 8 | 8 | **0** | 0 | connection refused |
+| Invariants | (b) Prism, strict | 8 | 8 | **0** | 0 | 4 own assertion, 4 setup echo check |
+| Invariants | (b) Prism, lenient | 8 | 8 | **0** | 0 | 8 own assertion (including both moved list tests) |
+| UI | (a) nothing | 35 | 33 | **0** | 2 | navigation/connection failure |
+| UI | (b) `TARGET_WEB` = Prism (`--timeout 15000`) | 35 | 33 | **0** | 2 | no form/roles on Prism's responses |
+| Holdout API | (a) / (b) strict / (b) lenient | 91 | 89 / 89 / 89 | **0 / 0 / 0** | 2 | connection; 44 own + 44 setup + 1 envelope; 87 own + 2 envelope |
+| Holdout UI | (a) nothing / (b) Prism | 15 | 15 / 15 | **0 / 0** | 0 | |
+
+Changed and new tests, individually:
+
+- **New `%2F` tests** (`[R-ROUTE-2][R-REDIR-9][R-REDIR-3] /a%2Fb ...`, `[R-ROUTE-2][R-ERR-6][R-ERR-5] %2F inside /api/links/{code} ...`): fail with nothing listening. Against Prism, strict and lenient, the first fails on its own assertion and the second on the R-ERR-1 envelope.
+- **HR-03** `[R-ERR-2] a 64 KiB body ...`: fails on its own assertion against Prism in both modes.
+- **HR-05** `[R-STATS-2][R-STATS-3] a click now lands ...`: strict mode fails at setup; lenient fails on its own assertion.
+- **HR-08 instant comparisons:** in lenient mode, R-ALIAS-3, R-LIST-1/R-GET-1, R-REDIR-4 and R-LINK-8 fail on their own assertions. R-GET-1 hit a Prism crash in the full run; run alone, all 6 read/delete tests failed on their own assertions (for example `expected 42 to be 0`).
+- **HR-07 moved tests:** fail on their own assertions against Prism in lenient mode, and with connection refused when nothing is listening.
+- **HR-02 / HR-05 / HR-14 UI changes:** fail with nothing listening and against Prism-as-web.
+- **Not runnable here** (no database, no `API_BIN`): the HR-01 (R-PRIV-1 logs), HR-04 (R-DATA-3), HR-06 (proxy) and HR-13 (R-PRIV-1 database half) changes are gray-box. They type-check and skip cleanly. Their behavior against a real system is unverified until a run with `DATABASE_URL` and `API_BIN`.
+
+Per file, run 6, API suite (failed / passed):
+
+| File | Tests | Gray-box skipped | (a) nothing | (b) strict | (b) lenient |
+|---|---|---|---|---|---|
+| `tests/api/alias.test.ts` | 42 | 0 | 42 / 0 | 42 / 0 | 42 / 0 |
+| `tests/api/click.test.ts` | 57 | 0 | 57 / 0 | 57 / 0 | 57 / 0 |
+| `tests/api/create.test.ts` | 16 | 0 | 16 / 0 | 16 / 0 | 16 / 0 |
+| `tests/api/data.graybox.test.ts` | 4 | 4 | 0 / 0 | 0 / 0 | 0 / 0 |
+| `tests/api/errors.test.ts` | 83 | 0 | 83 / 0 | 83 / 0 | 83 / 0 |
+| `tests/api/health.test.ts` | 1 | 0 | 1 / 0 | 1 / 0 | 1 / 0 |
+| `tests/api/list.test.ts` | 7 | 1 | 6 / 0 | 6 / 0 | 6 / 0 |
+| `tests/api/read-delete.test.ts` | 6 | 0 | 6 / 0 | 6 / 0 | 6 / 0 |
+| `tests/api/redirect.test.ts` | 11 | 0 | 11 / 0 | 11 / 0 | 11 / 0 |
+| `tests/api/routes.test.ts` | 71 | 0 | 71 / 0 | 71 / 0 | 71 / 0 |
+| `tests/api/spawned.graybox.test.ts` | 5 | 5 | 0 / 0 | 0 / 0 | 0 / 0 |
+| `tests/api/stats.graybox.test.ts` | 7 | 7 | 0 / 0 | 0 / 0 | 0 / 0 |
+| `tests/api/stats.test.ts` | 14 | 0 | 14 / 0 | 14 / 0 | 14 / 0 |
+| `tests/api/url.test.ts` | 48 | 0 | 48 / 0 | 48 / 0 | 48 / 0 |
+
+The run-5 and run-1 records below are kept for history. Their counts refer to the suites as they were then.
+
+---
+
 ## Run 5 update (spec-v1.1, 2026-10-18)
 
 26 public API tests were added (HP-05 percent-decoded `/{code}`: 3; HP-06 encoded dot segments: 21; HP-07 leading U+000B: 2), and R-UI-12 was changed for HP-10. The whole API suite was re-run against both targets. **0 of 372 API tests pass against either target.**

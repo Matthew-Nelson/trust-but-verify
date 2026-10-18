@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'vitest';
 import { api, raw, rawSocket, cacheDirectives } from '../../lib/http.ts';
 import { alias, createOk, enc, follow, getLinkOk, getStatsOk, sleepUntil, uid, uurl, waitForClickCount } from '../../lib/links.ts';
-import { expectPlain404 } from '../../lib/assert.ts';
+import { expectPlain404, expectSameInstant } from '../../lib/assert.ts';
 
 describe('GET /{code}', () => {
   test('[R-REDIR-1] a known code -> 302 with Location equal to the stored url (generated and custom codes)', async () => {
@@ -35,7 +35,7 @@ describe('GET /{code}', () => {
     await sleepUntil(r.headersAt, 4000);
     const g2 = await getLinkOk(l.code);
     expect(g2.clickCount).toBe(1);
-    expect(g2.lastClickedAt).toBe(g.lastClickedAt);
+    expectSameInstant(g2.lastClickedAt, g.lastClickedAt, 'lastClickedAt');
     const s2 = await getStatsOk(l.code);
     expect(s2.totalClicks).toBe(1);
     expect(s2.rangeClicks).toBe(1);

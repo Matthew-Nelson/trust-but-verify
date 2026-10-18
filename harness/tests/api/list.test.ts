@@ -2,7 +2,7 @@ import { describe, expect, test } from 'vitest';
 import { GRAY_SKIP, hasDb } from '../../lib/config.ts';
 import { api } from '../../lib/http.ts';
 import { alias, createOk, del, findInList, follow, getLinkOk, micros, lazy, pool, uurl, waitForClickCount, type Link } from '../../lib/links.ts';
-import { expectLink } from '../../lib/assert.ts';
+import { expectLink, expectSameInstant } from '../../lib/assert.ts';
 import { db, dbNow } from '../../lib/db.ts';
 
 type Page = { items: Link[]; total: number; limit: number; offset: number };
@@ -64,34 +64,6 @@ describe('GET /api/links', () => {
     expect(p.items.length).toBeGreaterThanOrEqual(Math.min(100, 21));
   });
 
-  test('[R-LIST-1] offset skips exactly that many items in list order', async () => {
-    await getMine();
-    await settle(5, async () => {
-      const full = await list('?limit=12&offset=0');
-      const slice = await list('?limit=4&offset=3');
-      expect(slice.offset).toBe(3);
-      expect(slice.limit).toBe(4);
-      expect(slice.items.map((l) => l.code)).toEqual(full.items.slice(3, 7).map((l) => l.code));
-    });
-  });
-
-  test('[R-LIST-2] offset >= total -> 200 with items [] (offset = total and offset = total + 1000)', async () => {
-    await getMine();
-    await settle(5, async () => {
-      const { total } = await list('?limit=1');
-      const atTotal = await list(`?offset=${total}`);
-      expect(atTotal.items).toEqual([]);
-      expect(atTotal.offset).toBe(total);
-      expect(atTotal.total).toBe(total);
-      const last = await list(`?offset=${total - 1}&limit=5`);
-      expect(last.items).toHaveLength(1);
-    });
-    const p = await list('?offset=100000000');
-    expect(p.items).toEqual([]);
-    expect(p.offset).toBe(100000000);
-    expect(p.total).toBeGreaterThanOrEqual(21);
-  });
-
   test('[R-LIST-1][R-GET-1] list items carry the same field values as GET, including click data', async () => {
     const l = await createOk({ url: uurl('lc'), alias: alias('lc') });
     const r = await follow(l.code);
@@ -100,8 +72,8 @@ describe('GET /api/links', () => {
     const { items } = await findInList([l.code]);
     const it = items.get(l.code)!;
     expectLink(it, { code: l.code, url: l.url, isCustom: true, clickCount: 1, shortUrl: l.shortUrl });
-    expect(it.createdAt).toBe(g.createdAt);
-    expect(it.lastClickedAt).toBe(g.lastClickedAt);
+    expectSameInstant(it.createdAt, g.createdAt, 'createdAt');
+    expectSameInstant(it.lastClickedAt, g.lastClickedAt, 'lastClickedAt');
   });
 
   test('[R-LIST-1][gray-box] ties on createdAt break by internal id descending; createdAt dominates id', async (ctx) => {
@@ -121,7 +93,7 @@ describe('GET /api/links', () => {
     try {
       const { order, items } = await findInList(Object.values(codes));
       expect(order).toEqual([codes.d, codes.b, codes.a, codes.c]);
-      expect(items.get(codes.a)!.createdAt).toBe(items.get(codes.b)!.createdAt);
+      expectSameInstant(items.get(codes.a)!.createdAt, items.get(codes.b)!.createdAt, 'tied createdAt');
     } finally {
       await Promise.all(Object.values(codes).map((c) => del(c)));
     }

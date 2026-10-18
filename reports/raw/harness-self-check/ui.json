@@ -1,13 +1,13 @@
 {
   "config": {
     "argv": [
-      "/opt/homebrew/Cellar/node/26.7.0/bin/node",
+      "/Users/matthewnelson/.nvm/versions/node/v22.19.0/bin/node",
       "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/node_modules/@playwright/test/cli.js",
       "test",
       "--config",
       "playwright.config.ts",
-      "-g",
-      "R-UI-12"
+      "--timeout",
+      "15000"
     ],
     "configFile": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/playwright.config.ts",
     "rootDir": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui",
@@ -39,7 +39,7 @@
         "testMatch": [
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
         ],
-        "timeout": 60000
+        "timeout": 15000
       }
     ],
     "quiet": false,
@@ -69,6 +69,421 @@
   },
   "suites": [
     {
+      "title": "a11y.spec.ts",
+      "file": "a11y.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "accessibility",
+          "file": "a11y.spec.ts",
+          "line": 13,
+          "column": 6,
+          "specs": [
+            {
+              "title": "[R-UI-10] / with an empty form",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 15000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 5104,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Shorten', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'Shorten', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Shorten', exact: true })\u001b[22m\n",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Shorten', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'Shorten', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Shorten', exact: true })\u001b[22m\n\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/a11y.spec.ts:16:38",
+                        "location": {
+                          "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/a11y.spec.ts",
+                          "column": 38,
+                          "line": 16
+                        },
+                        "snippet": "  14 |   test('[R-UI-10] / with an empty form', async ({ page }) => {\n  15 |     await page.goto('/');\n> 16 |     await expect(form(page).shorten).toBeVisible();\n     |                                      ^\n  17 |     await expectNoSeriousViolations(page, 'empty form');\n  18 |   });\n  19 |"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/a11y.spec.ts",
+                            "column": 38,
+                            "line": 16
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Shorten', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'Shorten', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Shorten', exact: true })\u001b[22m\n\n\n  14 |   test('[R-UI-10] / with an empty form', async ({ page }) => {\n  15 |     await page.goto('/');\n> 16 |     await expect(form(page).shorten).toBeVisible();\n     |                                      ^\n  17 |     await expectNoSeriousViolations(page, 'empty form');\n  18 |   });\n  19 |\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/a11y.spec.ts:16:38"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-18T22:44:51.620Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/a11y-accessibility-R-UI-10-with-an-empty-form/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/a11y-accessibility-R-UI-10-with-an-empty-form/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/a11y.spec.ts",
+                        "column": 38,
+                        "line": 16
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "aa3ad05f8c0e05077efb-0c2276161788402d7ecb",
+              "file": "a11y.spec.ts",
+              "line": 14,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-10] / after a success",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 15000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "timedOut",
+                      "duration": 15040,
+                      "error": {
+                        "message": "\u001b[31mTest timeout of 15000ms exceeded.\u001b[39m",
+                        "stack": "\u001b[31mTest timeout of 15000ms exceeded.\u001b[39m"
+                      },
+                      "errors": [
+                        {
+                          "message": "\u001b[31mTest timeout of 15000ms exceeded.\u001b[39m"
+                        },
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/a11y.spec.ts",
+                            "column": 27,
+                            "line": 22
+                          },
+                          "message": "Error: locator.fill: Test timeout of 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Destination URL', exact: true })\u001b[22m\n\n\n  20 |   test('[R-UI-10] / after a success', async ({ page }) => {\n  21 |     await page.goto('/');\n> 22 |     await form(page).dest.fill(uurl('a11y'));\n     |                           ^\n  23 |     await form(page).shorten.click();\n  24 |     await expect(shortLinkIn(page)).toHaveCount(1);\n  25 |     await expectNoSeriousViolations(page, 'after success');\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/a11y.spec.ts:22:27"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-18T22:44:57.157Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/a11y-accessibility-R-UI-10-after-a-success/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/a11y-accessibility-R-UI-10-after-a-success/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "aa3ad05f8c0e05077efb-a1d17f1bf4c8c54fb39a",
+              "file": "a11y.spec.ts",
+              "line": 20,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-10] / after an error",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 15000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "timedOut",
+                      "duration": 15035,
+                      "error": {
+                        "message": "\u001b[31mTest timeout of 15000ms exceeded.\u001b[39m",
+                        "stack": "\u001b[31mTest timeout of 15000ms exceeded.\u001b[39m"
+                      },
+                      "errors": [
+                        {
+                          "message": "\u001b[31mTest timeout of 15000ms exceeded.\u001b[39m"
+                        },
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/a11y.spec.ts",
+                            "column": 27,
+                            "line": 30
+                          },
+                          "message": "Error: locator.fill: Test timeout of 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Destination URL', exact: true })\u001b[22m\n\n\n  28 |   test('[R-UI-10] / after an error', async ({ page }) => {\n  29 |     await page.goto('/');\n> 30 |     await form(page).dest.fill(`ftp://example.com/${uid()}`);\n     |                           ^\n  31 |     await form(page).shorten.click();\n  32 |     await expect(alertRegion(page)).toHaveCount(1);\n  33 |     await expectNoSeriousViolations(page, 'after error');\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/a11y.spec.ts:30:27"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-18T22:45:12.635Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/a11y-accessibility-R-UI-10-after-an-error/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/a11y-accessibility-R-UI-10-after-an-error/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "aa3ad05f8c0e05077efb-e3ba8d79ceeaf6ab97fd",
+              "file": "a11y.spec.ts",
+              "line": 28,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-10] / with a delete confirmation revealed",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 15000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 84,
+                      "error": {
+                        "message": "Error: setup: POST /api/links {\"url\":\"https://example.com/a11yd/lxcmzxs9sg0j\",\"alias\":\"a11yd-akakoca5an\"} -> url \"https://www.rust-lang.org/learn\", expected \"https://example.com/a11yd/lxcmzxs9sg0j\"",
+                        "stack": "Error: setup: POST /api/links {\"url\":\"https://example.com/a11yd/lxcmzxs9sg0j\",\"alias\":\"a11yd-akakoca5an\"} -> url \"https://www.rust-lang.org/learn\", expected \"https://example.com/a11yd/lxcmzxs9sg0j\"\n    at createOk (/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts:61:30)\n    at gotoWithLink (/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/fixtures.ts:87:20)\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/a11y.spec.ts:37:15",
+                        "location": {
+                          "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts",
+                          "column": 30,
+                          "line": 61
+                        },
+                        "snippet": "\u001b[90m   at \u001b[39m../../lib/links.ts:61\n\n  59 |   // A created link must echo what was asked for (R-LINK-2, R-URL-5); otherwise later assertions are meaningless.\n  60 |   const want = whatwg(body.url.replace(/^[\\t\\n\\f\\r ]+|[\\t\\n\\f\\r ]+$/g, ''));\n> 61 |   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringify(l?.url)}, expected ${JSON.stringify(want)}`);\n     |                              ^\n  62 |   if (typeof body.alias === 'string' && body.alias !== '' && l.code !== body.alias) {\n  63 |     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expected the alias`);\n  64 |   }"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts",
+                            "column": 30,
+                            "line": 61
+                          },
+                          "message": "Error: setup: POST /api/links {\"url\":\"https://example.com/a11yd/lxcmzxs9sg0j\",\"alias\":\"a11yd-akakoca5an\"} -> url \"https://www.rust-lang.org/learn\", expected \"https://example.com/a11yd/lxcmzxs9sg0j\"\n\n   at ../../lib/links.ts:61\n\n  59 |   // A created link must echo what was asked for (R-LINK-2, R-URL-5); otherwise later assertions are meaningless.\n  60 |   const want = whatwg(body.url.replace(/^[\\t\\n\\f\\r ]+|[\\t\\n\\f\\r ]+$/g, ''));\n> 61 |   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringify(l?.url)}, expected ${JSON.stringify(want)}`);\n     |                              ^\n  62 |   if (typeof body.alias === 'string' && body.alias !== '' && l.code !== body.alias) {\n  63 |     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expected the alias`);\n  64 |   }\n    at createOk (/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts:61:30)\n    at gotoWithLink (/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/fixtures.ts:87:20)\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/a11y.spec.ts:37:15"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-18T22:45:28.105Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/a11y-accessibility-R-UI-10-76941-elete-confirmation-revealed/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/a11y-accessibility-R-UI-10-76941-elete-confirmation-revealed/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts",
+                        "column": 30,
+                        "line": 61
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "aa3ad05f8c0e05077efb-328c546d8cd9c632b78d",
+              "file": "a11y.spec.ts",
+              "line": 36,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-10] /links/{code} for each days link",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 15000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 79,
+                      "error": {
+                        "message": "Error: setup: POST /api/links {\"url\":\"https://example.com/a11ys/msrinmkyex3c\",\"alias\":\"a11ys-eag49q970z\"} -> url \"https://www.rust-lang.org/learn\", expected \"https://example.com/a11ys/msrinmkyex3c\"",
+                        "stack": "Error: setup: POST /api/links {\"url\":\"https://example.com/a11ys/msrinmkyex3c\",\"alias\":\"a11ys-eag49q970z\"} -> url \"https://www.rust-lang.org/learn\", expected \"https://example.com/a11ys/msrinmkyex3c\"\n    at createOk (/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts:61:30)\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/a11y.spec.ts:44:15",
+                        "location": {
+                          "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts",
+                          "column": 30,
+                          "line": 61
+                        },
+                        "snippet": "\u001b[90m   at \u001b[39m../../lib/links.ts:61\n\n  59 |   // A created link must echo what was asked for (R-LINK-2, R-URL-5); otherwise later assertions are meaningless.\n  60 |   const want = whatwg(body.url.replace(/^[\\t\\n\\f\\r ]+|[\\t\\n\\f\\r ]+$/g, ''));\n> 61 |   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringify(l?.url)}, expected ${JSON.stringify(want)}`);\n     |                              ^\n  62 |   if (typeof body.alias === 'string' && body.alias !== '' && l.code !== body.alias) {\n  63 |     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expected the alias`);\n  64 |   }"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts",
+                            "column": 30,
+                            "line": 61
+                          },
+                          "message": "Error: setup: POST /api/links {\"url\":\"https://example.com/a11ys/msrinmkyex3c\",\"alias\":\"a11ys-eag49q970z\"} -> url \"https://www.rust-lang.org/learn\", expected \"https://example.com/a11ys/msrinmkyex3c\"\n\n   at ../../lib/links.ts:61\n\n  59 |   // A created link must echo what was asked for (R-LINK-2, R-URL-5); otherwise later assertions are meaningless.\n  60 |   const want = whatwg(body.url.replace(/^[\\t\\n\\f\\r ]+|[\\t\\n\\f\\r ]+$/g, ''));\n> 61 |   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringify(l?.url)}, expected ${JSON.stringify(want)}`);\n     |                              ^\n  62 |   if (typeof body.alias === 'string' && body.alias !== '' && l.code !== body.alias) {\n  63 |     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expected the alias`);\n  64 |   }\n    at createOk (/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts:61:30)\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/a11y.spec.ts:44:15"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-18T22:45:28.594Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/a11y-accessibility-R-UI-10-links-code-for-each-days-link/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/a11y-accessibility-R-UI-10-links-code-for-each-days-link/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts",
+                        "column": 30,
+                        "line": 61
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "aa3ad05f8c0e05077efb-6c0a1b2aa52e7d0d8f19",
+              "file": "a11y.spec.ts",
+              "line": 43,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-10] /links/{unknown}",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 15000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 5,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 5097,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('heading', { name: 'Link not found', exact: true, level: 1 })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('heading', { name: 'Link not found', exact: true, level: 1 }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('heading', { name: 'Link not found', exact: true, level: 1 })\u001b[22m\n",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('heading', { name: 'Link not found', exact: true, level: 1 })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('heading', { name: 'Link not found', exact: true, level: 1 }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('heading', { name: 'Link not found', exact: true, level: 1 })\u001b[22m\n\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/a11y.spec.ts:54:96",
+                        "location": {
+                          "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/a11y.spec.ts",
+                          "column": 96,
+                          "line": 54
+                        },
+                        "snippet": "  52 |   test('[R-UI-10] /links/{unknown}', async ({ page }) => {\n  53 |     await page.goto(`/links/nope-${uid()}`);\n> 54 |     await expect(page.getByRole('heading', { level: 1, name: 'Link not found', exact: true })).toBeVisible();\n     |                                                                                                ^\n  55 |     await expectNoSeriousViolations(page, '/links/{unknown}');\n  56 |   });\n  57 | });"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/a11y.spec.ts",
+                            "column": 96,
+                            "line": 54
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('heading', { name: 'Link not found', exact: true, level: 1 })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('heading', { name: 'Link not found', exact: true, level: 1 }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('heading', { name: 'Link not found', exact: true, level: 1 })\u001b[22m\n\n\n  52 |   test('[R-UI-10] /links/{unknown}', async ({ page }) => {\n  53 |     await page.goto(`/links/nope-${uid()}`);\n> 54 |     await expect(page.getByRole('heading', { level: 1, name: 'Link not found', exact: true })).toBeVisible();\n     |                                                                                                ^\n  55 |     await expectNoSeriousViolations(page, '/links/{unknown}');\n  56 |   });\n  57 | });\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/a11y.spec.ts:54:96"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-18T22:45:29.091Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/a11y-accessibility-R-UI-10-links-unknown-/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/a11y-accessibility-R-UI-10-links-unknown-/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/a11y.spec.ts",
+                        "column": 96,
+                        "line": 54
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "aa3ad05f8c0e05077efb-7f162cea90791498a600",
+              "file": "a11y.spec.ts",
+              "line": 52,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
       "title": "home.spec.ts",
       "file": "home.spec.ts",
       "column": 0,
@@ -82,43 +497,1246 @@
           "column": 6,
           "specs": [
             {
-              "title": "[R-UI-12] an empty or whitespace-only destination shows the invalid_url alert; submitting causes no navigation and no non-GET/HEAD request",
+              "title": "[R-UI-1] form has the Destination URL and Custom alias (optional) textboxes and a Shorten button, with no constraint validation",
               "ok": false,
               "tags": [],
               "tests": [
                 {
-                  "timeout": 60000,
+                  "timeout": 15000,
                   "annotations": [],
                   "expectedStatus": "passed",
                   "projectId": "",
                   "projectName": "",
                   "results": [
                     {
-                      "workerIndex": 0,
+                      "workerIndex": 6,
                       "parallelIndex": 0,
-                      "status": "timedOut",
-                      "duration": 60033,
+                      "status": "failed",
+                      "duration": 5097,
                       "error": {
-                        "message": "\u001b[31mTest timeout of 60000ms exceeded.\u001b[39m",
-                        "stack": "\u001b[31mTest timeout of 60000ms exceeded.\u001b[39m"
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('textbox', { name: 'Destination URL', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('textbox', { name: 'Destination URL', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Destination URL', exact: true })\u001b[22m\n",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('textbox', { name: 'Destination URL', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('textbox', { name: 'Destination URL', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Destination URL', exact: true })\u001b[22m\n\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:15:26",
+                        "location": {
+                          "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                          "column": 26,
+                          "line": 15
+                        },
+                        "snippet": "  13 |     await page.goto('/');\n  14 |     const f = form(page);\n> 15 |     await expect(f.dest).toBeVisible();\n     |                          ^\n  16 |     await expect(f.alias).toBeVisible();\n  17 |     await expect(f.shorten).toBeVisible();\n  18 |     const info = await f.dest.evaluate((el) => {"
                       },
                       "errors": [
                         {
-                          "message": "\u001b[31mTest timeout of 60000ms exceeded.\u001b[39m"
-                        },
-                        {
                           "location": {
                             "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
-                            "column": 20,
-                            "line": 229
+                            "column": 26,
+                            "line": 15
                           },
-                          "message": "Error: locator.fill: Test timeout of 60000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Destination URL', exact: true })\u001b[22m\n\n\n  227 |       await page.waitForLoadState('networkidle');\n  228 |       const f = form(page);\n> 229 |       await f.dest.fill(value);\n      |                    ^\n  230 |       // Capture from activating \"Shorten\" until 1 s after the alert appears (SPEC R-UI-12, spec-v1.1).\n  231 |       const offending: string[] = [];\n  232 |       const onReq = (r: Request) => {\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:229:20"
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('textbox', { name: 'Destination URL', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('textbox', { name: 'Destination URL', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Destination URL', exact: true })\u001b[22m\n\n\n  13 |     await page.goto('/');\n  14 |     const f = form(page);\n> 15 |     await expect(f.dest).toBeVisible();\n     |                          ^\n  16 |     await expect(f.alias).toBeVisible();\n  17 |     await expect(f.shorten).toBeVisible();\n  18 |     const info = await f.dest.evaluate((el) => {\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:15:26"
                         }
                       ],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-10-18T21:31:16.567Z",
+                      "startTime": "2026-10-18T22:45:34.617Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-1-form-c5725-th-no-constraint-validation/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-1-form-c5725-th-no-constraint-validation/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                        "column": 26,
+                        "line": 15
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-6914aefa6939f5a8d6b9",
+              "file": "home.spec.ts",
+              "line": 12,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-2] destination: bare host gets https://",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 15000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 7,
+                      "parallelIndex": 0,
+                      "status": "timedOut",
+                      "duration": 15037,
+                      "error": {
+                        "message": "\u001b[31mTest timeout of 15000ms exceeded.\u001b[39m",
+                        "stack": "\u001b[31mTest timeout of 15000ms exceeded.\u001b[39m"
+                      },
+                      "errors": [
+                        {
+                          "message": "\u001b[31mTest timeout of 15000ms exceeded.\u001b[39m"
+                        },
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                            "column": 20,
+                            "line": 54
+                          },
+                          "message": "Error: locator.fill: Test timeout of 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Destination URL', exact: true })\u001b[22m\n\n\n  52 |       await page.goto('/');\n  53 |       const f = form(page);\n> 54 |       await f.dest.fill(input(id));\n     |                    ^\n  55 |       await f.shorten.click();\n  56 |       const { code } = await createdCode(page);\n  57 |       expect((await apiLink(code)).url).toBe(want(id));\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:54:20"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-18T22:45:40.134Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-2-destination-bare-host-gets-https-/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-2-destination-bare-host-gets-https-/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-d80ac4805a2bc05b90a3",
+              "file": "home.spec.ts",
+              "line": 50,
+              "column": 5
+            },
+            {
+              "title": "[R-UI-2] destination: bare host and path gets https://",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 15000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 8,
+                      "parallelIndex": 0,
+                      "status": "timedOut",
+                      "duration": 15046,
+                      "error": {
+                        "message": "\u001b[31mTest timeout of 15000ms exceeded.\u001b[39m",
+                        "stack": "\u001b[31mTest timeout of 15000ms exceeded.\u001b[39m"
+                      },
+                      "errors": [
+                        {
+                          "message": "\u001b[31mTest timeout of 15000ms exceeded.\u001b[39m"
+                        },
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                            "column": 20,
+                            "line": 54
+                          },
+                          "message": "Error: locator.fill: Test timeout of 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Destination URL', exact: true })\u001b[22m\n\n\n  52 |       await page.goto('/');\n  53 |       const f = form(page);\n> 54 |       await f.dest.fill(input(id));\n     |                    ^\n  55 |       await f.shorten.click();\n  56 |       const { code } = await createdCode(page);\n  57 |       expect((await apiLink(code)).url).toBe(want(id));\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:54:20"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-18T22:45:55.622Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-2-dest-55f0a-e-host-and-path-gets-https-/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-2-dest-55f0a-e-host-and-path-gets-https-/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-e0b165cbb4f244786937",
+              "file": "home.spec.ts",
+              "line": 50,
+              "column": 5
+            },
+            {
+              "title": "[R-UI-2] destination: an explicit upper-case scheme is sent unchanged",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 15000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 9,
+                      "parallelIndex": 0,
+                      "status": "timedOut",
+                      "duration": 15041,
+                      "error": {
+                        "message": "\u001b[31mTest timeout of 15000ms exceeded.\u001b[39m",
+                        "stack": "\u001b[31mTest timeout of 15000ms exceeded.\u001b[39m"
+                      },
+                      "errors": [
+                        {
+                          "message": "\u001b[31mTest timeout of 15000ms exceeded.\u001b[39m"
+                        },
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                            "column": 20,
+                            "line": 54
+                          },
+                          "message": "Error: locator.fill: Test timeout of 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Destination URL', exact: true })\u001b[22m\n\n\n  52 |       await page.goto('/');\n  53 |       const f = form(page);\n> 54 |       await f.dest.fill(input(id));\n     |                    ^\n  55 |       await f.shorten.click();\n  56 |       const { code } = await createdCode(page);\n  57 |       expect((await apiLink(code)).url).toBe(want(id));\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:54:20"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-18T22:46:11.103Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-2-dest-eddc2-se-scheme-is-sent-unchanged/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-2-dest-eddc2-se-scheme-is-sent-unchanged/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-c60ed5fa783ee4a6d104",
+              "file": "home.spec.ts",
+              "line": 50,
+              "column": 5
+            },
+            {
+              "title": "[R-UI-2] destination: host:port without a scheme gets https://",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 15000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 10,
+                      "parallelIndex": 0,
+                      "status": "timedOut",
+                      "duration": 15028,
+                      "error": {
+                        "message": "\u001b[31mTest timeout of 15000ms exceeded.\u001b[39m",
+                        "stack": "\u001b[31mTest timeout of 15000ms exceeded.\u001b[39m"
+                      },
+                      "errors": [
+                        {
+                          "message": "\u001b[31mTest timeout of 15000ms exceeded.\u001b[39m"
+                        },
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                            "column": 20,
+                            "line": 54
+                          },
+                          "message": "Error: locator.fill: Test timeout of 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Destination URL', exact: true })\u001b[22m\n\n\n  52 |       await page.goto('/');\n  53 |       const f = form(page);\n> 54 |       await f.dest.fill(input(id));\n     |                    ^\n  55 |       await f.shorten.click();\n  56 |       const { code } = await createdCode(page);\n  57 |       expect((await apiLink(code)).url).toBe(want(id));\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:54:20"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-18T22:46:26.568Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-2-dest-81bb9-ithout-a-scheme-gets-https-/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-2-dest-81bb9-ithout-a-scheme-gets-https-/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-c07c6350f9401d5c70ad",
+              "file": "home.spec.ts",
+              "line": 50,
+              "column": 5
+            },
+            {
+              "title": "[R-UI-2] destination: surrounding ASCII whitespace is trimmed",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 15000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 11,
+                      "parallelIndex": 0,
+                      "status": "timedOut",
+                      "duration": 15037,
+                      "error": {
+                        "message": "\u001b[31mTest timeout of 15000ms exceeded.\u001b[39m",
+                        "stack": "\u001b[31mTest timeout of 15000ms exceeded.\u001b[39m"
+                      },
+                      "errors": [
+                        {
+                          "message": "\u001b[31mTest timeout of 15000ms exceeded.\u001b[39m"
+                        },
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                            "column": 20,
+                            "line": 54
+                          },
+                          "message": "Error: locator.fill: Test timeout of 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Destination URL', exact: true })\u001b[22m\n\n\n  52 |       await page.goto('/');\n  53 |       const f = form(page);\n> 54 |       await f.dest.fill(input(id));\n     |                    ^\n  55 |       await f.shorten.click();\n  56 |       const { code } = await createdCode(page);\n  57 |       expect((await apiLink(code)).url).toBe(want(id));\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:54:20"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-18T22:46:42.024Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-2-dest-ef311-ASCII-whitespace-is-trimmed/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-2-dest-ef311-ASCII-whitespace-is-trimmed/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-196d0214b978213ffa57",
+              "file": "home.spec.ts",
+              "line": 50,
+              "column": 5
+            },
+            {
+              "title": "[R-UI-2] the alias field is trimmed; a whitespace-only alias is omitted (generated code)",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 15000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 12,
+                      "parallelIndex": 0,
+                      "status": "timedOut",
+                      "duration": 15035,
+                      "error": {
+                        "message": "\u001b[31mTest timeout of 15000ms exceeded.\u001b[39m",
+                        "stack": "\u001b[31mTest timeout of 15000ms exceeded.\u001b[39m"
+                      },
+                      "errors": [
+                        {
+                          "message": "\u001b[31mTest timeout of 15000ms exceeded.\u001b[39m"
+                        },
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                            "column": 18,
+                            "line": 65
+                          },
+                          "message": "Error: locator.fill: Test timeout of 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Destination URL', exact: true })\u001b[22m\n\n\n  63 |     await page.goto('/');\n  64 |     const f = form(page);\n> 65 |     await f.dest.fill(uurl('ui2'));\n     |                  ^\n  66 |     await f.alias.fill(`  ${a}\\t `);\n  67 |     await f.shorten.click();\n  68 |     expect((await createdCode(page)).code).toBe(a);\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:65:18"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-18T22:46:57.487Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-2-the--06209--is-omitted-generated-code-/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-2-the--06209--is-omitted-generated-code-/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-496c809722afe92120fb",
+              "file": "home.spec.ts",
+              "line": 61,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-3] success shows a status with a link to the shortUrl and a working \"Copy short link\" button",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 15000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 13,
+                      "parallelIndex": 0,
+                      "status": "timedOut",
+                      "duration": 15037,
+                      "error": {
+                        "message": "\u001b[31mTest timeout of 15000ms exceeded.\u001b[39m",
+                        "stack": "\u001b[31mTest timeout of 15000ms exceeded.\u001b[39m"
+                      },
+                      "errors": [
+                        {
+                          "message": "\u001b[31mTest timeout of 15000ms exceeded.\u001b[39m"
+                        },
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                            "column": 18,
+                            "line": 85
+                          },
+                          "message": "Error: locator.fill: Test timeout of 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Destination URL', exact: true })\u001b[22m\n\n\n  83 |     await page.goto('/');\n  84 |     const f = form(page);\n> 85 |     await f.dest.fill(url);\n     |                  ^\n  86 |     await f.alias.fill(a);\n  87 |     await f.shorten.click();\n  88 |     const shortUrl = `${PUBLIC_BASE_URL}/${a}`;\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:85:18"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-18T22:47:12.953Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-3-succ-59fd9-king-Copy-short-link-button/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-3-succ-59fd9-king-Copy-short-link-button/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-d2396925e1a5054c9813",
+              "file": "home.spec.ts",
+              "line": 79,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-4] API error (invalid alias) shows exactly the invalid_alias message in an alert",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 15000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 14,
+                      "parallelIndex": 0,
+                      "status": "timedOut",
+                      "duration": 15044,
+                      "error": {
+                        "message": "\u001b[31mTest timeout of 15000ms exceeded.\u001b[39m",
+                        "stack": "\u001b[31mTest timeout of 15000ms exceeded.\u001b[39m"
+                      },
+                      "errors": [
+                        {
+                          "message": "\u001b[31mTest timeout of 15000ms exceeded.\u001b[39m"
+                        },
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                            "column": 20,
+                            "line": 108
+                          },
+                          "message": "Error: locator.fill: Test timeout of 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Destination URL', exact: true })\u001b[22m\n\n\n  106 |       await page.goto('/');\n  107 |       const f = form(page);\n> 108 |       await f.dest.fill(input.url);\n      |                    ^\n  109 |       if (input.alias) await f.alias.fill(input.alias);\n  110 |       await f.shorten.click();\n  111 |       await expect(alertRegion(page)).toHaveText(MSG[code]);\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:108:20"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-18T22:47:28.413Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-4-API--ea76e-d-alias-message-in-an-alert/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-4-API--ea76e-d-alias-message-in-an-alert/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-450b121da5c9cdd6a768",
+              "file": "home.spec.ts",
+              "line": 104,
+              "column": 5
+            },
+            {
+              "title": "[R-UI-4] API error (reserved alias (mixed case)) shows exactly the alias_reserved message in an alert",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 15000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 15,
+                      "parallelIndex": 0,
+                      "status": "timedOut",
+                      "duration": 15036,
+                      "error": {
+                        "message": "\u001b[31mTest timeout of 15000ms exceeded.\u001b[39m",
+                        "stack": "\u001b[31mTest timeout of 15000ms exceeded.\u001b[39m"
+                      },
+                      "errors": [
+                        {
+                          "message": "\u001b[31mTest timeout of 15000ms exceeded.\u001b[39m"
+                        },
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                            "column": 20,
+                            "line": 108
+                          },
+                          "message": "Error: locator.fill: Test timeout of 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Destination URL', exact: true })\u001b[22m\n\n\n  106 |       await page.goto('/');\n  107 |       const f = form(page);\n> 108 |       await f.dest.fill(input.url);\n      |                    ^\n  109 |       if (input.alias) await f.alias.fill(input.alias);\n  110 |       await f.shorten.click();\n  111 |       await expect(alertRegion(page)).toHaveText(MSG[code]);\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:108:20"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-18T22:47:43.869Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-4-API--d4f75-eserved-message-in-an-alert/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-4-API--d4f75-eserved-message-in-an-alert/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-ee18cb03d67cd81847f2",
+              "file": "home.spec.ts",
+              "line": 104,
+              "column": 5
+            },
+            {
+              "title": "[R-UI-4] API error (unsupported scheme) shows exactly the invalid_url message in an alert",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 15000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 16,
+                      "parallelIndex": 0,
+                      "status": "timedOut",
+                      "duration": 15035,
+                      "error": {
+                        "message": "\u001b[31mTest timeout of 15000ms exceeded.\u001b[39m",
+                        "stack": "\u001b[31mTest timeout of 15000ms exceeded.\u001b[39m"
+                      },
+                      "errors": [
+                        {
+                          "message": "\u001b[31mTest timeout of 15000ms exceeded.\u001b[39m"
+                        },
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                            "column": 20,
+                            "line": 108
+                          },
+                          "message": "Error: locator.fill: Test timeout of 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Destination URL', exact: true })\u001b[22m\n\n\n  106 |       await page.goto('/');\n  107 |       const f = form(page);\n> 108 |       await f.dest.fill(input.url);\n      |                    ^\n  109 |       if (input.alias) await f.alias.fill(input.alias);\n  110 |       await f.shorten.click();\n  111 |       await expect(alertRegion(page)).toHaveText(MSG[code]);\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:108:20"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-18T22:47:59.319Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-4-API--571f8-lid-url-message-in-an-alert/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-4-API--571f8-lid-url-message-in-an-alert/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-c0e0ea91469aaa97b923",
+              "file": "home.spec.ts",
+              "line": 104,
+              "column": 5
+            },
+            {
+              "title": "[R-UI-4] API error (URL over 2048 code points) shows exactly the invalid_url message in an alert",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 15000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 17,
+                      "parallelIndex": 0,
+                      "status": "timedOut",
+                      "duration": 15040,
+                      "error": {
+                        "message": "\u001b[31mTest timeout of 15000ms exceeded.\u001b[39m",
+                        "stack": "\u001b[31mTest timeout of 15000ms exceeded.\u001b[39m"
+                      },
+                      "errors": [
+                        {
+                          "message": "\u001b[31mTest timeout of 15000ms exceeded.\u001b[39m"
+                        },
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                            "column": 20,
+                            "line": 108
+                          },
+                          "message": "Error: locator.fill: Test timeout of 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Destination URL', exact: true })\u001b[22m\n\n\n  106 |       await page.goto('/');\n  107 |       const f = form(page);\n> 108 |       await f.dest.fill(input.url);\n      |                    ^\n  109 |       if (input.alias) await f.alias.fill(input.alias);\n  110 |       await f.shorten.click();\n  111 |       await expect(alertRegion(page)).toHaveText(MSG[code]);\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:108:20"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-18T22:48:14.778Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-4-API--29930-lid-url-message-in-an-alert/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-4-API--29930-lid-url-message-in-an-alert/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-600102502e5a5739599c",
+              "file": "home.spec.ts",
+              "line": 104,
+              "column": 5
+            },
+            {
+              "title": "[R-UI-4] taken alias shows exactly the alias_taken message",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 15000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 18,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 77,
+                      "error": {
+                        "message": "Error: setup: POST /api/links {\"url\":\"https://example.com/ui4t/y3958y1s2bxm\",\"alias\":\"ui4t-uyw8efulxl\"} -> url \"https://www.rust-lang.org/learn\", expected \"https://example.com/ui4t/y3958y1s2bxm\"",
+                        "stack": "Error: setup: POST /api/links {\"url\":\"https://example.com/ui4t/y3958y1s2bxm\",\"alias\":\"ui4t-uyw8efulxl\"} -> url \"https://www.rust-lang.org/learn\", expected \"https://example.com/ui4t/y3958y1s2bxm\"\n    at createOk (/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts:61:30)\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:117:5",
+                        "location": {
+                          "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts",
+                          "column": 30,
+                          "line": 61
+                        },
+                        "snippet": "\u001b[90m   at \u001b[39m../../lib/links.ts:61\n\n  59 |   // A created link must echo what was asked for (R-LINK-2, R-URL-5); otherwise later assertions are meaningless.\n  60 |   const want = whatwg(body.url.replace(/^[\\t\\n\\f\\r ]+|[\\t\\n\\f\\r ]+$/g, ''));\n> 61 |   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringify(l?.url)}, expected ${JSON.stringify(want)}`);\n     |                              ^\n  62 |   if (typeof body.alias === 'string' && body.alias !== '' && l.code !== body.alias) {\n  63 |     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expected the alias`);\n  64 |   }"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts",
+                            "column": 30,
+                            "line": 61
+                          },
+                          "message": "Error: setup: POST /api/links {\"url\":\"https://example.com/ui4t/y3958y1s2bxm\",\"alias\":\"ui4t-uyw8efulxl\"} -> url \"https://www.rust-lang.org/learn\", expected \"https://example.com/ui4t/y3958y1s2bxm\"\n\n   at ../../lib/links.ts:61\n\n  59 |   // A created link must echo what was asked for (R-LINK-2, R-URL-5); otherwise later assertions are meaningless.\n  60 |   const want = whatwg(body.url.replace(/^[\\t\\n\\f\\r ]+|[\\t\\n\\f\\r ]+$/g, ''));\n> 61 |   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringify(l?.url)}, expected ${JSON.stringify(want)}`);\n     |                              ^\n  62 |   if (typeof body.alias === 'string' && body.alias !== '' && l.code !== body.alias) {\n  63 |     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expected the alias`);\n  64 |   }\n    at createOk (/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts:61:30)\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:117:5"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-18T22:48:30.249Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-4-take-37008-tly-the-alias-taken-message/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-4-take-37008-tly-the-alias-taken-message/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts",
+                        "column": 30,
+                        "line": 61
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-2c548c3c3803a39fc01c",
+              "file": "home.spec.ts",
+              "line": 115,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-5] \"Your links\" table: exactly one header row with Short link, Destination, Clicks, Created",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 15000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 19,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 77,
+                      "error": {
+                        "message": "Error: setup: POST /api/links {\"url\":\"https://example.com/ui5h/ufannbc0z1ht\"} -> url \"https://www.rust-lang.org/learn\", expected \"https://example.com/ui5h/ufannbc0z1ht\"",
+                        "stack": "Error: setup: POST /api/links {\"url\":\"https://example.com/ui5h/ufannbc0z1ht\"} -> url \"https://www.rust-lang.org/learn\", expected \"https://example.com/ui5h/ufannbc0z1ht\"\n    at createOk (/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts:61:30)\n    at gotoWithLink (/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/fixtures.ts:87:20)\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:127:5",
+                        "location": {
+                          "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts",
+                          "column": 30,
+                          "line": 61
+                        },
+                        "snippet": "\u001b[90m   at \u001b[39m../../lib/links.ts:61\n\n  59 |   // A created link must echo what was asked for (R-LINK-2, R-URL-5); otherwise later assertions are meaningless.\n  60 |   const want = whatwg(body.url.replace(/^[\\t\\n\\f\\r ]+|[\\t\\n\\f\\r ]+$/g, ''));\n> 61 |   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringify(l?.url)}, expected ${JSON.stringify(want)}`);\n     |                              ^\n  62 |   if (typeof body.alias === 'string' && body.alias !== '' && l.code !== body.alias) {\n  63 |     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expected the alias`);\n  64 |   }"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts",
+                            "column": 30,
+                            "line": 61
+                          },
+                          "message": "Error: setup: POST /api/links {\"url\":\"https://example.com/ui5h/ufannbc0z1ht\"} -> url \"https://www.rust-lang.org/learn\", expected \"https://example.com/ui5h/ufannbc0z1ht\"\n\n   at ../../lib/links.ts:61\n\n  59 |   // A created link must echo what was asked for (R-LINK-2, R-URL-5); otherwise later assertions are meaningless.\n  60 |   const want = whatwg(body.url.replace(/^[\\t\\n\\f\\r ]+|[\\t\\n\\f\\r ]+$/g, ''));\n> 61 |   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringify(l?.url)}, expected ${JSON.stringify(want)}`);\n     |                              ^\n  62 |   if (typeof body.alias === 'string' && body.alias !== '' && l.code !== body.alias) {\n  63 |     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expected the alias`);\n  64 |   }\n    at createOk (/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts:61:30)\n    at gotoWithLink (/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/fixtures.ts:87:20)\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:127:5"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-18T22:48:30.726Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-5-Your-8ae11--Destination-Clicks-Created/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-5-Your-8ae11--Destination-Clicks-Created/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts",
+                        "column": 30,
+                        "line": 61
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-1e12a0ddf13ef7961743",
+              "file": "home.spec.ts",
+              "line": 126,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-5] the table lists the 20 newest links in API order",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 15000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 20,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 78,
+                      "error": {
+                        "message": "Error: setup: POST /api/links {\"url\":\"https://example.com/ui5o/6lyb5z3lrhm5\"} -> url \"https://www.rust-lang.org/learn\", expected \"https://example.com/ui5o/6lyb5z3lrhm5\"",
+                        "stack": "Error: setup: POST /api/links {\"url\":\"https://example.com/ui5o/6lyb5z3lrhm5\"} -> url \"https://www.rust-lang.org/learn\", expected \"https://example.com/ui5o/6lyb5z3lrhm5\"\n    at createOk (/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts:61:30)\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:135:33",
+                        "location": {
+                          "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts",
+                          "column": 30,
+                          "line": 61
+                        },
+                        "snippet": "\u001b[90m   at \u001b[39m../../lib/links.ts:61\n\n  59 |   // A created link must echo what was asked for (R-LINK-2, R-URL-5); otherwise later assertions are meaningless.\n  60 |   const want = whatwg(body.url.replace(/^[\\t\\n\\f\\r ]+|[\\t\\n\\f\\r ]+$/g, ''));\n> 61 |   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringify(l?.url)}, expected ${JSON.stringify(want)}`);\n     |                              ^\n  62 |   if (typeof body.alias === 'string' && body.alias !== '' && l.code !== body.alias) {\n  63 |     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expected the alias`);\n  64 |   }"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts",
+                            "column": 30,
+                            "line": 61
+                          },
+                          "message": "Error: setup: POST /api/links {\"url\":\"https://example.com/ui5o/6lyb5z3lrhm5\"} -> url \"https://www.rust-lang.org/learn\", expected \"https://example.com/ui5o/6lyb5z3lrhm5\"\n\n   at ../../lib/links.ts:61\n\n  59 |   // A created link must echo what was asked for (R-LINK-2, R-URL-5); otherwise later assertions are meaningless.\n  60 |   const want = whatwg(body.url.replace(/^[\\t\\n\\f\\r ]+|[\\t\\n\\f\\r ]+$/g, ''));\n> 61 |   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringify(l?.url)}, expected ${JSON.stringify(want)}`);\n     |                              ^\n  62 |   if (typeof body.alias === 'string' && body.alias !== '' && l.code !== body.alias) {\n  63 |     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expected the alias`);\n  64 |   }\n    at createOk (/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts:61:30)\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:135:33"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-18T22:48:31.189Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-5-the--c0724-0-newest-links-in-API-order/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-5-the--c0724-0-newest-links-in-API-order/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts",
+                        "column": 30,
+                        "line": 61
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-f1c5ddfa9f42b7d685af",
+              "file": "home.spec.ts",
+              "line": 134,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-5] row cells: shortUrl link, url, clickCount as a plain integer, createdAt as UTC YYYY-MM-DD HH:MM; Stats and Delete controls",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 15000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 21,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 76,
+                      "error": {
+                        "message": "Error: setup: POST /api/links {\"url\":\"https://example.com/ui5c/vs6nooxqlu?q=1\",\"alias\":\"ui5c-b46hmkra8a\"} -> url \"https://www.rust-lang.org/learn\", expected \"https://example.com/ui5c/vs6nooxqlu?q=1\"",
+                        "stack": "Error: setup: POST /api/links {\"url\":\"https://example.com/ui5c/vs6nooxqlu?q=1\",\"alias\":\"ui5c-b46hmkra8a\"} -> url \"https://www.rust-lang.org/learn\", expected \"https://example.com/ui5c/vs6nooxqlu?q=1\"\n    at createOk (/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts:61:30)\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:149:16",
+                        "location": {
+                          "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts",
+                          "column": 30,
+                          "line": 61
+                        },
+                        "snippet": "\u001b[90m   at \u001b[39m../../lib/links.ts:61\n\n  59 |   // A created link must echo what was asked for (R-LINK-2, R-URL-5); otherwise later assertions are meaningless.\n  60 |   const want = whatwg(body.url.replace(/^[\\t\\n\\f\\r ]+|[\\t\\n\\f\\r ]+$/g, ''));\n> 61 |   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringify(l?.url)}, expected ${JSON.stringify(want)}`);\n     |                              ^\n  62 |   if (typeof body.alias === 'string' && body.alias !== '' && l.code !== body.alias) {\n  63 |     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expected the alias`);\n  64 |   }"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts",
+                            "column": 30,
+                            "line": 61
+                          },
+                          "message": "Error: setup: POST /api/links {\"url\":\"https://example.com/ui5c/vs6nooxqlu?q=1\",\"alias\":\"ui5c-b46hmkra8a\"} -> url \"https://www.rust-lang.org/learn\", expected \"https://example.com/ui5c/vs6nooxqlu?q=1\"\n\n   at ../../lib/links.ts:61\n\n  59 |   // A created link must echo what was asked for (R-LINK-2, R-URL-5); otherwise later assertions are meaningless.\n  60 |   const want = whatwg(body.url.replace(/^[\\t\\n\\f\\r ]+|[\\t\\n\\f\\r ]+$/g, ''));\n> 61 |   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringify(l?.url)}, expected ${JSON.stringify(want)}`);\n     |                              ^\n  62 |   if (typeof body.alias === 'string' && body.alias !== '' && l.code !== body.alias) {\n  63 |     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expected the alias`);\n  64 |   }\n    at createOk (/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts:61:30)\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:149:16"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-18T22:48:31.676Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-5-row--a175e-M-Stats-and-Delete-controls/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-5-row--a175e-M-Stats-and-Delete-controls/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts",
+                        "column": 30,
+                        "line": 61
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-c5dced42eea59e818aa5",
+              "file": "home.spec.ts",
+              "line": 148,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-5][gray-box] Clicks has no thousands separator and Created truncates seconds (hh:mm:59.9 is not rounded up)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 15000,
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "gray-box: DATABASE_URL is unset, so this test is skipped (set DATABASE_URL to the api database to run it)",
+                      "location": {
+                        "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                        "line": 166,
+                        "column": 10
+                      }
+                    }
+                  ],
+                  "expectedStatus": "skipped",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 22,
+                      "parallelIndex": 0,
+                      "status": "skipped",
+                      "duration": 49,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-18T22:48:32.143Z",
+                      "annotations": [
+                        {
+                          "type": "skip",
+                          "description": "gray-box: DATABASE_URL is unset, so this test is skipped (set DATABASE_URL to the api database to run it)",
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                            "line": 166,
+                            "column": 10
+                          }
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-91229fa0ba56f55a2a65",
+              "file": "home.spec.ts",
+              "line": 165,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-5] after a successful create the table is re-fetched without a full page reload",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 15000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 22,
+                      "parallelIndex": 0,
+                      "status": "timedOut",
+                      "duration": 15039,
+                      "error": {
+                        "message": "\u001b[31mTest timeout of 15000ms exceeded.\u001b[39m",
+                        "stack": "\u001b[31mTest timeout of 15000ms exceeded.\u001b[39m"
+                      },
+                      "errors": [
+                        {
+                          "message": "\u001b[31mTest timeout of 15000ms exceeded.\u001b[39m"
+                        },
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                            "column": 18,
+                            "line": 184
+                          },
+                          "message": "Error: locator.fill: Test timeout of 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Destination URL', exact: true })\u001b[22m\n\n\n  182 |     const a = alias('ui5r');\n  183 |     const f = form(page);\n> 184 |     await f.dest.fill(uurl('ui5r'));\n      |                  ^\n  185 |     await f.alias.fill(a);\n  186 |     await f.shorten.click();\n  187 |     await expect(rowFor(page, a)).toHaveCount(1);\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:184:18"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-18T22:48:32.275Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-5-afte-ec063--without-a-full-page-reload/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-5-afte-ec063--without-a-full-page-reload/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-dbcc985f94695dfeae26",
+              "file": "home.spec.ts",
+              "line": 179,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-6] Delete reveals \"Confirm delete\" in the same row; only one open at a time; nothing deleted until confirmed",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 15000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 23,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 83,
+                      "error": {
+                        "message": "Error: setup: POST /api/links {\"url\":\"https://example.com/ui6/w8mvzcip6979\",\"alias\":\"ui6a-nkaadbelq4\"} -> url \"https://www.rust-lang.org/learn\", expected \"https://example.com/ui6/w8mvzcip6979\"",
+                        "stack": "Error: setup: POST /api/links {\"url\":\"https://example.com/ui6/w8mvzcip6979\",\"alias\":\"ui6a-nkaadbelq4\"} -> url \"https://www.rust-lang.org/learn\", expected \"https://example.com/ui6/w8mvzcip6979\"\n    at createOk (/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts:61:30)\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:197:15",
+                        "location": {
+                          "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts",
+                          "column": 30,
+                          "line": 61
+                        },
+                        "snippet": "\u001b[90m   at \u001b[39m../../lib/links.ts:61\n\n  59 |   // A created link must echo what was asked for (R-LINK-2, R-URL-5); otherwise later assertions are meaningless.\n  60 |   const want = whatwg(body.url.replace(/^[\\t\\n\\f\\r ]+|[\\t\\n\\f\\r ]+$/g, ''));\n> 61 |   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringify(l?.url)}, expected ${JSON.stringify(want)}`);\n     |                              ^\n  62 |   if (typeof body.alias === 'string' && body.alias !== '' && l.code !== body.alias) {\n  63 |     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expected the alias`);\n  64 |   }"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts",
+                            "column": 30,
+                            "line": 61
+                          },
+                          "message": "Error: setup: POST /api/links {\"url\":\"https://example.com/ui6/w8mvzcip6979\",\"alias\":\"ui6a-nkaadbelq4\"} -> url \"https://www.rust-lang.org/learn\", expected \"https://example.com/ui6/w8mvzcip6979\"\n\n   at ../../lib/links.ts:61\n\n  59 |   // A created link must echo what was asked for (R-LINK-2, R-URL-5); otherwise later assertions are meaningless.\n  60 |   const want = whatwg(body.url.replace(/^[\\t\\n\\f\\r ]+|[\\t\\n\\f\\r ]+$/g, ''));\n> 61 |   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringify(l?.url)}, expected ${JSON.stringify(want)}`);\n     |                              ^\n  62 |   if (typeof body.alias === 'string' && body.alias !== '' && l.code !== body.alias) {\n  63 |     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expected the alias`);\n  64 |   }\n    at createOk (/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts:61:30)\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:197:15"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-18T22:48:47.672Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-6-Dele-2d83d-ing-deleted-until-confirmed/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-6-Dele-2d83d-ing-deleted-until-confirmed/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts",
+                        "column": 30,
+                        "line": 61
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-21f5ff727b020b9915c2",
+              "file": "home.spec.ts",
+              "line": 191,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-12] an empty or whitespace-only destination shows the invalid_url alert; submitting causes no navigation and no non-GET/HEAD request",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 15000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 24,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 5098,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('textbox', { name: 'Destination URL', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('textbox', { name: 'Destination URL', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Destination URL', exact: true })\u001b[22m\n",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('textbox', { name: 'Destination URL', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('textbox', { name: 'Destination URL', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Destination URL', exact: true })\u001b[22m\n\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:228:28",
+                        "location": {
+                          "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                          "column": 28,
+                          "line": 228
+                        },
+                        "snippet": "  226 |       await page.goto('/');\n  227 |       const f = form(page);\n> 228 |       await expect(f.dest).toBeVisible();\n      |                            ^\n  229 |       await expect(f.shorten).toBeVisible();\n  230 |       await f.dest.fill(value);\n  231 |       // Capture from activating \"Shorten\" until 1 s after the alert appears (SPEC R-UI-12, spec-v1.1)."
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                            "column": 28,
+                            "line": 228
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('textbox', { name: 'Destination URL', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('textbox', { name: 'Destination URL', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Destination URL', exact: true })\u001b[22m\n\n\n  226 |       await page.goto('/');\n  227 |       const f = form(page);\n> 228 |       await expect(f.dest).toBeVisible();\n      |                            ^\n  229 |       await expect(f.shorten).toBeVisible();\n  230 |       await f.dest.fill(value);\n  231 |       // Capture from activating \"Shorten\" until 1 s after the alert appears (SPEC R-UI-12, spec-v1.1).\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts:228:28"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-18T22:48:48.163Z",
                       "annotations": [],
                       "attachments": [
                         {
@@ -131,7 +1749,12 @@
                           "contentType": "application/zip",
                           "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/home-home-page-R-UI-12-an--24096-and-no-non-GET-HEAD-request/trace.zip"
                         }
-                      ]
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/home.spec.ts",
+                        "column": 28,
+                        "line": 228
+                      }
                     }
                   ],
                   "status": "unexpected"
@@ -145,15 +1768,638 @@
           ]
         }
       ]
+    },
+    {
+      "title": "network.spec.ts",
+      "file": "network.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "[R-UI-11] a full create -> stats -> delete -> error journey sends no browser request to /api/",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 25,
+                  "parallelIndex": 0,
+                  "status": "timedOut",
+                  "duration": 15027,
+                  "error": {
+                    "message": "\u001b[31mTest timeout of 15000ms exceeded.\u001b[39m",
+                    "stack": "\u001b[31mTest timeout of 15000ms exceeded.\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "message": "\u001b[31mTest timeout of 15000ms exceeded.\u001b[39m"
+                    },
+                    {
+                      "location": {
+                        "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/network.spec.ts",
+                        "column": 25,
+                        "line": 11
+                      },
+                      "message": "Error: locator.fill: Test timeout of 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Destination URL', exact: true })\u001b[22m\n\n\n   9 |   const a = alias('net');\n  10 |   await page.goto('/');\n> 11 |   await form(page).dest.fill(uurl('net'));\n     |                         ^\n  12 |   await form(page).alias.fill(a);\n  13 |   await form(page).shorten.click();\n  14 |   await expect(shortLinkIn(page)).toHaveCount(1);\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/network.spec.ts:11:25"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T22:48:53.660Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/network--R-UI-11-a-full-cr-ae6dd--no-browser-request-to-api-/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/network--R-UI-11-a-full-cr-ae6dd--no-browser-request-to-api-/trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "5567a9004528a7a67849-d097598c82cdd93b4935",
+          "file": "network.spec.ts",
+          "line": 6,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "stats-page.spec.ts",
+      "file": "stats-page.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "stats page /links/{code}",
+          "file": "stats-page.spec.ts",
+          "line": 46,
+          "column": 6,
+          "specs": [
+            {
+              "title": "[R-UI-7] heading, totals and the four tables match the API stats (default window)",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 15000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 26,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 85,
+                      "error": {
+                        "message": "Error: setup: POST /api/links {\"url\":\"https://example.com/ui7/qvgn8ooz0nof\",\"alias\":\"ui7-6psmd9ja6a\"} -> url \"https://www.rust-lang.org/learn\", expected \"https://example.com/ui7/qvgn8ooz0nof\"",
+                        "stack": "Error: setup: POST /api/links {\"url\":\"https://example.com/ui7/qvgn8ooz0nof\",\"alias\":\"ui7-6psmd9ja6a\"} -> url \"https://www.rust-lang.org/learn\", expected \"https://example.com/ui7/qvgn8ooz0nof\"\n    at createOk (/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts:61:30)\n    at linkWithClicks (/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/stats-page.spec.ts:34:13)\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/stats-page.spec.ts:48:15",
+                        "location": {
+                          "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts",
+                          "column": 30,
+                          "line": 61
+                        },
+                        "snippet": "\u001b[90m   at \u001b[39m../../lib/links.ts:61\n\n  59 |   // A created link must echo what was asked for (R-LINK-2, R-URL-5); otherwise later assertions are meaningless.\n  60 |   const want = whatwg(body.url.replace(/^[\\t\\n\\f\\r ]+|[\\t\\n\\f\\r ]+$/g, ''));\n> 61 |   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringify(l?.url)}, expected ${JSON.stringify(want)}`);\n     |                              ^\n  62 |   if (typeof body.alias === 'string' && body.alias !== '' && l.code !== body.alias) {\n  63 |     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expected the alias`);\n  64 |   }"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts",
+                            "column": 30,
+                            "line": 61
+                          },
+                          "message": "Error: setup: POST /api/links {\"url\":\"https://example.com/ui7/qvgn8ooz0nof\",\"alias\":\"ui7-6psmd9ja6a\"} -> url \"https://www.rust-lang.org/learn\", expected \"https://example.com/ui7/qvgn8ooz0nof\"\n\n   at ../../lib/links.ts:61\n\n  59 |   // A created link must echo what was asked for (R-LINK-2, R-URL-5); otherwise later assertions are meaningless.\n  60 |   const want = whatwg(body.url.replace(/^[\\t\\n\\f\\r ]+|[\\t\\n\\f\\r ]+$/g, ''));\n> 61 |   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringify(l?.url)}, expected ${JSON.stringify(want)}`);\n     |                              ^\n  62 |   if (typeof body.alias === 'string' && body.alias !== '' && l.code !== body.alias) {\n  63 |     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expected the alias`);\n  64 |   }\n    at createOk (/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts:61:30)\n    at linkWithClicks (/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/stats-page.spec.ts:34:13)\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/stats-page.spec.ts:48:15"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-18T22:49:09.119Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/stats-page-stats-page-link-e7a25-e-API-stats-default-window-/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/stats-page-stats-page-link-e7a25-e-API-stats-default-window-/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts",
+                        "column": 30,
+                        "line": 61
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "feddb1a36edbf83baea8-51d98c1b7ee89bad5acd",
+              "file": "stats-page.spec.ts",
+              "line": 47,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-7] a link with no clicks: zero totals and breakdown tables with a header row and no body rows",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 15000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 27,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 78,
+                      "error": {
+                        "message": "Error: setup: POST /api/links {\"url\":\"https://example.com/ui7e/khpgx4hs0qut\",\"alias\":\"ui7e-wk991d6y1d\"} -> url \"https://www.rust-lang.org/learn\", expected \"https://example.com/ui7e/khpgx4hs0qut\"",
+                        "stack": "Error: setup: POST /api/links {\"url\":\"https://example.com/ui7e/khpgx4hs0qut\",\"alias\":\"ui7e-wk991d6y1d\"} -> url \"https://www.rust-lang.org/learn\", expected \"https://example.com/ui7e/khpgx4hs0qut\"\n    at createOk (/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts:61:30)\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/stats-page.spec.ts:57:15",
+                        "location": {
+                          "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts",
+                          "column": 30,
+                          "line": 61
+                        },
+                        "snippet": "\u001b[90m   at \u001b[39m../../lib/links.ts:61\n\n  59 |   // A created link must echo what was asked for (R-LINK-2, R-URL-5); otherwise later assertions are meaningless.\n  60 |   const want = whatwg(body.url.replace(/^[\\t\\n\\f\\r ]+|[\\t\\n\\f\\r ]+$/g, ''));\n> 61 |   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringify(l?.url)}, expected ${JSON.stringify(want)}`);\n     |                              ^\n  62 |   if (typeof body.alias === 'string' && body.alias !== '' && l.code !== body.alias) {\n  63 |     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expected the alias`);\n  64 |   }"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts",
+                            "column": 30,
+                            "line": 61
+                          },
+                          "message": "Error: setup: POST /api/links {\"url\":\"https://example.com/ui7e/khpgx4hs0qut\",\"alias\":\"ui7e-wk991d6y1d\"} -> url \"https://www.rust-lang.org/learn\", expected \"https://example.com/ui7e/khpgx4hs0qut\"\n\n   at ../../lib/links.ts:61\n\n  59 |   // A created link must echo what was asked for (R-LINK-2, R-URL-5); otherwise later assertions are meaningless.\n  60 |   const want = whatwg(body.url.replace(/^[\\t\\n\\f\\r ]+|[\\t\\n\\f\\r ]+$/g, ''));\n> 61 |   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringify(l?.url)}, expected ${JSON.stringify(want)}`);\n     |                              ^\n  62 |   if (typeof body.alias === 'string' && body.alias !== '' && l.code !== body.alias) {\n  63 |     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expected the alias`);\n  64 |   }\n    at createOk (/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts:61:30)\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/stats-page.spec.ts:57:15"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-18T22:49:09.613Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/stats-page-stats-page-link-60d82-header-row-and-no-body-rows/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/stats-page-stats-page-link-60d82-header-row-and-no-body-rows/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts",
+                        "column": 30,
+                        "line": 61
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "feddb1a36edbf83baea8-1a89e0502aad08b590c8",
+              "file": "stats-page.spec.ts",
+              "line": 56,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-7][gray-box] totals are base-10 integers without separators",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 15000,
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "gray-box: DATABASE_URL is unset, so this test is skipped (set DATABASE_URL to the api database to run it)",
+                      "location": {
+                        "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/stats-page.spec.ts",
+                        "line": 67,
+                        "column": 10
+                      }
+                    }
+                  ],
+                  "expectedStatus": "skipped",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 28,
+                      "parallelIndex": 0,
+                      "status": "skipped",
+                      "duration": 49,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-18T22:49:10.087Z",
+                      "annotations": [
+                        {
+                          "type": "skip",
+                          "description": "gray-box: DATABASE_URL is unset, so this test is skipped (set DATABASE_URL to the api database to run it)",
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/stats-page.spec.ts",
+                            "line": 67,
+                            "column": 10
+                          }
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "feddb1a36edbf83baea8-4962ed102e64d10d5909",
+              "file": "stats-page.spec.ts",
+              "line": 66,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-8] the 7/30/90 days links set ?days= and the matching one has aria-current=\"page\"",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 15000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 28,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 62,
+                      "error": {
+                        "message": "Error: setup: POST /api/links {\"url\":\"https://example.com/ui7/auzr3ckumi1j\",\"alias\":\"ui7-3uthcmurhh\"} -> url \"https://www.rust-lang.org/learn\", expected \"https://example.com/ui7/auzr3ckumi1j\"",
+                        "stack": "Error: setup: POST /api/links {\"url\":\"https://example.com/ui7/auzr3ckumi1j\",\"alias\":\"ui7-3uthcmurhh\"} -> url \"https://www.rust-lang.org/learn\", expected \"https://example.com/ui7/auzr3ckumi1j\"\n    at createOk (/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts:61:30)\n    at linkWithClicks (/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/stats-page.spec.ts:34:13)\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/stats-page.spec.ts:77:15",
+                        "location": {
+                          "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts",
+                          "column": 30,
+                          "line": 61
+                        },
+                        "snippet": "\u001b[90m   at \u001b[39m../../lib/links.ts:61\n\n  59 |   // A created link must echo what was asked for (R-LINK-2, R-URL-5); otherwise later assertions are meaningless.\n  60 |   const want = whatwg(body.url.replace(/^[\\t\\n\\f\\r ]+|[\\t\\n\\f\\r ]+$/g, ''));\n> 61 |   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringify(l?.url)}, expected ${JSON.stringify(want)}`);\n     |                              ^\n  62 |   if (typeof body.alias === 'string' && body.alias !== '' && l.code !== body.alias) {\n  63 |     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expected the alias`);\n  64 |   }"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts",
+                            "column": 30,
+                            "line": 61
+                          },
+                          "message": "Error: setup: POST /api/links {\"url\":\"https://example.com/ui7/auzr3ckumi1j\",\"alias\":\"ui7-3uthcmurhh\"} -> url \"https://www.rust-lang.org/learn\", expected \"https://example.com/ui7/auzr3ckumi1j\"\n\n   at ../../lib/links.ts:61\n\n  59 |   // A created link must echo what was asked for (R-LINK-2, R-URL-5); otherwise later assertions are meaningless.\n  60 |   const want = whatwg(body.url.replace(/^[\\t\\n\\f\\r ]+|[\\t\\n\\f\\r ]+$/g, ''));\n> 61 |   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringify(l?.url)}, expected ${JSON.stringify(want)}`);\n     |                              ^\n  62 |   if (typeof body.alias === 'string' && body.alias !== '' && l.code !== body.alias) {\n  63 |     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expected the alias`);\n  64 |   }\n    at createOk (/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts:61:30)\n    at linkWithClicks (/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/stats-page.spec.ts:34:13)\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/stats-page.spec.ts:77:15"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-18T22:49:10.227Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/stats-page-stats-page-link-37daf--one-has-aria-current-page-/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/stats-page-stats-page-link-37daf--one-has-aria-current-page-/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts",
+                        "column": 30,
+                        "line": 61
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "feddb1a36edbf83baea8-94d9f4fd1ccf0c8ae8a7",
+              "file": "stats-page.spec.ts",
+              "line": 76,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-8] a valid days without a link is honored (1 and 365) and no link is current",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 15000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 29,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 77,
+                      "error": {
+                        "message": "Error: setup: POST /api/links {\"url\":\"https://example.com/ui8v/4jlohn9ylsx5\",\"alias\":\"ui8v-kiu3rpuou3\"} -> url \"https://www.rust-lang.org/learn\", expected \"https://example.com/ui8v/4jlohn9ylsx5\"",
+                        "stack": "Error: setup: POST /api/links {\"url\":\"https://example.com/ui8v/4jlohn9ylsx5\",\"alias\":\"ui8v-kiu3rpuou3\"} -> url \"https://www.rust-lang.org/learn\", expected \"https://example.com/ui8v/4jlohn9ylsx5\"\n    at createOk (/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts:61:30)\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/stats-page.spec.ts:99:15",
+                        "location": {
+                          "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts",
+                          "column": 30,
+                          "line": 61
+                        },
+                        "snippet": "\u001b[90m   at \u001b[39m../../lib/links.ts:61\n\n  59 |   // A created link must echo what was asked for (R-LINK-2, R-URL-5); otherwise later assertions are meaningless.\n  60 |   const want = whatwg(body.url.replace(/^[\\t\\n\\f\\r ]+|[\\t\\n\\f\\r ]+$/g, ''));\n> 61 |   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringify(l?.url)}, expected ${JSON.stringify(want)}`);\n     |                              ^\n  62 |   if (typeof body.alias === 'string' && body.alias !== '' && l.code !== body.alias) {\n  63 |     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expected the alias`);\n  64 |   }"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts",
+                            "column": 30,
+                            "line": 61
+                          },
+                          "message": "Error: setup: POST /api/links {\"url\":\"https://example.com/ui8v/4jlohn9ylsx5\",\"alias\":\"ui8v-kiu3rpuou3\"} -> url \"https://www.rust-lang.org/learn\", expected \"https://example.com/ui8v/4jlohn9ylsx5\"\n\n   at ../../lib/links.ts:61\n\n  59 |   // A created link must echo what was asked for (R-LINK-2, R-URL-5); otherwise later assertions are meaningless.\n  60 |   const want = whatwg(body.url.replace(/^[\\t\\n\\f\\r ]+|[\\t\\n\\f\\r ]+$/g, ''));\n> 61 |   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringify(l?.url)}, expected ${JSON.stringify(want)}`);\n     |                              ^\n  62 |   if (typeof body.alias === 'string' && body.alias !== '' && l.code !== body.alias) {\n  63 |     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expected the alias`);\n  64 |   }\n    at createOk (/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts:61:30)\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/stats-page.spec.ts:99:15"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-18T22:49:10.604Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/stats-page-stats-page-link-d5758--365-and-no-link-is-current/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/stats-page-stats-page-link-d5758--365-and-no-link-is-current/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts",
+                        "column": 30,
+                        "line": 61
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "feddb1a36edbf83baea8-def9199a5592cf7a5b03",
+              "file": "stats-page.spec.ts",
+              "line": 98,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-8] missing or invalid days behaves exactly like days=30, including aria-current on \"30 days\"",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 15000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 30,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 78,
+                      "error": {
+                        "message": "Error: setup: POST /api/links {\"url\":\"https://example.com/ui7/48ndtuqkq3u0\",\"alias\":\"ui7-rz6dr8wxm5\"} -> url \"https://www.rust-lang.org/learn\", expected \"https://example.com/ui7/48ndtuqkq3u0\"",
+                        "stack": "Error: setup: POST /api/links {\"url\":\"https://example.com/ui7/48ndtuqkq3u0\",\"alias\":\"ui7-rz6dr8wxm5\"} -> url \"https://www.rust-lang.org/learn\", expected \"https://example.com/ui7/48ndtuqkq3u0\"\n    at createOk (/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts:61:30)\n    at linkWithClicks (/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/stats-page.spec.ts:34:13)\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/stats-page.spec.ts:108:15",
+                        "location": {
+                          "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts",
+                          "column": 30,
+                          "line": 61
+                        },
+                        "snippet": "\u001b[90m   at \u001b[39m../../lib/links.ts:61\n\n  59 |   // A created link must echo what was asked for (R-LINK-2, R-URL-5); otherwise later assertions are meaningless.\n  60 |   const want = whatwg(body.url.replace(/^[\\t\\n\\f\\r ]+|[\\t\\n\\f\\r ]+$/g, ''));\n> 61 |   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringify(l?.url)}, expected ${JSON.stringify(want)}`);\n     |                              ^\n  62 |   if (typeof body.alias === 'string' && body.alias !== '' && l.code !== body.alias) {\n  63 |     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expected the alias`);\n  64 |   }"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts",
+                            "column": 30,
+                            "line": 61
+                          },
+                          "message": "Error: setup: POST /api/links {\"url\":\"https://example.com/ui7/48ndtuqkq3u0\",\"alias\":\"ui7-rz6dr8wxm5\"} -> url \"https://www.rust-lang.org/learn\", expected \"https://example.com/ui7/48ndtuqkq3u0\"\n\n   at ../../lib/links.ts:61\n\n  59 |   // A created link must echo what was asked for (R-LINK-2, R-URL-5); otherwise later assertions are meaningless.\n  60 |   const want = whatwg(body.url.replace(/^[\\t\\n\\f\\r ]+|[\\t\\n\\f\\r ]+$/g, ''));\n> 61 |   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringify(l?.url)}, expected ${JSON.stringify(want)}`);\n     |                              ^\n  62 |   if (typeof body.alias === 'string' && body.alias !== '' && l.code !== body.alias) {\n  63 |     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expected the alias`);\n  64 |   }\n    at createOk (/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts:61:30)\n    at linkWithClicks (/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/stats-page.spec.ts:34:13)\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/stats-page.spec.ts:108:15"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-18T22:49:11.083Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/stats-page-stats-page-link-60c9f-ng-aria-current-on-30-days-/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/stats-page-stats-page-link-60c9f-ng-aria-current-on-30-days-/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts",
+                        "column": 30,
+                        "line": 61
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "feddb1a36edbf83baea8-cde4c90ffeca7b029d7e",
+              "file": "stats-page.spec.ts",
+              "line": 107,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-9] an unknown code responds 404 with the level-1 heading \"Link not found\"",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 15000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 31,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 5081,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('heading', { name: 'Link not found', exact: true, level: 1 })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('heading', { name: 'Link not found', exact: true, level: 1 }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('heading', { name: 'Link not found', exact: true, level: 1 })\u001b[22m\n",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('heading', { name: 'Link not found', exact: true, level: 1 })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('heading', { name: 'Link not found', exact: true, level: 1 }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('heading', { name: 'Link not found', exact: true, level: 1 })\u001b[22m\n\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/stats-page.spec.ts:124:96",
+                        "location": {
+                          "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/stats-page.spec.ts",
+                          "column": 96,
+                          "line": 124
+                        },
+                        "snippet": "  122 |     const resp = await page.goto(`/links/nope-${uid()}`);\n  123 |     expect(resp!.status()).toBe(404);\n> 124 |     await expect(page.getByRole('heading', { level: 1, name: 'Link not found', exact: true })).toBeVisible();\n      |                                                                                                ^\n  125 |   });\n  126 |\n  127 |   test('[R-UI-9][R-DEL-1] a deleted link\\'s page responds 404 \"Link not found\"', async ({ page }) => {"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/stats-page.spec.ts",
+                            "column": 96,
+                            "line": 124
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('heading', { name: 'Link not found', exact: true, level: 1 })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('heading', { name: 'Link not found', exact: true, level: 1 }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('heading', { name: 'Link not found', exact: true, level: 1 })\u001b[22m\n\n\n  122 |     const resp = await page.goto(`/links/nope-${uid()}`);\n  123 |     expect(resp!.status()).toBe(404);\n> 124 |     await expect(page.getByRole('heading', { level: 1, name: 'Link not found', exact: true })).toBeVisible();\n      |                                                                                                ^\n  125 |   });\n  126 |\n  127 |   test('[R-UI-9][R-DEL-1] a deleted link\\'s page responds 404 \"Link not found\"', async ({ page }) => {\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/stats-page.spec.ts:124:96"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-18T22:49:11.554Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/stats-page-stats-page-link-b3ddd-l-1-heading-Link-not-found-/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/stats-page-stats-page-link-b3ddd-l-1-heading-Link-not-found-/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/stats-page.spec.ts",
+                        "column": 96,
+                        "line": 124
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "feddb1a36edbf83baea8-18aa73250df2845a0193",
+              "file": "stats-page.spec.ts",
+              "line": 121,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-9][R-DEL-1] a deleted link's page responds 404 \"Link not found\"",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 15000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 32,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 77,
+                      "error": {
+                        "message": "Error: setup: POST /api/links {\"url\":\"https://example.com/ui9/di7ssjmopgxs\",\"alias\":\"ui9-7cxxxxbkio\"} -> url \"https://www.rust-lang.org/learn\", expected \"https://example.com/ui9/di7ssjmopgxs\"",
+                        "stack": "Error: setup: POST /api/links {\"url\":\"https://example.com/ui9/di7ssjmopgxs\",\"alias\":\"ui9-7cxxxxbkio\"} -> url \"https://www.rust-lang.org/learn\", expected \"https://example.com/ui9/di7ssjmopgxs\"\n    at createOk (/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts:61:30)\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/stats-page.spec.ts:128:15",
+                        "location": {
+                          "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts",
+                          "column": 30,
+                          "line": 61
+                        },
+                        "snippet": "\u001b[90m   at \u001b[39m../../lib/links.ts:61\n\n  59 |   // A created link must echo what was asked for (R-LINK-2, R-URL-5); otherwise later assertions are meaningless.\n  60 |   const want = whatwg(body.url.replace(/^[\\t\\n\\f\\r ]+|[\\t\\n\\f\\r ]+$/g, ''));\n> 61 |   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringify(l?.url)}, expected ${JSON.stringify(want)}`);\n     |                              ^\n  62 |   if (typeof body.alias === 'string' && body.alias !== '' && l.code !== body.alias) {\n  63 |     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expected the alias`);\n  64 |   }"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts",
+                            "column": 30,
+                            "line": 61
+                          },
+                          "message": "Error: setup: POST /api/links {\"url\":\"https://example.com/ui9/di7ssjmopgxs\",\"alias\":\"ui9-7cxxxxbkio\"} -> url \"https://www.rust-lang.org/learn\", expected \"https://example.com/ui9/di7ssjmopgxs\"\n\n   at ../../lib/links.ts:61\n\n  59 |   // A created link must echo what was asked for (R-LINK-2, R-URL-5); otherwise later assertions are meaningless.\n  60 |   const want = whatwg(body.url.replace(/^[\\t\\n\\f\\r ]+|[\\t\\n\\f\\r ]+$/g, ''));\n> 61 |   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringify(l?.url)}, expected ${JSON.stringify(want)}`);\n     |                              ^\n  62 |   if (typeof body.alias === 'string' && body.alias !== '' && l.code !== body.alias) {\n  63 |     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expected the alias`);\n  64 |   }\n    at createOk (/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts:61:30)\n    at /Users/matthewnelson/Workspace/tbv-ws/harness/harness/tests/ui/stats-page.spec.ts:128:15"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-18T22:49:17.056Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/stats-page-stats-page-link-37449-esponds-404-Link-not-found-/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/test-results/stats-page-stats-page-link-37449-esponds-404-Link-not-found-/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/matthewnelson/Workspace/tbv-ws/harness/harness/lib/links.ts",
+                        "column": 30,
+                        "line": 61
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "feddb1a36edbf83baea8-26c0af7d85ccc199d330",
+              "file": "stats-page.spec.ts",
+              "line": 127,
+              "column": 3
+            }
+          ]
+        }
+      ]
     }
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-10-18T21:31:16.304Z",
-    "duration": 60505.130000000005,
+    "startTime": "2026-10-18T22:44:51.253Z",
+    "duration": 265993.432,
     "expected": 0,
-    "skipped": 0,
-    "unexpected": 1,
+    "skipped": 2,
+    "unexpected": 33,
     "flaky": 0
   }
 }

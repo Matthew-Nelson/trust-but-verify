@@ -2,7 +2,25 @@
 import { expect } from 'vitest';
 import { PUBLIC_BASE_URL } from './config.ts';
 import { FORBIDDEN_MESSAGE_PATTERNS, ERROR_CODES, mediaType, type Res } from './http.ts';
-import { TS_RE, type Link, type Stats } from './links.ts';
+import { TS_RE, micros, type Link, type Stats } from './links.ts';
+
+/** Two timestamps (or nulls) denote the same instant (SPEC "Timestamps": compared as instants). */
+export function expectSameInstant(actual: string | null, expected: string | null, label = 'timestamp'): void {
+  if (actual === null || expected === null) {
+    expect(actual, label).toBe(expected);
+    return;
+  }
+  expect(micros(actual), `${label}: ${actual} vs ${expected}`).toBe(micros(expected));
+}
+
+/** Same Link: every non-timestamp field equal, timestamps equal as instants. */
+export function expectSameLink(actual: any, expected: Link): void {
+  const { createdAt: ac, lastClickedAt: al, ...ar } = actual;
+  const { createdAt: ec, lastClickedAt: el, ...er } = expected;
+  expect(ar).toEqual(er);
+  expectSameInstant(ac, ec, 'createdAt');
+  expectSameInstant(al, el, 'lastClickedAt');
+}
 
 /**
  * R-ERR-1 envelope + status + code, plus R-ERR-4: the message contains none of `supplied`

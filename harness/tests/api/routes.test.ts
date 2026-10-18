@@ -179,3 +179,32 @@ describe('R-ROUTE-2 encoded dot segments (spec-v1.1)', () => {
     expect(g.url).toBe(l.url);
   });
 });
+
+describe('R-ROUTE-2 matching on the undecoded path (spec-v1.2)', () => {
+  test('[R-ROUTE-2][R-REDIR-9][R-REDIR-3] /a%2Fb is a /{code} path: GET/HEAD 404 text/plain, PUT/DELETE 405 with Allow {GET, HEAD}', async () => {
+    const p = `/a${uid(6)}%2Fb`;
+    expectPlain404(await raw('GET', p));
+    const head = await raw('HEAD', p);
+    expect(head.status).toBe(404);
+    expect(mediaType(head)).toBe('text/plain');
+    for (const m of ['PUT', 'DELETE']) {
+      const r = await raw(m, p);
+      expect(r.status, `${m} ${p}`).toBe(405);
+      expect(mediaType(r)).toBe('text/plain');
+      expect(allowSet(r)).toEqual(new Set(['GET', 'HEAD']));
+    }
+  });
+
+  test('[R-ROUTE-2][R-ERR-6][R-ERR-5] %2F inside /api/links/{code} does not split the segment: matched routes give 405/404, not an unmatched 404 for every method', async () => {
+    const c = `x${uid(6)}%2Fy`;
+    const put = await raw('PUT', `/api/links/${c}`);
+    expectError(put, 405, 'method_not_allowed');
+    expect(allowSet(put)).toEqual(new Set(['GET', 'HEAD', 'DELETE']));
+    const post = await raw('POST', `/api/links/${c}/stats`);
+    expectError(post, 405, 'method_not_allowed');
+    expect(allowSet(post)).toEqual(new Set(['GET', 'HEAD']));
+    expectError(await raw('GET', `/api/links/${c}`), 404, 'not_found');
+    expectError(await raw('GET', `/api/links/${c}/stats`), 404, 'not_found');
+  });
+});
+

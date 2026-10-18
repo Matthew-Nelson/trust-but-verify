@@ -4,7 +4,7 @@
 **May read:** everything in the repo. **Writes:** `impls/web/` only.
 **Must not access:** anything outside the repo. A hidden holdout suite exists elsewhere on this machine, and transcripts are audited.
 
-Build a minimal Next.js UI that satisfies the **R-UI** requirements in `spec/SPEC.md` (tag `spec-v1.1`; where this prompt and SPEC disagree, SPEC wins). The independent harness checks it through roles and accessible names, the way a screen-reader user would. The names in the spec are the contract, so use them exactly. Keep the scope small. This UI is a system under test, not a showcase. Clean and legible beats elaborate.
+Build a minimal Next.js UI that satisfies the **R-UI** requirements in `spec/SPEC.md` (tag `spec-v1.3`; where this prompt and SPEC disagree, SPEC wins). The independent harness checks it through roles and accessible names, the way a screen-reader user would. The names in the spec are the contract, so use them exactly. Keep the scope small. This UI is a system under test, not a showcase. Clean and legible beats elaborate.
 
 ## Stack and constraints
 - `pnpm create next-app@latest` with TypeScript strict, App Router, `src/` and Tailwind.

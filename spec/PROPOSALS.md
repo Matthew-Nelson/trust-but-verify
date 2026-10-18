@@ -4,6 +4,8 @@ Any agent may append; only the coordinator edits `spec/`. Format: date Â· role Â
 
 ## From harness run 4 (2026-10-17), copied verbatim
 
+**Disposed in `spec-v1.1` (2026-10-18):** see `spec/reviews/03-harness-proposals-disposition.md`.
+
 These are problems found in `spec/SPEC.md` / `spec/openapi.json` (spec-v1) while writing the acceptance harness. `spec/` was not edited. For each one, the harness's current interpretation is stated so the suite's behavior is clear until a new tag decides it.
 
 | ID | Problem | Suggested change | Harness interpretation today |

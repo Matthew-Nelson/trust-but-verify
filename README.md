@@ -4,7 +4,7 @@
 
 AI agents can now build working software in any language. The scarce skill is no longer writing code. It's knowing whether the code is right. This repo is a worked example: a URL-shortener API written by AI agents in **Rust (a language I don't know)**, and a verification system that lets a skeptical third party confirm it works **without reading or trusting the code, the agents, or me**.
 
-> Status: **in progress.** Spec signed off (`spec-v1`) after two blind adversarial reviews by different models (88 findings, 0 rejected). Harness and implementation not yet built. The results below are placeholders until `verified-v1`.
+> Status: **in progress.** Spec signed off (`spec-v1`) after two blind adversarial reviews by different models (88 findings, 0 rejected), then amended to `spec-v1.1` from the harness author's 19 proposals before any code existed. Harness written and its holdout sealed; implementation not yet built. The results below are placeholders until `verified-v1`.
 
 ## Results
 

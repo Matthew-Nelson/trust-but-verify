@@ -2,8 +2,8 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Shortlink API",
-    "version": "1.0.0",
-    "description": "URL shortener with click analytics. Field-level contract for the system under test. Requirement rules (with IDs) live in spec/SPEC.md. Where this file and SPEC.md seem to differ, SPEC.md wins."
+    "version": "1.1.0",
+    "description": "URL shortener with click analytics. Field-level contract for the system under test. Requirement rules (with IDs) live in spec/SPEC.md. Where this file and SPEC.md seem to differ, SPEC.md wins. Not modeled as operations but normative (SPEC R-ERR-6, R-ROUTE-1..3): an unsupported method on a documented path returns 405 with an Allow header listing exactly the supported methods (method_not_allowed JSON under /api/ and /healthz, text/plain on /{code}); an unmatched path returns 404 (not_found JSON under /api/, text/plain elsewhere). URL-valued fields carry no format: WHATWG serializations are not always RFC 3986."
   },
   "servers": [
     {
@@ -449,10 +449,9 @@
             "description": "Redirect to the destination",
             "headers": {
               "Location": {
-                "description": "The destination URL",
+                "description": "The stored URL, byte for byte (R-URL-5)",
                 "schema": {
-                  "type": "string",
-                  "format": "uri"
+                  "type": "string"
                 }
               },
               "Cache-Control": {
@@ -597,7 +596,6 @@
           },
           "shortUrl": {
             "type": "string",
-            "format": "uri",
             "description": "PUBLIC_BASE_URL + '/' + code",
             "example": "http://localhost:8080/aZ3kQ9x"
           },

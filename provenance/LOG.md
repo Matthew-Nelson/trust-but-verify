@@ -14,6 +14,8 @@ One row per agent run. "Could see" describes the workspace actually given to the
 | 5b | 2026-10-18 | harness review | harness reviewer (sign-off gate) | Fable (fresh context, background subagent) | `tbv-ws/harness-review`: `spec-v1.1` SPEC + openapi, PROPOSALS, HP disposition, public `harness/` at `f6d203e` | repo, holdout, METHOD, other prompts | `spec/reviews/04-fable-harness-review.md`: **BLOCK** (3 blocking, 13 nits), copied unmodified; disposition `04-disposition.md`; `spec-v1.2` | subagent transcript (audited) |
 | 6 | 2026-10-18 | harness update | harness author (resumed) | Opus (`a1fa35d76a896a0d7`) | `tbv-ws/harness` with `spec-v1.2`, `HARNESS_REVIEW.md`, seal-2 holdout restored | repo, dispositions, METHOD, other prompts | fixes for HR-01..16 (API 372, invariants 6 → 8, UI 35); holdout 105 → 106; HP-21, HP-22 | subagent transcript (audited) |
 | 7 | 2026-10-18 | harness update | harness author (resumed) | Opus (`a1fa35d76a896a0d7`) | same workspace, `spec-v1.3` | same | R-PRIV-1 inconclusive guard (HP-21 as amended); holdout unchanged; holdout re-sealed as seal 3 | subagent transcript (audited) |
+| 7b | 2026-10-18 | harness review, round 2 | harness reviewer (resumed) | Fable (same agent as 5b) | `tbv-ws/harness-review` refreshed: `spec-v1.3`, dispositions, harness `6ff8513` and both diffs, round-1 report | repo, holdout, METHOD, other prompts | `spec/reviews/05-fable-harness-review-2.md`: **SIGN-OFF WITH NITS** (0 blocking, 5 nits); disposition `05-disposition.md` | subagent transcript (audited) |
+| – | 2026-10-18 | sign-off | Matthew (delegated) | — | — | — | Delegated rule met ("If they give signoff then i approve as well"); tag `harness-v1` created by the coordinator at the reviewed commit | this session |
 
 **Deviation (run 1):** the plan assigned Fable 5.1 to spec review. Matthew chose Opus. The reviewer is therefore the same model family as the spec's author, which raises the risk of shared blind spots for this review. Mitigation: the harness author also reviews the spec in practice (it must interpret every rule), and its interpretations are reported.
 
@@ -74,6 +76,10 @@ One row per agent run. "Could see" describes the workspace actually given to the
 - **HP-21 false pass caught.** Run 6's database-host exclusion would have dropped the plain client address when `DATABASE_URL` used `127.0.0.1`. The coordinator caught this, added the inconclusive guard to the SPEC (`spec-v1.3`), and had run 7 implement it. `canonicalForms` was exercised offline: `127.0.0.1`, `::ffff:127.0.0.1`, `::1` and `192.168.1.5` each yield their plain form as canonical.
 
 **Leak control (runs 6 and 7):** the SELF_CHECK redaction was re-applied on import. All 69 `[R-…` literals in seal 3 were searched for in the repo, and the only matches are the same 3 generic templates. `prism.log` was not imported. The raw results contain no "holdout" text.
+
+**Isolation audit (run 7b):** 23 tool calls (Read 14, Bash 7, Write 1, hand-back 1), with 23 workspace references detected as a positive control. Nothing outside the workspace, no web access. Its only write was `HARNESS_REVIEW_2.md`.
+
+**Coordinator check on run 7b:** HR2-05 was tested empirically, and Vitest 4.1.11's JSON reporter drops skip notes and annotations. The resolution is in phase 6's tooling (see `05-disposition.md`), not in the harness.
 
 **Prompt for run 1:** `provenance/prompts/01-spec-review.md` verbatim, preceded by a header giving the workspace paths, the read restriction and the output location.
 

@@ -24,3 +24,10 @@
 | HR-16 | nit | Agreed. This is already what the harness asserts. | **SPEC v1.2:** R-STATS-5 entries have at least 1 click. | coordinator |
 
 Counted by script: 16 findings; 16 accepted (HR-03 downgraded to a nit but still fixed); 4 resolved in SPEC, 12 in the harness.
+
+## Follow-ups from harness run 6 (HP-21, HP-22)
+
+| ID | Resolution |
+|---|---|
+| HP-21 | Accepted, **with a guard the proposal lacked.** As implemented in run 6, if `DATABASE_URL` uses `127.0.0.1` and the client is `127.0.0.1`, the plain `127.0.0.1` form is dropped from the search, and the log test would pass while missing the most likely leak. `spec-v1.3`: excluded forms are reported; if the client's canonical form is excluded, the log search is **inconclusive** (reported as pending, never as passed); verification runs name the database host differently from the client (for example `localhost`). Harness change: run 7. |
+| HP-22 | Accepted. `spec-v1.3`: R-UI-12's note states the scope of verification and does not narrow the rule. No harness change. |

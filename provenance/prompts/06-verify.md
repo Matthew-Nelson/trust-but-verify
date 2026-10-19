@@ -13,3 +13,5 @@ Runs in the main repo after `mutants-v1`. Produces the evidence and the report.
 6. **Make it reproducible.** Add `make verify`, which runs the whole pipeline from a clean clone. Add a GitHub Actions workflow with a Postgres service that runs it on every push, fails if `harness/` changes in the same commit as `impls/`, and publishes the HTML report to GitHub Pages.
 7. **Write the human acceptance checklist.** Write `reports/HUMAN_ACCEPTANCE.md`: a 10–15 step script Matthew runs against the live app, with a place to record pass/fail and notes.
 8. **Update the README** results table with real numbers and tag `verified-v1`.
+
+**Proxy variables (HR3-02).** Before `pnpm fuzz`, the verify run fails if `HTTP_PROXY`, `HTTPS_PROXY`, `ALL_PROXY` or their lowercase forms are set. Schemathesis honours them even for localhost, so they would route the fuzz run through a proxy. CI unsets them explicitly.

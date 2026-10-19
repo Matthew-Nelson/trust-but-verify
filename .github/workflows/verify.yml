@@ -1,0 +1,109 @@
+# Runs the full verification pipeline (make verify) on every push and publishes the HTML report.
+# Also fails any commit that changes harness/ and impls/ together: implementations must never edit
+# the tests that judge them (CLAUDE.md rule 3).
+name: verify
+
+on:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  separation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: No commit changes harness/ and impls/ together
+        env:
+          BEFORE: ${{ github.event.before }}
+          AFTER: ${{ github.sha }}
+        run: |
+          if [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
+            range="HEAD~1..HEAD"
+          else
+            range="$BEFORE..$AFTER"
+          fi
+          bad=0
+          for c in $(git rev-list --no-merges "$range"); do
+            files=$(git diff-tree --no-commit-id --name-only -r "$c")
+            if echo "$files" | grep -q '^harness/' && echo "$files" | grep -q '^impls/'; then
+              echo "::error::commit $c changes both harness/ and impls/"
+              bad=1
+            fi
+          done
+          exit $bad
+
+  verify:
+    needs: separation
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: verify
+          POSTGRES_HOST_AUTH_METHOD: trust
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U verify" --health-interval 5s --health-timeout 5s --health-retries 20
+    env:
+      PGUSER: verify
+      PGHOST: localhost
+      # Schemathesis honours proxy variables even for localhost (HR3-02); the tools refuse to run with them.
+      HTTP_PROXY: ''
+      HTTPS_PROXY: ''
+      ALL_PROXY: ''
+      http_proxy: ''
+      https_proxy: ''
+      all_proxy: ''
+    steps:
+      - uses: actions/checkout@v4
+      - name: Unset proxy variables
+        run: |
+          for v in HTTP_PROXY HTTPS_PROXY ALL_PROXY http_proxy https_proxy all_proxy; do echo "$v=" >> "$GITHUB_ENV"; done
+      - name: Rust toolchain (pinned by impls/api/rust-toolchain.toml)
+        run: cd impls/api && rustup show active-toolchain || rustup toolchain install
+      - uses: taiki-e/install-action@v2
+        with:
+          tool: cargo-audit
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11
+      - uses: astral-sh/setup-uv@v5
+      - name: Postgres client
+        run: sudo apt-get update && sudo apt-get install -y postgresql-client
+      - name: make verify
+        run: make verify
+      - name: Upload raw evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: verification-evidence
+          path: reports/
+      - name: Prepare Pages
+        if: github.ref == 'refs/heads/main'
+        run: mkdir -p _site && cp reports/VERIFICATION.html _site/index.html
+      - uses: actions/upload-pages-artifact@v3
+        if: github.ref == 'refs/heads/main'
+        with:
+          path: _site
+
+  pages:
+    needs: verify
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - id: deploy
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,10 @@
+2026-10-19T02:24:14.995630Z  WARN sqlx::pool::acquire: acquired connection, but time to acquire exceeded slow threshold acquired_after_secs=3.131259917 slow_acquire_threshold_secs=2.0
+2026-10-19T02:24:14.997739Z  INFO shortlink_api::app: response status=200 latency_ms=3134
+2026-10-19T02:24:16.036679Z  WARN sqlx::pool::acquire: acquired connection, but time to acquire exceeded slow threshold acquired_after_secs=4.351517542 slow_acquire_threshold_secs=2.0
+2026-10-19T02:24:16.489677Z  WARN shortlink_api::redirect: could not record click error=pool timed out while waiting for an open connection
+2026-10-19T02:24:16.489695Z ERROR shortlink_api::error: internal error detail=pool timed out while waiting for an open connection
+2026-10-19T02:24:16.489735Z  INFO shortlink_api::app: response status=500 latency_ms=5002
+2026-10-19T02:24:16.489740Z ERROR tower_http::trace::on_failure: response failed classification=Status code: 500 Internal Server Error latency=5002 ms
+2026-10-19T02:24:16.505351Z ERROR shortlink_api::error: internal error detail=pool timed out while waiting for an open connection
+2026-10-19T02:24:16.505368Z  INFO shortlink_api::app: response status=500 latency_ms=5000
+2026-10-19T02:24:16.505372Z ERROR tower_http::trace::on_failure: response failed classification=Status code: 500 Internal Server Error latency=5000 ms

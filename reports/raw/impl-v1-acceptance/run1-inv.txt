@@ -1,0 +1,24 @@
+$ vitest run --config vitest.invariants.config.ts
+
+ RUN  v4.1.11 /Users/matthewnelson/Workspace/trust-but-verify/harness
+
+
+[harness] TARGET_API=http://localhost:8080
+[harness] PUBLIC_BASE_URL (expected)=http://localhost:8080
+[harness] COUNTRY_HEADER (expected)=cf-ipcountry
+[harness] DATABASE_URL is set: gray-box tests will run
+[harness] API_BIN is set: spawned-instance tests will run
+
+ ✓ tests/invariants/list-total.test.ts (3 tests) 49ms
+ ✓ tests/invariants/redirect-burst.test.ts (1 test) 4145ms
+   ✓ [R-REDIR-5] 500 GET /{code} with >= 100 in flight: all 302, clickCount = start + 500 at 2 s and again at 4 s  4144ms
+ ✓ tests/invariants/alias-race.test.ts (3 tests) 54ms
+ ✓ tests/invariants/unique-codes.test.ts (1 test) 444ms
+   ✓ [R-LINK-6][R-LINK-7][R-LINK-1] 1,000 sequential creates with no alias: all 201, 1,000 distinct well-formed codes, none reserved  443ms
+
+ Test Files  4 passed (4)
+      Tests  8 passed (8)
+   Start at  19:24:35
+   Duration  5.14s (transform 31ms, setup 113ms, import 21ms, tests 4.69s, environment 0ms)
+
+JSON report written to /Users/matthewnelson/Workspace/trust-but-verify/harness/results/invariants.json

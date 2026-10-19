@@ -1,0 +1,85 @@
+$ node scripts/fuzz.mjs
+schemathesis: schemathesis==4.29.1
+target: http://localhost:8081
+seed: 20261017
+max-examples per operation: 100
+checks: all except positive_data_acceptance
+mode: all (positive + negative)
+redirects: never followed; a 3xx is the recorded response (hook fuzz/no_redirects.py: allow_redirects=False + resolve_redirects guard)
+config: fuzz/schemathesis.toml ([generation] allow-extra-parameters = false; hooks = fuzz/no_redirects.py)
+format "uri" stripped at: (none)
+command: uvx --from schemathesis==4.29.1 schemathesis --config-file /Users/matthewnelson/Workspace/trust-but-verify/harness/fuzz/schemathesis.toml run /Users/matthewnelson/Workspace/trust-but-verify/harness/fuzz/out/openapi.fuzz.json --url http://localhost:8081 --checks all --exclude-checks positive_data_acceptance --mode all --seed 20261017 --max-examples 100 --request-timeout 10 --report junit,ndjson --report-dir /Users/matthewnelson/Workspace/trust-but-verify/harness/fuzz/out
+
+Schemathesis v4.29.1
+━━━━━━━━━━━━━━━━━━━━
+
+
+ ✅  Loaded specification from                                                  
+ /Users/matthewnelson/Workspace/trust-but-verify/harness/fuzz/out/openapi.fuzz. 
+ json (in 0.18s)                                                                
+
+     Base URL:         http://localhost:8081                                    
+     Specification:    Open API 3.1.0                                           
+     Operations:       12 selected / 12 total                                   
+     Configuration:    /Users/matthewnelson/Workspace/trust-but-verify/harn     
+                       ess/fuzz/schemathesis.toml                               
+
+
+ ✅  API capabilities:                                                          
+
+     Supports NULL byte in headers:                            ✘                
+     Accepts backslash and control characters in URL paths:    ✓                
+
+ ✅  Examples (in 0.10s)                                                        
+                                                                                
+     ✅  8 passed  ⏭   4 skipped                                                
+
+ ✅  Coverage (in 0.94s)                                                        
+                                                                                
+     ✅ 12 passed                                                               
+
+ ✅  Fuzzing (in 4.31s)                                                         
+                                                                                
+     ✅ 12 passed                                                               
+
+ ✅  Stateful (in 2.67s)                                                        
+
+     Scenarios:    190                                                          
+     API Links:    14 covered / 14 selected / 14 total (14 inferred)            
+
+     ✅ 190 passed                                                              
+
+=================================== WARNINGS ===================================
+
+Missing test data: 2 operations repeatedly returned 404 Not Found, preventing tests from reaching your API's core logic
+
+  - GET /{code}
+  - HEAD /{code}
+
+💡 Provide realistic parameter values in your config file so tests can access existing resources
+
+=================================== SUMMARY ====================================
+
+API Operations:
+  Selected: 12/12
+  Tested: 12
+
+Test Phases:
+  ✅ Examples
+  ✅ Coverage
+  ✅ Fuzzing
+  ✅ Stateful
+
+Warnings:
+  ⚠️ Missing valid test data: 2 operations repeatedly returned 404 responses
+
+Test cases:
+  1912 generated, 1912 passed, 1 skipped
+
+Reports:
+  - JUNIT: /Users/matthewnelson/Workspace/trust-but-verify/harness/fuzz/out/junit-20261018T192500Z.xml
+  - NDJSON: /Users/matthewnelson/Workspace/trust-but-verify/harness/fuzz/out/ndjson-20261018T192500Z.ndjson
+
+Seed: 20261017
+
+============================== 1 warning in 8.06s ==============================

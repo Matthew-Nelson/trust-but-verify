@@ -1,0 +1,183 @@
+$ vitest run --config vitest.api.config.ts
+
+ RUN  v4.1.11 /Users/matthewnelson/Workspace/trust-but-verify/harness
+
+
+[harness] TARGET_API=http://localhost:8080
+[harness] PUBLIC_BASE_URL (expected)=http://localhost:8080
+[harness] COUNTRY_HEADER (expected)=cf-ipcountry
+[harness] DATABASE_URL is set: gray-box tests will run
+[harness] API_BIN is set: spawned-instance tests will run
+
+ ✓ tests/api/routes.test.ts (71 tests) 457ms
+ ✓ tests/api/errors.test.ts (83 tests) 3703ms
+     ✓ [R-ERR-3][R-LIST-2] GET /api/links?limit=3&offset=2 -> 200 echoing limit 3 offset 2  3135ms
+ ✓ tests/api/alias.test.ts (42 tests) 61ms
+ ❯ tests/api/data.graybox.test.ts (4 tests | 1 failed) 4138ms
+     × [R-DATA-2][R-CLICK-1][R-CLICK-2][R-CLICK-3][gray-box] click columns use the stored encodings 4085ms
+     ✓ [R-DATA-2][gray-box] no click row anywhere stores '' or 'direct' as referrer, or a non-upper-case country 26ms
+     ✓ [R-DATA-3][gray-box] migrations create exactly the SPEC schema (columns, keys, constraints, index, no triggers) 17ms
+     ✓ [R-PRIV-1][gray-box] no column can hold a client address, and click rows do not contain this client's address 8ms
+ ❯ tests/api/stats.test.ts (14 tests | 1 failed) 4261ms
+     ✓ [R-STATS-1][R-STATS-2] default days is 30: days 30 and exactly 30 daily entries, code echoed 43ms
+     ✓ [R-STATS-1][R-STATS-2] days=1 -> days echoed and exactly that many entries 6ms
+     ✓ [R-STATS-1][R-STATS-2] days=2 -> days echoed and exactly that many entries 18ms
+     ✓ [R-STATS-1][R-STATS-2] days=7 -> days echoed and exactly that many entries 27ms
+     ✓ [R-STATS-1][R-STATS-2] days=90 -> days echoed and exactly that many entries 12ms
+     ✓ [R-STATS-1][R-STATS-2] days=364 -> days echoed and exactly that many entries 29ms
+     ✓ [R-STATS-1][R-STATS-2] days=365 -> days echoed and exactly that many entries 33ms
+     ✓ [R-STATS-1] days is a query integer after percent-decoding: days=%37 means 7 52ms
+     ✓ [R-STATS-2] a link created today gets the full window, zero-filled, ending today 17ms
+     × [R-STATS-2][R-STATS-3] a click now lands on the last entry (today), for days=1, 7 and 365 3833ms
+     ✓ [R-STATS-2] windows of different sizes agree: days=7 equals the last 7 entries of days=30 26ms
+     ✓ [R-STATS-4] rangeClicks is the sum of daily and totalClicks equals clickCount 7ms
+     ✓ [R-STATS-5][R-STATS-6] breakdowns: at most 5, clicks desc then name asc in code-point order, direct/unknown ordinary 150ms
+     ✓ [R-STATS-6] devices lists only classes with at least one click 4ms
+ ✓ tests/api/list.test.ts (7 tests) 96ms
+ ✓ tests/api/create.test.ts (16 tests) 89ms
+ ✓ tests/api/click.test.ts (57 tests) 537ms
+     ✓ [R-CLICK-2] country header digit -> ["cf-ipcountry","1A"]  311ms
+ ✓ tests/api/read-delete.test.ts (6 tests) 95ms
+ ✓ tests/api/health.test.ts (1 test) 56ms
+ ❯ tests/api/stats.graybox.test.ts (7 tests | 1 failed) 5163ms
+     × [R-STATS-2][R-STATS-3][gray-box] window is [first day 00:00Z, day after today 00:00Z); daily is exact and oldest first 5086ms
+     ✓ [R-STATS-2][gray-box] the last daily entry is the database's today, and the default window has 30 entries 12ms
+     ✓ [R-STATS-3][R-STATS-5][R-STATS-6][gray-box] breakdowns count only clicks in the window 18ms
+     ✓ [R-STATS-5][gray-box] top-5 cut-off with ties resolved by code-point name order 17ms
+     ✓ [R-DATA-1][R-STATS-4][gray-box] a row inserted into clicks appears in every click-derived field on the next request 17ms
+     ✓ [R-GET-1][gray-box] clickCount is the row count and lastClickedAt is max(clicked_at) at full microsecond precision 5ms
+     ✓ [R-DATA-2][gray-box] the api reports stored values unchanged, mapping NULL to direct/unknown 6ms
+ ❯ tests/api/url.test.ts (48 tests | 1 failed) 5250ms
+     ✓ [R-URL-1] leading/trailing ASCII whitespace (TAB LF FF CR SP) is trimmed 44ms
+     ✓ [R-URL-1] internal TAB/LF/CR are removed by the parser, not rejected 15ms
+     ✓ [R-URL-1][R-URL-2] a leading non-ASCII space (U+00A0, U+2003) is not trimmed -> 422 invalid_url 10ms
+     × [R-URL-1][R-URL-5] a trailing U+00A0 is not trimmed; the parser percent-encodes it 5009ms
+     ✓ [R-URL-2] empty string -> 422 invalid_url 2ms
+     ✓ [R-URL-2] whitespace only -> 422 invalid_url 1ms
+     ✓ [R-URL-2] javascript scheme -> 422 invalid_url 1ms
+     ✓ [R-URL-2] ftp scheme -> 422 invalid_url 1ms
+     ✓ [R-URL-2] relative path -> 422 invalid_url 1ms
+     ✓ [R-URL-2] no scheme -> 422 invalid_url 1ms
+     ✓ [R-URL-2] http with empty host -> 422 invalid_url 1ms
+     ✓ [R-URL-2] https with only slashes -> 422 invalid_url 0ms
+     ✓ [R-URL-2] mailto -> 422 invalid_url 0ms
+     ✓ [R-URL-2] file scheme (empty host) -> 422 invalid_url 1ms
+     ✓ [R-URL-2] data scheme -> 422 invalid_url 0ms
+     ✓ [R-URL-2] ws scheme -> 422 invalid_url 0ms
+     ✓ [R-URL-2] space in host -> 422 invalid_url 0ms
+     ✓ [R-URL-2] unclosed IPv6 -> 422 invalid_url 0ms
+     ✓ [R-URL-2] port only -> 422 invalid_url 0ms
+     ✓ [R-URL-2] bad port -> 422 invalid_url 1ms
+     ✓ [R-URL-2] invalid IPv4 (part > 255) -> 422 invalid_url 1ms
+     ✓ [R-URL-2] forbidden host code point -> 422 invalid_url 0ms
+     ✓ [R-URL-2][R-URL-5] valid http(s) URL (upper-case scheme and host) -> 201 with the WHATWG serialization 1ms
+     ✓ [R-URL-2][R-URL-5] valid http(s) URL (IPv4 host) -> 201 with the WHATWG serialization 1ms
+     ✓ [R-URL-2][R-URL-5] valid http(s) URL (IPv6 host) -> 201 with the WHATWG serialization 1ms
+     ✓ [R-URL-2][R-URL-5] valid http(s) URL (userinfo) -> 201 with the WHATWG serialization 1ms
+     ✓ [R-URL-2][R-URL-5] valid http(s) URL (explicit non-default port) -> 201 with the WHATWG serialization 2ms
+     ✓ [R-URL-2][R-URL-5] valid http(s) URL (query and fragment) -> 201 with the WHATWG serialization 1ms
+     ✓ [R-URL-3] exactly 2048 code points -> 201; 2049 -> 422 invalid_url 37ms
+     ✓ [R-URL-3] length counts code points, not bytes or UTF-16 units; the normalized form may be longer 49ms
+     ✓ [R-URL-3][R-URL-1] length is measured after trimming: 2048 code points plus surrounding whitespace -> 201 12ms
+     ✓ [R-URL-3] length is measured before parsing: 2049 code points that include internal tabs -> 422 11ms
+     ✓ [R-URL-4] a URL whose hostname equals PUBLIC_BASE_URL's hostname -> 422, ignoring port, scheme, case and userinfo 2ms
+     ✓ [R-URL-4] no DNS/IP equivalence: other hosts, subdomains and loopback IPs are accepted 2ms
+     ✓ [R-URL-5][R-REDIR-1] "https://example.com" is stored, returned and redirected as "https://example.com/" 1ms
+     ✓ [R-URL-5][R-REDIR-1] "HTTPS://Example.COM:443/a/../b" is stored, returned and redirected as "https://example.com/b" 1ms
+     ✓ [R-URL-5][R-REDIR-1] "https://bücher.example/ä" is stored, returned and redirected as "https://xn--bcher-kva.example/%C3%A4" 5ms
+     ✓ [R-URL-5][R-REDIR-1] "https://example.com/a b" is stored, returned and redirected as "https://example.com/a%20b" 1ms
+     ✓ [R-URL-5][R-REDIR-1] "http:example.com" is stored, returned and redirected as "http://example.com/" 1ms
+     ✓ [R-URL-5][R-REDIR-1] "http:///example.com" is stored, returned and redirected as "http://example.com/" 2ms
+     ✓ [R-URL-5][R-REDIR-1] "https://example.com\\path" is stored, returned and redirected as "https://example.com/path" 1ms
+     ✓ [R-URL-5][R-REDIR-1] "  https://example.com/x  " is stored, returned and redirected as "https://example.com/x" 1ms
+     ✓ [R-URL-5][R-URL-2] normative rejection "javascript:alert(1)" -> 422 invalid_url 0ms
+     ✓ [R-URL-5][R-URL-2] normative rejection "ftp://example.com/" -> 422 invalid_url 0ms
+     ✓ [R-URL-5][R-URL-2] normative rejection "/relative" -> 422 invalid_url 0ms
+     ✓ [R-URL-5][R-URL-2] normative rejection "example.com" -> 422 invalid_url 0ms
+     ✓ [R-URL-5][R-URL-1][R-REDIR-1] normative: "\u000Bhttps://example.com/x" (leading vertical tab) is valid -> https://example.com/x 1ms
+     ✓ [R-URL-3][R-URL-1] a leading U+000B counts toward the limit: 2048 code points including it -> 201; 2049 -> 422 23ms
+ ✓ tests/api/spawned.graybox.test.ts (5 tests) 17109ms
+     ✓ [R-HEALTH-1][gray-box] database accepts TCP but never responds -> 503 unavailable within 3 s  4064ms
+     ✓ [R-HEALTH-2][gray-box] with the database unreachable at startup the api opens its port within 10 s, serves /healthz and keeps running  8119ms
+     ✓ [R-HEALTH-3][R-HEALTH-1][gray-box] the health check queries the database on every request (no cached result)  2141ms
+     ✓ [R-PRIV-1][gray-box] api stdout/stderr after the first request never contain the client address  2622ms
+ ✓ tests/api/redirect.test.ts (11 tests) 23103ms
+     ✓ [R-REDIR-4] one redirect records exactly one click, visible within 2.5 s and unchanged at 4 s  4009ms
+     ✓ [R-REDIR-4] five sequential redirects record exactly five clicks  4015ms
+     ✓ [R-REDIR-7] HEAD /{code} -> same status, Location and Cache-Control as GET, no body, and no click  3009ms
+     ✓ [R-REDIR-8] the request query string is ignored: Location is the stored url, and one click is recorded  4006ms
+     ✓ [R-REDIR-3][R-REDIR-1][R-REDIR-4] GET on a percent-encoded known code (/pct%2Dx) -> 302 to its URL, and records exactly one click  4007ms
+     ✓ [R-REDIR-3][R-REDIR-7] HEAD on a percent-encoded known code -> 302 with the same Location and Cache-Control as GET, no body, and no click  4012ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/api/data.graybox.test.ts > storage (gray-box) > [R-DATA-2][R-CLICK-1][R-CLICK-2][R-CLICK-3][gray-box] click columns use the stored encodings
+Error: rangeClicks for fspkRB1 is 0, expected 1 within 2500 ms of the last redirect
+ ❯ waitForRangeClicks lib/links.ts:121:13
+    119|     if (s.rangeClicks > expected) throw new Error(`rangeClicks for ${c…
+    120|     if (performance.now() - since > deadlineMs) {
+    121|       throw new Error(`rangeClicks for ${code} is ${s.rangeClicks}, ex…
+       |             ^
+    122|     }
+    123|     await sleep(100);
+ ❯ tests/api/data.graybox.test.ts:36:7
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL  tests/api/stats.graybox.test.ts > stats with seeded clicks (gray-box) > [R-STATS-2][R-STATS-3][gray-box] window is [first day 00:00Z, day after today 00:00Z); daily is exact and oldest first
+Error: setup: POST /api/links {"url":"https://example.com/gw/umc2ydkybosq","alias":"gw-kv09g7my8o"} -> 500 {"error":{"code":"internal","message":"Internal server error."}}
+ ❯ createOk lib/links.ts:56:31
+     54|   const r = await create(body);
+     55|   const what = `setup: POST /api/links ${JSON.stringify(body).slice(0,…
+     56|   if (r.status !== 201) throw new Error(`${what} -> ${r.status} ${r.te…
+       |                               ^
+     57|   const l = r.json as Link;
+     58|   if (LENIENT_SETUP) return l;
+ ❯ tests/api/stats.graybox.test.ts:16:17
+ ❯ retryIfDayChanged lib/links.ts:223:22
+ ❯ tests/api/stats.graybox.test.ts:15:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL  tests/api/stats.test.ts > GET /api/links/{code}/stats > [R-STATS-2][R-STATS-3] a click now lands on the last entry (today), for days=1, 7 and 365
+Error: rangeClicks for s3-vrx0fl9fu5 is 0, expected 1 within 2500 ms of the last redirect
+ ❯ waitForRangeClicks lib/links.ts:121:13
+    119|     if (s.rangeClicks > expected) throw new Error(`rangeClicks for ${c…
+    120|     if (performance.now() - since > deadlineMs) {
+    121|       throw new Error(`rangeClicks for ${code} is ${s.rangeClicks}, ex…
+       |             ^
+    122|     }
+    123|     await sleep(100);
+ ❯ tests/api/stats.test.ts:58:9
+ ❯ retryIfDayChanged lib/links.ts:223:22
+ ❯ tests/api/stats.test.ts:52:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+ FAIL  tests/api/url.test.ts > URL validation > [R-URL-1][R-URL-5] a trailing U+00A0 is not trimmed; the parser percent-encodes it
+AssertionError: {"error":{"code":"internal","message":"Internal server error."}}: expected 500 to be 201 // Object.is equality
+
+- Expected
++ Received
+
+- 201
++ 500
+
+ ❯ tests/api/url.test.ts:41:30
+     39|     const id = uid();
+     40|     const r = await create({ url: `https://example.com/${id} ` });
+     41|     expect(r.status, r.text).toBe(201);
+       |                              ^
+     42|     expect(r.json.url).toBe(`https://example.com/${id}%C2%A0`);
+     43|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+
+ Test Files  4 failed | 10 passed (14)
+      Tests  4 failed | 368 passed (372)
+   Start at  19:24:11
+   Duration  24.10s (transform 346ms, setup 872ms, import 349ms, tests 64.12s, environment 1ms)
+
+JSON report written to /Users/matthewnelson/Workspace/trust-but-verify/harness/results/api.json
+[ELIFECYCLE] Command failed with exit code 1.

@@ -46,3 +46,9 @@ These are problems found in `spec/SPEC.md` / `spec/openapi.json` (spec-v1) while
 | HP-22 | **R-UI-12**: the normative sentence says "no network request", while the verification note limits the check to navigations and non-GET/HEAD requests. A reader can't tell whether the note narrows the rule or only its verification (review, "five coordinator choices"). | State that the parenthetical is the scope of verification, not a narrowing of the rule. | Verifies only the scoped capture. The client-side GET part is reported unverified (COVERAGE.md). |
 
 **Disposed in `spec-v1.3`:** see `spec/reviews/04-disposition.md` (HP-21 accepted with an inconclusive guard, implemented in harness run 7; HP-22 accepted, wording only).
+
+## From the web implementer (run 9, 2026-10-18), confirmed by the coordinator
+
+| ID | Problem | Suggested change | Harness interpretation today |
+|---|---|---|---|
+| HP-23 | **Harness false failure, R-UI-1** (`harness/tests/ui/home.spec.ts`, the `[R-UI-1] form has ...` test). It checks `required === false` on **every** control in `form.elements`. `HTMLButtonElement` (and `fieldset`, `output`, `object`) has no `required` property, so a form whose Shorten control is a `<button>` reads `undefined` and fails. SPEC only forbids `required` on the form's controls; a `<button>` can't carry it. | No SPEC change. Harness: assert `required !== true` (or check only `input`, `select` and `textarea`). The holdout's R-UI-1 variant checks only the two textboxes and is not affected (checked by the coordinator; the seal is unchanged). | `harness-v1` stays frozen. The web implementation uses `<input type="submit" value="Shorten">`, which has role button, name "Shorten" and `required === false`. That is SPEC-conformant, not a workaround that weakens anything. Fix at the next harness revision. |

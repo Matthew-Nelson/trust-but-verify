@@ -46,3 +46,12 @@ These are problems found in `spec/SPEC.md` / `spec/openapi.json` (spec-v1) while
 | HP-22 | **R-UI-12**: the normative sentence says "no network request", while the verification note limits the check to navigations and non-GET/HEAD requests. A reader can't tell whether the note narrows the rule or only its verification (review, "five coordinator choices"). | State that the parenthetical is the scope of verification, not a narrowing of the rule. | Verifies only the scoped capture. The client-side GET part is reported unverified (COVERAGE.md). |
 
 **Disposed in `spec-v1.3`:** see `spec/reviews/04-disposition.md` (HP-21 accepted with an inconclusive guard, implemented in harness run 7; HP-22 accepted, wording only).
+
+## From api implementer run (2026-10-18)
+
+Both items concern `pnpm fuzz` (R-OAS-1) against the Rust api. The api was not changed to work around them.
+
+| ID | Problem | Suggested change | Behavior I implemented |
+|---|---|---|---|
+| HP-23 | **R-OAS-1 / R-ERR-3**: Schemathesis's `negative_data_rejection` check sends an undefined query parameter (`GET|HEAD /api/links?offset=0&x-schemathesis-unknown-property=42`) and expects a 4xx. R-ERR-3 says "Parameters an endpoint doesn't define are ignored", so 200 is the specified answer. The run fails with 2 failures for any api that follows R-ERR-3. | Exclude `negative_data_rejection` from the fuzz run (or only for additional-properties-in-query cases), and say so in "Verification rules / Fuzzing". | Unknown query parameters are ignored (200), per R-ERR-3. |
+| HP-24 | **R-OAS-1 / Fuzzing**: `scripts/fuzz.mjs` passes `--max-redirects 0`. Schemathesis 4.29.1 then reports every 302 as `Network Error: Exceeded 0 redirects.`, so `GET /{code}` and `HEAD /{code}` always error once a code exists, even though the 302 is exactly what R-REDIR-1 requires. 2 errors on a correct api. | Allow the 302 in the fuzz run (for example, a Schemathesis hook or check that treats a 302 without following it as a response), or drop `--max-redirects 0`. | `GET|HEAD /{code}` return 302 with `Location` and `Cache-Control: no-store`, per R-REDIR-1/2. |

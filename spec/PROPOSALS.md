@@ -73,3 +73,75 @@ HP-23 (R-UI-1 `required` on buttons), HP-24 (no undefined parameters in fuzz gen
 | ID | Problem | Suggested change | Harness interpretation today |
 |---|---|---|---|
 | HP-26 | **Verification rules / Fuzzing**: "It does not follow redirects" doesn't say whether Schemathesis's own start-up probes count. They don't go through the hooks, and they ignore `--max-redirects`, so in 4.29.1 a probe answered with a 3xx was observed following it to the `Location` host. A conforming api answers the probe path (`/schemathesis-probe%5C%1B%01`) with a 404, so this matters only for safety ("never reach an external host"), not for conformance. | Add: "This includes any requests the tool sends on its own, such as capability probes." | `fuzz/no_redirects.py` disables redirect-following process-wide (`requests.Session.resolve_redirects` is replaced), so probes also record the 3xx without following it. Verified with a local sink: 0 follow-up requests (SELF_CHECK.md, run 10). |
+
+## From gap round 1 (run 12, 2026-10-18), copied verbatim
+
+From the harness author, against `spec/SPEC.md` tag `spec-v1.4`. Each entry gives the exact SPEC text proposed and lists the tests that depend on it. Those tests are in `harness/tests/api/faults.graybox.test.ts`. Until SPEC adopts the proposals a test needs, it skips with a note beginning `pending (gray-box, proposed HP-..)`, and the rule it covers is reported **unverified**. An operator enables the tests for a run with `HARNESS_PROPOSALS=HP-27,HP-28,HP-29`, which should happen only after adoption.
+
+## Why these are needed
+
+Red-team runs found three behaviors that no suite caught. In each one, the api answered 500 with a non-canonical body (R-ERR-7), or it changed or delayed the redirect when a click failed to record (R-REDIR-6). No test ever made the api hit an internal error or fail to record a click, so nothing could notice.
+
+The question was whether the spec-v1.4 gray-box contract lets the harness cause those conditions deliberately and safely. **It does not.** These are the options the contract allows, and why each falls short:
+
+- **Seeding rows (Data model).** The harness may insert `links` rows with an explicit `created_at` and `clicks` rows. No insert it is allowed to make causes a later click write to fail. Out-of-domain rows (an unencodable `url`, an extreme `created_at`) might make an api fail, but that is implementation-dependent, so it is not deliberate. It is also unsafe, because a poisoned `links` row would break every parallel test's `GET /api/links` page that contains it.
+- **Row locks on the test's own link.** Holding `SELECT ... FOR UPDATE` on the test's `links` row blocks the api's click insert, because the FK check takes `FOR KEY SHARE`. That is a delay, not a failure. Turning the wait into a failure means deleting or re-keying the row (`UPDATE links SET id = DEFAULT`), which the Data model does not grant. Deletion also makes the expected response ambiguous: once the link is gone, a 404 is defensible.
+- **The R-HEALTH-3 style TCP proxy on a spawned instance** (refuse or black-hole). It cannot separate the click write from the link lookup, so it cannot produce "click failed, lookup fine". The R-ERR-7 condition it produces (database unreachable) is one where SPEC leaves the api's behavior "unspecified beyond R-ERR-1" (R-HEALTH-2). In any case, the Configuration rule lists API_BIN uses, and R-ERR-7 and R-REDIR-6 are not on that list.
+
+The approach below confines the fault to one harness-spawned api process and its own database sessions. The rest of the shared database keeps working normally. The only change in it is the test's own links and click rows, created through the api as in every other test. The effect ends when the test stops the process. The tests do this in `afterEach`, which also runs on failure and timeout.
+
+---
+
+## HP-27: API_BIN instances may be used for R-ERR-7 and R-REDIR-6
+
+**Affects:** Verification rules, "Configuration"; the labels on R-ERR-7 and R-REDIR-6.
+
+**Problem.** The Configuration rule lists the API_BIN uses: "R-HEALTH-1 503 branch, R-HEALTH-2, R-HEALTH-3, R-PRIV-1 logs". A fault test for R-ERR-7 or R-REDIR-6 cannot run against the shared target api without disturbing parallel tests, so it needs an instance of its own.
+
+**Proposed text.**
+- Verification rules, "Configuration": replace "(R-HEALTH-1 503 branch, R-HEALTH-2, R-HEALTH-3, R-PRIV-1 logs)" with "(R-HEALTH-1 503 branch, R-HEALTH-2, R-HEALTH-3, R-PRIV-1 logs, and the fault-injection tests for R-ERR-7 and R-REDIR-6)".
+- R-ERR-7 and R-REDIR-6: replace the label "*(mutant-verified)*" with "*(mutant-verified; also gray-box: see "Fault injection" in Verification rules)*".
+
+**Tests that depend on it:** both tests in `faults.graybox.test.ts`.
+
+## HP-28: Fault injection through a harness PostgreSQL protocol proxy
+
+**Affects:** a new bullet in "Verification rules".
+
+**Problem.** SPEC describes no way to make the database reject the api's statements. The fault has to break the click write while the link lookup keeps working (R-REDIR-6), and it has to produce a genuine internal error (R-ERR-7). It must also leave the shared database and every other client alone.
+
+**Proposed text** (new bullet after "Configuration"):
+
+> - **Fault injection (R-ERR-7, R-REDIR-6).** The harness starts an api instance with `API_BIN`. Its `DATABASE_URL` is the verification database's URL with the host and port replaced by those of a harness-owned PostgreSQL wire-protocol proxy that forwards to that database. The proxy relays every message unchanged, with two exceptions. (a) It declines SSL and GSS encryption requests itself, so the instance's database connections are unencrypted. (b) While a session is idle between transactions (its last ReadyForQuery reported `I`, and no request is outstanding or partly sent), the proxy may run `SET SESSION CHARACTERISTICS AS TRANSACTION READ ONLY` and `SET search_path TO ''` on that session and discard the responses. This applies to every current and future session of that instance. No other client uses the instance, and the harness stops it when the test ends. While its sessions are read-only, a click row the api cannot write is "a failure to record a click" (R-REDIR-6), and a request the api cannot complete because the database rejected a statement is an internal error (R-ERR-7). Verification runs use a database that accepts unencrypted connections from the harness host. An instance must accept an unencrypted connection when its `DATABASE_URL` does not require encryption. If the api restores a read-write default or a search path on its own sessions after connecting, the affected test is reported inconclusive, never passed.
+
+**What the harness does with it.** `harness/lib/pgproxy.ts` implements exactly (a) and (b). The R-REDIR-6 test applies `READ ONLY` only. The R-ERR-7 test applies `READ ONLY`, then adds the empty `search_path`, so that reads which use unqualified table names fail too. Each test records the proxy's evidence (sessions reached, statements applied, errors) and skips as `inconclusive (gray-box)` instead of passing if the fault could not be shown to have taken effect.
+
+**Tests that depend on it:** both tests in `faults.graybox.test.ts`.
+
+## HP-29: A measurable definition of "normal latency" in R-REDIR-6
+
+**Affects:** R-REDIR-6.
+
+**Problem.** "Never ... delays it beyond normal latency" has no number. A harness has to choose a bound, and implementers should know what it is.
+
+**Proposed text** (append to R-REDIR-6):
+
+> *Normal latency* is measured on the same instance, for the same link, from the same client, in the same test. B is the slowest of (i) at least 10 `GET /{code}` redirects sent while clicks are recorded successfully and (ii) at least 10 `HEAD /{code}` requests, which record nothing (R-REDIR-7), interleaved with the `GET`s whose click fails. Each `GET` whose click fails must receive its response headers within max(4 × B, B + 1 s). Its status, `Location` and `Cache-Control` must equal those of the normal redirects for that link, and so must its `Content-Type` and body, unless those already differ between normal redirects.
+
+**Justification.** An api that records synchronously and gives up on the first error spends one extra failed statement: well under a millisecond to a few milliseconds locally. An api that records asynchronously spends nothing. The HEAD requests are sent at the same moment and under the same load, minus the recording, so B tracks the conditions under which the faulted GETs ran. The ×4 and +1 s margins absorb scheduler and GC pauses from the parallel suite. Any retry loop, backoff or timeout wait measured in seconds still exceeds the bound whenever B is under about 1 s. B and the bound are recorded as test annotations.
+
+**Tests that depend on it:** `[R-REDIR-6][gray-box] ...` in `faults.graybox.test.ts`.
+
+## HP-30 (optional, changes api behavior): which status a database error gets
+
+**Affects:** R-ERR-7.
+
+**Problem.** R-ERR-7 constrains the body of every 500, but nothing requires a 500 when the database rejects a statement. An api may answer such a failure with `503 unavailable`, or with another status, and still conform. The R-ERR-7 test then sees no 500, so it can only report `inconclusive (gray-box)`.
+
+**Proposed text** (append to R-ERR-7): "When a request under `/api/` cannot complete because the database rejected a statement (not because it was unreachable or timed out), the response is this 500."
+
+**Note.** This adds a rule for implementations, so adopt it only if R-ERR-7 must be verifiable on every implementation. The R-ERR-7 test does not need it in order to run. Without it, the test is inconclusive on an api that never answers 500.
+
+**Tests that depend on it:** none (it would only remove the inconclusive outcome of `[R-ERR-7][gray-box] ...`).
+
+**Disposed in `spec-v1.5`:** see `spec/reviews/08-disposition.md` (HP-27, HP-28, HP-29 adopted verbatim; HP-30 declined).

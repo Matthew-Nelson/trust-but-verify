@@ -1,0 +1,57 @@
+//! Process startup: read config, start serving immediately, migrate in the background.
+#![forbid(unsafe_code)]
+
+use std::sync::Arc;
+use std::time::Duration;
+
+use shortlink_api::app::{self, AppState};
+use shortlink_api::config::Config;
+use sqlx::postgres::{PgConnectOptions, PgPoolOptions};
+
+#[tokio::main]
+async fn main() {
+    tracing_subscriber::fmt()
+        .with_env_filter(
+            tracing_subscriber::EnvFilter::try_from_default_env()
+                .unwrap_or_else(|_| tracing_subscriber::EnvFilter::new("info")),
+        )
+        .init();
+
+    let config = match Config::from_env() {
+        Ok(c) => c,
+        Err(e) => {
+            eprintln!("configuration error: {e}");
+            std::process::exit(2);
+        }
+    };
+    let options: PgConnectOptions = match config.database_url.parse() {
+        Ok(o) => o,
+        Err(_) => {
+            eprintln!("configuration error: DATABASE_URL is not a valid Postgres URL");
+            std::process::exit(2);
+        }
+    };
+
+    // A lazy pool never fails at startup, so /healthz can answer 503 while the database is down.
+    let pool = PgPoolOptions::new()
+        .max_connections(20)
+        .acquire_timeout(Duration::from_secs(5))
+        .connect_lazy_with(options);
+
+    tokio::spawn(app::migrate_forever(pool.clone()));
+
+    let port = config.port;
+    let state = Arc::new(AppState { pool, config });
+    let listener = match tokio::net::TcpListener::bind(("0.0.0.0", port)).await {
+        Ok(l) => l,
+        Err(e) => {
+            eprintln!("cannot listen on port {port}: {e}");
+            std::process::exit(1);
+        }
+    };
+    tracing::info!(port, "listening");
+    if let Err(e) = axum::serve(listener, app::router(state)).await {
+        eprintln!("server error: {e}");
+        std::process::exit(1);
+    }
+}

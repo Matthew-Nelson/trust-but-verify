@@ -1,0 +1,218 @@
+$ node scripts/run-holdout.mjs
+
+ RUN  v4.1.11 /Users/matthewnelson/Workspace/tbv-ws/harness/holdout
+
+
+[harness] TARGET_API=http://127.0.0.1:59999
+[harness] PUBLIC_BASE_URL (expected)=http://localhost:8080
+[harness] COUNTRY_HEADER (expected)=cf-ipcountry
+[harness] gray-box: DATABASE_URL is unset, so this test is skipped (set DATABASE_URL to the api database to run it)
+[harness] pending (gray-box): API_BIN is unset, so this spawned-instance test is not run (set API_BIN to the command that starts the api)
+
+ ✓ |holdout-api| api/graybox.test.ts (2 tests | 2 skipped) 2ms
+ ❯ |holdout-api| api/errors-routes.test.ts (22 tests | 22 failed) 19ms
+     × [R-ERR-2] other malformed bodies -> 400 bad_request 4ms
+     × [R-ERR-2] a lone UTF-8 continuation byte -> 400 1ms
+     × [R-ERR-2] 65536 bytes with a different padding field is accepted; 65538 -> 400 0ms
+     × [R-ERR-2] precedence with other inputs 4ms
+     × [R-ERR-2] duplicate alias keys: the last (valid) one wins 0ms
+     × [R-ERR-2] Content-Type application/xml is ignored 0ms
+     × [R-ERR-2] Content-Type multipart/form-data; boundary=x is ignored 0ms
+     × [R-ERR-3][R-LIST-1] other non-query-integer limit/offset values -> 400 1ms
+     × [R-ERR-3][R-LIST-2] limit=99 and offset=%32 are echoed 0ms
+     × [R-ERR-3][R-STATS-1] days=00, 365.0, %33%36%36 -> 400; %33%36%35 -> 365 entries 1ms
+     × [R-ERR-4] probes in alias, url and path are not echoed 1ms
+     × [R-ERR-5] other impossible codes -> 404 not_found; percent-decoded once 1ms
+     × [R-ERR-6] other unmatched paths and 405 sets 0ms
+     × [R-ERR-8] HEAD mirrors GET for other queries 1ms
+     × [R-REDIR-3] other unknown codes -> 404 text/plain 0ms
+     × [R-REDIR-9] PURGE and PUT on /{code} -> 405 text/plain, Allow {GET, HEAD} 0ms
+     × [R-ROUTE-1][R-ROUTE-2][R-ROUTE-3] other unmatched shapes 1ms
+     × [R-LIST-1] four links created in sequence are listed newest first 0ms
+     × [R-LIST-2] offset far past the end -> items [] 0ms
+     × [R-DEL-1][R-DEL-2] delete a generated link, everything 404s, then the code is reusable as an alias 0ms
+     × [R-REDIR-3][R-REDIR-1][R-REDIR-7] encoded letters/underscore in /{code}: GET redirects and counts, HEAD redirects without a click 0ms
+     × [R-ROUTE-2][R-ERR-6] other encoded dot-segment spellings are unmatched for any method (never 200/302/405) 0ms
+ ❯ |holdout-api| api/redirect-click-stats.test.ts (31 tests | 31 failed) 18ms
+     × [R-REDIR-1][R-REDIR-2] mixed-case alias with an IDN destination: Location exact, no-store 6ms
+     × [R-REDIR-4] two spaced redirects -> exactly two clicks, stable at 4 s 1ms
+     × [R-REDIR-7] HEAD with a query string on a generated code: 302, same headers, no body, no click 1ms
+     × [R-REDIR-8] odd query with a fragment-bearing stored URL -> Location exactly stored, one click 1ms
+     × [R-CLICK-1] Referer upper-case www and path -> ["Referer","http://WWW.GitHub.com/x/y"] 3ms
+     × [R-CLICK-1] Referer three www labels -> ["Referer","https://www.www.www.b.io/"] 3ms
+     × [R-CLICK-1] Referer upper-case bare WWW -> ["Referer","http://WWW/"] 3ms
+     × [R-CLICK-1] Referer mailto -> ["Referer","mailto:a@b.c"] 4ms
+     × [R-CLICK-1] Referer IDN with sharp s (UTF-8) -> ["Referer","https://straÃe.example/"] 4ms
+     × [R-CLICK-1] Referer host "Direct" (case-folded) -> ["Referer","https://Direct/"] 4ms
+     × [R-CLICK-1] Referer decimal IPv4 -> ["Referer","http://3232235521/"] 4ms
+     × [R-CLICK-1] Referer truncated UTF-8 -> ["Referer","https://aÃ.example/"] 4ms
+     × [R-CLICK-1] Referer three Referer headers -> ["Referer","https://a.example/","Referer","https://a.example/","Referer","https://a.example/"] 5ms
+     × [R-CLICK-2] country fr -> ["cf-ipcountry","fr"] 5ms
+     × [R-CLICK-2] country leading tab jp -> ["cf-ipcountry","\tjp"] 5ms
+     × [R-CLICK-2] country Zz -> ["cf-ipcountry","Zz"] 5ms
+     × [R-CLICK-2] country ZZZ -> ["cf-ipcountry","ZZZ"] 3ms
+     × [R-CLICK-2] country two different values -> ["cf-ipcountry","us","cf-ipcountry","gb"] 2ms
+     × [R-CLICK-2] country header name in mixed case -> ["cF-IpCoUnTrY","nz"] 2ms
+     × [R-CLICK-3] User-Agent YandexBot -> "Mozilla/5.0 (compatible; YandexBot/3.0)" 2ms
+     × [R-CLICK-3] User-Agent Baiduspider -> "Baiduspider+(+http://www.baidu.com/search/spider.htm)" 2ms
+     × [R-CLICK-3] User-Agent previewer -> "SomePreviewer/2" 2ms
+     × [R-CLICK-3] User-Agent crawler with iPhone -> "CRAWLER-iPhone" 2ms
+     × [R-CLICK-3] User-Agent Kindle Tablet -> "Mozilla/5.0 (Linux; Kindle Tablet)" 1ms
+     × [R-CLICK-3] User-Agent Android Mobile -> "Mozilla/5.0 (Linux; Android 12; SM-G991B) Mobile" 1ms
+     × [R-CLICK-3] User-Agent Linux Firefox -> "Mozilla/5.0 (X11; Linux x86_64) Firefox/120.0" 1ms
+     × [R-CLICK-3] User-Agent tabs only -> "\t \t" 1ms
+     × [R-STATS-1][R-STATS-2] days=3 -> that many zero-filled entries ending today 1ms
+     × [R-STATS-1][R-STATS-2] days=45 -> that many zero-filled entries ending today 0ms
+     × [R-STATS-1][R-STATS-2] days=300 -> that many zero-filled entries ending today 0ms
+     × [R-STATS-4][R-STATS-5][R-STATS-6] seven referrers, ties by code point, devices complete 0ms
+ ❯ |holdout-api| api/create-url-alias.test.ts (32 tests | 32 failed) 43ms
+     × [R-LINK-1] no alias, url with query and fragment -> 7-char code, isCustom false 6ms
+     × [R-LINK-2][R-LINK-4] digits/underscore/hyphen alias kept exactly; shortUrl = base + "/" + alias 1ms
+     × [R-LINK-3][R-ALIAS-1] alias single space is not trimmed -> 422 invalid_alias 1ms
+     × [R-LINK-3][R-ALIAS-1] alias tab is not trimmed -> 422 invalid_alias 0ms
+     × [R-LINK-3][R-ALIAS-1] alias newline-wrapped is not trimmed -> 422 invalid_alias 0ms
+     × [R-LINK-3] alias "" with an unknown field still means no alias 0ms
+     × [R-LINK-5][R-GET-1] a new custom link reads back with no clicks 1ms
+     × [R-LINK-7] 15 parallel creates of one http URL with alias null never 409 2ms
+     × [R-LINK-8] unknown fields of various types are ignored 1ms
+     × [R-URL-1] CR/LF/space around the URL are trimmed; LF inside the host is removed 1ms
+     × [R-URL-1][R-URL-2] a leading ideographic space (U+3000) is not trimmed -> 422 0ms
+     × [R-URL-2] other invalid inputs -> 422 invalid_url 0ms
+     × [R-URL-5][R-REDIR-1] other inputs are stored and redirected as their WHATWG serialization 0ms
+     × [R-URL-3] 2047 and 2048 code points of two-byte characters are accepted; 2049 and 2050 are not 12ms
+     × [R-URL-3][R-URL-1] 2048 code points wrapped in CR/LF are accepted (trim before measuring) 10ms
+     × [R-URL-4] the api hostname in other spellings -> 422; a trailing-dot host is a different hostname 0ms
+     × [R-URL-1][R-URL-5][R-URL-3] leading U+0001 and trailing U+001F are removed by the parser but count toward 2048 0ms
+     × [R-ALIAS-1] lengths 31 and 32 accepted; 33 and 40 rejected; 2 rejected 0ms
+     × [R-ALIAS-1] a random 3-character alias is accepted 0ms
+     × [R-ALIAS-1] alias containing "#" -> 422 invalid_alias 0ms
+     × [R-ALIAS-1] alias containing "?" -> 422 invalid_alias 0ms
+     × [R-ALIAS-1] alias containing "&" -> 422 invalid_alias 0ms
+     × [R-ALIAS-1] alias containing "=" -> 422 invalid_alias 0ms
+     × [R-ALIAS-1] alias containing "*" -> 422 invalid_alias 0ms
+     × [R-ALIAS-1] alias containing "\r" -> 422 invalid_alias 0ms
+     × [R-ALIAS-1] alias containing "ß" -> 422 invalid_alias 0ms
+     × [R-ALIAS-1] alias containing "\t" -> 422 invalid_alias 0ms
+     × [R-ALIAS-1] alias containing "​" -> 422 invalid_alias 0ms
+     × [R-ALIAS-2] reserved words in other letter cases -> 422 alias_reserved 0ms
+     × [R-ALIAS-2] near misses are not reserved 0ms
+     × [R-ALIAS-3] reusing a live alias -> 409 alias_taken and the original survives 0ms
+     × [R-ALIAS-4] three case variants are three links 0ms
+ ❯ |holdout-invariants| invariants/invariants.test.ts (3 tests | 3 failed) 12ms
+   × [R-ALIAS-5] 20 concurrent creates of a mixed-case alias with http:// urls -> one 201, nineteen 409 9ms
+   × [R-REDIR-5] 500 redirects of a generated code with mobile UA and referrers, >= 100 in flight -> all 302, +500 exactly 1ms
+   × [R-LINK-6][R-LINK-7] 1,000 sequential creates alternating alias null / "" / omitted -> 1,000 distinct codes 0ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 88 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: create > [R-LINK-1] no alias, url with query and fragment -> 7-char code, isCustom false
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: create > [R-LINK-2][R-LINK-4] digits/underscore/hyphen alias kept exactly; shortUrl = base + "/" + alias
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: create > [R-LINK-3][R-ALIAS-1] alias single space is not trimmed -> 422 invalid_alias
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: create > [R-LINK-3][R-ALIAS-1] alias tab is not trimmed -> 422 invalid_alias
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: create > [R-LINK-3][R-ALIAS-1] alias newline-wrapped is not trimmed -> 422 invalid_alias
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: create > [R-LINK-3] alias "" with an unknown field still means no alias
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: create > [R-LINK-5][R-GET-1] a new custom link reads back with no clicks
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: create > [R-LINK-7] 15 parallel creates of one http URL with alias null never 409
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: create > [R-LINK-8] unknown fields of various types are ignored
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: URL validation > [R-URL-1] CR/LF/space around the URL are trimmed; LF inside the host is removed
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: URL validation > [R-URL-1][R-URL-2] a leading ideographic space (U+3000) is not trimmed -> 422
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: URL validation > [R-URL-2] other invalid inputs -> 422 invalid_url
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: URL validation > [R-URL-5][R-REDIR-1] other inputs are stored and redirected as their WHATWG serialization
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: URL validation > [R-URL-3] 2047 and 2048 code points of two-byte characters are accepted; 2049 and 2050 are not
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: URL validation > [R-URL-3][R-URL-1] 2048 code points wrapped in CR/LF are accepted (trim before measuring)
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: URL validation > [R-URL-4] the api hostname in other spellings -> 422; a trailing-dot host is a different hostname
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: C0 controls at the ends > [R-URL-1][R-URL-5][R-URL-3] leading U+0001 and trailing U+001F are removed by the parser but count toward 2048
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: aliases > [R-ALIAS-1] lengths 31 and 32 accepted; 33 and 40 rejected; 2 rejected
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: aliases > [R-ALIAS-1] a random 3-character alias is accepted
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: aliases > [R-ALIAS-1] alias containing "#" -> 422 invalid_alias
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: aliases > [R-ALIAS-1] alias containing "?" -> 422 invalid_alias
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: aliases > [R-ALIAS-1] alias containing "&" -> 422 invalid_alias
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: aliases > [R-ALIAS-1] alias containing "=" -> 422 invalid_alias
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: aliases > [R-ALIAS-1] alias containing "*" -> 422 invalid_alias
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: aliases > [R-ALIAS-1] alias containing "\r" -> 422 invalid_alias
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: aliases > [R-ALIAS-1] alias containing "ß" -> 422 invalid_alias
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: aliases > [R-ALIAS-1] alias containing "\t" -> 422 invalid_alias
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: aliases > [R-ALIAS-1] alias containing "​" -> 422 invalid_alias
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: aliases > [R-ALIAS-2] reserved words in other letter cases -> 422 alias_reserved
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: aliases > [R-ALIAS-2] near misses are not reserved
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: aliases > [R-ALIAS-3] reusing a live alias -> 409 alias_taken and the original survives
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: aliases > [R-ALIAS-4] three case variants are three links
+ FAIL  |holdout-api| api/errors-routes.test.ts > holdout: R-ERR-2 > [R-ERR-2] precedence with other inputs
+ FAIL  |holdout-api| api/errors-routes.test.ts > holdout: R-ERR-3 > [R-ERR-3][R-LIST-1] other non-query-integer limit/offset values -> 400
+ FAIL  |holdout-api| api/errors-routes.test.ts > holdout: R-ERR-3 > [R-ERR-3][R-LIST-2] limit=99 and offset=%32 are echoed
+ FAIL  |holdout-api| api/errors-routes.test.ts > holdout: R-ERR-3 > [R-ERR-3][R-STATS-1] days=00, 365.0, %33%36%36 -> 400; %33%36%35 -> 365 entries
+ FAIL  |holdout-api| api/errors-routes.test.ts > holdout: R-ERR-4/5/6/8 > [R-ERR-4] probes in alias, url and path are not echoed
+ FAIL  |holdout-api| api/errors-routes.test.ts > holdout: R-ERR-4/5/6/8 > [R-ERR-5] other impossible codes -> 404 not_found; percent-decoded once
+ FAIL  |holdout-api| api/errors-routes.test.ts > holdout: R-ERR-4/5/6/8 > [R-ERR-8] HEAD mirrors GET for other queries
+ FAIL  |holdout-api| api/errors-routes.test.ts > holdout: routes and redirects > [R-REDIR-3] other unknown codes -> 404 text/plain
+ FAIL  |holdout-api| api/errors-routes.test.ts > holdout: routes and redirects > [R-REDIR-9] PURGE and PUT on /{code} -> 405 text/plain, Allow {GET, HEAD}
+ FAIL  |holdout-api| api/errors-routes.test.ts > holdout: routes and redirects > [R-ROUTE-1][R-ROUTE-2][R-ROUTE-3] other unmatched shapes
+ FAIL  |holdout-api| api/errors-routes.test.ts > holdout: list, read, delete > [R-LIST-1] four links created in sequence are listed newest first
+ FAIL  |holdout-api| api/errors-routes.test.ts > holdout: list, read, delete > [R-LIST-2] offset far past the end -> items []
+ FAIL  |holdout-api| api/errors-routes.test.ts > holdout: list, read, delete > [R-DEL-1][R-DEL-2] delete a generated link, everything 404s, then the code is reusable as an alias
+ FAIL  |holdout-api| api/errors-routes.test.ts > holdout: percent-decoding and encoded dot segments > [R-REDIR-3][R-REDIR-1][R-REDIR-7] encoded letters/underscore in /{code}: GET redirects and counts, HEAD redirects without a click
+ FAIL  |holdout-api| api/errors-routes.test.ts > holdout: percent-decoding and encoded dot segments > [R-ROUTE-2][R-ERR-6] other encoded dot-segment spellings are unmatched for any method (never 200/302/405)
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: redirect > [R-REDIR-1][R-REDIR-2] mixed-case alias with an IDN destination: Location exact, no-store
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: redirect > [R-REDIR-4] two spaced redirects -> exactly two clicks, stable at 4 s
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: redirect > [R-REDIR-7] HEAD with a query string on a generated code: 302, same headers, no body, no click
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: redirect > [R-REDIR-8] odd query with a fragment-bearing stored URL -> Location exactly stored, one click
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: clicks > [R-CLICK-1] Referer upper-case www and path -> ["Referer","http://WWW.GitHub.com/x/y"]
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: clicks > [R-CLICK-1] Referer three www labels -> ["Referer","https://www.www.www.b.io/"]
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: clicks > [R-CLICK-1] Referer upper-case bare WWW -> ["Referer","http://WWW/"]
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: clicks > [R-CLICK-1] Referer mailto -> ["Referer","mailto:a@b.c"]
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: clicks > [R-CLICK-1] Referer IDN with sharp s (UTF-8) -> ["Referer","https://straÃe.example/"]
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: clicks > [R-CLICK-1] Referer host "Direct" (case-folded) -> ["Referer","https://Direct/"]
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: clicks > [R-CLICK-1] Referer decimal IPv4 -> ["Referer","http://3232235521/"]
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: clicks > [R-CLICK-1] Referer truncated UTF-8 -> ["Referer","https://aÃ.example/"]
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: clicks > [R-CLICK-1] Referer three Referer headers -> ["Referer","https://a.example/","Referer","https://a.example/","Referer","https://a.example/"]
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: clicks > [R-CLICK-2] country fr -> ["cf-ipcountry","fr"]
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: clicks > [R-CLICK-2] country leading tab jp -> ["cf-ipcountry","\tjp"]
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: clicks > [R-CLICK-2] country Zz -> ["cf-ipcountry","Zz"]
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: clicks > [R-CLICK-2] country ZZZ -> ["cf-ipcountry","ZZZ"]
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: clicks > [R-CLICK-2] country two different values -> ["cf-ipcountry","us","cf-ipcountry","gb"]
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: clicks > [R-CLICK-2] country header name in mixed case -> ["cF-IpCoUnTrY","nz"]
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: clicks > [R-CLICK-3] User-Agent YandexBot -> "Mozilla/5.0 (compatible; YandexBot/3.0)"
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: clicks > [R-CLICK-3] User-Agent Baiduspider -> "Baiduspider+(+http://www.baidu.com/search/spider.htm)"
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: clicks > [R-CLICK-3] User-Agent previewer -> "SomePreviewer/2"
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: clicks > [R-CLICK-3] User-Agent crawler with iPhone -> "CRAWLER-iPhone"
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: clicks > [R-CLICK-3] User-Agent Kindle Tablet -> "Mozilla/5.0 (Linux; Kindle Tablet)"
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: clicks > [R-CLICK-3] User-Agent Android Mobile -> "Mozilla/5.0 (Linux; Android 12; SM-G991B) Mobile"
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: clicks > [R-CLICK-3] User-Agent Linux Firefox -> "Mozilla/5.0 (X11; Linux x86_64) Firefox/120.0"
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: clicks > [R-CLICK-3] User-Agent tabs only -> "\t \t"
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: stats > [R-STATS-1][R-STATS-2] days=3 -> that many zero-filled entries ending today
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: stats > [R-STATS-1][R-STATS-2] days=45 -> that many zero-filled entries ending today
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: stats > [R-STATS-1][R-STATS-2] days=300 -> that many zero-filled entries ending today
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: stats > [R-STATS-4][R-STATS-5][R-STATS-6] seven referrers, ties by code point, devices complete
+TypeError: fetch failed
+Caused by: Error: connect ECONNREFUSED 127.0.0.1:59999
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { errno: -61, code: 'ECONNREFUSED', syscall: 'connect', address: '127.0.0.1', port: 59999 }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/88]⎯
+
+ FAIL  |holdout-api| api/errors-routes.test.ts > holdout: R-ERR-2 > [R-ERR-2] other malformed bodies -> 400 bad_request
+ FAIL  |holdout-api| api/errors-routes.test.ts > holdout: R-ERR-2 > [R-ERR-2] a lone UTF-8 continuation byte -> 400
+ FAIL  |holdout-api| api/errors-routes.test.ts > holdout: R-ERR-2 > [R-ERR-2] 65536 bytes with a different padding field is accepted; 65538 -> 400
+ FAIL  |holdout-api| api/errors-routes.test.ts > holdout: R-ERR-2 > [R-ERR-2] duplicate alias keys: the last (valid) one wins
+ FAIL  |holdout-api| api/errors-routes.test.ts > holdout: R-ERR-2 > [R-ERR-2] Content-Type application/xml is ignored
+ FAIL  |holdout-api| api/errors-routes.test.ts > holdout: R-ERR-2 > [R-ERR-2] Content-Type multipart/form-data; boundary=x is ignored
+ FAIL  |holdout-api| api/errors-routes.test.ts > holdout: R-ERR-4/5/6/8 > [R-ERR-6] other unmatched paths and 405 sets
+Error: connect ECONNREFUSED 127.0.0.1:59999
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/88]⎯
+
+ FAIL  |holdout-invariants| invariants/invariants.test.ts > [R-ALIAS-5] 20 concurrent creates of a mixed-case alias with http:// urls -> one 201, nineteen 409
+ FAIL  |holdout-invariants| invariants/invariants.test.ts > [R-REDIR-5] 500 redirects of a generated code with mobile UA and referrers, >= 100 in flight -> all 302, +500 exactly
+ FAIL  |holdout-invariants| invariants/invariants.test.ts > [R-LINK-6][R-LINK-7] 1,000 sequential creates alternating alias null / "" / omitted -> 1,000 distinct codes
+TypeError: fetch failed
+Caused by: Error: connect ECONNREFUSED 127.0.0.1:59999
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { errno: -61, code: 'ECONNREFUSED', syscall: 'connect', address: '127.0.0.1', port: 59999 }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/88]⎯
+
+
+ Test Files  4 failed | 1 passed (5)
+      Tests  88 failed | 2 skipped (90)
+   Start at  14:29:43
+   Duration  314ms (transform 137ms, setup 206ms, import 79ms, tests 93ms, environment 0ms)
+
+JSON report written to /Users/matthewnelson/Workspace/tbv-ws/harness/harness/results/holdout.json
+[ELIFECYCLE] Command failed with exit code 1.

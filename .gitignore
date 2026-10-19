@@ -9,3 +9,8 @@ playwright-report/
 test-results/
 .hypothesis/
 .schemathesis/
+
+# holdout/node_modules is a symlink created by harness/scripts/run-holdout.mjs
+holdout/node_modules
+holdout/test-results/
+holdout/playwright-report/

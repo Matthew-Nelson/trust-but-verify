@@ -1,0 +1,1994 @@
+$ node scripts/run-holdout.mjs
+
+ RUN  v4.1.11 /Users/matthewnelson/Workspace/tbv-ws/harness/holdout
+
+
+[harness] TARGET_API=http://127.0.0.1:4010
+[harness] PUBLIC_BASE_URL (expected)=http://localhost:8080
+[harness] COUNTRY_HEADER (expected)=cf-ipcountry
+[harness] gray-box: DATABASE_URL is unset, so this test is skipped (set DATABASE_URL to the api database to run it)
+[harness] pending (gray-box): API_BIN is unset, so this spawned-instance test is not run (set API_BIN to the command that starts the api)
+
+ ✓ |holdout-api| api/graybox.test.ts (2 tests | 2 skipped) 3ms
+ ❯ |holdout-api| api/redirect-click-stats.test.ts (31 tests | 31 failed) 102ms
+     × [R-REDIR-1][R-REDIR-2] mixed-case alias with an IDN destination: Location exact, no-store 20ms
+     × [R-REDIR-4] two spaced redirects -> exactly two clicks, stable at 4 s 7ms
+     × [R-REDIR-7] HEAD with a query string on a generated code: 302, same headers, no body, no click 8ms
+     × [R-REDIR-8] odd query with a fragment-bearing stored URL -> Location exactly stored, one click 8ms
+     × [R-CLICK-1] Referer upper-case www and path -> ["Referer","http://WWW.GitHub.com/x/y"] 19ms
+     × [R-CLICK-1] Referer three www labels -> ["Referer","https://www.www.www.b.io/"] 22ms
+     × [R-CLICK-1] Referer upper-case bare WWW -> ["Referer","http://WWW/"] 25ms
+     × [R-CLICK-1] Referer mailto -> ["Referer","mailto:a@b.c"] 30ms
+     × [R-CLICK-1] Referer IDN with sharp s (UTF-8) -> ["Referer","https://straÃe.example/"] 34ms
+     × [R-CLICK-1] Referer host "Direct" (case-folded) -> ["Referer","https://Direct/"] 35ms
+     × [R-CLICK-1] Referer decimal IPv4 -> ["Referer","http://3232235521/"] 36ms
+     × [R-CLICK-1] Referer truncated UTF-8 -> ["Referer","https://aÃ.example/"] 36ms
+     × [R-CLICK-1] Referer three Referer headers -> ["Referer","https://a.example/","Referer","https://a.example/","Referer","https://a.example/"] 36ms
+     × [R-CLICK-2] country fr -> ["cf-ipcountry","fr"] 36ms
+     × [R-CLICK-2] country leading tab jp -> ["cf-ipcountry","\tjp"] 36ms
+     × [R-CLICK-2] country Zz -> ["cf-ipcountry","Zz"] 37ms
+     × [R-CLICK-2] country ZZZ -> ["cf-ipcountry","ZZZ"] 4ms
+     × [R-CLICK-2] country two different values -> ["cf-ipcountry","us","cf-ipcountry","gb"] 7ms
+     × [R-CLICK-2] country header name in mixed case -> ["cF-IpCoUnTrY","nz"] 6ms
+     × [R-CLICK-3] User-Agent YandexBot -> "Mozilla/5.0 (compatible; YandexBot/3.0)" 7ms
+     × [R-CLICK-3] User-Agent Baiduspider -> "Baiduspider+(+http://www.baidu.com/search/spider.htm)" 8ms
+     × [R-CLICK-3] User-Agent previewer -> "SomePreviewer/2" 9ms
+     × [R-CLICK-3] User-Agent crawler with iPhone -> "CRAWLER-iPhone" 10ms
+     × [R-CLICK-3] User-Agent Kindle Tablet -> "Mozilla/5.0 (Linux; Kindle Tablet)" 10ms
+     × [R-CLICK-3] User-Agent Android Mobile -> "Mozilla/5.0 (Linux; Android 12; SM-G991B) Mobile" 7ms
+     × [R-CLICK-3] User-Agent Linux Firefox -> "Mozilla/5.0 (X11; Linux x86_64) Firefox/120.0" 6ms
+     × [R-CLICK-3] User-Agent tabs only -> "\t \t" 9ms
+     × [R-STATS-1][R-STATS-2] days=3 -> that many zero-filled entries ending today 2ms
+     × [R-STATS-1][R-STATS-2] days=45 -> that many zero-filled entries ending today 4ms
+     × [R-STATS-1][R-STATS-2] days=300 -> that many zero-filled entries ending today 2ms
+     × [R-STATS-4][R-STATS-5][R-STATS-6] seven referrers, ties by code point, devices complete 2ms
+ ❯ |holdout-api| api/create-url-alias.test.ts (32 tests | 32 failed) 176ms
+     × [R-LINK-1] no alias, url with query and fragment -> 7-char code, isCustom false 19ms
+     × [R-LINK-2][R-LINK-4] digits/underscore/hyphen alias kept exactly; shortUrl = base + "/" + alias 4ms
+     × [R-LINK-3][R-ALIAS-1] alias single space is not trimmed -> 422 invalid_alias 5ms
+     × [R-LINK-3][R-ALIAS-1] alias tab is not trimmed -> 422 invalid_alias 5ms
+     × [R-LINK-3][R-ALIAS-1] alias newline-wrapped is not trimmed -> 422 invalid_alias 6ms
+     × [R-LINK-3] alias "" with an unknown field still means no alias 7ms
+     × [R-LINK-5][R-GET-1] a new custom link reads back with no clicks 4ms
+     × [R-LINK-7] 15 parallel creates of one http URL with alias null never 409 16ms
+     × [R-LINK-8] unknown fields of various types are ignored 5ms
+     × [R-URL-1] CR/LF/space around the URL are trimmed; LF inside the host is removed 4ms
+     × [R-URL-1][R-URL-2] a leading ideographic space (U+3000) is not trimmed -> 422 2ms
+     × [R-URL-2] other invalid inputs -> 422 invalid_url 31ms
+     × [R-URL-5][R-REDIR-1] other inputs are stored and redirected as their WHATWG serialization 16ms
+     × [R-URL-3] 2047 and 2048 code points of two-byte characters are accepted; 2049 and 2050 are not 18ms
+     × [R-URL-3][R-URL-1] 2048 code points wrapped in CR/LF are accepted (trim before measuring) 12ms
+     × [R-URL-4] the api hostname in other spellings -> 422; a trailing-dot host is a different hostname 1ms
+     × [R-URL-1][R-URL-5][R-URL-3] leading U+0001 and trailing U+001F are removed by the parser but count toward 2048 1ms
+     × [R-ALIAS-1] lengths 31 and 32 accepted; 33 and 40 rejected; 2 rejected 2ms
+     × [R-ALIAS-1] a random 3-character alias is accepted 1ms
+     × [R-ALIAS-1] alias containing "#" -> 422 invalid_alias 1ms
+     × [R-ALIAS-1] alias containing "?" -> 422 invalid_alias 1ms
+     × [R-ALIAS-1] alias containing "&" -> 422 invalid_alias 1ms
+     × [R-ALIAS-1] alias containing "=" -> 422 invalid_alias 1ms
+     × [R-ALIAS-1] alias containing "*" -> 422 invalid_alias 1ms
+     × [R-ALIAS-1] alias containing "\r" -> 422 invalid_alias 1ms
+     × [R-ALIAS-1] alias containing "ß" -> 422 invalid_alias 1ms
+     × [R-ALIAS-1] alias containing "\t" -> 422 invalid_alias 1ms
+     × [R-ALIAS-1] alias containing "​" -> 422 invalid_alias 1ms
+     × [R-ALIAS-2] reserved words in other letter cases -> 422 alias_reserved 6ms
+     × [R-ALIAS-2] near misses are not reserved 1ms
+     × [R-ALIAS-3] reusing a live alias -> 409 alias_taken and the original survives 1ms
+     × [R-ALIAS-4] three case variants are three links 1ms
+ ❯ |holdout-api| api/errors-routes.test.ts (22 tests | 22 failed) 15089ms
+     × [R-ERR-2] other malformed bodies -> 400 bad_request 15017ms
+     × [R-ERR-2] a lone UTF-8 continuation byte -> 400 14ms
+     × [R-ERR-2] 65536 bytes with a different padding field is accepted; 65538 -> 400 9ms
+     × [R-ERR-2] precedence with other inputs 11ms
+     × [R-ERR-2] duplicate alias keys: the last (valid) one wins 3ms
+     × [R-ERR-2] Content-Type application/xml is ignored 2ms
+     × [R-ERR-2] Content-Type multipart/form-data; boundary=x is ignored 2ms
+     × [R-ERR-3][R-LIST-1] other non-query-integer limit/offset values -> 400 10ms
+     × [R-ERR-3][R-LIST-2] limit=99 and offset=%32 are echoed 4ms
+     × [R-ERR-3][R-STATS-1] days=00, 365.0, %33%36%36 -> 400; %33%36%35 -> 365 entries 3ms
+     × [R-ERR-4] probes in alias, url and path are not echoed 1ms
+     × [R-ERR-5] other impossible codes -> 404 not_found; percent-decoded once 1ms
+     × [R-ERR-6] other unmatched paths and 405 sets 1ms
+     × [R-ERR-8] HEAD mirrors GET for other queries 1ms
+     × [R-REDIR-3] other unknown codes -> 404 text/plain 1ms
+     × [R-REDIR-9] PURGE and PUT on /{code} -> 405 text/plain, Allow {GET, HEAD} 1ms
+     × [R-ROUTE-1][R-ROUTE-2][R-ROUTE-3] other unmatched shapes 1ms
+     × [R-LIST-1] four links created in sequence are listed newest first 1ms
+     × [R-LIST-2] offset far past the end -> items [] 1ms
+     × [R-DEL-1][R-DEL-2] delete a generated link, everything 404s, then the code is reusable as an alias 1ms
+     × [R-REDIR-3][R-REDIR-1][R-REDIR-7] encoded letters/underscore in /{code}: GET redirects and counts, HEAD redirects without a click 2ms
+     × [R-ROUTE-2][R-ERR-6] other encoded dot-segment spellings are unmatched for any method (never 200/302/405) 1ms
+ ❯ |holdout-invariants| invariants/invariants.test.ts (3 tests | 3 failed) 497ms
+   × [R-ALIAS-5] 20 concurrent creates of a mixed-case alias with http:// urls -> one 201, nineteen 409 22ms
+   × [R-REDIR-5] 500 redirects of a generated code with mobile UA and referrers, >= 100 in flight -> all 302, +500 exactly 3ms
+   × [R-LINK-6][R-LINK-7] 1,000 sequential creates alternating alias null / "" / omitted -> 1,000 distinct codes 471ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 88 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: create > [R-LINK-1] no alias, url with query and fragment -> 7-char code, isCustom false
+AssertionError: Link.url: expected 'https://www.rust-lang.org/learn' to deeply equal 'http://example.net/h1-urwfi6zin?x=1#t…'
+
+Expected: "http://example.net/h1-urwfi6zin?x=1#top"
+Received: "https://www.rust-lang.org/learn"
+
+ ❯ expectLink ../harness/lib/assert.ts:62:72
+     60|   expect(l.clickCount).toBeGreaterThanOrEqual(0);
+     61|   if (l.lastClickedAt !== null) expectTimestamp(l.lastClickedAt);
+     62|   for (const [k, v] of Object.entries(want)) expect(l[k], `Link.${k}`)…
+       |                                                                        ^
+     63| }
+     64|
+ ❯ expectNewLink ../harness/lib/assert.ts:67:3
+ ❯ api/create-url-alias.test.ts:21:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: create > [R-LINK-2][R-LINK-4] digits/underscore/hyphen alias kept exactly; shortUrl = base + "/" + alias
+Error: setup: POST /api/links {"url":"http://example.net/h2-i3bfb14cn","alias":"9_Z-uln39dx_"} -> url "https://www.rust-lang.org/learn", expected "http://example.net/h2-i3bfb14cn"
+ ❯ createOk ../harness/lib/links.ts:61:30
+     59|   // A created link must echo what was asked for (R-LINK-2, R-URL-5); …
+     60|   const want = whatwg(body.url.replace(/^[\t\n\f\r ]+|[\t\n\f\r ]+$/g,…
+     61|   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringif…
+       |                              ^
+     62|   if (typeof body.alias === 'string' && body.alias !== '' && l.code !=…
+     63|     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expect…
+ ❯ api/create-url-alias.test.ts:27:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: create > [R-LINK-3][R-ALIAS-1] alias single space is not trimmed -> 422 invalid_alias
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: create > [R-LINK-3][R-ALIAS-1] alias tab is not trimmed -> 422 invalid_alias
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: create > [R-LINK-3][R-ALIAS-1] alias newline-wrapped is not trimmed -> 422 invalid_alias
+AssertionError: POST /api/links: 201 {"code":"aZ3kQ9x","url":"https://www.rust-lang.org/learn","shortUrl":"http://localhost:8080/aZ3kQ9x","isCustom":false,"createdAt":"2026-10-17T15:04:05Z","clickCount":42,"lastClickedAt":"2026-10-17T18:: expected 201 to be 422 // Object.is equality
+
+- Expected
++ Received
+
+- 422
++ 201
+
+ ❯ expectError ../harness/lib/assert.ts:13:27
+     11| export function expectError(res: Res, status: number, code: string, su…
+     12|   const ctx = `${res.method} ${res.path}: ${res.status} ${res.text.sli…
+     13|   expect(res.status, ctx).toBe(status);
+       |                           ^
+     14|   expect(mediaType(res), ctx).toBe('application/json');
+     15|   expect(res.json, ctx).toBeTypeOf('object');
+ ❯ api/create-url-alias.test.ts:36:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: create > [R-LINK-3] alias "" with an unknown field still means no alias
+AssertionError: Link.url: expected 'https://www.rust-lang.org/learn' to deeply equal 'http://example.net/h3e-3hjt0ravp'
+
+Expected: "http://example.net/h3e-3hjt0ravp"
+Received: "https://www.rust-lang.org/learn"
+
+ ❯ expectLink ../harness/lib/assert.ts:62:72
+     60|   expect(l.clickCount).toBeGreaterThanOrEqual(0);
+     61|   if (l.lastClickedAt !== null) expectTimestamp(l.lastClickedAt);
+     62|   for (const [k, v] of Object.entries(want)) expect(l[k], `Link.${k}`)…
+       |                                                                        ^
+     63| }
+     64|
+ ❯ expectNewLink ../harness/lib/assert.ts:67:3
+ ❯ api/create-url-alias.test.ts:43:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: create > [R-LINK-5][R-GET-1] a new custom link reads back with no clicks
+Error: setup: POST /api/links {"url":"http://example.net/h5-84l2pjq0g","alias":"fresh-lh2r7h"} -> url "https://www.rust-lang.org/learn", expected "http://example.net/h5-84l2pjq0g"
+ ❯ createOk ../harness/lib/links.ts:61:30
+     59|   // A created link must echo what was asked for (R-LINK-2, R-URL-5); …
+     60|   const want = whatwg(body.url.replace(/^[\t\n\f\r ]+|[\t\n\f\r ]+$/g,…
+     61|   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringif…
+       |                              ^
+     62|   if (typeof body.alias === 'string' && body.alias !== '' && l.code !=…
+     63|     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expect…
+ ❯ api/create-url-alias.test.ts:48:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: create > [R-LINK-7] 15 parallel creates of one http URL with alias null never 409
+AssertionError: expected 1 to be 15 // Object.is equality
+
+- Expected
++ Received
+
+- 15
++ 1
+
+ ❯ api/create-url-alias.test.ts:58:54
+     56|     const rs = await Promise.all(Array.from({ length: 15 }, () => crea…
+     57|     expect(rs.map((r) => r.status)).toEqual(Array(15).fill(201));
+     58|     expect(new Set(rs.map((r) => r.json.code)).size).toBe(15);
+       |                                                      ^
+     59|   });
+     60|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: create > [R-LINK-8] unknown fields of various types are ignored
+AssertionError: Link.url: expected 'https://www.rust-lang.org/learn' to deeply equal 'http://example.net/h8-wgp1etcj5'
+
+Expected: "http://example.net/h8-wgp1etcj5"
+Received: "https://www.rust-lang.org/learn"
+
+ ❯ expectLink ../harness/lib/assert.ts:62:72
+     60|   expect(l.clickCount).toBeGreaterThanOrEqual(0);
+     61|   if (l.lastClickedAt !== null) expectTimestamp(l.lastClickedAt);
+     62|   for (const [k, v] of Object.entries(want)) expect(l[k], `Link.${k}`)…
+       |                                                                        ^
+     63| }
+     64|
+ ❯ expectNewLink ../harness/lib/assert.ts:67:3
+ ❯ api/create-url-alias.test.ts:65:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: URL validation > [R-URL-1] CR/LF/space around the URL are trimmed; LF inside the host is removed
+AssertionError: expected 'https://www.rust-lang.org/learn' to be 'https://example.net/0hy1b8c3d3' // Object.is equality
+
+Expected: "https://example.net/0hy1b8c3d3"
+Received: "https://www.rust-lang.org/learn"
+
+ ❯ api/create-url-alias.test.ts:74:24
+     72|     const r = await create({ url: `\r\n https://exam\nple.net/${id}\t`…
+     73|     expect(r.status).toBe(201);
+     74|     expect(r.json.url).toBe(`https://example.net/${id}`);
+       |                        ^
+     75|   });
+     76|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: URL validation > [R-URL-1][R-URL-2] a leading ideographic space (U+3000) is not trimmed -> 422
+AssertionError: POST /api/links: 201 {"code":"aZ3kQ9x","url":"https://www.rust-lang.org/learn","shortUrl":"http://localhost:8080/aZ3kQ9x","isCustom":false,"createdAt":"2026-10-17T15:04:05Z","clickCount":42,"lastClickedAt":"2026-10-17T18:: expected 201 to be 422 // Object.is equality
+
+- Expected
++ Received
+
+- 422
++ 201
+
+ ❯ expectError ../harness/lib/assert.ts:13:27
+     11| export function expectError(res: Res, status: number, code: string, su…
+     12|   const ctx = `${res.method} ${res.path}: ${res.status} ${res.text.sli…
+     13|   expect(res.status, ctx).toBe(status);
+       |                           ^
+     14|   expect(mediaType(res), ctx).toBe('application/json');
+     15|   expect(res.json, ctx).toBeTypeOf('object');
+ ❯ api/create-url-alias.test.ts:78:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: URL validation > [R-URL-2] other invalid inputs -> 422 invalid_url
+AssertionError: "https:": expected [ 201, undefined ] to deeply equal [ 422, 'invalid_url' ]
+
+- Expected
++ Received
+
+  [
+-   422,
+-   "invalid_url",
++   201,
++   undefined,
+  ]
+
+ ❯ api/create-url-alias.test.ts:84:73
+     82|     for (const url of ['https:', 'http:/', 'gopher://example.com/', 'H…
+     83|       const r = await create({ url });
+     84|       expect.soft([r.status, r.json?.error?.code], JSON.stringify(url)…
+       |                                                                         ^
+     85|     }
+     86|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: URL validation > [R-URL-2] other invalid inputs -> 422 invalid_url
+AssertionError: "http:/": expected [ 201, undefined ] to deeply equal [ 422, 'invalid_url' ]
+
+- Expected
++ Received
+
+  [
+-   422,
+-   "invalid_url",
++   201,
++   undefined,
+  ]
+
+ ❯ api/create-url-alias.test.ts:84:73
+     82|     for (const url of ['https:', 'http:/', 'gopher://example.com/', 'H…
+     83|       const r = await create({ url });
+     84|       expect.soft([r.status, r.json?.error?.code], JSON.stringify(url)…
+       |                                                                         ^
+     85|     }
+     86|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: URL validation > [R-URL-2] other invalid inputs -> 422 invalid_url
+AssertionError: "gopher://example.com/": expected [ 201, undefined ] to deeply equal [ 422, 'invalid_url' ]
+
+- Expected
++ Received
+
+  [
+-   422,
+-   "invalid_url",
++   201,
++   undefined,
+  ]
+
+ ❯ api/create-url-alias.test.ts:84:73
+     82|     for (const url of ['https:', 'http:/', 'gopher://example.com/', 'H…
+     83|       const r = await create({ url });
+     84|       expect.soft([r.status, r.json?.error?.code], JSON.stringify(url)…
+       |                                                                         ^
+     85|     }
+     86|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: URL validation > [R-URL-2] other invalid inputs -> 422 invalid_url
+AssertionError: "HTTP//example.com": expected [ 201, undefined ] to deeply equal [ 422, 'invalid_url' ]
+
+- Expected
++ Received
+
+  [
+-   422,
+-   "invalid_url",
++   201,
++   undefined,
+  ]
+
+ ❯ api/create-url-alias.test.ts:84:73
+     82|     for (const url of ['https:', 'http:/', 'gopher://example.com/', 'H…
+     83|       const r = await create({ url });
+     84|       expect.soft([r.status, r.json?.error?.code], JSON.stringify(url)…
+       |                                                                         ^
+     85|     }
+     86|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: URL validation > [R-URL-2] other invalid inputs -> 422 invalid_url
+AssertionError: "about:blank": expected [ 201, undefined ] to deeply equal [ 422, 'invalid_url' ]
+
+- Expected
++ Received
+
+  [
+-   422,
+-   "invalid_url",
++   201,
++   undefined,
+  ]
+
+ ❯ api/create-url-alias.test.ts:84:73
+     82|     for (const url of ['https:', 'http:/', 'gopher://example.com/', 'H…
+     83|       const r = await create({ url });
+     84|       expect.soft([r.status, r.json?.error?.code], JSON.stringify(url)…
+       |                                                                         ^
+     85|     }
+     86|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: URL validation > [R-URL-2] other invalid inputs -> 422 invalid_url
+AssertionError: "blob:https://example.com/x": expected [ 201, undefined ] to deeply equal [ 422, 'invalid_url' ]
+
+- Expected
++ Received
+
+  [
+-   422,
+-   "invalid_url",
++   201,
++   undefined,
+  ]
+
+ ❯ api/create-url-alias.test.ts:84:73
+     82|     for (const url of ['https:', 'http:/', 'gopher://example.com/', 'H…
+     83|       const r = await create({ url });
+     84|       expect.soft([r.status, r.json?.error?.code], JSON.stringify(url)…
+       |                                                                         ^
+     85|     }
+     86|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: URL validation > [R-URL-2] other invalid inputs -> 422 invalid_url
+AssertionError: "http://exa^mple.com/": expected [ 201, undefined ] to deeply equal [ 422, 'invalid_url' ]
+
+- Expected
++ Received
+
+  [
+-   422,
+-   "invalid_url",
++   201,
++   undefined,
+  ]
+
+ ❯ api/create-url-alias.test.ts:84:73
+     82|     for (const url of ['https:', 'http:/', 'gopher://example.com/', 'H…
+     83|       const r = await create({ url });
+     84|       expect.soft([r.status, r.json?.error?.code], JSON.stringify(url)…
+       |                                                                         ^
+     85|     }
+     86|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: URL validation > [R-URL-2] other invalid inputs -> 422 invalid_url
+AssertionError: "http://[::g]/": expected [ 201, undefined ] to deeply equal [ 422, 'invalid_url' ]
+
+- Expected
++ Received
+
+  [
+-   422,
+-   "invalid_url",
++   201,
++   undefined,
+  ]
+
+ ❯ api/create-url-alias.test.ts:84:73
+     82|     for (const url of ['https:', 'http:/', 'gopher://example.com/', 'H…
+     83|       const r = await create({ url });
+     84|       expect.soft([r.status, r.json?.error?.code], JSON.stringify(url)…
+       |                                                                         ^
+     85|     }
+     86|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: URL validation > [R-URL-2] other invalid inputs -> 422 invalid_url
+AssertionError: "\t\n": expected [ 201, undefined ] to deeply equal [ 422, 'invalid_url' ]
+
+- Expected
++ Received
+
+  [
+-   422,
+-   "invalid_url",
++   201,
++   undefined,
+  ]
+
+ ❯ api/create-url-alias.test.ts:84:73
+     82|     for (const url of ['https:', 'http:/', 'gopher://example.com/', 'H…
+     83|       const r = await create({ url });
+     84|       expect.soft([r.status, r.json?.error?.code], JSON.stringify(url)…
+       |                                                                         ^
+     85|     }
+     86|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: URL validation > [R-URL-5][R-REDIR-1] other inputs are stored and redirected as their WHATWG serialization
+AssertionError: http://example.com:80/x: expected 'https://www.rust-lang.org/learn' to be 'http://example.com/x' // Object.is equality
+
+Expected: "http://example.com/x"
+Received: "https://www.rust-lang.org/learn"
+
+ ❯ api/create-url-alias.test.ts:100:39
+     98|     ]) {
+     99|       const r = await create({ url: input });
+    100|       expect.soft(r.json?.url, input).toBe(want);
+       |                                       ^
+    101|       if (r.status === 201) expect.soft((await follow(r.json.code)).he…
+    102|     }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: URL validation > [R-URL-5][R-REDIR-1] other inputs are stored and redirected as their WHATWG serialization
+AssertionError: http://example.com:80/x: expected 'string' to be 'http://example.com/x' // Object.is equality
+
+Expected: "http://example.com/x"
+Received: "string"
+
+ ❯ api/create-url-alias.test.ts:101:97
+     99|       const r = await create({ url: input });
+    100|       expect.soft(r.json?.url, input).toBe(want);
+    101|       if (r.status === 201) expect.soft((await follow(r.json.code)).he…
+       |                                                                                                 ^
+    102|     }
+    103|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[20/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: URL validation > [R-URL-5][R-REDIR-1] other inputs are stored and redirected as their WHATWG serialization
+AssertionError: https://ex.com/a/./b/../c: expected 'https://www.rust-lang.org/learn' to be 'https://ex.com/a/c' // Object.is equality
+
+Expected: "https://ex.com/a/c"
+Received: "https://www.rust-lang.org/learn"
+
+ ❯ api/create-url-alias.test.ts:100:39
+     98|     ]) {
+     99|       const r = await create({ url: input });
+    100|       expect.soft(r.json?.url, input).toBe(want);
+       |                                       ^
+    101|       if (r.status === 201) expect.soft((await follow(r.json.code)).he…
+    102|     }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[21/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: URL validation > [R-URL-5][R-REDIR-1] other inputs are stored and redirected as their WHATWG serialization
+AssertionError: https://ex.com/a/./b/../c: expected 'string' to be 'https://ex.com/a/c' // Object.is equality
+
+Expected: "https://ex.com/a/c"
+Received: "string"
+
+ ❯ api/create-url-alias.test.ts:101:97
+     99|       const r = await create({ url: input });
+    100|       expect.soft(r.json?.url, input).toBe(want);
+    101|       if (r.status === 201) expect.soft((await follow(r.json.code)).he…
+       |                                                                                                 ^
+    102|     }
+    103|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[22/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: URL validation > [R-URL-5][R-REDIR-1] other inputs are stored and redirected as their WHATWG serialization
+AssertionError: https://example.com/?: expected 'https://www.rust-lang.org/learn' to be 'https://example.com/?' // Object.is equality
+
+Expected: "https://example.com/?"
+Received: "https://www.rust-lang.org/learn"
+
+ ❯ api/create-url-alias.test.ts:100:39
+     98|     ]) {
+     99|       const r = await create({ url: input });
+    100|       expect.soft(r.json?.url, input).toBe(want);
+       |                                       ^
+    101|       if (r.status === 201) expect.soft((await follow(r.json.code)).he…
+    102|     }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[23/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: URL validation > [R-URL-5][R-REDIR-1] other inputs are stored and redirected as their WHATWG serialization
+AssertionError: https://example.com/?: expected 'string' to be 'https://example.com/?' // Object.is equality
+
+Expected: "https://example.com/?"
+Received: "string"
+
+ ❯ api/create-url-alias.test.ts:101:97
+     99|       const r = await create({ url: input });
+    100|       expect.soft(r.json?.url, input).toBe(want);
+    101|       if (r.status === 201) expect.soft((await follow(r.json.code)).he…
+       |                                                                                                 ^
+    102|     }
+    103|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[24/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: URL validation > [R-URL-5][R-REDIR-1] other inputs are stored and redirected as their WHATWG serialization
+AssertionError: HTTPS://WWW.Example.COM/A?B#C: expected 'https://www.rust-lang.org/learn' to be 'https://www.example.com/A?B#C' // Object.is equality
+
+Expected: "https://www.example.com/A?B#C"
+Received: "https://www.rust-lang.org/learn"
+
+ ❯ api/create-url-alias.test.ts:100:39
+     98|     ]) {
+     99|       const r = await create({ url: input });
+    100|       expect.soft(r.json?.url, input).toBe(want);
+       |                                       ^
+    101|       if (r.status === 201) expect.soft((await follow(r.json.code)).he…
+    102|     }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[25/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: URL validation > [R-URL-5][R-REDIR-1] other inputs are stored and redirected as their WHATWG serialization
+AssertionError: HTTPS://WWW.Example.COM/A?B#C: expected 'string' to be 'https://www.example.com/A?B#C' // Object.is equality
+
+Expected: "https://www.example.com/A?B#C"
+Received: "string"
+
+ ❯ api/create-url-alias.test.ts:101:97
+     99|       const r = await create({ url: input });
+    100|       expect.soft(r.json?.url, input).toBe(want);
+    101|       if (r.status === 201) expect.soft((await follow(r.json.code)).he…
+       |                                                                                                 ^
+    102|     }
+    103|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[26/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: URL validation > [R-URL-5][R-REDIR-1] other inputs are stored and redirected as their WHATWG serialization
+AssertionError: http://example.com:80: expected 'https://www.rust-lang.org/learn' to be 'http://example.com/' // Object.is equality
+
+Expected: "http://example.com/"
+Received: "https://www.rust-lang.org/learn"
+
+ ❯ api/create-url-alias.test.ts:100:39
+     98|     ]) {
+     99|       const r = await create({ url: input });
+    100|       expect.soft(r.json?.url, input).toBe(want);
+       |                                       ^
+    101|       if (r.status === 201) expect.soft((await follow(r.json.code)).he…
+    102|     }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[27/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: URL validation > [R-URL-5][R-REDIR-1] other inputs are stored and redirected as their WHATWG serialization
+AssertionError: http://example.com:80: expected 'string' to be 'http://example.com/' // Object.is equality
+
+Expected: "http://example.com/"
+Received: "string"
+
+ ❯ api/create-url-alias.test.ts:101:97
+     99|       const r = await create({ url: input });
+    100|       expect.soft(r.json?.url, input).toBe(want);
+    101|       if (r.status === 201) expect.soft((await follow(r.json.code)).he…
+       |                                                                                                 ^
+    102|     }
+    103|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[28/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: URL validation > [R-URL-5][R-REDIR-1] other inputs are stored and redirected as their WHATWG serialization
+AssertionError: https://münchen.example/ü: expected 'https://www.rust-lang.org/learn' to be 'https://xn--mnchen-3ya.example/%C3%BC' // Object.is equality
+
+Expected: "https://xn--mnchen-3ya.example/%C3%BC"
+Received: "https://www.rust-lang.org/learn"
+
+ ❯ api/create-url-alias.test.ts:100:39
+     98|     ]) {
+     99|       const r = await create({ url: input });
+    100|       expect.soft(r.json?.url, input).toBe(want);
+       |                                       ^
+    101|       if (r.status === 201) expect.soft((await follow(r.json.code)).he…
+    102|     }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[29/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: URL validation > [R-URL-5][R-REDIR-1] other inputs are stored and redirected as their WHATWG serialization
+AssertionError: https://münchen.example/ü: expected 'string' to be 'https://xn--mnchen-3ya.example/%C3%BC' // Object.is equality
+
+Expected: "https://xn--mnchen-3ya.example/%C3%BC"
+Received: "string"
+
+ ❯ api/create-url-alias.test.ts:101:97
+     99|       const r = await create({ url: input });
+    100|       expect.soft(r.json?.url, input).toBe(want);
+    101|       if (r.status === 201) expect.soft((await follow(r.json.code)).he…
+       |                                                                                                 ^
+    102|     }
+    103|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[30/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: URL validation > [R-URL-5][R-REDIR-1] other inputs are stored and redirected as their WHATWG serialization
+AssertionError: https://example.com/a/../../b: expected 'https://www.rust-lang.org/learn' to be 'https://example.com/b' // Object.is equality
+
+Expected: "https://example.com/b"
+Received: "https://www.rust-lang.org/learn"
+
+ ❯ api/create-url-alias.test.ts:100:39
+     98|     ]) {
+     99|       const r = await create({ url: input });
+    100|       expect.soft(r.json?.url, input).toBe(want);
+       |                                       ^
+    101|       if (r.status === 201) expect.soft((await follow(r.json.code)).he…
+    102|     }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[31/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: URL validation > [R-URL-5][R-REDIR-1] other inputs are stored and redirected as their WHATWG serialization
+AssertionError: https://example.com/a/../../b: expected 'string' to be 'https://example.com/b' // Object.is equality
+
+Expected: "https://example.com/b"
+Received: "string"
+
+ ❯ api/create-url-alias.test.ts:101:97
+     99|       const r = await create({ url: input });
+    100|       expect.soft(r.json?.url, input).toBe(want);
+    101|       if (r.status === 201) expect.soft((await follow(r.json.code)).he…
+       |                                                                                                 ^
+    102|     }
+    103|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[32/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: URL validation > [R-URL-5][R-REDIR-1] other inputs are stored and redirected as their WHATWG serialization
+AssertionError: https:example.org: expected 'https://www.rust-lang.org/learn' to be 'https://example.org/' // Object.is equality
+
+Expected: "https://example.org/"
+Received: "https://www.rust-lang.org/learn"
+
+ ❯ api/create-url-alias.test.ts:100:39
+     98|     ]) {
+     99|       const r = await create({ url: input });
+    100|       expect.soft(r.json?.url, input).toBe(want);
+       |                                       ^
+    101|       if (r.status === 201) expect.soft((await follow(r.json.code)).he…
+    102|     }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[33/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: URL validation > [R-URL-5][R-REDIR-1] other inputs are stored and redirected as their WHATWG serialization
+AssertionError: https:example.org: expected 'string' to be 'https://example.org/' // Object.is equality
+
+Expected: "https://example.org/"
+Received: "string"
+
+ ❯ api/create-url-alias.test.ts:101:97
+     99|       const r = await create({ url: input });
+    100|       expect.soft(r.json?.url, input).toBe(want);
+    101|       if (r.status === 201) expect.soft((await follow(r.json.code)).he…
+       |                                                                                                 ^
+    102|     }
+    103|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[34/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: URL validation > [R-URL-3] 2047 and 2048 code points of two-byte characters are accepted; 2049 and 2050 are not
+AssertionError: expected 'https://www.rust-lang.org/learn' to be 'https://example.net/len/9gtufz0s63/%C…' // Object.is equality
+
+Expected: "https://example.net/len/9gtufz0s63/%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9%C3%A9"
+Received: "https://www.rust-lang.org/learn"
+
+ ❯ api/create-url-alias.test.ts:111:26
+    109|       const r = await create({ url });
+    110|       expect(r.status, `${n}`).toBe(201);
+    111|       expect(r.json.url).toBe(whatwg(url));
+       |                          ^
+    112|     }
+    113|     for (const n of [2049, 2050]) expectError(await create({ url: pad(…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[35/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: URL validation > [R-URL-3][R-URL-1] 2048 code points wrapped in CR/LF are accepted (trim before measuring)
+AssertionError: expected 'https://www.rust-lang.org/learn' to be 'https://example.net/len2/8k5adc85gp/z…' // Object.is equality
+
+Expected: "https://example.net/len2/8k5adc85gp/zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz"
+Received: "https://www.rust-lang.org/learn"
+
+ ❯ api/create-url-alias.test.ts:120:24
+    118|     const r = await create({ url: `\r\n${url}\r\n` });
+    119|     expect(r.status).toBe(201);
+    120|     expect(r.json.url).toBe(whatwg(url));
+       |                        ^
+    121|   });
+    122|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[36/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: URL validation > [R-URL-4] the api hostname in other spellings -> 422; a trailing-dot host is a different hostname
+AssertionError: POST /api/links: 201 {"code":"aZ3kQ9x","url":"https://www.rust-lang.org/learn","shortUrl":"http://localhost:8080/aZ3kQ9x","isCustom":false,"createdAt":"2026-10-17T15:04:05Z","clickCount":42,"lastClickedAt":"2026-10-17T18:: expected 201 to be 422 // Object.is equality
+
+- Expected
++ Received
+
+- 422
++ 201
+
+ ❯ expectError ../harness/lib/assert.ts:13:27
+     11| export function expectError(res: Res, status: number, code: string, su…
+     12|   const ctx = `${res.method} ${res.path}: ${res.status} ${res.text.sli…
+     13|   expect(res.status, ctx).toBe(status);
+       |                           ^
+     14|   expect(mediaType(res), ctx).toBe('application/json');
+     15|   expect(res.json, ctx).toBeTypeOf('object');
+ ❯ api/create-url-alias.test.ts:126:87
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[37/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: C0 controls at the ends > [R-URL-1][R-URL-5][R-URL-3] leading U+0001 and trailing U+001F are removed by the parser but count toward 2048
+AssertionError: expected 'https://www.rust-lang.org/learn' to be 'https://example.net/c0/nga8hy9uta' // Object.is equality
+
+Expected: "https://example.net/c0/nga8hy9uta"
+Received: "https://www.rust-lang.org/learn"
+
+ ❯ api/create-url-alias.test.ts:137:24
+    135|     const r = await create({ url: `\u0001https://example.net/c0/${id}\…
+    136|     expect(r.status).toBe(201);
+    137|     expect(r.json.url).toBe(`https://example.net/c0/${id}`);
+       |                        ^
+    138|     expect((await follow(r.json.code)).headers['location']).toBe(`http…
+    139|     const body = pad(2047, `\u0001https://example.net/c0l/${uid()}/`, …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[38/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: aliases > [R-ALIAS-1] lengths 31 and 32 accepted; 33 and 40 rejected; 2 rejected
+AssertionError: POST /api/links: 201 {"code":"aZ3kQ9x","url":"https://www.rust-lang.org/learn","shortUrl":"http://localhost:8080/aZ3kQ9x","isCustom":false,"createdAt":"2026-10-17T15:04:05Z","clickCount":42,"lastClickedAt":"2026-10-17T18:: expected 201 to be 422 // Object.is equality
+
+- Expected
++ Received
+
+- 422
++ 201
+
+ ❯ expectError ../harness/lib/assert.ts:13:27
+     11| export function expectError(res: Res, status: number, code: string, su…
+     12|   const ctx = `${res.method} ${res.path}: ${res.status} ${res.text.sli…
+     13|   expect(res.status, ctx).toBe(status);
+       |                           ^
+     14|   expect(mediaType(res), ctx).toBe('application/json');
+     15|   expect(res.json, ctx).toBeTypeOf('object');
+ ❯ api/create-url-alias.test.ts:157:31
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[39/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: aliases > [R-ALIAS-1] a random 3-character alias is accepted
+AssertionError: expected 'aZ3kQ9x' to be '20i' // Object.is equality
+
+Expected: "20i"
+Received: "aZ3kQ9x"
+
+ ❯ api/create-url-alias.test.ts:168:27
+    166|       if (r.status === 409) continue;
+    167|       expect(r.status).toBe(201);
+    168|       expect(r.json.code).toBe(a);
+       |                           ^
+    169|       return;
+    170|     }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[40/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: aliases > [R-ALIAS-1] alias containing "#" -> 422 invalid_alias
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: aliases > [R-ALIAS-1] alias containing "?" -> 422 invalid_alias
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: aliases > [R-ALIAS-1] alias containing "&" -> 422 invalid_alias
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: aliases > [R-ALIAS-1] alias containing "=" -> 422 invalid_alias
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: aliases > [R-ALIAS-1] alias containing "*" -> 422 invalid_alias
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: aliases > [R-ALIAS-1] alias containing "\r" -> 422 invalid_alias
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: aliases > [R-ALIAS-1] alias containing "ß" -> 422 invalid_alias
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: aliases > [R-ALIAS-1] alias containing "\t" -> 422 invalid_alias
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: aliases > [R-ALIAS-1] alias containing "​" -> 422 invalid_alias
+AssertionError: POST /api/links: 201 {"code":"aZ3kQ9x","url":"https://www.rust-lang.org/learn","shortUrl":"http://localhost:8080/aZ3kQ9x","isCustom":false,"createdAt":"2026-10-17T15:04:05Z","clickCount":42,"lastClickedAt":"2026-10-17T18:: expected 201 to be 422 // Object.is equality
+
+- Expected
++ Received
+
+- 422
++ 201
+
+ ❯ expectError ../harness/lib/assert.ts:13:27
+     11| export function expectError(res: Res, status: number, code: string, su…
+     12|   const ctx = `${res.method} ${res.path}: ${res.status} ${res.text.sli…
+     13|   expect(res.status, ctx).toBe(status);
+       |                           ^
+     14|   expect(mediaType(res), ctx).toBe('application/json');
+     15|   expect(res.json, ctx).toBeTypeOf('object');
+ ❯ api/create-url-alias.test.ts:175:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[41/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: aliases > [R-ALIAS-2] reserved words in other letter cases -> 422 alias_reserved
+AssertionError: Api: expected [ 201, undefined ] to deeply equal [ 422, 'alias_reserved' ]
+
+- Expected
++ Received
+
+  [
+-   422,
+-   "alias_reserved",
++   201,
++   undefined,
+  ]
+
+ ❯ api/create-url-alias.test.ts:181:55
+    179|     for (const a of ['Api', 'HEALTHZ', 'dOcS', 'ADMIN', 'sTATIC', 'Ass…
+    180|       const r = await create({ url: u('a2'), alias: a });
+    181|       expect.soft([r.status, r.json?.error?.code], a).toEqual([422, 'a…
+       |                                                       ^
+    182|     }
+    183|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[42/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: aliases > [R-ALIAS-2] reserved words in other letter cases -> 422 alias_reserved
+AssertionError: HEALTHZ: expected [ 201, undefined ] to deeply equal [ 422, 'alias_reserved' ]
+
+- Expected
++ Received
+
+  [
+-   422,
+-   "alias_reserved",
++   201,
++   undefined,
+  ]
+
+ ❯ api/create-url-alias.test.ts:181:55
+    179|     for (const a of ['Api', 'HEALTHZ', 'dOcS', 'ADMIN', 'sTATIC', 'Ass…
+    180|       const r = await create({ url: u('a2'), alias: a });
+    181|       expect.soft([r.status, r.json?.error?.code], a).toEqual([422, 'a…
+       |                                                       ^
+    182|     }
+    183|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[43/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: aliases > [R-ALIAS-2] reserved words in other letter cases -> 422 alias_reserved
+AssertionError: dOcS: expected [ 201, undefined ] to deeply equal [ 422, 'alias_reserved' ]
+
+- Expected
++ Received
+
+  [
+-   422,
+-   "alias_reserved",
++   201,
++   undefined,
+  ]
+
+ ❯ api/create-url-alias.test.ts:181:55
+    179|     for (const a of ['Api', 'HEALTHZ', 'dOcS', 'ADMIN', 'sTATIC', 'Ass…
+    180|       const r = await create({ url: u('a2'), alias: a });
+    181|       expect.soft([r.status, r.json?.error?.code], a).toEqual([422, 'a…
+       |                                                       ^
+    182|     }
+    183|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[44/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: aliases > [R-ALIAS-2] reserved words in other letter cases -> 422 alias_reserved
+AssertionError: ADMIN: expected [ 201, undefined ] to deeply equal [ 422, 'alias_reserved' ]
+
+- Expected
++ Received
+
+  [
+-   422,
+-   "alias_reserved",
++   201,
++   undefined,
+  ]
+
+ ❯ api/create-url-alias.test.ts:181:55
+    179|     for (const a of ['Api', 'HEALTHZ', 'dOcS', 'ADMIN', 'sTATIC', 'Ass…
+    180|       const r = await create({ url: u('a2'), alias: a });
+    181|       expect.soft([r.status, r.json?.error?.code], a).toEqual([422, 'a…
+       |                                                       ^
+    182|     }
+    183|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[45/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: aliases > [R-ALIAS-2] reserved words in other letter cases -> 422 alias_reserved
+AssertionError: sTATIC: expected [ 201, undefined ] to deeply equal [ 422, 'alias_reserved' ]
+
+- Expected
++ Received
+
+  [
+-   422,
+-   "alias_reserved",
++   201,
++   undefined,
+  ]
+
+ ❯ api/create-url-alias.test.ts:181:55
+    179|     for (const a of ['Api', 'HEALTHZ', 'dOcS', 'ADMIN', 'sTATIC', 'Ass…
+    180|       const r = await create({ url: u('a2'), alias: a });
+    181|       expect.soft([r.status, r.json?.error?.code], a).toEqual([422, 'a…
+       |                                                       ^
+    182|     }
+    183|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[46/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: aliases > [R-ALIAS-2] reserved words in other letter cases -> 422 alias_reserved
+AssertionError: Assets: expected [ 201, undefined ] to deeply equal [ 422, 'alias_reserved' ]
+
+- Expected
++ Received
+
+  [
+-   422,
+-   "alias_reserved",
++   201,
++   undefined,
+  ]
+
+ ❯ api/create-url-alias.test.ts:181:55
+    179|     for (const a of ['Api', 'HEALTHZ', 'dOcS', 'ADMIN', 'sTATIC', 'Ass…
+    180|       const r = await create({ url: u('a2'), alias: a });
+    181|       expect.soft([r.status, r.json?.error?.code], a).toEqual([422, 'a…
+       |                                                       ^
+    182|     }
+    183|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[47/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: aliases > [R-ALIAS-2] reserved words in other letter cases -> 422 alias_reserved
+AssertionError: LOGIN: expected [ 201, undefined ] to deeply equal [ 422, 'alias_reserved' ]
+
+- Expected
++ Received
+
+  [
+-   422,
+-   "alias_reserved",
++   201,
++   undefined,
+  ]
+
+ ❯ api/create-url-alias.test.ts:181:55
+    179|     for (const a of ['Api', 'HEALTHZ', 'dOcS', 'ADMIN', 'sTATIC', 'Ass…
+    180|       const r = await create({ url: u('a2'), alias: a });
+    181|       expect.soft([r.status, r.json?.error?.code], a).toEqual([422, 'a…
+       |                                                       ^
+    182|     }
+    183|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[48/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: aliases > [R-ALIAS-2] reserved words in other letter cases -> 422 alias_reserved
+AssertionError: LOGOUT: expected [ 201, undefined ] to deeply equal [ 422, 'alias_reserved' ]
+
+- Expected
++ Received
+
+  [
+-   422,
+-   "alias_reserved",
++   201,
++   undefined,
+  ]
+
+ ❯ api/create-url-alias.test.ts:181:55
+    179|     for (const a of ['Api', 'HEALTHZ', 'dOcS', 'ADMIN', 'sTATIC', 'Ass…
+    180|       const r = await create({ url: u('a2'), alias: a });
+    181|       expect.soft([r.status, r.json?.error?.code], a).toEqual([422, 'a…
+       |                                                       ^
+    182|     }
+    183|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[49/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: aliases > [R-ALIAS-2] reserved words in other letter cases -> 422 alias_reserved
+AssertionError: hEaLtHz: expected [ 201, undefined ] to deeply equal [ 422, 'alias_reserved' ]
+
+- Expected
++ Received
+
+  [
+-   422,
+-   "alias_reserved",
++   201,
++   undefined,
+  ]
+
+ ❯ api/create-url-alias.test.ts:181:55
+    179|     for (const a of ['Api', 'HEALTHZ', 'dOcS', 'ADMIN', 'sTATIC', 'Ass…
+    180|       const r = await create({ url: u('a2'), alias: a });
+    181|       expect.soft([r.status, r.json?.error?.code], a).toEqual([422, 'a…
+       |                                                       ^
+    182|     }
+    183|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[50/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: aliases > [R-ALIAS-2] near misses are not reserved
+AssertionError: expected [ 201, 'aZ3kQ9x' ] to deeply equal [ 201, 'logout_5kl' ]
+
+- Expected
++ Received
+
+  [
+    201,
+-   "logout_5kl",
++   "aZ3kQ9x",
+  ]
+
+ ❯ api/create-url-alias.test.ts:188:40
+    186|     for (const a of [`logout_${uid(3)}`, `${uid(3)}static`, `healthzz$…
+    187|       const r = await create({ url: u('a2n'), alias: a });
+    188|       expect([r.status, r.json?.code]).toEqual([201, a]);
+       |                                        ^
+    189|     }
+    190|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[51/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: aliases > [R-ALIAS-3] reusing a live alias -> 409 alias_taken and the original survives
+Error: setup: POST /api/links {"url":"http://example.net/a3t-w46bo11ai","alias":"Taken_o359c3"} -> url "https://www.rust-lang.org/learn", expected "http://example.net/a3t-w46bo11ai"
+ ❯ createOk ../harness/lib/links.ts:61:30
+     59|   // A created link must echo what was asked for (R-LINK-2, R-URL-5); …
+     60|   const want = whatwg(body.url.replace(/^[\t\n\f\r ]+|[\t\n\f\r ]+$/g,…
+     61|   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringif…
+       |                              ^
+     62|   if (typeof body.alias === 'string' && body.alias !== '' && l.code !=…
+     63|     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expect…
+ ❯ api/create-url-alias.test.ts:194:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[52/121]⎯
+
+ FAIL  |holdout-api| api/create-url-alias.test.ts > holdout: aliases > [R-ALIAS-4] three case variants are three links
+Error: setup: POST /api/links {"url":"http://example.net/a4-pww2ioru6","alias":"Promo-4ihomd"} -> url "https://www.rust-lang.org/learn", expected "http://example.net/a4-pww2ioru6"
+ ❯ createOk ../harness/lib/links.ts:61:30
+     59|   // A created link must echo what was asked for (R-LINK-2, R-URL-5); …
+     60|   const want = whatwg(body.url.replace(/^[\t\n\f\r ]+|[\t\n\f\r ]+$/g,…
+     61|   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringif…
+       |                              ^
+     62|   if (typeof body.alias === 'string' && body.alias !== '' && l.code !=…
+     63|     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expect…
+ ❯ api/create-url-alias.test.ts:203:33
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[53/121]⎯
+
+ FAIL  |holdout-api| api/errors-routes.test.ts > holdout: R-ERR-2 > [R-ERR-2] other malformed bodies -> 400 bad_request
+Error: timeout: POST /api/links
+ ❯ ClientRequest.<anonymous> ../harness/lib/http.ts:252:63
+    250|       },
+    251|     );
+    252|     req.setTimeout(opts.timeoutMs ?? 15000, () => req.destroy(new Erro…
+       |                                                               ^
+    253|     req.on('error', reject);
+    254|     if (body) req.write(body);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[54/121]⎯
+
+ FAIL  |holdout-api| api/errors-routes.test.ts > holdout: R-ERR-2 > [R-ERR-2] a lone UTF-8 continuation byte -> 400
+AssertionError: POST /api/links: 201 {"code":"aZ3kQ9x","url":"https://www.rust-lang.org/learn","shortUrl":"http://localhost:8080/aZ3kQ9x","isCustom":false,"createdAt":"2026-10-17T15:04:05Z","clickCount":42,"lastClickedAt":"2026-10-17T18:: expected 201 to be 400 // Object.is equality
+
+- Expected
++ Received
+
+- 400
++ 201
+
+ ❯ expectError ../harness/lib/assert.ts:13:27
+     11| export function expectError(res: Res, status: number, code: string, su…
+     12|   const ctx = `${res.method} ${res.path}: ${res.status} ${res.text.sli…
+     13|   expect(res.status, ctx).toBe(status);
+       |                           ^
+     14|   expect(mediaType(res), ctx).toBe('application/json');
+     15|   expect(res.json, ctx).toBeTypeOf('object');
+ ❯ api/errors-routes.test.ts:20:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[55/121]⎯
+
+ FAIL  |holdout-api| api/errors-routes.test.ts > holdout: R-ERR-2 > [R-ERR-2] 65536 bytes with a different padding field is accepted; 65538 -> 400
+AssertionError: POST /api/links: 201 {"code":"aZ3kQ9x","url":"https://www.rust-lang.org/learn","shortUrl":"http://localhost:8080/aZ3kQ9x","isCustom":false,"createdAt":"2026-10-17T15:04:05Z","clickCount":42,"lastClickedAt":"2026-10-17T18:: expected 201 to be 400 // Object.is equality
+
+- Expected
++ Received
+
+- 400
++ 201
+
+ ❯ expectError ../harness/lib/assert.ts:13:27
+     11| export function expectError(res: Res, status: number, code: string, su…
+     12|   const ctx = `${res.method} ${res.path}: ${res.status} ${res.text.sli…
+     13|   expect(res.status, ctx).toBe(status);
+       |                           ^
+     14|   expect(mediaType(res), ctx).toBe('application/json');
+     15|   expect(res.json, ctx).toBeTypeOf('object');
+ ❯ api/errors-routes.test.ts:30:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[56/121]⎯
+
+ FAIL  |holdout-api| api/errors-routes.test.ts > holdout: R-ERR-2 > [R-ERR-2] precedence with other inputs
+AssertionError: POST /api/links: 201 {"code":"aZ3kQ9x","url":"https://www.rust-lang.org/learn","shortUrl":"http://localhost:8080/aZ3kQ9x","isCustom":false,"createdAt":"2026-10-17T15:04:05Z","clickCount":42,"lastClickedAt":"2026-10-17T18:: expected 201 to be 422 // Object.is equality
+
+- Expected
++ Received
+
+- 422
++ 201
+
+ ❯ expectError ../harness/lib/assert.ts:13:27
+     11| export function expectError(res: Res, status: number, code: string, su…
+     12|   const ctx = `${res.method} ${res.path}: ${res.status} ${res.text.sli…
+     13|   expect(res.status, ctx).toBe(status);
+       |                           ^
+     14|   expect(mediaType(res), ctx).toBe('application/json');
+     15|   expect(res.json, ctx).toBeTypeOf('object');
+ ❯ api/errors-routes.test.ts:34:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[57/121]⎯
+
+ FAIL  |holdout-api| api/errors-routes.test.ts > holdout: R-ERR-2 > [R-ERR-2] duplicate alias keys: the last (valid) one wins
+AssertionError: expected 'aZ3kQ9x' to be 'dup_yqm7l97c' // Object.is equality
+
+Expected: "dup_yqm7l97c"
+Received: "aZ3kQ9x"
+
+ ❯ api/errors-routes.test.ts:44:25
+     42|     const r = await post(`{"alias":"bad!","url":"${u('d')}","alias":"$…
+     43|     expect(r.status).toBe(201);
+     44|     expect(r.json.code).toBe(a);
+       |                         ^
+     45|   });
+     46|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[58/121]⎯
+
+ FAIL  |holdout-api| api/errors-routes.test.ts > holdout: R-ERR-2 > [R-ERR-2] Content-Type application/xml is ignored
+ FAIL  |holdout-api| api/errors-routes.test.ts > holdout: R-ERR-2 > [R-ERR-2] Content-Type multipart/form-data; boundary=x is ignored
+AssertionError: expected 422 to be 201 // Object.is equality
+
+- Expected
++ Received
+
+- 201
++ 422
+
+ ❯ api/errors-routes.test.ts:50:22
+     48|     const url = u('ct');
+     49|     const r = await post(JSON.stringify({ url }), ct);
+     50|     expect(r.status).toBe(201);
+       |                      ^
+     51|     expectNewLink(r.json, { url });
+     52|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[59/121]⎯
+
+ FAIL  |holdout-api| api/errors-routes.test.ts > holdout: R-ERR-3 > [R-ERR-3][R-LIST-1] other non-query-integer limit/offset values -> 400
+AssertionError: limit=10%20: expected 200 to be 400 // Object.is equality
+
+- Expected
++ Received
+
+- 400
++ 200
+
+ ❯ api/errors-routes.test.ts:59:32
+     57|     for (const q of ['limit=00', 'limit=1_0', 'limit=%2D1', 'limit=10%…
+     58|       const r = await api('GET', `/api/links?${q}`);
+     59|       expect.soft(r.status, q).toBe(400);
+       |                                ^
+     60|     }
+     61|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[60/121]⎯
+
+ FAIL  |holdout-api| api/errors-routes.test.ts > holdout: R-ERR-3 > [R-ERR-3][R-LIST-1] other non-query-integer limit/offset values -> 400
+AssertionError: offset=%2B1: expected 200 to be 400 // Object.is equality
+
+- Expected
++ Received
+
+- 400
++ 200
+
+ ❯ api/errors-routes.test.ts:59:32
+     57|     for (const q of ['limit=00', 'limit=1_0', 'limit=%2D1', 'limit=10%…
+     58|       const r = await api('GET', `/api/links?${q}`);
+     59|       expect.soft(r.status, q).toBe(400);
+       |                                ^
+     60|     }
+     61|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[61/121]⎯
+
+ FAIL  |holdout-api| api/errors-routes.test.ts > holdout: R-ERR-3 > [R-ERR-3][R-LIST-1] other non-query-integer limit/offset values -> 400
+AssertionError: offset=1e0: expected 200 to be 400 // Object.is equality
+
+- Expected
++ Received
+
+- 400
++ 200
+
+ ❯ api/errors-routes.test.ts:59:32
+     57|     for (const q of ['limit=00', 'limit=1_0', 'limit=%2D1', 'limit=10%…
+     58|       const r = await api('GET', `/api/links?${q}`);
+     59|       expect.soft(r.status, q).toBe(400);
+       |                                ^
+     60|     }
+     61|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[62/121]⎯
+
+ FAIL  |holdout-api| api/errors-routes.test.ts > holdout: R-ERR-3 > [R-ERR-3][R-LIST-2] limit=99 and offset=%32 are echoed
+AssertionError: expected [ 20, +0 ] to deeply equal [ 99, 2 ]
+
+- Expected
++ Received
+
+  [
+-   99,
+-   2,
++   20,
++   0,
+  ]
+
+ ❯ api/errors-routes.test.ts:66:43
+     64|     const r = await api('GET', '/api/links?limit=99&offset=%32');
+     65|     expect(r.status).toBe(200);
+     66|     expect([r.json.limit, r.json.offset]).toEqual([99, 2]);
+       |                                           ^
+     67|   });
+     68|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[63/121]⎯
+
+ FAIL  |holdout-api| api/errors-routes.test.ts > holdout: R-ERR-3 > [R-ERR-3][R-STATS-1] days=00, 365.0, %33%36%36 -> 400; %33%36%35 -> 365 entries
+Error: setup: POST /api/links {"url":"http://example.org/fx/bzgpzmv98","alias":"Hx_7hpxaztb"} -> url "https://www.rust-lang.org/learn", expected "http://example.org/fx/bzgpzmv98"
+ ❯ createOk ../harness/lib/links.ts:61:30
+     59|   // A created link must echo what was asked for (R-LINK-2, R-URL-5); …
+     60|   const want = whatwg(body.url.replace(/^[\t\n\f\r ]+|[\t\n\f\r ]+$/g,…
+     61|   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringif…
+       |                              ^
+     62|   if (typeof body.alias === 'string' && body.alias !== '' && l.code !=…
+     63|     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expect…
+ ❯ api/errors-routes.test.ts:70:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[64/121]⎯
+
+ FAIL  |holdout-api| api/errors-routes.test.ts > holdout: R-ERR-4/5/6/8 > [R-ERR-4] probes in alias, url and path are not echoed
+AssertionError: POST /api/links: 201 {"code":"aZ3kQ9x","url":"https://www.rust-lang.org/learn","shortUrl":"http://localhost:8080/aZ3kQ9x","isCustom":false,"createdAt":"2026-10-17T15:04:05Z","clickCount":42,"lastClickedAt":"2026-10-17T18:: expected 201 to be 422 // Object.is equality
+
+- Expected
++ Received
+
+- 422
++ 201
+
+ ❯ expectError ../harness/lib/assert.ts:13:27
+     11| export function expectError(res: Res, status: number, code: string, su…
+     12|   const ctx = `${res.method} ${res.path}: ${res.status} ${res.text.sli…
+     13|   expect(res.status, ctx).toBe(status);
+       |                           ^
+     14|   expect(mediaType(res), ctx).toBe('application/json');
+     15|   expect(res.json, ctx).toBeTypeOf('object');
+ ❯ api/errors-routes.test.ts:81:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[65/121]⎯
+
+ FAIL  |holdout-api| api/errors-routes.test.ts > holdout: R-ERR-4/5/6/8 > [R-ERR-5] other impossible codes -> 404 not_found; percent-decoded once
+AssertionError: GET /api/links/___: 200 {"code":"aZ3kQ9x","url":"https://www.rust-lang.org/learn","shortUrl":"http://localhost:8080/aZ3kQ9x","isCustom":false,"createdAt":"2026-10-17T15:04:05Z","clickCount":42,"lastClickedAt":"2026-10-17T18:: expected 200 to be 404 // Object.is equality
+
+- Expected
++ Received
+
+- 404
++ 200
+
+ ❯ expectError ../harness/lib/assert.ts:13:27
+     11| export function expectError(res: Res, status: number, code: string, su…
+     12|   const ctx = `${res.method} ${res.path}: ${res.status} ${res.text.sli…
+     13|   expect(res.status, ctx).toBe(status);
+       |                           ^
+     14|   expect(mediaType(res), ctx).toBe('application/json');
+     15|   expect(res.json, ctx).toBeTypeOf('object');
+ ❯ api/errors-routes.test.ts:87:61
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[66/121]⎯
+
+ FAIL  |holdout-api| api/errors-routes.test.ts > holdout: R-ERR-4/5/6/8 > [R-ERR-6] other unmatched paths and 405 sets
+Error: [R-ERR-1] POST /api/links/x/y -> 404: Content-Type is "application/problem+json", expected application/json
+ ❯ checkErrorEnvelope ../harness/lib/http.ts:71:11
+     69|   const ct = mediaType(res);
+     70|   if (ct !== 'application/json') {
+     71|     throw new ContractViolation(`[R-ERR-1] ${where}: Content-Type is "…
+       |           ^
+     72|   }
+     73|   if (res.method === 'HEAD') return; // no body on HEAD (R-ERR-8)
+ ❯ finish ../harness/lib/http.ts:115:3
+ ❯ IncomingMessage.<anonymous> ../harness/lib/http.ts:234:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[67/121]⎯
+
+ FAIL  |holdout-api| api/errors-routes.test.ts > holdout: R-ERR-4/5/6/8 > [R-ERR-8] HEAD mirrors GET for other queries
+Error: setup: POST /api/links {"url":"http://example.org/fx/v4ww8bzs8","alias":"Hx_rj079jzw"} -> url "https://www.rust-lang.org/learn", expected "http://example.org/fx/v4ww8bzs8"
+ ❯ createOk ../harness/lib/links.ts:61:30
+     59|   // A created link must echo what was asked for (R-LINK-2, R-URL-5); …
+     60|   const want = whatwg(body.url.replace(/^[\t\n\f\r ]+|[\t\n\f\r ]+$/g,…
+     61|   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringif…
+       |                              ^
+     62|   if (typeof body.alias === 'string' && body.alias !== '' && l.code !=…
+     63|     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expect…
+ ❯ api/errors-routes.test.ts:112:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[68/121]⎯
+
+ FAIL  |holdout-api| api/errors-routes.test.ts > holdout: routes and redirects > [R-REDIR-3] other unknown codes -> 404 text/plain
+AssertionError: GET /-: 302 undefined: expected 302 to be 404 // Object.is equality
+
+- Expected
++ Received
+
+- 404
++ 302
+
+ ❯ expectPlain404 ../harness/lib/assert.ts:39:27
+     37| export function expectPlain404(res: Res): void {
+     38|   const ctx = `${res.method} ${res.path}: ${res.status} ${res.headers[…
+     39|   expect(res.status, ctx).toBe(404);
+       |                           ^
+     40|   expect(mediaType(res), ctx).toBe('text/plain');
+     41|   if (res.method !== 'HEAD') expect(res.bytes.length, ctx).toBeGreater…
+ ❯ api/errors-routes.test.ts:124:50
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[69/121]⎯
+
+ FAIL  |holdout-api| api/errors-routes.test.ts > holdout: routes and redirects > [R-REDIR-9] PURGE and PUT on /{code} -> 405 text/plain, Allow {GET, HEAD}
+Error: setup: POST /api/links {"url":"http://example.org/fx/endx1j1i8","alias":"Hx_zmebh8dd"} -> url "https://www.rust-lang.org/learn", expected "http://example.org/fx/endx1j1i8"
+ ❯ createOk ../harness/lib/links.ts:61:30
+     59|   // A created link must echo what was asked for (R-LINK-2, R-URL-5); …
+     60|   const want = whatwg(body.url.replace(/^[\t\n\f\r ]+|[\t\n\f\r ]+$/g,…
+     61|   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringif…
+       |                              ^
+     62|   if (typeof body.alias === 'string' && body.alias !== '' && l.code !=…
+     63|     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expect…
+ ❯ api/errors-routes.test.ts:128:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[70/121]⎯
+
+ FAIL  |holdout-api| api/errors-routes.test.ts > holdout: routes and redirects > [R-ROUTE-1][R-ROUTE-2][R-ROUTE-3] other unmatched shapes
+Error: setup: POST /api/links {"url":"http://example.org/rt/wkbxqs6ov"} -> url "https://www.rust-lang.org/learn", expected "http://example.org/rt/wkbxqs6ov"
+ ❯ createOk ../harness/lib/links.ts:61:30
+     59|   // A created link must echo what was asked for (R-LINK-2, R-URL-5); …
+     60|   const want = whatwg(body.url.replace(/^[\t\n\f\r ]+|[\t\n\f\r ]+$/g,…
+     61|   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringif…
+       |                              ^
+     62|   if (typeof body.alias === 'string' && body.alias !== '' && l.code !=…
+     63|     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expect…
+ ❯ api/errors-routes.test.ts:138:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[71/121]⎯
+
+ FAIL  |holdout-api| api/errors-routes.test.ts > holdout: list, read, delete > [R-LIST-1] four links created in sequence are listed newest first
+Error: setup: POST /api/links {"url":"http://example.org/lo/hc3lq6b4v"} -> url "https://www.rust-lang.org/learn", expected "http://example.org/lo/hc3lq6b4v"
+ ❯ createOk ../harness/lib/links.ts:61:30
+     59|   // A created link must echo what was asked for (R-LINK-2, R-URL-5); …
+     60|   const want = whatwg(body.url.replace(/^[\t\n\f\r ]+|[\t\n\f\r ]+$/g,…
+     61|   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringif…
+       |                              ^
+     62|   if (typeof body.alias === 'string' && body.alias !== '' && l.code !=…
+     63|     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expect…
+ ❯ api/errors-routes.test.ts:149:43
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[72/121]⎯
+
+ FAIL  |holdout-api| api/errors-routes.test.ts > holdout: list, read, delete > [R-LIST-2] offset far past the end -> items []
+AssertionError: expected [ { code: 'aZ3kQ9x', …(6) } ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   {
++     "clickCount": 42,
++     "code": "aZ3kQ9x",
++     "createdAt": "2026-10-17T15:04:05Z",
++     "isCustom": false,
++     "lastClickedAt": "2026-10-17T18:22:10Z",
++     "shortUrl": "http://localhost:8080/aZ3kQ9x",
++     "url": "https://www.rust-lang.org/learn",
++   },
++ ]
+
+ ❯ api/errors-routes.test.ts:157:26
+    155|     const r = await api('GET', '/api/links?offset=4611686018427387904&…
+    156|     expect(r.status).toBe(200);
+    157|     expect(r.json.items).toEqual([]);
+       |                          ^
+    158|     expect(r.json.limit).toBe(3);
+    159|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[73/121]⎯
+
+ FAIL  |holdout-api| api/errors-routes.test.ts > holdout: list, read, delete > [R-DEL-1][R-DEL-2] delete a generated link, everything 404s, then the code is reusable as an alias
+Error: setup: POST /api/links {"url":"http://example.org/dl/997evs9jz"} -> url "https://www.rust-lang.org/learn", expected "http://example.org/dl/997evs9jz"
+ ❯ createOk ../harness/lib/links.ts:61:30
+     59|   // A created link must echo what was asked for (R-LINK-2, R-URL-5); …
+     60|   const want = whatwg(body.url.replace(/^[\t\n\f\r ]+|[\t\n\f\r ]+$/g,…
+     61|   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringif…
+       |                              ^
+     62|   if (typeof body.alias === 'string' && body.alias !== '' && l.code !=…
+     63|     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expect…
+ ❯ api/errors-routes.test.ts:162:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[74/121]⎯
+
+ FAIL  |holdout-api| api/errors-routes.test.ts > holdout: percent-decoding and encoded dot segments > [R-REDIR-3][R-REDIR-1][R-REDIR-7] encoded letters/underscore in /{code}: GET redirects and counts, HEAD redirects without a click
+Error: setup: POST /api/links {"url":"http://example.org/enc/7eirkys1a","alias":"Q_ln2jtt54"} -> url "https://www.rust-lang.org/learn", expected "http://example.org/enc/7eirkys1a"
+ ❯ createOk ../harness/lib/links.ts:61:30
+     59|   // A created link must echo what was asked for (R-LINK-2, R-URL-5); …
+     60|   const want = whatwg(body.url.replace(/^[\t\n\f\r ]+|[\t\n\f\r ]+$/g,…
+     61|   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringif…
+       |                              ^
+     62|   if (typeof body.alias === 'string' && body.alias !== '' && l.code !=…
+     63|     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expect…
+ ❯ api/errors-routes.test.ts:178:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[75/121]⎯
+
+ FAIL  |holdout-api| api/errors-routes.test.ts > holdout: percent-decoding and encoded dot segments > [R-ROUTE-2][R-ERR-6] other encoded dot-segment spellings are unmatched for any method (never 200/302/405)
+Error: setup: POST /api/links {"url":"http://example.org/dots/o529lpxm2","alias":"Dt_9dcd6sg6"} -> url "https://www.rust-lang.org/learn", expected "http://example.org/dots/o529lpxm2"
+ ❯ createOk ../harness/lib/links.ts:61:30
+     59|   // A created link must echo what was asked for (R-LINK-2, R-URL-5); …
+     60|   const want = whatwg(body.url.replace(/^[\t\n\f\r ]+|[\t\n\f\r ]+$/g,…
+     61|   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringif…
+       |                              ^
+     62|   if (typeof body.alias === 'string' && body.alias !== '' && l.code !=…
+     63|     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expect…
+ ❯ api/errors-routes.test.ts:191:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[76/121]⎯
+
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: redirect > [R-REDIR-1][R-REDIR-2] mixed-case alias with an IDN destination: Location exact, no-store
+Error: setup: POST /api/links {"url":"https://bücher.example/9tkiytgwod?q=ü","alias":"MiX-7iavk3"} -> url "https://www.rust-lang.org/learn", expected "https://xn--bcher-kva.example/9tkiytgwod?q=%C3%BC"
+ ❯ createOk ../harness/lib/links.ts:61:30
+     59|   // A created link must echo what was asked for (R-LINK-2, R-URL-5); …
+     60|   const want = whatwg(body.url.replace(/^[\t\n\f\r ]+|[\t\n\f\r ]+$/g,…
+     61|   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringif…
+       |                              ^
+     62|   if (typeof body.alias === 'string' && body.alias !== '' && l.code !=…
+     63|     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expect…
+ ❯ api/redirect-click-stats.test.ts:16:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[77/121]⎯
+
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: redirect > [R-REDIR-4] two spaced redirects -> exactly two clicks, stable at 4 s
+Error: setup: POST /api/links {"url":"https://example.org/r4/t55s0lk9j"} -> url "https://www.rust-lang.org/learn", expected "https://example.org/r4/t55s0lk9j"
+ ❯ createOk ../harness/lib/links.ts:61:30
+     59|   // A created link must echo what was asked for (R-LINK-2, R-URL-5); …
+     60|   const want = whatwg(body.url.replace(/^[\t\n\f\r ]+|[\t\n\f\r ]+$/g,…
+     61|   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringif…
+       |                              ^
+     62|   if (typeof body.alias === 'string' && body.alias !== '' && l.code !=…
+     63|     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expect…
+ ❯ api/redirect-click-stats.test.ts:24:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[78/121]⎯
+
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: redirect > [R-REDIR-7] HEAD with a query string on a generated code: 302, same headers, no body, no click
+Error: setup: POST /api/links {"url":"https://example.org/r7/0fieygn62"} -> url "https://www.rust-lang.org/learn", expected "https://example.org/r7/0fieygn62"
+ ❯ createOk ../harness/lib/links.ts:61:30
+     59|   // A created link must echo what was asked for (R-LINK-2, R-URL-5); …
+     60|   const want = whatwg(body.url.replace(/^[\t\n\f\r ]+|[\t\n\f\r ]+$/g,…
+     61|   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringif…
+       |                              ^
+     62|   if (typeof body.alias === 'string' && body.alias !== '' && l.code !=…
+     63|     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expect…
+ ❯ api/redirect-click-stats.test.ts:34:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[79/121]⎯
+
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: redirect > [R-REDIR-8] odd query with a fragment-bearing stored URL -> Location exactly stored, one click
+Error: setup: POST /api/links {"url":"https://example.org/r8/jjoht4z9v#section-2"} -> url "https://www.rust-lang.org/learn", expected "https://example.org/r8/jjoht4z9v#section-2"
+ ❯ createOk ../harness/lib/links.ts:61:30
+     59|   // A created link must echo what was asked for (R-LINK-2, R-URL-5); …
+     60|   const want = whatwg(body.url.replace(/^[\t\n\f\r ]+|[\t\n\f\r ]+$/g,…
+     61|   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringif…
+       |                              ^
+     62|   if (typeof body.alias === 'string' && body.alias !== '' && l.code !=…
+     63|     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expect…
+ ❯ api/redirect-click-stats.test.ts:45:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[80/121]⎯
+
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: clicks > [R-CLICK-1] Referer upper-case www and path -> ["Referer","http://WWW.GitHub.com/x/y"]
+Error: setup: POST /api/links {"url":"https://example.com/click/vafbzwf7t1ww"} -> url "https://www.rust-lang.org/learn", expected "https://example.com/click/vafbzwf7t1ww"
+ ❯ createOk ../harness/lib/links.ts:61:30
+     59|   // A created link must echo what was asked for (R-LINK-2, R-URL-5); …
+     60|   const want = whatwg(body.url.replace(/^[\t\n\f\r ]+|[\t\n\f\r ]+$/g,…
+     61|   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringif…
+       |                              ^
+     62|   if (typeof body.alias === 'string' && body.alias !== '' && l.code !=…
+     63|     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expect…
+ ❯ oneClick ../harness/lib/links.ts:139:16
+ ❯ api/redirect-click-stats.test.ts:67:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[81/121]⎯
+
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: clicks > [R-CLICK-1] Referer three www labels -> ["Referer","https://www.www.www.b.io/"]
+Error: setup: POST /api/links {"url":"https://example.com/click/9rjtrn49ecxx"} -> url "https://www.rust-lang.org/learn", expected "https://example.com/click/9rjtrn49ecxx"
+ ❯ createOk ../harness/lib/links.ts:61:30
+     59|   // A created link must echo what was asked for (R-LINK-2, R-URL-5); …
+     60|   const want = whatwg(body.url.replace(/^[\t\n\f\r ]+|[\t\n\f\r ]+$/g,…
+     61|   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringif…
+       |                              ^
+     62|   if (typeof body.alias === 'string' && body.alias !== '' && l.code !=…
+     63|     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expect…
+ ❯ oneClick ../harness/lib/links.ts:139:16
+ ❯ api/redirect-click-stats.test.ts:67:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[82/121]⎯
+
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: clicks > [R-CLICK-1] Referer upper-case bare WWW -> ["Referer","http://WWW/"]
+Error: setup: POST /api/links {"url":"https://example.com/click/6e49ng0e66mw"} -> url "https://www.rust-lang.org/learn", expected "https://example.com/click/6e49ng0e66mw"
+ ❯ createOk ../harness/lib/links.ts:61:30
+     59|   // A created link must echo what was asked for (R-LINK-2, R-URL-5); …
+     60|   const want = whatwg(body.url.replace(/^[\t\n\f\r ]+|[\t\n\f\r ]+$/g,…
+     61|   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringif…
+       |                              ^
+     62|   if (typeof body.alias === 'string' && body.alias !== '' && l.code !=…
+     63|     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expect…
+ ❯ oneClick ../harness/lib/links.ts:139:16
+ ❯ api/redirect-click-stats.test.ts:67:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[83/121]⎯
+
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: clicks > [R-CLICK-1] Referer mailto -> ["Referer","mailto:a@b.c"]
+Error: setup: POST /api/links {"url":"https://example.com/click/t645s943mhbs"} -> url "https://www.rust-lang.org/learn", expected "https://example.com/click/t645s943mhbs"
+ ❯ createOk ../harness/lib/links.ts:61:30
+     59|   // A created link must echo what was asked for (R-LINK-2, R-URL-5); …
+     60|   const want = whatwg(body.url.replace(/^[\t\n\f\r ]+|[\t\n\f\r ]+$/g,…
+     61|   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringif…
+       |                              ^
+     62|   if (typeof body.alias === 'string' && body.alias !== '' && l.code !=…
+     63|     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expect…
+ ❯ oneClick ../harness/lib/links.ts:139:16
+ ❯ api/redirect-click-stats.test.ts:67:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[84/121]⎯
+
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: clicks > [R-CLICK-1] Referer IDN with sharp s (UTF-8) -> ["Referer","https://straÃe.example/"]
+Error: setup: POST /api/links {"url":"https://example.com/click/tokowkbkg9kc"} -> url "https://www.rust-lang.org/learn", expected "https://example.com/click/tokowkbkg9kc"
+ ❯ createOk ../harness/lib/links.ts:61:30
+     59|   // A created link must echo what was asked for (R-LINK-2, R-URL-5); …
+     60|   const want = whatwg(body.url.replace(/^[\t\n\f\r ]+|[\t\n\f\r ]+$/g,…
+     61|   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringif…
+       |                              ^
+     62|   if (typeof body.alias === 'string' && body.alias !== '' && l.code !=…
+     63|     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expect…
+ ❯ oneClick ../harness/lib/links.ts:139:16
+ ❯ api/redirect-click-stats.test.ts:67:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[85/121]⎯
+
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: clicks > [R-CLICK-1] Referer host "Direct" (case-folded) -> ["Referer","https://Direct/"]
+Error: setup: POST /api/links {"url":"https://example.com/click/0qqriksbacju"} -> url "https://www.rust-lang.org/learn", expected "https://example.com/click/0qqriksbacju"
+ ❯ createOk ../harness/lib/links.ts:61:30
+     59|   // A created link must echo what was asked for (R-LINK-2, R-URL-5); …
+     60|   const want = whatwg(body.url.replace(/^[\t\n\f\r ]+|[\t\n\f\r ]+$/g,…
+     61|   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringif…
+       |                              ^
+     62|   if (typeof body.alias === 'string' && body.alias !== '' && l.code !=…
+     63|     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expect…
+ ❯ oneClick ../harness/lib/links.ts:139:16
+ ❯ api/redirect-click-stats.test.ts:67:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[86/121]⎯
+
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: clicks > [R-CLICK-1] Referer decimal IPv4 -> ["Referer","http://3232235521/"]
+Error: setup: POST /api/links {"url":"https://example.com/click/42x0cvmp1dku"} -> url "https://www.rust-lang.org/learn", expected "https://example.com/click/42x0cvmp1dku"
+ ❯ createOk ../harness/lib/links.ts:61:30
+     59|   // A created link must echo what was asked for (R-LINK-2, R-URL-5); …
+     60|   const want = whatwg(body.url.replace(/^[\t\n\f\r ]+|[\t\n\f\r ]+$/g,…
+     61|   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringif…
+       |                              ^
+     62|   if (typeof body.alias === 'string' && body.alias !== '' && l.code !=…
+     63|     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expect…
+ ❯ oneClick ../harness/lib/links.ts:139:16
+ ❯ api/redirect-click-stats.test.ts:67:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[87/121]⎯
+
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: clicks > [R-CLICK-1] Referer truncated UTF-8 -> ["Referer","https://aÃ.example/"]
+Error: setup: POST /api/links {"url":"https://example.com/click/e2m72fabtvrr"} -> url "https://www.rust-lang.org/learn", expected "https://example.com/click/e2m72fabtvrr"
+ ❯ createOk ../harness/lib/links.ts:61:30
+     59|   // A created link must echo what was asked for (R-LINK-2, R-URL-5); …
+     60|   const want = whatwg(body.url.replace(/^[\t\n\f\r ]+|[\t\n\f\r ]+$/g,…
+     61|   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringif…
+       |                              ^
+     62|   if (typeof body.alias === 'string' && body.alias !== '' && l.code !=…
+     63|     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expect…
+ ❯ oneClick ../harness/lib/links.ts:139:16
+ ❯ api/redirect-click-stats.test.ts:67:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[88/121]⎯
+
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: clicks > [R-CLICK-1] Referer three Referer headers -> ["Referer","https://a.example/","Referer","https://a.example/","Referer","https://a.example/"]
+Error: setup: POST /api/links {"url":"https://example.com/click/7kesskdmcma1"} -> url "https://www.rust-lang.org/learn", expected "https://example.com/click/7kesskdmcma1"
+ ❯ createOk ../harness/lib/links.ts:61:30
+     59|   // A created link must echo what was asked for (R-LINK-2, R-URL-5); …
+     60|   const want = whatwg(body.url.replace(/^[\t\n\f\r ]+|[\t\n\f\r ]+$/g,…
+     61|   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringif…
+       |                              ^
+     62|   if (typeof body.alias === 'string' && body.alias !== '' && l.code !=…
+     63|     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expect…
+ ❯ oneClick ../harness/lib/links.ts:139:16
+ ❯ api/redirect-click-stats.test.ts:67:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[89/121]⎯
+
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: clicks > [R-CLICK-2] country fr -> ["cf-ipcountry","fr"]
+Error: setup: POST /api/links {"url":"https://example.com/click/uarfpq3z1x4u"} -> url "https://www.rust-lang.org/learn", expected "https://example.com/click/uarfpq3z1x4u"
+ ❯ createOk ../harness/lib/links.ts:61:30
+     59|   // A created link must echo what was asked for (R-LINK-2, R-URL-5); …
+     60|   const want = whatwg(body.url.replace(/^[\t\n\f\r ]+|[\t\n\f\r ]+$/g,…
+     61|   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringif…
+       |                              ^
+     62|   if (typeof body.alias === 'string' && body.alias !== '' && l.code !=…
+     63|     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expect…
+ ❯ oneClick ../harness/lib/links.ts:139:16
+ ❯ api/redirect-click-stats.test.ts:79:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[90/121]⎯
+
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: clicks > [R-CLICK-2] country leading tab jp -> ["cf-ipcountry","\tjp"]
+Error: setup: POST /api/links {"url":"https://example.com/click/s75k43oouya5"} -> url "https://www.rust-lang.org/learn", expected "https://example.com/click/s75k43oouya5"
+ ❯ createOk ../harness/lib/links.ts:61:30
+     59|   // A created link must echo what was asked for (R-LINK-2, R-URL-5); …
+     60|   const want = whatwg(body.url.replace(/^[\t\n\f\r ]+|[\t\n\f\r ]+$/g,…
+     61|   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringif…
+       |                              ^
+     62|   if (typeof body.alias === 'string' && body.alias !== '' && l.code !=…
+     63|     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expect…
+ ❯ oneClick ../harness/lib/links.ts:139:16
+ ❯ api/redirect-click-stats.test.ts:79:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[91/121]⎯
+
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: clicks > [R-CLICK-2] country Zz -> ["cf-ipcountry","Zz"]
+Error: setup: POST /api/links {"url":"https://example.com/click/8vel9nrmtsh1"} -> url "https://www.rust-lang.org/learn", expected "https://example.com/click/8vel9nrmtsh1"
+ ❯ createOk ../harness/lib/links.ts:61:30
+     59|   // A created link must echo what was asked for (R-LINK-2, R-URL-5); …
+     60|   const want = whatwg(body.url.replace(/^[\t\n\f\r ]+|[\t\n\f\r ]+$/g,…
+     61|   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringif…
+       |                              ^
+     62|   if (typeof body.alias === 'string' && body.alias !== '' && l.code !=…
+     63|     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expect…
+ ❯ oneClick ../harness/lib/links.ts:139:16
+ ❯ api/redirect-click-stats.test.ts:79:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[92/121]⎯
+
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: clicks > [R-CLICK-2] country ZZZ -> ["cf-ipcountry","ZZZ"]
+Error: setup: POST /api/links {"url":"https://example.com/click/1e30r725ytlp"} -> url "https://www.rust-lang.org/learn", expected "https://example.com/click/1e30r725ytlp"
+ ❯ createOk ../harness/lib/links.ts:61:30
+     59|   // A created link must echo what was asked for (R-LINK-2, R-URL-5); …
+     60|   const want = whatwg(body.url.replace(/^[\t\n\f\r ]+|[\t\n\f\r ]+$/g,…
+     61|   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringif…
+       |                              ^
+     62|   if (typeof body.alias === 'string' && body.alias !== '' && l.code !=…
+     63|     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expect…
+ ❯ oneClick ../harness/lib/links.ts:139:16
+ ❯ api/redirect-click-stats.test.ts:79:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[93/121]⎯
+
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: clicks > [R-CLICK-2] country two different values -> ["cf-ipcountry","us","cf-ipcountry","gb"]
+Error: setup: POST /api/links {"url":"https://example.com/click/v1pj944sjxr4"} -> url "https://www.rust-lang.org/learn", expected "https://example.com/click/v1pj944sjxr4"
+ ❯ createOk ../harness/lib/links.ts:61:30
+     59|   // A created link must echo what was asked for (R-LINK-2, R-URL-5); …
+     60|   const want = whatwg(body.url.replace(/^[\t\n\f\r ]+|[\t\n\f\r ]+$/g,…
+     61|   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringif…
+       |                              ^
+     62|   if (typeof body.alias === 'string' && body.alias !== '' && l.code !=…
+     63|     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expect…
+ ❯ oneClick ../harness/lib/links.ts:139:16
+ ❯ api/redirect-click-stats.test.ts:79:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[94/121]⎯
+
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: clicks > [R-CLICK-2] country header name in mixed case -> ["cF-IpCoUnTrY","nz"]
+Error: setup: POST /api/links {"url":"https://example.com/click/0f4c03k5500m"} -> url "https://www.rust-lang.org/learn", expected "https://example.com/click/0f4c03k5500m"
+ ❯ createOk ../harness/lib/links.ts:61:30
+     59|   // A created link must echo what was asked for (R-LINK-2, R-URL-5); …
+     60|   const want = whatwg(body.url.replace(/^[\t\n\f\r ]+|[\t\n\f\r ]+$/g,…
+     61|   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringif…
+       |                              ^
+     62|   if (typeof body.alias === 'string' && body.alias !== '' && l.code !=…
+     63|     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expect…
+ ❯ oneClick ../harness/lib/links.ts:139:16
+ ❯ api/redirect-click-stats.test.ts:79:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[95/121]⎯
+
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: clicks > [R-CLICK-3] User-Agent YandexBot -> "Mozilla/5.0 (compatible; YandexBot/3.0)"
+Error: setup: POST /api/links {"url":"https://example.com/click/yefqn5klbqwo"} -> url "https://www.rust-lang.org/learn", expected "https://example.com/click/yefqn5klbqwo"
+ ❯ createOk ../harness/lib/links.ts:61:30
+     59|   // A created link must echo what was asked for (R-LINK-2, R-URL-5); …
+     60|   const want = whatwg(body.url.replace(/^[\t\n\f\r ]+|[\t\n\f\r ]+$/g,…
+     61|   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringif…
+       |                              ^
+     62|   if (typeof body.alias === 'string' && body.alias !== '' && l.code !=…
+     63|     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expect…
+ ❯ oneClick ../harness/lib/links.ts:139:16
+ ❯ api/redirect-click-stats.test.ts:93:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[96/121]⎯
+
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: clicks > [R-CLICK-3] User-Agent Baiduspider -> "Baiduspider+(+http://www.baidu.com/search/spider.htm)"
+Error: setup: POST /api/links {"url":"https://example.com/click/t3fwogckbrpc"} -> url "https://www.rust-lang.org/learn", expected "https://example.com/click/t3fwogckbrpc"
+ ❯ createOk ../harness/lib/links.ts:61:30
+     59|   // A created link must echo what was asked for (R-LINK-2, R-URL-5); …
+     60|   const want = whatwg(body.url.replace(/^[\t\n\f\r ]+|[\t\n\f\r ]+$/g,…
+     61|   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringif…
+       |                              ^
+     62|   if (typeof body.alias === 'string' && body.alias !== '' && l.code !=…
+     63|     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expect…
+ ❯ oneClick ../harness/lib/links.ts:139:16
+ ❯ api/redirect-click-stats.test.ts:93:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[97/121]⎯
+
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: clicks > [R-CLICK-3] User-Agent previewer -> "SomePreviewer/2"
+Error: setup: POST /api/links {"url":"https://example.com/click/3e3ubplz4tii"} -> url "https://www.rust-lang.org/learn", expected "https://example.com/click/3e3ubplz4tii"
+ ❯ createOk ../harness/lib/links.ts:61:30
+     59|   // A created link must echo what was asked for (R-LINK-2, R-URL-5); …
+     60|   const want = whatwg(body.url.replace(/^[\t\n\f\r ]+|[\t\n\f\r ]+$/g,…
+     61|   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringif…
+       |                              ^
+     62|   if (typeof body.alias === 'string' && body.alias !== '' && l.code !=…
+     63|     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expect…
+ ❯ oneClick ../harness/lib/links.ts:139:16
+ ❯ api/redirect-click-stats.test.ts:93:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[98/121]⎯
+
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: clicks > [R-CLICK-3] User-Agent crawler with iPhone -> "CRAWLER-iPhone"
+Error: setup: POST /api/links {"url":"https://example.com/click/ciwzvjkg19da"} -> url "https://www.rust-lang.org/learn", expected "https://example.com/click/ciwzvjkg19da"
+ ❯ createOk ../harness/lib/links.ts:61:30
+     59|   // A created link must echo what was asked for (R-LINK-2, R-URL-5); …
+     60|   const want = whatwg(body.url.replace(/^[\t\n\f\r ]+|[\t\n\f\r ]+$/g,…
+     61|   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringif…
+       |                              ^
+     62|   if (typeof body.alias === 'string' && body.alias !== '' && l.code !=…
+     63|     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expect…
+ ❯ oneClick ../harness/lib/links.ts:139:16
+ ❯ api/redirect-click-stats.test.ts:93:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[99/121]⎯
+
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: clicks > [R-CLICK-3] User-Agent Kindle Tablet -> "Mozilla/5.0 (Linux; Kindle Tablet)"
+Error: setup: POST /api/links {"url":"https://example.com/click/v2yezkritozl"} -> url "https://www.rust-lang.org/learn", expected "https://example.com/click/v2yezkritozl"
+ ❯ createOk ../harness/lib/links.ts:61:30
+     59|   // A created link must echo what was asked for (R-LINK-2, R-URL-5); …
+     60|   const want = whatwg(body.url.replace(/^[\t\n\f\r ]+|[\t\n\f\r ]+$/g,…
+     61|   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringif…
+       |                              ^
+     62|   if (typeof body.alias === 'string' && body.alias !== '' && l.code !=…
+     63|     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expect…
+ ❯ oneClick ../harness/lib/links.ts:139:16
+ ❯ api/redirect-click-stats.test.ts:93:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[100/121]⎯
+
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: clicks > [R-CLICK-3] User-Agent Android Mobile -> "Mozilla/5.0 (Linux; Android 12; SM-G991B) Mobile"
+Error: setup: POST /api/links {"url":"https://example.com/click/fdmfiz0ffjx3"} -> url "https://www.rust-lang.org/learn", expected "https://example.com/click/fdmfiz0ffjx3"
+ ❯ createOk ../harness/lib/links.ts:61:30
+     59|   // A created link must echo what was asked for (R-LINK-2, R-URL-5); …
+     60|   const want = whatwg(body.url.replace(/^[\t\n\f\r ]+|[\t\n\f\r ]+$/g,…
+     61|   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringif…
+       |                              ^
+     62|   if (typeof body.alias === 'string' && body.alias !== '' && l.code !=…
+     63|     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expect…
+ ❯ oneClick ../harness/lib/links.ts:139:16
+ ❯ api/redirect-click-stats.test.ts:93:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[101/121]⎯
+
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: clicks > [R-CLICK-3] User-Agent Linux Firefox -> "Mozilla/5.0 (X11; Linux x86_64) Firefox/120.0"
+Error: setup: POST /api/links {"url":"https://example.com/click/qmu0qiu3usbi"} -> url "https://www.rust-lang.org/learn", expected "https://example.com/click/qmu0qiu3usbi"
+ ❯ createOk ../harness/lib/links.ts:61:30
+     59|   // A created link must echo what was asked for (R-LINK-2, R-URL-5); …
+     60|   const want = whatwg(body.url.replace(/^[\t\n\f\r ]+|[\t\n\f\r ]+$/g,…
+     61|   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringif…
+       |                              ^
+     62|   if (typeof body.alias === 'string' && body.alias !== '' && l.code !=…
+     63|     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expect…
+ ❯ oneClick ../harness/lib/links.ts:139:16
+ ❯ api/redirect-click-stats.test.ts:93:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[102/121]⎯
+
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: clicks > [R-CLICK-3] User-Agent tabs only -> "\t \t"
+Error: setup: POST /api/links {"url":"https://example.com/click/vyk89l003h8n"} -> url "https://www.rust-lang.org/learn", expected "https://example.com/click/vyk89l003h8n"
+ ❯ createOk ../harness/lib/links.ts:61:30
+     59|   // A created link must echo what was asked for (R-LINK-2, R-URL-5); …
+     60|   const want = whatwg(body.url.replace(/^[\t\n\f\r ]+|[\t\n\f\r ]+$/g,…
+     61|   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringif…
+       |                              ^
+     62|   if (typeof body.alias === 'string' && body.alias !== '' && l.code !=…
+     63|     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expect…
+ ❯ oneClick ../harness/lib/links.ts:139:16
+ ❯ api/redirect-click-stats.test.ts:93:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[103/121]⎯
+
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: stats > [R-STATS-1][R-STATS-2] days=3 -> that many zero-filled entries ending today
+Error: setup: POST /api/links {"url":"https://example.org/s1/71cfanxoy","alias":"st-njil9vza"} -> url "https://www.rust-lang.org/learn", expected "https://example.org/s1/71cfanxoy"
+ ❯ createOk ../harness/lib/links.ts:61:30
+     59|   // A created link must echo what was asked for (R-LINK-2, R-URL-5); …
+     60|   const want = whatwg(body.url.replace(/^[\t\n\f\r ]+|[\t\n\f\r ]+$/g,…
+     61|   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringif…
+       |                              ^
+     62|   if (typeof body.alias === 'string' && body.alias !== '' && l.code !=…
+     63|     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expect…
+ ❯ api/redirect-click-stats.test.ts:99:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[104/121]⎯
+
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: stats > [R-STATS-1][R-STATS-2] days=45 -> that many zero-filled entries ending today
+Error: setup: POST /api/links {"url":"https://example.org/s1/c1w818c5b","alias":"st-pwvi0clg"} -> url "https://www.rust-lang.org/learn", expected "https://example.org/s1/c1w818c5b"
+ ❯ createOk ../harness/lib/links.ts:61:30
+     59|   // A created link must echo what was asked for (R-LINK-2, R-URL-5); …
+     60|   const want = whatwg(body.url.replace(/^[\t\n\f\r ]+|[\t\n\f\r ]+$/g,…
+     61|   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringif…
+       |                              ^
+     62|   if (typeof body.alias === 'string' && body.alias !== '' && l.code !=…
+     63|     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expect…
+ ❯ api/redirect-click-stats.test.ts:99:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[105/121]⎯
+
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: stats > [R-STATS-1][R-STATS-2] days=300 -> that many zero-filled entries ending today
+Error: setup: POST /api/links {"url":"https://example.org/s1/4tyrq8zxs","alias":"st-wkbpwvfv"} -> url "https://www.rust-lang.org/learn", expected "https://example.org/s1/4tyrq8zxs"
+ ❯ createOk ../harness/lib/links.ts:61:30
+     59|   // A created link must echo what was asked for (R-LINK-2, R-URL-5); …
+     60|   const want = whatwg(body.url.replace(/^[\t\n\f\r ]+|[\t\n\f\r ]+$/g,…
+     61|   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringif…
+       |                              ^
+     62|   if (typeof body.alias === 'string' && body.alias !== '' && l.code !=…
+     63|     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expect…
+ ❯ api/redirect-click-stats.test.ts:99:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[106/121]⎯
+
+ FAIL  |holdout-api| api/redirect-click-stats.test.ts > holdout: stats > [R-STATS-4][R-STATS-5][R-STATS-6] seven referrers, ties by code point, devices complete
+Error: setup: POST /api/links {"url":"https://example.org/s5/xq7nbuwrl","alias":"bd-0gsyjql2"} -> url "https://www.rust-lang.org/learn", expected "https://example.org/s5/xq7nbuwrl"
+ ❯ createOk ../harness/lib/links.ts:61:30
+     59|   // A created link must echo what was asked for (R-LINK-2, R-URL-5); …
+     60|   const want = whatwg(body.url.replace(/^[\t\n\f\r ]+|[\t\n\f\r ]+$/g,…
+     61|   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringif…
+       |                              ^
+     62|   if (typeof body.alias === 'string' && body.alias !== '' && l.code !=…
+     63|     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expect…
+ ❯ api/redirect-click-stats.test.ts:106:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[107/121]⎯
+
+ FAIL  |holdout-invariants| invariants/invariants.test.ts > [R-ALIAS-5] 20 concurrent creates of a mixed-case alias with http:// urls -> one 201, nineteen 409
+AssertionError: expected [ { status: 201, …(9) }, …(19) ] to have a length of 1 but got 20
+
+- Expected
++ Received
+
+- 1
++ 20
+
+ ❯ invariants/invariants.test.ts:11:46
+      9|   const urls = Array.from({ length: 20 }, (_, i) => `http://example.ne…
+     10|   const rs = await Promise.all(urls.map((url) => create({ url, alias: …
+     11|   expect(rs.filter((r) => r.status === 201)).toHaveLength(1);
+       |                                              ^
+     12|   expect(rs.filter((r) => r.status === 409)).toHaveLength(19);
+     13|   rs.filter((r) => r.status === 409).forEach((r) => expectError(r, 409…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[108/121]⎯
+
+ FAIL  |holdout-invariants| invariants/invariants.test.ts > [R-REDIR-5] 500 redirects of a generated code with mobile UA and referrers, >= 100 in flight -> all 302, +500 exactly
+Error: setup: POST /api/links {"url":"https://example.net/burst/3yp9tq9tc8"} -> url "https://www.rust-lang.org/learn", expected "https://example.net/burst/3yp9tq9tc8"
+ ❯ createOk ../harness/lib/links.ts:61:30
+     59|   // A created link must echo what was asked for (R-LINK-2, R-URL-5); …
+     60|   const want = whatwg(body.url.replace(/^[\t\n\f\r ]+|[\t\n\f\r ]+$/g,…
+     61|   if (l?.url !== want) throw new Error(`${what} -> url ${JSON.stringif…
+       |                              ^
+     62|   if (typeof body.alias === 'string' && body.alias !== '' && l.code !=…
+     63|     throw new Error(`${what} -> code ${JSON.stringify(l.code)}, expect…
+ ❯ invariants/invariants.test.ts:19:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[109/121]⎯
+
+ FAIL  |holdout-invariants| invariants/invariants.test.ts > [R-LINK-6][R-LINK-7] 1,000 sequential creates alternating alias null / "" / omitted -> 1,000 distinct codes
+AssertionError: expected 1 to be 1000 // Object.is equality
+
+- Expected
++ Received
+
+- 1000
++ 1
+
+ ❯ invariants/invariants.test.ts:50:22
+     48|     codes.add((r.json as Link).code);
+     49|   }
+     50|   expect(codes.size).toBe(1000);
+       |                      ^
+     51| });
+     52|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[110/121]⎯
+
+
+ Test Files  4 failed | 1 passed (5)
+      Tests  88 failed | 2 skipped (90)
+   Start at  14:29:44
+   Duration  15.91s (transform 151ms, setup 242ms, import 94ms, tests 15.87s, environment 0ms)
+
+JSON report written to /Users/matthewnelson/Workspace/tbv-ws/harness/harness/results/holdout.json
+[ELIFECYCLE] Command failed with exit code 1.

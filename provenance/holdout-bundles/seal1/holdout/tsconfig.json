@@ -1,0 +1,5 @@
+{
+  "extends": "../harness/tsconfig.json",
+  "compilerOptions": { "typeRoots": ["../harness/node_modules/@types"] },
+  "include": ["api", "ui", "invariants", "*.ts"]
+}

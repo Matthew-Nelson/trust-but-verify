@@ -1,0 +1,6 @@
+{
+  "name": "shortlink-holdout",
+  "private": true,
+  "type": "module",
+  "description": "Hidden holdout suite. Run from ../harness with: pnpm test:holdout"
+}

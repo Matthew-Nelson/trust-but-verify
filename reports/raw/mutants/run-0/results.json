@@ -212,7 +212,7 @@
       "R-STATS-5",
       "R-STATS-6"
      ],
-     "error": "expected [ { name: 'bot', clicks: 10 }, …(1) ] to deeply equal [ { name: 'tablet', clicks: 1 } ]"
+     "error": "expected [ { name: 'bot', clicks: 10 }, \u2026(1) ] to deeply equal [ { name: 'tablet', clicks: 1 } ]"
     }
    ],
    "unstableFailures": [],
@@ -630,7 +630,7 @@
      "ids": [
       "R-ALIAS-5"
      ],
-     "error": "statuses: 201,201,201,201,201,201,201,409,201,201,201,201,201,201,201,201,201,201,201,201: expected [ 201, 201, 201, 201, 201, 201, …(13) ] to have a length of 1 but got 19"
+     "error": "statuses: 201,201,201,201,201,201,201,409,201,201,201,201,201,201,201,201,201,201,201,201: expected [ 201, 201, 201, 201, 201, 201, \u2026(13) ] to have a length of 1 but got 19"
     }
    ],
    "unstableFailures": [],
@@ -658,7 +658,7 @@
     },
     {
      "suite": "api",
-     "name": "R-CLICK-1 referrer > [R-CLICK-1] Referer UTF-8 IDN host is punycoded -> [\"Referer\",\"https://bÃ¼cher.example/p\"]",
+     "name": "R-CLICK-1 referrer > [R-CLICK-1] Referer UTF-8 IDN host is punycoded -> [\"Referer\",\"https://b\u00c3\u00bccher.example/p\"]",
      "ids": [
       "R-CLICK-1"
      ],
@@ -666,7 +666,7 @@
     },
     {
      "suite": "api",
-     "name": "R-CLICK-1 referrer > [R-CLICK-1] Referer invalid UTF-8 bytes -> [\"Referer\",\"https://exÿample.com/\"]",
+     "name": "R-CLICK-1 referrer > [R-CLICK-1] Referer invalid UTF-8 bytes -> [\"Referer\",\"https://ex\u00ffample.com/\"]",
      "ids": [
       "R-CLICK-1"
      ],
@@ -754,7 +754,7 @@
     },
     {
      "suite": "api",
-     "name": "R-CLICK-2 country > [R-CLICK-2] country header non-ASCII letter (UTF-8) -> [\"cf-ipcountry\",\"ÃS\"]",
+     "name": "R-CLICK-2 country > [R-CLICK-2] country header non-ASCII letter (UTF-8) -> [\"cf-ipcountry\",\"\u00c3\u009cS\"]",
      "ids": [
       "R-CLICK-2"
      ],
@@ -834,7 +834,7 @@
     },
     {
      "suite": "holdout",
-     "name": "holdout: clicks > [R-CLICK-1] Referer IDN with sharp s (UTF-8) -> [\"Referer\",\"https://straÃe.example/\"]",
+     "name": "holdout: clicks > [R-CLICK-1] Referer IDN with sharp s (UTF-8) -> [\"Referer\",\"https://stra\u00c3\u009fe.example/\"]",
      "ids": [
       "R-CLICK-1"
      ],
@@ -850,7 +850,7 @@
     },
     {
      "suite": "holdout",
-     "name": "holdout: clicks > [R-CLICK-1] Referer truncated UTF-8 -> [\"Referer\",\"https://aÃ.example/\"]",
+     "name": "holdout: clicks > [R-CLICK-1] Referer truncated UTF-8 -> [\"Referer\",\"https://a\u00c3.example/\"]",
      "ids": [
       "R-CLICK-1"
      ],
@@ -957,7 +957,7 @@
      "ids": [
       "R-REDIR-7"
      ],
-     "error": "expected [ 302, …(2) ] to deeply equal [ 302, …(2) ]"
+     "error": "expected [ 302, \u2026(2) ] to deeply equal [ 302, \u2026(2) ]"
     }
    ],
    "unstableFailures": [],
@@ -1101,7 +1101,7 @@
      "ids": [
       "R-ALIAS-3"
      ],
-     "error": "[R-ERR-4] message echoes request value \"a3-o62ykr7gdg\": expected 'The alias \"a3-o62ykr7gdg\" is already …' not to contain 'a3-o62ykr7gdg'"
+     "error": "[R-ERR-4] message echoes request value \"a3-o62ykr7gdg\": expected 'The alias \"a3-o62ykr7gdg\" is already \u2026' not to contain 'a3-o62ykr7gdg'"
     },
     {
      "suite": "api",
@@ -1117,7 +1117,7 @@
      "ids": [
       "R-ERR-4"
      ],
-     "error": "[R-ERR-4] message echoes request value \"err-mw9mu0gsj9\": expected 'The alias \"err-mw9mu0gsj9\" is already…' not to contain 'err-mw9mu0gsj9'"
+     "error": "[R-ERR-4] message echoes request value \"err-mw9mu0gsj9\": expected 'The alias \"err-mw9mu0gsj9\" is already\u2026' not to contain 'err-mw9mu0gsj9'"
     },
     {
      "suite": "invariants",
@@ -1125,7 +1125,7 @@
      "ids": [
       "R-ALIAS-5"
      ],
-     "error": "[R-ERR-4] message echoes request value \"race-zdtx4l6zyd\": expected 'The alias \"race-zdtx4l6zyd\" is alread…' not to contain 'race-zdtx4l6zyd'"
+     "error": "[R-ERR-4] message echoes request value \"race-zdtx4l6zyd\": expected 'The alias \"race-zdtx4l6zyd\" is alread\u2026' not to contain 'race-zdtx4l6zyd'"
     },
     {
      "suite": "invariants",
@@ -1133,7 +1133,7 @@
      "ids": [
       "R-ALIAS-5"
      ],
-     "error": "[R-ERR-4] message echoes request value \"race-0g2ujh7k5m\": expected 'The alias \"race-0g2ujh7k5m\" is alread…' not to contain 'race-0g2ujh7k5m'"
+     "error": "[R-ERR-4] message echoes request value \"race-0g2ujh7k5m\": expected 'The alias \"race-0g2ujh7k5m\" is alread\u2026' not to contain 'race-0g2ujh7k5m'"
     },
     {
      "suite": "invariants",
@@ -1141,7 +1141,7 @@
      "ids": [
       "R-ALIAS-5"
      ],
-     "error": "[R-ERR-4] message echoes request value \"race-yncnix4dyw\": expected 'The alias \"race-yncnix4dyw\" is alread…' not to contain 'race-yncnix4dyw'"
+     "error": "[R-ERR-4] message echoes request value \"race-yncnix4dyw\": expected 'The alias \"race-yncnix4dyw\" is alread\u2026' not to contain 'race-yncnix4dyw'"
     },
     {
      "suite": "holdout",
@@ -1149,7 +1149,7 @@
      "ids": [
       "R-ALIAS-3"
      ],
-     "error": "[R-ERR-4] message echoes request value \"Taken_sz2ln3\": expected 'The alias \"Taken_sz2ln3\" is already i…' not to contain 'Taken_sz2ln3'"
+     "error": "[R-ERR-4] message echoes request value \"Taken_sz2ln3\": expected 'The alias \"Taken_sz2ln3\" is already i\u2026' not to contain 'Taken_sz2ln3'"
     }
    ],
    "unstableFailures": [],
@@ -1196,7 +1196,7 @@
       "R-CLICK-2",
       "R-CLICK-3"
      ],
-     "error": "expected [ { referrer_host: 'direct', …(2) } ] to deeply equal [ { referrer_host: null, …(2) } ]"
+     "error": "expected [ { referrer_host: 'direct', \u2026(2) } ] to deeply equal [ { referrer_host: null, \u2026(2) } ]"
     },
     {
      "suite": "api",
@@ -1269,7 +1269,7 @@
      "ids": [
       "R-STATS-5"
      ],
-     "error": "expected [ { name: 'BB', clicks: 4 }, …(5) ] to deeply equal [ { name: 'BB', clicks: 4 }, …(4) ]"
+     "error": "expected [ { name: 'BB', clicks: 4 }, \u2026(5) ] to deeply equal [ { name: 'BB', clicks: 4 }, \u2026(4) ]"
     },
     {
      "suite": "api",
@@ -1288,7 +1288,7 @@
       "R-STATS-5",
       "R-STATS-6"
      ],
-     "error": "expected [ { name: 'UA', clicks: 2 }, …(5) ] to deeply equal [ { name: 'UA', clicks: 2 }, …(4) ]"
+     "error": "expected [ { name: 'UA', clicks: 2 }, \u2026(5) ] to deeply equal [ { name: 'UA', clicks: 2 }, \u2026(4) ]"
     }
    ],
    "unstableFailures": [],
@@ -1310,7 +1310,7 @@
      "ids": [
       "R-LIST-1"
      ],
-     "error": "expected [ 'gD-ail45sux1j', …(3) ] to deeply equal [ 'gD-ail45sux1j', …(3) ]"
+     "error": "expected [ 'gD-ail45sux1j', \u2026(3) ] to deeply equal [ 'gD-ail45sux1j', \u2026(3) ]"
     }
    ],
    "unstableFailures": [],
@@ -1508,5 +1508,6 @@
    "unstableFailures": [],
    "detail": null
   }
- ]
+ ],
+ "harnessTag": "harness-v1.1"
 }

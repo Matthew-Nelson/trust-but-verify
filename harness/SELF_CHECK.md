@@ -1,5 +1,72 @@
 # Self-check: the tests can fail
 
+## Run 12 note (spec-v1.5, 2026-10-18): HP-27..29 adopted, gate removed
+
+SPEC adopted HP-27, HP-28 and HP-29 verbatim, and declined HP-30.
+
+**What changed:**
+- The `HARNESS_PROPOSALS` gate and its `pending (gray-box, proposed ...)` note were removed.
+- `tests/api/faults.graybox.test.ts` now runs whenever `API_BIN` and `DATABASE_URL` are set, and otherwise skips with the existing notes.
+- To match the adopted text exactly, the proxy's idle condition now also requires that no request is partly sent.
+- Two new inconclusive outcomes come from SPEC's "restores a read-write default or a search path → inconclusive, never passed". The proxy flags such SQL from the api, and in R-ERR-7 so does a write that succeeds during the read-only phase.
+- In R-REDIR-6, Cache-Control that differs between normal redirects is now inconclusive instead of a failure.
+
+Run against the two tests only. `DATABASE_URL=postgres://harness@127.0.0.1:59997/shortlink` (nothing listening) unless stated.
+
+| Target | Tests | Failed | Passed | Skipped | Cause |
+|---|---|---|---|---|---|
+| `API_BIN` unset | 2 | 0 | 0 | 2 | `pending (gray-box): API_BIN is unset ...` |
+| `API_BIN='sleep 30'`, `DATABASE_URL` unset | 2 | 0 | 0 | 2 | `gray-box: DATABASE_URL is unset ...` |
+| (a) nothing listening (`API_BIN='sleep 30'`) | 2 | 2 | **0** | 0 | `port ... did not open within 10000 ms` |
+| (b) Prism as the spawned api, strict | 2 | 2 | **0** | 0 | own assertion: `the spawned api answered /healthz 200 without ever opening a database session through DATABASE_URL` |
+| (b) Prism as the spawned api, lenient | 2 | 2 | **0** | 0 | same own assertion |
+
+**Not covered here.** The rest of each test (fault phases, inconclusive branches, 500-body and latency assertions) is still not exercised without a real database and api. The offline proxy check from run 11 was not re-run after the idle-condition change, because this round's instructions allow only the two self-check targets. No test was added or removed, so the suite counts in run 11 still hold: API 374 tests, of which 19 are gray-box skips when the environment is unset.
+
+
+## Run 11 note (spec-v1.4, 2026-10-18): fault-injection tests for R-ERR-7 and R-REDIR-6
+
+**What was added.** `tests/api/faults.graybox.test.ts` has two tests:
+- `[R-REDIR-6][gray-box] when recording a click fails (the instance's database sessions turned read-only), GET /{code} gives the same redirect as before, within normal latency`
+- `[R-ERR-7][gray-box] database failures on a spawned instance (writes rejected, then tables unresolvable): every 500 has exactly the canonical internal-error body`
+
+Supporting code: `lib/pgproxy.ts`, a PostgreSQL protocol proxy, plus small helpers in `lib/config.ts` (`HARNESS_PROPOSALS`, `proposalSkip`), `lib/db.ts` (`storedClicks`, `linkExists`) and `lib/links.ts` (an optional `base` on `create`/`createOk`). No existing test changed.
+
+**Why they skip by default.** Both rely on contracts that spec-v1.4 does not grant, so they are gated on `../PROPOSALS.md` HP-27 + HP-28, and R-REDIR-6 also on HP-29.
+
+**Skip behavior,** checked by running the file alone:
+- `API_BIN` unset: 2 skipped, with the existing `pending (gray-box): API_BIN is unset ...` note.
+- `API_BIN` and `DATABASE_URL` set but `HARNESS_PROPOSALS` unset: 2 skipped, with `pending (gray-box, proposed HP-27, HP-28[, HP-29]): ...`.
+
+**Results with `HARNESS_PROPOSALS=HP-27,HP-28,HP-29`.** `DATABASE_URL=postgres://harness@127.0.0.1:59997/shortlink` (nothing listening) throughout.
+
+| Target | Tests | Failed | Passed | Failure cause |
+|---|---|---|---|---|
+| (a) nothing listening (`API_BIN='sleep 30'`, which never opens its port) | 2 | 2 | **0** | `port ... did not open within 10000 ms` |
+| (b) Prism as the spawned api, strict (`API_BIN='exec ./node_modules/.bin/prism mock -h 127.0.0.1 -p $PORT ../spec/openapi.json'`) | 2 | 2 | **0** | own assertion: `the spawned api answered /healthz 200 without ever opening a database session through DATABASE_URL` |
+| (b) Prism as the spawned api, lenient (`HARNESS_LENIENT_SETUP=1`) | 2 | 2 | **0** | same own assertion |
+
+**What Prism can and cannot show.** Prism stops at the first precondition: an API_BIN instance must use `DATABASE_URL`, and R-HEALTH-1 says `/healthz` 200 means the database answered. Without a database and a real api, nothing further can run:
+- the R-REDIR-6 baseline (11 click rows stored through the proxy)
+- the fault phases
+- the inconclusive branches
+- the 500-body and latency assertions
+
+These were not exercised against a real system, by instruction. Their behavior against a conforming api and the red-team variants is **unverified until a run with `DATABASE_URL`, `API_BIN` and `HARNESS_PROPOSALS`**.
+
+**Offline proxy logic check.** A scratch script, not part of the harness, drove `lib/pgproxy.ts` between an in-process fake PostgreSQL backend and a minimal client. It checked that:
+- SSLRequest is answered `N` and never reaches the backend.
+- A statement applied while a session is idle takes effect before that session's next query, and the client never sees the injected responses.
+- A session that opens after the switch gets the statement before its first query.
+- A session inside a transaction (`Z:T`) is left alone until it is idle again.
+- Nothing is injected inside an extended-protocol batch (`P B E S`) or between pipelined requests.
+- A client message split across TCP writes is reassembled before forwarding.
+
+All assertions passed. This shows the framing logic, not interoperability with a real driver or server.
+
+**Full API suite, (a) nothing listening, gray-box env unset:** 374 tests, 355 failed, **0 passed**, 19 skipped (17 earlier gray-box + 2 new), 355 connection refused. The other suites are unchanged.
+
+
 ## Run 10 note (spec-v1.4, 2026-10-18): HP-23, HP-24, HP-25
 
 **R-UI-1 (HP-23).** A control now fails only when `required === true`, because `<button>`, `<fieldset>`, `<output>` and `<object>` have no `required` property. Run against nothing listening (`TARGET_WEB=http://127.0.0.1:59998 pnpm test:ui -g "R-UI-1] form has"`): **1 failed, 0 passed**.

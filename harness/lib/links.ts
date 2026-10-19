@@ -45,13 +45,13 @@ export function uurl(tag = 'x'): string {
 }
 export const enc = encodeURIComponent;
 
-export function create(body: unknown): Promise<Res> {
-  return api('POST', '/api/links', { json: body });
+export function create(body: unknown, opts: { base?: string } = {}): Promise<Res> {
+  return api('POST', '/api/links', { json: body, base: opts.base });
 }
 
-/** Create a link and insist on 201. */
-export async function createOk(body: { url: string; alias?: string | null; [k: string]: unknown }): Promise<Link> {
-  const r = await create(body);
+/** Create a link and insist on 201. `base` targets another api instance (a spawned one). */
+export async function createOk(body: { url: string; alias?: string | null; [k: string]: unknown }, opts: { base?: string } = {}): Promise<Link> {
+  const r = await create(body, opts);
   const what = `setup: POST /api/links ${JSON.stringify(body).slice(0, 200)}`;
   if (r.status !== 201) throw new Error(`${what} -> ${r.status} ${r.text.slice(0, 300)}`);
   const l = r.json as Link;

@@ -32,6 +32,21 @@ export async function linkId(code: string): Promise<string> {
   return r.rows[0].id;
 }
 
+/** Number of clicks rows stored for a code (R-GET-1 clickCount, read directly). */
+export async function storedClicks(code: string): Promise<number> {
+  const r = await db().query(
+    'SELECT count(*)::int AS n FROM clicks WHERE link_id = (SELECT id FROM links WHERE code = $1)',
+    [code],
+  );
+  return r.rows[0].n;
+}
+
+/** Does a links row with this code exist? */
+export async function linkExists(code: string): Promise<boolean> {
+  const r = await db().query('SELECT 1 FROM links WHERE code = $1', [code]);
+  return r.rowCount === 1;
+}
+
 export interface SeedClick {
   at: string; // absolute timestamptz literal, e.g. '2026-10-17T00:00:00Z'
   referrer?: string | null; // normalized host or null (direct)

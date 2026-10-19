@@ -6,3 +6,4 @@ fuzz/out/
 schemathesis-report/
 .hypothesis/
 .schemathesis/
+fuzz/__pycache__/

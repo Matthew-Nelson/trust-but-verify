@@ -65,3 +65,11 @@ Both items concern `pnpm fuzz` (R-OAS-1) against the Rust api. The api was not c
 | HP-25 | **R-OAS-1 / Fuzzing**: `scripts/fuzz.mjs` passes `--max-redirects 0`. Schemathesis 4.29.1 then reports every 302 as `Network Error: Exceeded 0 redirects.`, so `GET /{code}` and `HEAD /{code}` always error once a code exists, even though the 302 is exactly what R-REDIR-1 requires. 2 errors on a correct api. | Allow the 302 in the fuzz run (for example, a Schemathesis hook or check that treats a 302 without following it as a response), or drop `--max-redirects 0`. | `GET|HEAD /{code}` return 302 with `Location` and `Cache-Control: no-store`, per R-REDIR-1/2. |
 
 **Disposed in `spec-v1.4`:** see `spec/reviews/06-disposition.md` (HP-24 and HP-25 accepted as SPEC contradictions; HP-23 is a harness-only fix).
+
+## From harness run 10 (2026-10-18), copied verbatim
+
+HP-23 (R-UI-1 `required` on buttons), HP-24 (no undefined parameters in fuzz generation) and HP-25 (3xx recorded, not followed) are implemented in harness run 10.
+
+| ID | Problem | Suggested change | Harness interpretation today |
+|---|---|---|---|
+| HP-26 | **Verification rules / Fuzzing**: "It does not follow redirects" doesn't say whether Schemathesis's own start-up probes count. They don't go through the hooks, and they ignore `--max-redirects`, so in 4.29.1 a probe answered with a 3xx was observed following it to the `Location` host. A conforming api answers the probe path (`/schemathesis-probe%5C%1B%01`) with a 404, so this matters only for safety ("never reach an external host"), not for conformance. | Add: "This includes any requests the tool sends on its own, such as capability probes." | `fuzz/no_redirects.py` disables redirect-following process-wide (`requests.Session.resolve_redirects` is replaced), so probes also record the 3xx without following it. Verified with a local sink: 0 follow-up requests (SELF_CHECK.md, run 10). |

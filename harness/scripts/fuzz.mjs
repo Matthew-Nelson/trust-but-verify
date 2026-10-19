@@ -3,7 +3,13 @@
 //   - Schemathesis version pinned below (the harness's lock for the Python side)
 //   - every check that version provides except positive_data_acceptance
 //   - positive and negative modes (--mode all), fixed seed, >= 100 examples per operation
-//   - redirects are not followed (--max-redirects 0)
+//   - redirects are never followed. Our committed hook module fuzz/no_redirects.py sends every request with
+//     allow_redirects=False, so a 3xx is recorded and checked as the operation's response (spec-v1.4, HP-25).
+//     It also replaces requests' resolve_redirects process-wide, so Schemathesis's own probes can't follow a
+//     3xx either. --max-redirects is NOT passed: in 4.29.1, `--max-redirects 0` turns every 302 into a
+//     "TooManyRedirects" network error even though nothing is followed
+//   - generation never adds parameters the schema doesn't define (fuzz/schemathesis.toml:
+//     [generation] allow-extra-parameters = false; spec-v1.4, HP-24). negative_data_rejection stays enabled
 //   - format validation off for URL-valued fields: `format: uri` is stripped from a derived copy of the
 //     schema (Schemathesis only offers a global switch, and date/date-time formats must stay checked;
 //     openapi v1.1 no longer carries any `format: uri`, so the strip is kept only as a guard)
@@ -43,15 +49,15 @@ const stripped = [];
 const schemaPath = join(out, 'openapi.fuzz.json');
 writeFileSync(schemaPath, JSON.stringify(spec, null, 2));
 
+const configFile = join(root, 'fuzz', 'schemathesis.toml');
 const args = [
-  '--from', SCHEMATHESIS, 'schemathesis', 'run', schemaPath,
+  '--from', SCHEMATHESIS, 'schemathesis', '--config-file', configFile, 'run', schemaPath,
   '--url', target,
   '--checks', 'all',
   '--exclude-checks', 'positive_data_acceptance',
   '--mode', 'all',
   '--seed', seed,
   '--max-examples', examples,
-  '--max-redirects', '0',
   '--request-timeout', '10',
   '--report', 'junit,ndjson',
   '--report-dir', out,
@@ -62,12 +68,16 @@ const summary = [
   `seed: ${seed}`,
   `max-examples per operation: ${examples}`,
   `checks: all except positive_data_acceptance`,
-  `mode: all (positive + negative); redirects not followed`,
+  `mode: all (positive + negative)`,
+  `redirects: never followed; a 3xx is the recorded response (hook fuzz/no_redirects.py: allow_redirects=False + resolve_redirects guard)`,
+  `config: fuzz/schemathesis.toml ([generation] allow-extra-parameters = false; hooks = fuzz/no_redirects.py)`,
   `format "uri" stripped at: ${stripped.join(', ') || '(none)'}`,
   `command: uvx ${args.join(' ')}`,
 ].join('\n');
 console.log(summary + '\n');
 const t0 = Date.now();
-const r = spawnSync('uvx', args, { stdio: 'inherit', env: { ...env, SCHEMATHESIS_HOOKS: '' } });
+// cwd is harness/, so the config's relative `hooks` path resolves to our committed hook file. Any
+// SCHEMATHESIS_HOOKS from the caller is blanked, so only that file is loaded.
+const r = spawnSync('uvx', args, { stdio: 'inherit', cwd: root, env: { ...env, SCHEMATHESIS_HOOKS: '' } });
 writeFileSync(join(out, 'summary.txt'), `${summary}\nexit: ${r.status}\nduration: ${Math.round((Date.now() - t0) / 1000)} s\n`);
 process.exit(r.status ?? 1);

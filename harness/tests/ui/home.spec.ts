@@ -27,7 +27,8 @@ test.describe('home page /', () => {
     expect(info.noValidate).toBe(true);
     for (const c of info.controls) {
       expect(c.type).not.toBe('url');
-      expect(c.required).toBe(false);
+      // Only input/select/textarea have `required`; a <button> (or fieldset/output/object) reads undefined (HP-23).
+      expect(c.required, `control of type ${c.type} is required`).not.toBe(true);
     }
     // Both textboxes and the button belong to the same form.
     const formOf = (l: typeof f.dest) => l.evaluate((el) => {

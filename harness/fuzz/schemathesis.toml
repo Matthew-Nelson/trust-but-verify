@@ -1,0 +1,12 @@
+# Schemathesis configuration for `pnpm fuzz` (R-OAS-1, SPEC "Verification rules / Fuzzing", spec-v1.4).
+# Loaded explicitly with `--config-file`. Paths are relative to harness/, which is the fuzz script's cwd.
+
+# Load only our own committed hook. It sends every request with allow_redirects=False, so a 3xx is
+# recorded and validated as the operation's response and never followed (HP-25).
+hooks = "fuzz/no_redirects.py"
+
+[generation]
+# Never add parameters the schema doesn't define. R-ERR-3 and "Query integer" require undefined
+# parameters to be ignored, so accepting one is not a failure (HP-24). negative_data_rejection stays
+# enabled for every other kind of invalid input.
+allow-extra-parameters = false

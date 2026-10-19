@@ -15,3 +15,9 @@
 **What doesn't change:** no rule about api behavior. Both builds already behave as v1.4 says, because v1.4 resolves the fuzzing rule toward R-ERR-3 and R-REDIR-1, which were already there and already tested. The holdout is untouched, so seal 3 stays in force.
 
 **The risk being managed:** HP-24 and HP-25 were found by running a real implementation, and the harness change is being made with that knowledge. The guard is that each fix follows from SPEC text alone (R-ERR-3; R-REDIR-1 plus "does not follow redirects"), not from the implementation's behavior. The harness author gets SPEC and these resolutions, not the implementation, its output or its fuzz report. The reviewer checks that each change is the narrowest one that resolves the contradiction, and that no check gets weaker for any other input.
+
+## Follow-up from harness run 10
+
+| ID | Resolution |
+|---|---|
+| HP-26 | **No spec change.** v1.4 already says a 3xx is "never followed", with no exception for requests the tool sends on its own, and the harness now meets that for probes too: `fuzz/no_redirects.py` replaces `requests.Session.resolve_redirects` process-wide, and a local sink saw 0 follow-up requests. The wording can be made explicit at the next spec revision. |

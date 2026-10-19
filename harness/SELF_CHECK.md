@@ -1,5 +1,34 @@
 # Self-check: the tests can fail
 
+## Run 10 note (spec-v1.4, 2026-10-18): HP-23, HP-24, HP-25
+
+**R-UI-1 (HP-23).** A control now fails only when `required === true`, because `<button>`, `<fieldset>`, `<output>` and `<object>` have no `required` property. Run against nothing listening (`TARGET_WEB=http://127.0.0.1:59998 pnpm test:ui -g "R-UI-1] form has"`): **1 failed, 0 passed**.
+
+**Fuzz (HP-24, HP-25).**
+- New command, printed by `pnpm fuzz`: `uvx --from schemathesis==4.29.1 schemathesis --config-file harness/fuzz/schemathesis.toml run fuzz/out/openapi.fuzz.json --url $FUZZ_API --checks all --exclude-checks positive_data_acceptance --mode all --seed 20261017 --max-examples 100 --request-timeout 10 --report junit,ndjson --report-dir fuzz/out`. It runs with cwd `harness/` and `SCHEMATHESIS_HOOKS` blanked.
+- The config sets `[generation] allow-extra-parameters = false` and `hooks = "fuzz/no_redirects.py"`.
+- `--max-redirects 0` was removed.
+
+**Against the local stub.** Command: `node scripts/fuzz-stub.mjs 4020 4021 results/fuzz-stub.log`, then `FUZZ_API=http://127.0.0.1:4020 pnpm fuzz`. The stub answers `GET`/`HEAD /{code}` with a schema-conforming 302 whose `Location` points at a separate local "external" sink on :4021, and `GET /healthz` with `200 {"status":"nope"}`, which violates the schema. Results:
+- **Redirects:** 1,800 requests, **0 network errors** (no "Exceeded 0 redirects"). The 302s were recorded and checked as responses.
+- **Sink:** received **0** requests, so nothing was followed. That includes Schemathesis's start-up probe `GET /schemathesis-probe%5C%1B%01`.
+- **Schema violation:** `GET /healthz` still fails with **"Response violates schema: "ok" was expected"**.
+- **`negative_data_rejection` still enabled:** it still reports invalid input the stub accepts, e.g. `GET /api/links?offset=9223372036854776001` → "API accepted schema-violating request".
+- **No undefined parameters:** **0** requests carried `x-schemathesis-unknown-property`. With `allow-extra-parameters` left at its default, the same run sent 2 (`GET`/`HEAD /api/links?offset=0&x-schemathesis-unknown-property=42`) and reported them as failures.
+
+**A gap found and closed while verifying.** With only the `before_call` hook, the start-up probe still followed a 302 to the sink, because probes use their own `requests` session outside the hook path and ignore `--max-redirects`. `fuzz/no_redirects.py` therefore also replaces `requests.Session.resolve_redirects` with a no-op, process-wide. With both in place, the sink count is 0.
+
+**Against the Prism mock (strict).** `FUZZ_API=http://127.0.0.1:4010 pnpm fuzz` exits 1 with 11 failures:
+- Use after free: 1
+- API accepted schema-violating request: 2
+- Undocumented HTTP status code: 3
+- Unsupported methods: 5
+
+There was also 1 network error: Prism hangs on `POST /api/links` with a `\x00` body (read timeout). There were **0** redirect errors.
+
+Suite counts are unchanged: API 372, invariants 8, UI 35.
+
+
 ## Run 7 note (spec-v1.3, 2026-10-18)
 
 One gray-box change: the spawned-instance R-PRIV-1 log test now skips at runtime as `inconclusive (gray-box): ...` (naming the client address, the excluded forms and the remedy) whenever excluding forms equal to the `DATABASE_URL` host would remove the client's canonical address form. Before this change, that case was a false pass. Both suites type-check. The exclusion logic was checked offline for three database hosts with a client at `127.0.0.1`:

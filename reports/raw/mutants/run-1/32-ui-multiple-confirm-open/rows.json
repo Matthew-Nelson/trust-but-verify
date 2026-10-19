@@ -1,0 +1,713 @@
+{
+ "exits": {
+  "ui": 1,
+  "holdout-ui": 0
+ },
+ "rows": [
+  {
+   "suite": "ui",
+   "key": "ui::a11y.spec.ts::accessibility > [R-UI-10] / with an empty form",
+   "name": "accessibility > [R-UI-10] / with an empty form",
+   "ids": [
+    "R-UI-10"
+   ],
+   "gray": false,
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "flaky": false
+  },
+  {
+   "suite": "ui",
+   "key": "ui::a11y.spec.ts::accessibility > [R-UI-10] / after a success",
+   "name": "accessibility > [R-UI-10] / after a success",
+   "ids": [
+    "R-UI-10"
+   ],
+   "gray": false,
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "flaky": false
+  },
+  {
+   "suite": "ui",
+   "key": "ui::a11y.spec.ts::accessibility > [R-UI-10] / after an error",
+   "name": "accessibility > [R-UI-10] / after an error",
+   "ids": [
+    "R-UI-10"
+   ],
+   "gray": false,
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "flaky": false
+  },
+  {
+   "suite": "ui",
+   "key": "ui::a11y.spec.ts::accessibility > [R-UI-10] / with a delete confirmation revealed",
+   "name": "accessibility > [R-UI-10] / with a delete confirmation revealed",
+   "ids": [
+    "R-UI-10"
+   ],
+   "gray": false,
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "flaky": false
+  },
+  {
+   "suite": "ui",
+   "key": "ui::a11y.spec.ts::accessibility > [R-UI-10] /links/{code} for each days link",
+   "name": "accessibility > [R-UI-10] /links/{code} for each days link",
+   "ids": [
+    "R-UI-10"
+   ],
+   "gray": false,
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "flaky": false
+  },
+  {
+   "suite": "ui",
+   "key": "ui::a11y.spec.ts::accessibility > [R-UI-10] /links/{unknown}",
+   "name": "accessibility > [R-UI-10] /links/{unknown}",
+   "ids": [
+    "R-UI-10"
+   ],
+   "gray": false,
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "flaky": false
+  },
+  {
+   "suite": "ui",
+   "key": "ui::home.spec.ts::home page / > [R-UI-1] form has the Destination URL and Custom alias (optional) textboxes and a Shorten button, with no constraint validation",
+   "name": "home page / > [R-UI-1] form has the Destination URL and Custom alias (optional) textboxes and a Shorten button, with no constraint validation",
+   "ids": [
+    "R-UI-1"
+   ],
+   "gray": false,
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "flaky": false
+  },
+  {
+   "suite": "ui",
+   "key": "ui::home.spec.ts::home page / > [R-UI-2] destination: bare host gets https://",
+   "name": "home page / > [R-UI-2] destination: bare host gets https://",
+   "ids": [
+    "R-UI-2"
+   ],
+   "gray": false,
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "flaky": false
+  },
+  {
+   "suite": "ui",
+   "key": "ui::home.spec.ts::home page / > [R-UI-2] destination: bare host and path gets https://",
+   "name": "home page / > [R-UI-2] destination: bare host and path gets https://",
+   "ids": [
+    "R-UI-2"
+   ],
+   "gray": false,
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "flaky": false
+  },
+  {
+   "suite": "ui",
+   "key": "ui::home.spec.ts::home page / > [R-UI-2] destination: an explicit upper-case scheme is sent unchanged",
+   "name": "home page / > [R-UI-2] destination: an explicit upper-case scheme is sent unchanged",
+   "ids": [
+    "R-UI-2"
+   ],
+   "gray": false,
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "flaky": false
+  },
+  {
+   "suite": "ui",
+   "key": "ui::home.spec.ts::home page / > [R-UI-2] destination: host:port without a scheme gets https://",
+   "name": "home page / > [R-UI-2] destination: host:port without a scheme gets https://",
+   "ids": [
+    "R-UI-2"
+   ],
+   "gray": false,
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "flaky": false
+  },
+  {
+   "suite": "ui",
+   "key": "ui::home.spec.ts::home page / > [R-UI-2] destination: surrounding ASCII whitespace is trimmed",
+   "name": "home page / > [R-UI-2] destination: surrounding ASCII whitespace is trimmed",
+   "ids": [
+    "R-UI-2"
+   ],
+   "gray": false,
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "flaky": false
+  },
+  {
+   "suite": "ui",
+   "key": "ui::home.spec.ts::home page / > [R-UI-2] the alias field is trimmed; a whitespace-only alias is omitted (generated code)",
+   "name": "home page / > [R-UI-2] the alias field is trimmed; a whitespace-only alias is omitted (generated code)",
+   "ids": [
+    "R-UI-2"
+   ],
+   "gray": false,
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "flaky": false
+  },
+  {
+   "suite": "ui",
+   "key": "ui::home.spec.ts::home page / > [R-UI-3] success shows a status with a link to the shortUrl and a working \"Copy short link\" button",
+   "name": "home page / > [R-UI-3] success shows a status with a link to the shortUrl and a working \"Copy short link\" button",
+   "ids": [
+    "R-UI-3"
+   ],
+   "gray": false,
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "flaky": false
+  },
+  {
+   "suite": "ui",
+   "key": "ui::home.spec.ts::home page / > [R-UI-4] API error (invalid alias) shows exactly the invalid_alias message in an alert",
+   "name": "home page / > [R-UI-4] API error (invalid alias) shows exactly the invalid_alias message in an alert",
+   "ids": [
+    "R-UI-4"
+   ],
+   "gray": false,
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "flaky": false
+  },
+  {
+   "suite": "ui",
+   "key": "ui::home.spec.ts::home page / > [R-UI-4] API error (reserved alias (mixed case)) shows exactly the alias_reserved message in an alert",
+   "name": "home page / > [R-UI-4] API error (reserved alias (mixed case)) shows exactly the alias_reserved message in an alert",
+   "ids": [
+    "R-UI-4"
+   ],
+   "gray": false,
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "flaky": false
+  },
+  {
+   "suite": "ui",
+   "key": "ui::home.spec.ts::home page / > [R-UI-4] API error (unsupported scheme) shows exactly the invalid_url message in an alert",
+   "name": "home page / > [R-UI-4] API error (unsupported scheme) shows exactly the invalid_url message in an alert",
+   "ids": [
+    "R-UI-4"
+   ],
+   "gray": false,
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "flaky": false
+  },
+  {
+   "suite": "ui",
+   "key": "ui::home.spec.ts::home page / > [R-UI-4] API error (URL over 2048 code points) shows exactly the invalid_url message in an alert",
+   "name": "home page / > [R-UI-4] API error (URL over 2048 code points) shows exactly the invalid_url message in an alert",
+   "ids": [
+    "R-UI-4"
+   ],
+   "gray": false,
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "flaky": false
+  },
+  {
+   "suite": "ui",
+   "key": "ui::home.spec.ts::home page / > [R-UI-4] taken alias shows exactly the alias_taken message",
+   "name": "home page / > [R-UI-4] taken alias shows exactly the alias_taken message",
+   "ids": [
+    "R-UI-4"
+   ],
+   "gray": false,
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "flaky": false
+  },
+  {
+   "suite": "ui",
+   "key": "ui::home.spec.ts::home page / > [R-UI-5] \"Your links\" table: exactly one header row with Short link, Destination, Clicks, Created",
+   "name": "home page / > [R-UI-5] \"Your links\" table: exactly one header row with Short link, Destination, Clicks, Created",
+   "ids": [
+    "R-UI-5"
+   ],
+   "gray": false,
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "flaky": false
+  },
+  {
+   "suite": "ui",
+   "key": "ui::home.spec.ts::home page / > [R-UI-5] the table lists the 20 newest links in API order",
+   "name": "home page / > [R-UI-5] the table lists the 20 newest links in API order",
+   "ids": [
+    "R-UI-5"
+   ],
+   "gray": false,
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "flaky": false
+  },
+  {
+   "suite": "ui",
+   "key": "ui::home.spec.ts::home page / > [R-UI-5] row cells: shortUrl link, url, clickCount as a plain integer, createdAt as UTC YYYY-MM-DD HH:MM; Stats and Delete controls",
+   "name": "home page / > [R-UI-5] row cells: shortUrl link, url, clickCount as a plain integer, createdAt as UTC YYYY-MM-DD HH:MM; Stats and Delete controls",
+   "ids": [
+    "R-UI-5"
+   ],
+   "gray": false,
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "flaky": false
+  },
+  {
+   "suite": "ui",
+   "key": "ui::home.spec.ts::home page / > [R-UI-5][gray-box] Clicks has no thousands separator and Created truncates seconds (hh:mm:59.9 is not rounded up)",
+   "name": "home page / > [R-UI-5][gray-box] Clicks has no thousands separator and Created truncates seconds (hh:mm:59.9 is not rounded up)",
+   "ids": [
+    "R-UI-5"
+   ],
+   "gray": true,
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "flaky": false
+  },
+  {
+   "suite": "ui",
+   "key": "ui::home.spec.ts::home page / > [R-UI-5] after a successful create the table is re-fetched without a full page reload",
+   "name": "home page / > [R-UI-5] after a successful create the table is re-fetched without a full page reload",
+   "ids": [
+    "R-UI-5"
+   ],
+   "gray": false,
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "flaky": false
+  },
+  {
+   "suite": "ui",
+   "key": "ui::home.spec.ts::home page / > [R-UI-6] Delete reveals \"Confirm delete\" in the same row; only one open at a time; nothing deleted until confirmed",
+   "name": "home page / > [R-UI-6] Delete reveals \"Confirm delete\" in the same row; only one open at a time; nothing deleted until confirmed",
+   "ids": [
+    "R-UI-6"
+   ],
+   "gray": false,
+   "state": "failed",
+   "note": null,
+   "annotations": [],
+   "errors": [
+    "Error: expect(locator).toHaveCount(expected) failed"
+   ],
+   "flaky": false
+  },
+  {
+   "suite": "ui",
+   "key": "ui::home.spec.ts::home page / > [R-UI-12] an empty or whitespace-only destination shows the invalid_url alert; submitting causes no navigation and no non-GET/HEAD request",
+   "name": "home page / > [R-UI-12] an empty or whitespace-only destination shows the invalid_url alert; submitting causes no navigation and no non-GET/HEAD request",
+   "ids": [
+    "R-UI-12"
+   ],
+   "gray": false,
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "flaky": false
+  },
+  {
+   "suite": "ui",
+   "key": "ui::network.spec.ts::[R-UI-11] a full create -> stats -> delete -> error journey sends no browser request to /api/",
+   "name": "[R-UI-11] a full create -> stats -> delete -> error journey sends no browser request to /api/",
+   "ids": [
+    "R-UI-11"
+   ],
+   "gray": false,
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "flaky": false
+  },
+  {
+   "suite": "ui",
+   "key": "ui::stats-page.spec.ts::stats page /links/{code} > [R-UI-7] heading, totals and the four tables match the API stats (default window)",
+   "name": "stats page /links/{code} > [R-UI-7] heading, totals and the four tables match the API stats (default window)",
+   "ids": [
+    "R-UI-7"
+   ],
+   "gray": false,
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "flaky": false
+  },
+  {
+   "suite": "ui",
+   "key": "ui::stats-page.spec.ts::stats page /links/{code} > [R-UI-7] a link with no clicks: zero totals and breakdown tables with a header row and no body rows",
+   "name": "stats page /links/{code} > [R-UI-7] a link with no clicks: zero totals and breakdown tables with a header row and no body rows",
+   "ids": [
+    "R-UI-7"
+   ],
+   "gray": false,
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "flaky": false
+  },
+  {
+   "suite": "ui",
+   "key": "ui::stats-page.spec.ts::stats page /links/{code} > [R-UI-7][gray-box] totals are base-10 integers without separators",
+   "name": "stats page /links/{code} > [R-UI-7][gray-box] totals are base-10 integers without separators",
+   "ids": [
+    "R-UI-7"
+   ],
+   "gray": true,
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "flaky": false
+  },
+  {
+   "suite": "ui",
+   "key": "ui::stats-page.spec.ts::stats page /links/{code} > [R-UI-8] the 7/30/90 days links set ?days= and the matching one has aria-current=\"page\"",
+   "name": "stats page /links/{code} > [R-UI-8] the 7/30/90 days links set ?days= and the matching one has aria-current=\"page\"",
+   "ids": [
+    "R-UI-8"
+   ],
+   "gray": false,
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "flaky": false
+  },
+  {
+   "suite": "ui",
+   "key": "ui::stats-page.spec.ts::stats page /links/{code} > [R-UI-8] a valid days without a link is honored (1 and 365) and no link is current",
+   "name": "stats page /links/{code} > [R-UI-8] a valid days without a link is honored (1 and 365) and no link is current",
+   "ids": [
+    "R-UI-8"
+   ],
+   "gray": false,
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "flaky": false
+  },
+  {
+   "suite": "ui",
+   "key": "ui::stats-page.spec.ts::stats page /links/{code} > [R-UI-8] missing or invalid days behaves exactly like days=30, including aria-current on \"30 days\"",
+   "name": "stats page /links/{code} > [R-UI-8] missing or invalid days behaves exactly like days=30, including aria-current on \"30 days\"",
+   "ids": [
+    "R-UI-8"
+   ],
+   "gray": false,
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "flaky": false
+  },
+  {
+   "suite": "ui",
+   "key": "ui::stats-page.spec.ts::stats page /links/{code} > [R-UI-9] an unknown code responds 404 with the level-1 heading \"Link not found\"",
+   "name": "stats page /links/{code} > [R-UI-9] an unknown code responds 404 with the level-1 heading \"Link not found\"",
+   "ids": [
+    "R-UI-9"
+   ],
+   "gray": false,
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "flaky": false
+  },
+  {
+   "suite": "ui",
+   "key": "ui::stats-page.spec.ts::stats page /links/{code} > [R-UI-9][R-DEL-1] a deleted link's page responds 404 \"Link not found\"",
+   "name": "stats page /links/{code} > [R-UI-9][R-DEL-1] a deleted link's page responds 404 \"Link not found\"",
+   "ids": [
+    "R-UI-9",
+    "R-DEL-1"
+   ],
+   "gray": false,
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "flaky": false
+  },
+  {
+   "suite": "holdout-ui",
+   "key": "holdout-ui::holdout.spec.ts::[R-UI-1] the three controls are present and the form has novalidate",
+   "name": "[R-UI-1] the three controls are present and the form has novalidate",
+   "ids": [
+    "R-UI-1"
+   ],
+   "gray": false,
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "flaky": false
+  },
+  {
+   "suite": "holdout-ui",
+   "key": "holdout-ui::holdout.spec.ts::[R-UI-2] destination mixed-case bare host",
+   "name": "[R-UI-2] destination mixed-case bare host",
+   "ids": [
+    "R-UI-2"
+   ],
+   "gray": false,
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "flaky": false
+  },
+  {
+   "suite": "holdout-ui",
+   "key": "holdout-ui::holdout.spec.ts::[R-UI-2] destination explicit https kept",
+   "name": "[R-UI-2] destination explicit https kept",
+   "ids": [
+    "R-UI-2"
+   ],
+   "gray": false,
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "flaky": false
+  },
+  {
+   "suite": "holdout-ui",
+   "key": "holdout-ui::holdout.spec.ts::[R-UI-2] destination no \"://\" means a prefix even with a colon",
+   "name": "[R-UI-2] destination no \"://\" means a prefix even with a colon",
+   "ids": [
+    "R-UI-2"
+   ],
+   "gray": false,
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "flaky": false
+  },
+  {
+   "suite": "holdout-ui",
+   "key": "holdout-ui::holdout.spec.ts::[R-UI-3] the status link points at the new shortUrl for a generated code",
+   "name": "[R-UI-3] the status link points at the new shortUrl for a generated code",
+   "ids": [
+    "R-UI-3"
+   ],
+   "gray": false,
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "flaky": false
+  },
+  {
+   "suite": "holdout-ui",
+   "key": "holdout-ui::holdout.spec.ts::[R-UI-4] too-short alias shows the invalid_alias message",
+   "name": "[R-UI-4] too-short alias shows the invalid_alias message",
+   "ids": [
+    "R-UI-4"
+   ],
+   "gray": false,
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "flaky": false
+  },
+  {
+   "suite": "holdout-ui",
+   "key": "holdout-ui::holdout.spec.ts::[R-UI-4] reserved LOGOUT shows the alias_reserved message",
+   "name": "[R-UI-4] reserved LOGOUT shows the alias_reserved message",
+   "ids": [
+    "R-UI-4"
+   ],
+   "gray": false,
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "flaky": false
+  },
+  {
+   "suite": "holdout-ui",
+   "key": "holdout-ui::holdout.spec.ts::[R-UI-4] gopher scheme shows the invalid_url message",
+   "name": "[R-UI-4] gopher scheme shows the invalid_url message",
+   "ids": [
+    "R-UI-4"
+   ],
+   "gray": false,
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "flaky": false
+  },
+  {
+   "suite": "holdout-ui",
+   "key": "holdout-ui::holdout.spec.ts::[R-UI-5] a link with clicks shows its count and created time in its row",
+   "name": "[R-UI-5] a link with clicks shows its count and created time in its row",
+   "ids": [
+    "R-UI-5"
+   ],
+   "gray": false,
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "flaky": false
+  },
+  {
+   "suite": "holdout-ui",
+   "key": "holdout-ui::holdout.spec.ts::[R-UI-6] confirming the delete of a generated-code link removes it from the table and the api",
+   "name": "[R-UI-6] confirming the delete of a generated-code link removes it from the table and the api",
+   "ids": [
+    "R-UI-6"
+   ],
+   "gray": false,
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "flaky": false
+  },
+  {
+   "suite": "holdout-ui",
+   "key": "holdout-ui::holdout.spec.ts::[R-UI-7][R-UI-8] days=7 page matches the API; %37 is the query integer 7",
+   "name": "[R-UI-7][R-UI-8] days=7 page matches the API; %37 is the query integer 7",
+   "ids": [
+    "R-UI-7",
+    "R-UI-8"
+   ],
+   "gray": false,
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "flaky": false
+  },
+  {
+   "suite": "holdout-ui",
+   "key": "holdout-ui::holdout.spec.ts::[R-UI-8] days=08, days=1e1 and days=366 fall back to 30",
+   "name": "[R-UI-8] days=08, days=1e1 and days=366 fall back to 30",
+   "ids": [
+    "R-UI-8"
+   ],
+   "gray": false,
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "flaky": false
+  },
+  {
+   "suite": "holdout-ui",
+   "key": "holdout-ui::holdout.spec.ts::[R-UI-9][R-DEL-1] a 64-character unknown code and a just-deleted code both give 404 \"Link not found\"",
+   "name": "[R-UI-9][R-DEL-1] a 64-character unknown code and a just-deleted code both give 404 \"Link not found\"",
+   "ids": [
+    "R-UI-9",
+    "R-DEL-1"
+   ],
+   "gray": false,
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "flaky": false
+  },
+  {
+   "suite": "holdout-ui",
+   "key": "holdout-ui::holdout.spec.ts::[R-UI-10] axe: after an invalid-alias error and on /links/{code}?days=90",
+   "name": "[R-UI-10] axe: after an invalid-alias error and on /links/{code}?days=90",
+   "ids": [
+    "R-UI-10"
+   ],
+   "gray": false,
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "flaky": false
+  },
+  {
+   "suite": "holdout-ui",
+   "key": "holdout-ui::holdout.spec.ts::[R-UI-12] a destination of only newline and tab shows the invalid_url alert with no navigation and no non-GET/HEAD request",
+   "name": "[R-UI-12] a destination of only newline and tab shows the invalid_url alert with no navigation and no non-GET/HEAD request",
+   "ids": [
+    "R-UI-12"
+   ],
+   "gray": false,
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "flaky": false
+  }
+ ]
+}

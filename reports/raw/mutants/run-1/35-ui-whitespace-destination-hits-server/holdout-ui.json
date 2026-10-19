@@ -1,0 +1,627 @@
+{
+  "config": {
+    "argv": [
+      "/Users/matthewnelson/.nvm/versions/node/v22.19.0/bin/node",
+      "/Users/matthewnelson/Workspace/trust-but-verify/harness/node_modules/@playwright/test/cli.js",
+      "test",
+      "--config",
+      "/Users/matthewnelson/Workspace/trust-but-verify/holdout/playwright.config.ts"
+    ],
+    "configFile": "/Users/matthewnelson/Workspace/trust-but-verify/holdout/playwright.config.ts",
+    "rootDir": "/Users/matthewnelson/Workspace/trust-but-verify/holdout/ui",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/Users/matthewnelson/Workspace/trust-but-verify/holdout/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "/Users/matthewnelson/Workspace/trust-but-verify/holdout/ui",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "/Users/matthewnelson/Workspace/trust-but-verify/harness/results/holdout-ui.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "holdout.spec.ts",
+      "file": "holdout.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "[R-UI-1] the three controls are present and the form has novalidate",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 152,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T05:24:31.010Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b23e292e174c4a5d85e0-ba2f3fe038ca1e57f50a",
+          "file": "holdout.spec.ts",
+          "line": 10,
+          "column": 1
+        },
+        {
+          "title": "[R-UI-2] destination mixed-case bare host",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 257,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T05:24:31.264Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b23e292e174c4a5d85e0-a85ff67f5cb446eeb7d4",
+          "file": "holdout.spec.ts",
+          "line": 27,
+          "column": 3
+        },
+        {
+          "title": "[R-UI-2] destination explicit https kept",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 223,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T05:24:31.526Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b23e292e174c4a5d85e0-ff86595dbac4322fa89d",
+          "file": "holdout.spec.ts",
+          "line": 27,
+          "column": 3
+        },
+        {
+          "title": "[R-UI-2] destination no \"://\" means a prefix even with a colon",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 222,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T05:24:31.755Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b23e292e174c4a5d85e0-f65228ed079431b0de12",
+          "file": "holdout.spec.ts",
+          "line": 27,
+          "column": 3
+        },
+        {
+          "title": "[R-UI-3] the status link points at the new shortUrl for a generated code",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 223,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T05:24:31.983Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b23e292e174c4a5d85e0-767168a2716dc7ede93b",
+          "file": "holdout.spec.ts",
+          "line": 36,
+          "column": 1
+        },
+        {
+          "title": "[R-UI-4] too-short alias shows the invalid_alias message",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 224,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T05:24:32.210Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b23e292e174c4a5d85e0-acbb152de20c7fda924a",
+          "file": "holdout.spec.ts",
+          "line": 49,
+          "column": 3
+        },
+        {
+          "title": "[R-UI-4] reserved LOGOUT shows the alias_reserved message",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 169,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T05:24:32.441Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b23e292e174c4a5d85e0-681a3bf211ad89eaf434",
+          "file": "holdout.spec.ts",
+          "line": 49,
+          "column": 3
+        },
+        {
+          "title": "[R-UI-4] gopher scheme shows the invalid_url message",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 229,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T05:24:32.615Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b23e292e174c4a5d85e0-dc8f441a47df904e53d3",
+          "file": "holdout.spec.ts",
+          "line": 49,
+          "column": 3
+        },
+        {
+          "title": "[R-UI-5] a link with clicks shows its count and created time in its row",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 118,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T05:24:32.849Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b23e292e174c4a5d85e0-e8a06a6c6058f230c15f",
+          "file": "holdout.spec.ts",
+          "line": 58,
+          "column": 1
+        },
+        {
+          "title": "[R-UI-6] confirming the delete of a generated-code link removes it from the table and the api",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 203,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T05:24:32.972Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b23e292e174c4a5d85e0-f8b8f927198b4fd3fc56",
+          "file": "holdout.spec.ts",
+          "line": 68,
+          "column": 1
+        },
+        {
+          "title": "[R-UI-7][R-UI-8] days=7 page matches the API; %37 is the query integer 7",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 145,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T05:24:33.181Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b23e292e174c4a5d85e0-72ffd189f4702321f5fd",
+          "file": "holdout.spec.ts",
+          "line": 76,
+          "column": 1
+        },
+        {
+          "title": "[R-UI-8] days=08, days=1e1 and days=366 fall back to 30",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 162,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T05:24:33.331Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b23e292e174c4a5d85e0-1936b121a5f71f205f3b",
+          "file": "holdout.spec.ts",
+          "line": 93,
+          "column": 1
+        },
+        {
+          "title": "[R-UI-9][R-DEL-1] a 64-character unknown code and a just-deleted code both give 404 \"Link not found\"",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 144,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T05:24:33.498Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b23e292e174c4a5d85e0-0674618e6f9f064743a6",
+          "file": "holdout.spec.ts",
+          "line": 102,
+          "column": 1
+        },
+        {
+          "title": "[R-UI-10] axe: after an invalid-alias error and on /links/{code}?days=90",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 934,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T05:24:33.648Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b23e292e174c4a5d85e0-b07a02647c3c85e5c215",
+          "file": "holdout.spec.ts",
+          "line": 112,
+          "column": 1
+        },
+        {
+          "title": "[R-UI-12] a destination of only newline and tab shows the invalid_url alert with no navigation and no non-GET/HEAD request",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 1257,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"POST http://localhost:3100/\",\u001b[39m\n\u001b[31m+ ]\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"POST http://localhost:3100/\",\u001b[39m\n\u001b[31m+ ]\u001b[39m\n    at /Users/matthewnelson/Workspace/trust-but-verify/holdout/ui/holdout.spec.ts:138:21",
+                    "location": {
+                      "file": "/Users/matthewnelson/Workspace/trust-but-verify/holdout/ui/holdout.spec.ts",
+                      "column": 21,
+                      "line": 138
+                    },
+                    "snippet": "  136 |   await expect(alertRegion(page)).toHaveText(MSG.invalid_url);\n  137 |   await page.waitForTimeout(1000);\n> 138 |   expect(offending).toEqual([]);\n      |                     ^\n  139 | });\n  140 |"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/Users/matthewnelson/Workspace/trust-but-verify/holdout/ui/holdout.spec.ts",
+                        "column": 21,
+                        "line": 138
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"POST http://localhost:3100/\",\u001b[39m\n\u001b[31m+ ]\u001b[39m\n\n  136 |   await expect(alertRegion(page)).toHaveText(MSG.invalid_url);\n  137 |   await page.waitForTimeout(1000);\n> 138 |   expect(offending).toEqual([]);\n      |                     ^\n  139 | });\n  140 |\n    at /Users/matthewnelson/Workspace/trust-but-verify/holdout/ui/holdout.spec.ts:138:21"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T05:24:34.586Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/Users/matthewnelson/Workspace/trust-but-verify/holdout/test-results/holdout--R-UI-12-a-destina-7e693-and-no-non-GET-HEAD-request/error-context.md"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/Users/matthewnelson/Workspace/trust-but-verify/holdout/ui/holdout.spec.ts",
+                    "column": 21,
+                    "line": 138
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "b23e292e174c4a5d85e0-caf695f146f3999abea6",
+          "file": "holdout.spec.ts",
+          "line": 126,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-19T05:24:30.618Z",
+    "duration": 5254.67,
+    "expected": 14,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

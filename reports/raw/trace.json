@@ -1,0 +1,1315 @@
+{
+ "generatedAt": "2026-10-19T05:26:18.328Z",
+ "runs": [
+  "baseline-api-1",
+  "baseline-api-2",
+  "baseline-api-3",
+  "baseline-web-1",
+  "baseline-web-2",
+  "baseline-web-3"
+ ],
+ "statusCounts": {
+  "verified": 64,
+  "gray-box verified": 8
+ },
+ "bySuite": {
+  "api": {
+   "tests": 374,
+   "passedAllRuns": 374,
+   "failedSomeRun": 0,
+   "skipped": 0,
+   "runs": 3
+  },
+  "invariants": {
+   "tests": 8,
+   "passedAllRuns": 8,
+   "failedSomeRun": 0,
+   "skipped": 0,
+   "runs": 3
+  },
+  "holdout": {
+   "tests": 91,
+   "passedAllRuns": 91,
+   "failedSomeRun": 0,
+   "skipped": 0,
+   "runs": 3
+  },
+  "fuzz": {
+   "tests": 14,
+   "passedAllRuns": 14,
+   "failedSomeRun": 0,
+   "skipped": 0,
+   "runs": 3
+  },
+  "ui": {
+   "tests": 35,
+   "passedAllRuns": 35,
+   "failedSomeRun": 0,
+   "skipped": 0,
+   "runs": 3
+  },
+  "holdout-ui": {
+   "tests": 15,
+   "passedAllRuns": 15,
+   "failedSomeRun": 0,
+   "skipped": 0,
+   "runs": 3
+  }
+ },
+ "matrix": [
+  {
+   "id": "R-LINK-1",
+   "labels": [],
+   "status": "verified",
+   "why": "4 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 4,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api",
+    "invariants",
+    "holdout"
+   ],
+   "mutants": []
+  },
+  {
+   "id": "R-LINK-2",
+   "labels": [],
+   "status": "verified",
+   "why": "2 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 2,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api",
+    "holdout"
+   ],
+   "mutants": []
+  },
+  {
+   "id": "R-LINK-3",
+   "labels": [],
+   "status": "verified",
+   "why": "12 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 12,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api",
+    "holdout"
+   ],
+   "mutants": [
+    "17-blank-alias-treated-as-none: killed (targeted)"
+   ]
+  },
+  {
+   "id": "R-LINK-4",
+   "labels": [],
+   "status": "verified",
+   "why": "2 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 2,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api",
+    "holdout"
+   ],
+   "mutants": []
+  },
+  {
+   "id": "R-LINK-5",
+   "labels": [],
+   "status": "verified",
+   "why": "2 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 2,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api",
+    "holdout"
+   ],
+   "mutants": []
+  },
+  {
+   "id": "R-LINK-6",
+   "labels": [],
+   "status": "verified",
+   "why": "2 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 2,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "invariants",
+    "holdout"
+   ],
+   "mutants": []
+  },
+  {
+   "id": "R-LINK-7",
+   "labels": [
+    "partly unverifiable"
+   ],
+   "status": "verified",
+   "why": "4 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 4,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api",
+    "invariants",
+    "holdout"
+   ],
+   "mutants": []
+  },
+  {
+   "id": "R-LINK-8",
+   "labels": [],
+   "status": "verified",
+   "why": "3 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 3,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api",
+    "holdout"
+   ],
+   "mutants": []
+  },
+  {
+   "id": "R-URL-1",
+   "labels": [],
+   "status": "verified",
+   "why": "11 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 11,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api",
+    "holdout"
+   ],
+   "mutants": [
+    "10-url-unicode-trim: killed (targeted)"
+   ]
+  },
+  {
+   "id": "R-URL-2",
+   "labels": [],
+   "status": "verified",
+   "why": "31 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 31,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api",
+    "holdout"
+   ],
+   "mutants": []
+  },
+  {
+   "id": "R-URL-3",
+   "labels": [],
+   "status": "verified",
+   "why": "8 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 8,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api",
+    "holdout"
+   ],
+   "mutants": [
+    "01-url-length-bytes: killed (targeted)"
+   ]
+  },
+  {
+   "id": "R-URL-4",
+   "labels": [],
+   "status": "verified",
+   "why": "3 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 3,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api",
+    "holdout"
+   ],
+   "mutants": [
+    "11-self-host-check-includes-port: killed (targeted)"
+   ]
+  },
+  {
+   "id": "R-URL-5",
+   "labels": [],
+   "status": "verified",
+   "why": "22 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 22,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api",
+    "holdout"
+   ],
+   "mutants": []
+  },
+  {
+   "id": "R-ALIAS-1",
+   "labels": [],
+   "status": "verified",
+   "why": "41 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 41,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api",
+    "holdout"
+   ],
+   "mutants": [
+    "02-alias-max-length-exclusive: killed (targeted)"
+   ]
+  },
+  {
+   "id": "R-ALIAS-2",
+   "labels": [],
+   "status": "verified",
+   "why": "22 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 22,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api",
+    "holdout"
+   ],
+   "mutants": []
+  },
+  {
+   "id": "R-ALIAS-3",
+   "labels": [],
+   "status": "verified",
+   "why": "3 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 3,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api",
+    "holdout"
+   ],
+   "mutants": []
+  },
+  {
+   "id": "R-ALIAS-4",
+   "labels": [],
+   "status": "verified",
+   "why": "8 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 8,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api",
+    "holdout"
+   ],
+   "mutants": []
+  },
+  {
+   "id": "R-ALIAS-5",
+   "labels": [
+    "probabilistic"
+   ],
+   "status": "verified",
+   "why": "4 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 4,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "invariants",
+    "holdout"
+   ],
+   "mutants": [
+    "18-alias-check-then-upsert: killed (targeted)"
+   ]
+  },
+  {
+   "id": "R-ERR-1",
+   "labels": [],
+   "status": "verified",
+   "why": "2 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 2,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api"
+   ],
+   "mutants": [
+    "23-healthz-405-text-plain: killed (targeted)"
+   ]
+  },
+  {
+   "id": "R-ERR-2",
+   "labels": [],
+   "status": "verified",
+   "why": "46 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 46,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api",
+    "holdout"
+   ],
+   "mutants": [
+    "03-body-limit-off-by-one: killed (targeted)",
+    "12-url-validated-before-alias-type: killed (targeted)"
+   ]
+  },
+  {
+   "id": "R-ERR-3",
+   "labels": [],
+   "status": "verified",
+   "why": "16 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 16,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api",
+    "holdout"
+   ],
+   "mutants": [
+    "04-query-integer-lenient-parse: killed (targeted)"
+   ]
+  },
+  {
+   "id": "R-ERR-4",
+   "labels": [],
+   "status": "verified",
+   "why": "3 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 3,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api",
+    "holdout"
+   ],
+   "mutants": [
+    "25-alias-taken-echoes-alias: killed (targeted)"
+   ]
+  },
+  {
+   "id": "R-ERR-5",
+   "labels": [],
+   "status": "verified",
+   "why": "11 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 11,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api",
+    "holdout"
+   ],
+   "mutants": [
+    "15-stats-route-no-percent-decode: killed (targeted)"
+   ]
+  },
+  {
+   "id": "R-ERR-6",
+   "labels": [],
+   "status": "verified",
+   "why": "19 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 19,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api",
+    "holdout"
+   ],
+   "mutants": [
+    "13-stats-lookup-before-query-validation: killed (incidental)"
+   ]
+  },
+  {
+   "id": "R-ERR-7",
+   "labels": [
+    "gray-box",
+    "mutant-verified"
+   ],
+   "status": "gray-box verified",
+   "why": "1 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 1,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api"
+   ],
+   "mutants": [
+    "24-internal-error-message-detail: killed (targeted)"
+   ]
+  },
+  {
+   "id": "R-ERR-8",
+   "labels": [],
+   "status": "verified",
+   "why": "13 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 13,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api",
+    "holdout"
+   ],
+   "mutants": [
+    "22-allow-missing-head-on-link: killed (targeted)"
+   ]
+  },
+  {
+   "id": "R-LIST-1",
+   "labels": [],
+   "status": "verified",
+   "why": "12 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 12,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api",
+    "invariants",
+    "holdout"
+   ],
+   "mutants": [
+    "31-list-tiebreak-id-asc: killed (targeted)"
+   ]
+  },
+  {
+   "id": "R-LIST-2",
+   "labels": [],
+   "status": "verified",
+   "why": "13 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 13,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api",
+    "invariants",
+    "holdout"
+   ],
+   "mutants": []
+  },
+  {
+   "id": "R-GET-1",
+   "labels": [],
+   "status": "verified",
+   "why": "6 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 6,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api",
+    "holdout"
+   ],
+   "mutants": [
+    "29-last-clicked-at-millis: killed (targeted)"
+   ]
+  },
+  {
+   "id": "R-DEL-1",
+   "labels": [],
+   "status": "verified",
+   "why": "5 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 5,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api",
+    "holdout",
+    "ui",
+    "holdout-ui"
+   ],
+   "mutants": []
+  },
+  {
+   "id": "R-DEL-2",
+   "labels": [],
+   "status": "verified",
+   "why": "3 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 3,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api",
+    "holdout"
+   ],
+   "mutants": []
+  },
+  {
+   "id": "R-REDIR-1",
+   "labels": [],
+   "status": "verified",
+   "why": "15 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 15,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api",
+    "holdout"
+   ],
+   "mutants": []
+  },
+  {
+   "id": "R-REDIR-2",
+   "labels": [],
+   "status": "verified",
+   "why": "2 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 2,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api",
+    "holdout"
+   ],
+   "mutants": []
+  },
+  {
+   "id": "R-REDIR-3",
+   "labels": [],
+   "status": "verified",
+   "why": "13 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 13,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api",
+    "holdout"
+   ],
+   "mutants": []
+  },
+  {
+   "id": "R-REDIR-4",
+   "labels": [],
+   "status": "verified",
+   "why": "5 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 5,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api",
+    "holdout"
+   ],
+   "mutants": []
+  },
+  {
+   "id": "R-REDIR-5",
+   "labels": [
+    "probabilistic"
+   ],
+   "status": "verified",
+   "why": "2 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 2,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "invariants",
+    "holdout"
+   ],
+   "mutants": [
+    "19-click-writer-backpressure-drops: killed (targeted)"
+   ]
+  },
+  {
+   "id": "R-REDIR-6",
+   "labels": [
+    "gray-box",
+    "mutant-verified"
+   ],
+   "status": "gray-box verified",
+   "why": "1 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 1,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api"
+   ],
+   "mutants": [
+    "26-click-insert-failure-breaks-redirect: killed (targeted)",
+    "27-click-insert-retry-delays-redirect: killed (targeted)"
+   ]
+  },
+  {
+   "id": "R-REDIR-7",
+   "labels": [],
+   "status": "verified",
+   "why": "6 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 6,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api",
+    "holdout"
+   ],
+   "mutants": [
+    "21-head-redirect-missing-cache-control: killed (targeted)"
+   ]
+  },
+  {
+   "id": "R-REDIR-8",
+   "labels": [],
+   "status": "verified",
+   "why": "3 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 3,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api",
+    "holdout"
+   ],
+   "mutants": []
+  },
+  {
+   "id": "R-REDIR-9",
+   "labels": [],
+   "status": "verified",
+   "why": "10 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 10,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api",
+    "holdout"
+   ],
+   "mutants": []
+  },
+  {
+   "id": "R-ROUTE-1",
+   "labels": [],
+   "status": "verified",
+   "why": "4 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 4,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api",
+    "holdout"
+   ],
+   "mutants": [
+    "14-trailing-slash-tolerated: killed (targeted)"
+   ]
+  },
+  {
+   "id": "R-ROUTE-2",
+   "labels": [],
+   "status": "verified",
+   "why": "43 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 43,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api",
+    "holdout"
+   ],
+   "mutants": [
+    "16-dot-segment-uppercase-escape: killed (targeted)"
+   ]
+  },
+  {
+   "id": "R-ROUTE-3",
+   "labels": [],
+   "status": "verified",
+   "why": "16 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 16,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api",
+    "holdout"
+   ],
+   "mutants": []
+  },
+  {
+   "id": "R-CLICK-1",
+   "labels": [],
+   "status": "verified",
+   "why": "34 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 34,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api",
+    "holdout"
+   ],
+   "mutants": [
+    "08-referrer-ip-host-direct: killed (targeted)"
+   ]
+  },
+  {
+   "id": "R-CLICK-2",
+   "labels": [],
+   "status": "verified",
+   "why": "21 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 21,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api",
+    "holdout"
+   ],
+   "mutants": [
+    "09-country-duplicate-header-first-wins: killed (targeted)"
+   ]
+  },
+  {
+   "id": "R-CLICK-3",
+   "labels": [],
+   "status": "verified",
+   "why": "28 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 28,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api",
+    "holdout"
+   ],
+   "mutants": [
+    "07-device-mobi-substring: killed (targeted)"
+   ]
+  },
+  {
+   "id": "R-PRIV-1",
+   "labels": [
+    "gray-box"
+   ],
+   "status": "gray-box verified",
+   "why": "2 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 2,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api"
+   ],
+   "mutants": []
+  },
+  {
+   "id": "R-STATS-1",
+   "labels": [],
+   "status": "verified",
+   "why": "14 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 14,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api",
+    "holdout"
+   ],
+   "mutants": []
+  },
+  {
+   "id": "R-STATS-2",
+   "labels": [
+    "gray-box"
+   ],
+   "status": "verified",
+   "why": "16 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 16,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api",
+    "holdout"
+   ],
+   "mutants": []
+  },
+  {
+   "id": "R-STATS-3",
+   "labels": [
+    "gray-box"
+   ],
+   "status": "verified",
+   "why": "4 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 4,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api",
+    "holdout"
+   ],
+   "mutants": [
+    "05-stats-window-start-exclusive: killed (targeted)"
+   ]
+  },
+  {
+   "id": "R-STATS-4",
+   "labels": [],
+   "status": "verified",
+   "why": "4 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 4,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api",
+    "holdout"
+   ],
+   "mutants": []
+  },
+  {
+   "id": "R-STATS-5",
+   "labels": [],
+   "status": "verified",
+   "why": "5 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 5,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api",
+    "holdout"
+   ],
+   "mutants": [
+    "30-top-countries-limit-10: killed (targeted)"
+   ]
+  },
+  {
+   "id": "R-STATS-6",
+   "labels": [],
+   "status": "verified",
+   "why": "4 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 4,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api",
+    "holdout"
+   ],
+   "mutants": [
+    "06-devices-window-extra-day: killed (targeted)"
+   ]
+  },
+  {
+   "id": "R-DATA-1",
+   "labels": [
+    "gray-box"
+   ],
+   "status": "gray-box verified",
+   "why": "2 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 2,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api",
+    "holdout"
+   ],
+   "mutants": []
+  },
+  {
+   "id": "R-DATA-2",
+   "labels": [
+    "gray-box"
+   ],
+   "status": "gray-box verified",
+   "why": "3 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 3,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api"
+   ],
+   "mutants": [
+    "28-direct-stored-literally: killed (targeted)"
+   ]
+  },
+  {
+   "id": "R-DATA-3",
+   "labels": [
+    "gray-box"
+   ],
+   "status": "gray-box verified",
+   "why": "1 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 1,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api"
+   ],
+   "mutants": []
+  },
+  {
+   "id": "R-HEALTH-1",
+   "labels": [],
+   "status": "verified",
+   "why": "3 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 3,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api"
+   ],
+   "mutants": []
+  },
+  {
+   "id": "R-HEALTH-2",
+   "labels": [
+    "gray-box",
+    "partly unverifiable"
+   ],
+   "status": "gray-box verified",
+   "why": "2 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 2,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api"
+   ],
+   "mutants": []
+  },
+  {
+   "id": "R-HEALTH-3",
+   "labels": [
+    "gray-box"
+   ],
+   "status": "gray-box verified",
+   "why": "1 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 1,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "api"
+   ],
+   "mutants": [
+    "20-health-cached-3s: killed (targeted)"
+   ]
+  },
+  {
+   "id": "R-OAS-1",
+   "labels": [],
+   "status": "verified",
+   "why": "14 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 14,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "fuzz"
+   ],
+   "mutants": []
+  },
+  {
+   "id": "R-UI-1",
+   "labels": [],
+   "status": "verified",
+   "why": "2 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 2,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "ui",
+    "holdout-ui"
+   ],
+   "mutants": []
+  },
+  {
+   "id": "R-UI-2",
+   "labels": [],
+   "status": "verified",
+   "why": "9 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 9,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "ui",
+    "holdout-ui"
+   ],
+   "mutants": [
+    "33-ui-scheme-regex-lowercase-http-only: killed (targeted)"
+   ]
+  },
+  {
+   "id": "R-UI-3",
+   "labels": [],
+   "status": "verified",
+   "why": "2 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 2,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "ui",
+    "holdout-ui"
+   ],
+   "mutants": []
+  },
+  {
+   "id": "R-UI-4",
+   "labels": [
+    "partly unverifiable"
+   ],
+   "status": "verified",
+   "why": "8 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 8,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "ui",
+    "holdout-ui"
+   ],
+   "mutants": []
+  },
+  {
+   "id": "R-UI-5",
+   "labels": [
+    "partly unverifiable"
+   ],
+   "status": "verified",
+   "why": "6 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 6,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "ui",
+    "holdout-ui"
+   ],
+   "mutants": [
+    "36-ui-created-rounds-minute: killed (targeted)"
+   ]
+  },
+  {
+   "id": "R-UI-6",
+   "labels": [],
+   "status": "verified",
+   "why": "2 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 2,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "ui",
+    "holdout-ui"
+   ],
+   "mutants": [
+    "32-ui-multiple-confirm-open: killed (targeted)"
+   ]
+  },
+  {
+   "id": "R-UI-7",
+   "labels": [],
+   "status": "verified",
+   "why": "4 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 4,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "ui",
+    "holdout-ui"
+   ],
+   "mutants": [
+    "37-ui-click-counts-thousands-separators: killed (targeted)"
+   ]
+  },
+  {
+   "id": "R-UI-8",
+   "labels": [],
+   "status": "verified",
+   "why": "5 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 5,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "ui",
+    "holdout-ui"
+   ],
+   "mutants": [
+    "34-ui-days-number-parse: killed (targeted)"
+   ]
+  },
+  {
+   "id": "R-UI-9",
+   "labels": [],
+   "status": "verified",
+   "why": "3 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 3,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "ui",
+    "holdout-ui"
+   ],
+   "mutants": []
+  },
+  {
+   "id": "R-UI-10",
+   "labels": [],
+   "status": "verified",
+   "why": "7 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 7,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "ui",
+    "holdout-ui"
+   ],
+   "mutants": []
+  },
+  {
+   "id": "R-UI-11",
+   "labels": [],
+   "status": "verified",
+   "why": "1 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 1,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "ui"
+   ],
+   "mutants": []
+  },
+  {
+   "id": "R-UI-12",
+   "labels": [
+    "partly unverifiable"
+   ],
+   "status": "verified",
+   "why": "2 test(s), each passing in all 3+ run(s) of its suite",
+   "tests": {
+    "passing": 2,
+    "failing": 0,
+    "skipped": 0
+   },
+   "suites": [
+    "ui",
+    "holdout-ui"
+   ],
+   "mutants": [
+    "35-ui-whitespace-destination-hits-server: killed (targeted)"
+   ]
+  }
+ ]
+}

@@ -1,19 +1,46 @@
-# Runs the full verification pipeline (make verify) on every push and publishes the HTML report.
-# Also fails any commit that changes harness/ and impls/ together: implementations must never edit
-# the tests that judge them (CLAUDE.md rule 3).
+# Three tiers, by what each one answers:
+#   acceptance  (every push and PR, ~10 min): does the code still meet the spec? Static checks plus
+#               every suite once (public, holdout, fuzz, UI), and the harness/impls separation rule.
+#   nightly     (daily and on demand): are there flaky failures? Acceptance x3 on fresh databases,
+#               plus the mutant run when harness/, holdout/ or mutants/ changed in the last day.
+#   release     (tags `verified-*` / `v*`, or manual): the full evidence pipeline (make verify),
+#               the HTML report on GitHub Pages and the raw evidence as an artifact.
+# The mutant run measures the TESTS, not the app, so it only needs re-running when the tests or the
+# mutants change.
 name: verify
 
 on:
   push:
+    branches: ['**']
+    tags: ['verified-*', 'v*']
+  pull_request:
+  schedule:
+    - cron: '17 6 * * *'
   workflow_dispatch:
+    inputs:
+      tier:
+        description: 'Which tier to run'
+        type: choice
+        options: [acceptance, nightly, release]
+        default: acceptance
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
+
+env:
+  PGUSER: verify
+  PGHOST: localhost
+  # Schemathesis honours proxy variables even for localhost (HR3-02); the tools refuse to run with them.
+  HTTP_PROXY: ''
+  HTTPS_PROXY: ''
+  ALL_PROXY: ''
+  http_proxy: ''
+  https_proxy: ''
+  all_proxy: ''
 
 jobs:
   separation:
+    if: github.event_name == 'push' || github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -23,8 +50,11 @@ jobs:
         env:
           BEFORE: ${{ github.event.before }}
           AFTER: ${{ github.sha }}
+          BASE: ${{ github.event.pull_request.base.sha }}
         run: |
-          if [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
+          if [ -n "$BASE" ]; then
+            range="$BASE..$AFTER"
+          elif [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
             range="HEAD~1..HEAD"
           else
             range="$BEFORE..$AFTER"
@@ -39,8 +69,9 @@ jobs:
           done
           exit $bad
 
-  verify:
-    needs: separation
+  run:
+    needs: [separation]
+    if: always() && (needs.separation.result == 'success' || needs.separation.result == 'skipped')
     runs-on: ubuntu-latest
     timeout-minutes: 240
     services:
@@ -52,21 +83,24 @@ jobs:
         ports: ['5432:5432']
         options: >-
           --health-cmd "pg_isready -U verify" --health-interval 5s --health-timeout 5s --health-retries 20
-    env:
-      PGUSER: verify
-      PGHOST: localhost
-      # Schemathesis honours proxy variables even for localhost (HR3-02); the tools refuse to run with them.
-      HTTP_PROXY: ''
-      HTTPS_PROXY: ''
-      ALL_PROXY: ''
-      http_proxy: ''
-      https_proxy: ''
-      all_proxy: ''
     steps:
       - uses: actions/checkout@v4
-      - name: Unset proxy variables
+        with:
+          fetch-depth: 0
+      - name: Pick the tier
+        id: tier
+        env:
+          EVENT: ${{ github.event_name }}
+          REF: ${{ github.ref }}
+          INPUT: ${{ inputs.tier }}
         run: |
-          for v in HTTP_PROXY HTTPS_PROXY ALL_PROXY http_proxy https_proxy all_proxy; do echo "$v=" >> "$GITHUB_ENV"; done
+          case "$EVENT" in
+            schedule) t=nightly ;;
+            workflow_dispatch) t="$INPUT" ;;
+            *) case "$REF" in refs/tags/*) t=release ;; *) t=acceptance ;; esac ;;
+          esac
+          echo "tier=$t" >> "$GITHUB_OUTPUT"
+          echo "Tier: $t"
       - name: Rust toolchain (pinned by impls/api/rust-toolchain.toml)
         run: cd impls/api && rustup show active-toolchain || rustup toolchain install
       - uses: taiki-e/install-action@v2
@@ -81,26 +115,37 @@ jobs:
       - uses: astral-sh/setup-uv@v5
       - name: Postgres client
         run: sudo apt-get update && sudo apt-get install -y postgresql-client
-      - name: make verify
-        run: make verify
-      - name: Upload raw evidence
+      - name: make ${{ steps.tier.outputs.tier == 'release' && 'verify' || steps.tier.outputs.tier }}
+        env:
+          TIER: ${{ steps.tier.outputs.tier }}
+        run: |
+          case "$TIER" in
+            acceptance) make acceptance ;;
+            nightly) make nightly ;;
+            release) make verify ;;
+            *) echo "unknown tier $TIER"; exit 1 ;;
+          esac
+      - name: Upload evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: verification-evidence
+          name: evidence-${{ steps.tier.outputs.tier }}
           path: reports/
       - name: Prepare Pages
-        if: github.ref == 'refs/heads/main'
+        if: steps.tier.outputs.tier == 'release'
         run: mkdir -p _site && cp reports/VERIFICATION.html _site/index.html
       - uses: actions/upload-pages-artifact@v3
-        if: github.ref == 'refs/heads/main'
+        if: steps.tier.outputs.tier == 'release'
         with:
           path: _site
 
   pages:
-    needs: verify
-    if: github.ref == 'refs/heads/main'
+    needs: run
+    if: startsWith(github.ref, 'refs/tags/') || (github.event_name == 'workflow_dispatch' && inputs.tier == 'release')
     runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deploy.outputs.page_url }}

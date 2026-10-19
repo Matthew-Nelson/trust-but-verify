@@ -4,31 +4,50 @@
 
 AI agents can now build working software in any language. The scarce skill is no longer writing code. It's knowing whether the code is right. This repo is a worked example: a URL-shortener API written by AI agents in **Rust (a language I don't know)**, and a verification system that lets a skeptical third party confirm it works **without reading or trusting the code, the agents, or me**.
 
-> Status: **in progress.** Spec signed off (`spec-v1`) after two blind adversarial reviews by different models (88 findings, 0 rejected), then amended to `spec-v1.1` from the harness author's 19 proposals before any code existed. Harness frozen at `harness-v1` after a blind review by a different model (round 1: BLOCK, with 3 blocking findings; round 2: SIGN-OFF WITH NITS). Building the implementations exposed three test-suite bugs that a correct implementation could not pass (one in the UI suite, two in the fuzz setup). They were fixed blind by the original harness author, re-reviewed (round 3: SIGN-OFF WITH NITS), and frozen as `harness-v1.1` against `spec-v1.4`. Implementations built and frozen at `impl-v1`. Public suites against them: UI 35/35, invariants 8/8, fuzz 1,912/1,912; API 372/372 in 11 of 12 full runs, with **1 run failing 4 tests** during an unexplained ~3 s database stall (open item, `reports/raw/impl-v1-acceptance/`). Holdout still sealed (seal 3). The results below are placeholders until `verified-v1`.
+> Status: **verified (`verified-v1`).** Every number below comes from `make verify` evidence in [`reports/`](reports/VERIFICATION.md) and can be reproduced from a clean clone. What it does **not** prove is listed at the end of the report.
 
 ## Results
 
 | Evidence | Result |
 |---|---|
-| Requirements with passing independent tests | — / — |
-| Public acceptance suite | — |
-| Hidden holdout suite (revealed after implementation) | — |
-| Mutant zoo: planted bugs caught | — / — |
-| Schemathesis fuzzing (cases / failures) | — |
-| Concurrency invariants | — |
-| Accessibility (axe, serious + critical) | — |
-| Dependency audit | — |
+| Requirements with passing independent tests | **72 / 72** (64 black-box, 8 gray-box); 0 failing, pending or unverified |
+| Public acceptance suite (API, invariants, UI) | **417 / 417**, in each of 3 clean runs on fresh databases |
+| Hidden holdout suite (sealed before implementation, revealed after) | **106 / 106** in each of 3 runs; all three seals verified at reveal |
+| Mutant zoo: realistic bugs from a red team that never saw the tests | **34 / 37** caught first time; **37 / 37** after one blind gap round (36 by the test for the bug's own requirement) |
+| Schemathesis fuzzing (R-OAS-1) | 1,912 generated cases per run, **0 failures**, 3 runs |
+| Concurrency invariants (alias race, 500-redirect burst, 1,000 unique codes) | **8 / 8**, in each of 3 runs |
+| Accessibility (axe-core, serious + critical, 8 UI states) | **0** violations |
+| Static checks (fmt, clippy `-D warnings`, `forbid(unsafe_code)`, cargo test, UI lint/types/build) | all pass |
+| Dependency audit (`cargo audit`, 213 crates) | **0** advisories (npm dependencies not audited) |
+| Implementer's own tests (`cargo-mutants`, context only) | 174 caught, 9 missed, 7 timeouts, 14 unviable |
 
-Full report: `reports/` (published to GitHub Pages once CI is set up).
+**Read the mutant line carefully.** The first-shot number, 34 of 37, measures the tests exactly as they were frozen before anyone saw a bug. All three misses were in the two requirements the tests openly said they had no test for. Their descriptions, in spec terms only, went to a fresh test author who never saw the code or the bugs. The resulting tests were reviewed blind, and the re-run caught all 37. That shows the gaps could be closed from the spec. It doesn't show the original tests would have caught those bugs.
+
+**Open item.** One full API run at `impl-v1` (before verification) failed 4 tests during an unexplained ~3 s database stall. It was not reproduced in 18 later full runs (10 re-runs at `impl-v1`, 7 verification baselines, 1 acceptance run). See the report's limits section.
+
+Full report: [`reports/VERIFICATION.md`](reports/VERIFICATION.md) (HTML: `reports/VERIFICATION.html`, published to GitHub Pages on release). Isolation audit: [`reports/AUDIT.md`](reports/AUDIT.md). Hands-on checklist for a person: [`reports/HUMAN_ACCEPTANCE.md`](reports/HUMAN_ACCEPTANCE.md).
+
+## How it got here
+
+| Tag | What happened |
+|---|---|
+| `spec-v1` | Spec signed off after two blind adversarial reviews by different models (88 findings, 0 rejected) |
+| `spec-v1.1`–`v1.3` | Ambiguities found by the blind test author, resolved before any code existed |
+| `harness-v1` | Tests frozen after a blind review (round 1: BLOCK with 3 blocking findings; round 2: sign-off) |
+| `impl-v1` | Rust API and Next.js UI built by agents that never saw the hidden tests |
+| `spec-v1.4`, `harness-v1.1` | Building exposed 3 test-suite bugs a correct implementation couldn't pass; fixed blind and re-reviewed |
+| `mutants-v1` | 37 realistic bugs planted by a red team (a different model) that never saw any test |
+| `spec-v1.5`, `harness-v1.2` | The 3 surviving bugs closed by a blind gap round (fault-injection tests), reviewed blind |
+| `verified-v1` | Holdout revealed, all evidence collected, report published |
 
 ## How it works
 
 1. **Intent first.** A spec with an ID on every requirement is adversarially reviewed for ambiguity, then signed off and frozen *before any code exists*.
 2. **Tests written blind.** A separate agent writes the acceptance tests from the spec alone. Git history shows they were committed before the first line of Rust.
 3. **Hidden holdout.** Part of the suite stays hidden from the implementers and is revealed only afterward. A passing public suite with a failing holdout would mean the code was tuned to the tests.
-4. **Testing the tests.** A red-team agent that never saw the tests plants about 20 realistic bugs. The harness must catch every one.
+4. **Testing the tests.** A red-team agent that never saw the tests plants realistic bugs (37 here). The harness must catch every one. Any it misses go back, in spec terms only, to a fresh test author.
 5. **Non-AI checks.** Property-based fuzzing (Schemathesis), concurrency invariants, the Rust compiler, and dependency audits.
-6. **Reproducible.** `make verify` from a clean clone, and CI on every push.
+6. **Reproducible.** `make verify` from a clean clone. CI runs a fast acceptance tier on every push, a nightly flakiness and mutant check, and the full pipeline on each release.
 
 The full method, including what this does **not** prove: [`METHOD.md`](METHOD.md). Every prompt given to every agent: [`provenance/`](provenance/).
 

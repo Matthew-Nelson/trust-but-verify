@@ -1,0 +1,203 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Verification report</title>
+<style>:root{--bg:#fff;--fg:#1a1a1a;--mut:#666;--line:#ddd;--head:#f4f4f4}@media (prefers-color-scheme:dark){:root{--bg:#121212;--fg:#e8e8e8;--mut:#aaa;--line:#333;--head:#1e1e1e}}
+body{background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,sans-serif;max-width:1100px;margin:0 auto;padding:16px}h1,h2{line-height:1.2}h2{margin-top:2em;border-bottom:1px solid var(--line);padding-bottom:4px}
+.t{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:13px}th,td{border:1px solid var(--line);padding:4px 6px;text-align:left;vertical-align:top}th{background:var(--head)}code{font-size:12px}</style></head><body>
+<h1>Verification report</h1>
+<p>Generated 2026-10-19T05:28:09.907Z by <code>tools/report.mjs</code> from the raw evidence in <code>reports/raw/</code>. Implementation <code>impl-v1</code>, spec <code>spec-v1.5</code>, harness <code>harness-v1.2</code>, holdout seal 3.</p>
+<h2>Summary</h2>
+<div class="t"><table><thead><tr><th>Evidence</th><th>Result</th></tr></thead><tbody>
+<tr><td>Requirements</td><td>64 verified, 8 gray-box verified (of 72)</td></tr>
+<tr><td>Public suites (api, invariants, UI), 3 repeated clean runs each</td><td>417 of 417 tests passed in every run</td></tr>
+<tr><td>Holdout (hidden until after <code>impl-v1</code>)</td><td>106 of 106 tests passed in every run</td></tr>
+<tr><td>Fuzzing (Schemathesis, R-OAS-1)</td><td>1912/1912, 1912/1912, 1912/1912 generated cases passed per run</td></tr>
+<tr><td>Mutants, run-0 (harness-v1.1)</td><td><strong>34 of 37 killed</strong> (91.9%); 33 by a test carrying the mutant's requirement ID</td></tr>
+<tr><td>Mutants, run-1 (harness-v1.2)</td><td><strong>37 of 37 killed</strong> (100.0%); 36 by a test carrying the mutant's requirement ID</td></tr>
+<tr><td>Static and implementer checks</td><td>9 of 9 pass (none failing)</td></tr>
+<tr><td>cargo-mutants (implementer's own tests, context only)</td><td>174 caught, 9 missed, 7 timeout, 14 unviable</td></tr>
+</tbody></table></div>
+<h2>Suites across repeated clean runs</h2>
+<p>Each run starts from fresh databases. Gray-box variables (<code>DATABASE_URL</code>, <code>API_BIN</code>) are set, so nothing is pending.</p>
+<div class="t"><table><thead><tr><th>Suite</th><th>Tests</th><th>Passed in every run</th><th>Failed in some run</th><th>Skipped</th><th>Runs</th></tr></thead><tbody>
+<tr><td>api</td><td>374</td><td>374</td><td>0</td><td>0</td><td>3</td></tr>
+<tr><td>invariants</td><td>8</td><td>8</td><td>0</td><td>0</td><td>3</td></tr>
+<tr><td>holdout</td><td>91</td><td>91</td><td>0</td><td>0</td><td>3</td></tr>
+<tr><td>fuzz</td><td>14</td><td>14</td><td>0</td><td>0</td><td>3</td></tr>
+<tr><td>ui</td><td>35</td><td>35</td><td>0</td><td>0</td><td>3</td></tr>
+<tr><td>holdout-ui</td><td>15</td><td>15</td><td>0</td><td>0</td><td>3</td></tr>
+</tbody></table></div>
+<h2>Mutants</h2>
+<p><strong>How to read the rounds.</strong> run-0 measured the harness as frozen before anyone saw a mutant: that is the first-shot number. Its survivors were then described in spec terms only (requirement and undetected behavior, no patch) to a fresh harness author who never saw the implementation or the mutants, the resulting tests were reviewed blind, and run-1 re-ran every mutant against the new harness with fresh baselines. Later rounds are therefore not independent of earlier ones: they show the gaps were closable from the spec, not that the harness would have caught these bugs unaided.</p>
+<p>Each mutant is a realistic bug written by a red team (Fable) that never saw the harness or the holdout. A mutant is <strong>killed</strong> when a test that passed in every clean baseline run fails; tests that failed in any baseline are excluded (unstable). <strong>Targeted</strong> means a killing test carries the mutant's requirement ID; <strong>incidental</strong> means only tests for other requirements caught it.</p>
+<div class="t"><table><thead><tr><th>Mutant</th><th>Requirement</th><th>Red-team guess</th><th>run-0</th><th>run-1</th><th>Caught by</th></tr></thead><tbody>
+<tr><td>01-url-length-bytes<br>URL limit counted in UTF-8 bytes, not code points; 2048-code-point non-ASCII URL rejected</td><td>R-URL-3</td><td>hard</td><td>killed (targeted)</td><td>killed (targeted)</td><td>api 1, holdout 1</td></tr>
+<tr><td>02-alias-max-length-exclusive<br><code>3..32</code> instead of <code>3..=32</code>; a 32-character alias gets 422</td><td>R-ALIAS-1</td><td>medium</td><td>killed (targeted)</td><td>killed (targeted)</td><td>api 1, holdout 1</td></tr>
+<tr><td>03-body-limit-off-by-one<br>body of exactly 65,536 bytes rejected with 400</td><td>R-ERR-2</td><td>medium</td><td>killed (targeted)</td><td>killed (targeted)</td><td>api 1, holdout 1</td></tr>
+<tr><td>04-query-integer-lenient-parse<br>plain <code>parse::&lt;i64&gt;()</code>: <code>limit=05</code>, <code>limit=+5</code>, <code>days=007</code> accepted instead of 400</td><td>R-ERR-3</td><td>medium</td><td>killed (targeted)</td><td>killed (targeted)</td><td>api 3, holdout 1</td></tr>
+<tr><td>05-stats-window-start-exclusive<br>daily buckets use <code>&gt;</code> at the window start; a click at exactly 00:00:00Z of the first day is dropped</td><td>R-STATS-3</td><td>medium</td><td>killed (targeted)</td><td>killed (targeted)</td><td>api 2, holdout 1</td></tr>
+<tr><td>06-devices-window-extra-day<br><code>devices</code> window starts one day early (days+1 days); other fields keep the right window</td><td>R-STATS-6</td><td>hard</td><td>killed (targeted)</td><td>killed (targeted)</td><td>api 1</td></tr>
+<tr><td>07-device-mobi-substring<br>mobile rule matches <code>mobile</code>, not <code>mobi</code>; "Opera Mobi" becomes desktop</td><td>R-CLICK-3</td><td>hard</td><td>killed (targeted)</td><td>killed (targeted)</td><td>api 1</td></tr>
+<tr><td>08-referrer-ip-host-direct<br>referrer host via <code>Url::domain()</code>; IP-literal referrers recorded as <code>direct</code></td><td>R-CLICK-1</td><td>hard</td><td>killed (targeted)</td><td>killed (targeted)</td><td>api 2, holdout 1</td></tr>
+<tr><td>09-country-duplicate-header-first-wins<br>duplicated country header uses the first value instead of <code>unknown</code></td><td>R-CLICK-2</td><td>medium</td><td>killed (targeted)</td><td>killed (targeted)</td><td>api 1, holdout 1</td></tr>
+<tr><td>10-url-unicode-trim<br><code>str::trim()</code> strips NBSP/VT etc.; <code>" https://…"</code> gets 201 instead of 422</td><td>R-URL-1</td><td>hard</td><td>killed (targeted)</td><td>killed (targeted)</td><td>api 3, holdout 1</td></tr>
+<tr><td>11-self-host-check-includes-port<br>self-reference check compares authority (host:port); <code>http://localhost:9999/x</code> accepted</td><td>R-URL-4</td><td>medium</td><td>killed (targeted)</td><td>killed (targeted)</td><td>api 1, holdout 1</td></tr>
+<tr><td>12-url-validated-before-alias-type<br>URL validated before the alias type check; <code>{"url":"nope","alias":5}</code> → 422 not 400</td><td>R-ERR-2</td><td>hard</td><td>killed (targeted)</td><td>killed (targeted)</td><td>api 1</td></tr>
+<tr><td>13-stats-lookup-before-query-validation<br>stats looks the code up before validating <code>days</code>; unknown code + bad days → 404 not 400</td><td>R-ERR-6</td><td>medium</td><td>killed (incidental)</td><td>killed (incidental)</td><td>api 2</td></tr>
+<tr><td>14-trailing-slash-tolerated<br>one trailing slash stripped; <code>/api/links/</code> and <code>/{code}/</code> match</td><td>R-ROUTE-1</td><td>medium</td><td>killed (targeted)</td><td>killed (targeted)</td><td>api 7, holdout 1</td></tr>
+<tr><td>15-stats-route-no-percent-decode<br>stats route skips percent-decoding; <code>/api/links/pct%2Dx/stats</code> → 404</td><td>R-ERR-5</td><td>medium</td><td>killed (targeted)</td><td>killed (targeted)</td><td>api 1</td></tr>
+<tr><td>16-dot-segment-uppercase-escape<br>only lowercase <code>%2e</code> counts as a dot; <code>PUT /%2E</code> → 405 instead of 404</td><td>R-ROUTE-2</td><td>hard</td><td>killed (targeted)</td><td>killed (targeted)</td><td>holdout 1</td></tr>
+<tr><td>17-blank-alias-treated-as-none<br>whitespace-only alias treated as absent; <code>"   "</code> yields a generated code instead of 422</td><td>R-LINK-3</td><td>medium</td><td>killed (targeted)</td><td>killed (targeted)</td><td>api 1, holdout 2</td></tr>
+<tr><td>18-alias-check-then-upsert<br>SELECT-then-<code>ON CONFLICT DO UPDATE</code>; concurrent same-alias creates can all get 201, last url wins</td><td>R-ALIAS-5</td><td>medium (probabilistic)</td><td>killed (targeted)</td><td>killed (targeted)</td><td>invariants 2</td></tr>
+<tr><td>19-click-writer-backpressure-drops<br>4-permit <code>try_acquire</code> around the click insert drops clicks under load; single clicks fine</td><td>R-REDIR-5</td><td>medium (probabilistic)</td><td>killed (targeted)</td><td>killed (targeted)</td><td>api 19, invariants 1, holdout 9</td></tr>
+<tr><td>20-health-cached-3s<br>healthy <code>/healthz</code> result reused for 3 s without querying the database</td><td>R-HEALTH-3</td><td>medium</td><td>killed (targeted)</td><td>killed (targeted)</td><td>api 1</td></tr>
+<tr><td>21-head-redirect-missing-cache-control<br><code>Cache-Control: no-store</code> only on GET; HEAD 302 lacks it</td><td>R-REDIR-7</td><td>medium</td><td>killed (targeted)</td><td>killed (targeted)</td><td>api 2, holdout 1</td></tr>
+<tr><td>22-allow-missing-head-on-link<br>405 on <code>/api/links/{code}</code> advertises <code>Allow: GET, DELETE</code> (no HEAD)</td><td>R-ERR-8</td><td>medium</td><td>killed (targeted)</td><td>killed (targeted)</td><td>api 4, holdout 1</td></tr>
+<tr><td>23-healthz-405-text-plain<br>unsupported method on <code>/healthz</code> returns the text/plain 405, not JSON</td><td>R-ERR-1</td><td>medium</td><td>killed (targeted)</td><td>killed (targeted)</td><td>api 3, holdout 1</td></tr>
+<tr><td>24-internal-error-message-detail<br>500 <code>message</code> carries the internal error detail</td><td>R-ERR-7</td><td>easy (once a 500 is triggered: dead database → <code>GET /api/links</code>)</td><td><strong>survived</strong></td><td>killed (targeted)</td><td>api 1</td></tr>
+<tr><td>25-alias-taken-echoes-alias<br>409 message names the requested alias</td><td>R-ERR-4</td><td>medium</td><td>killed (targeted)</td><td>killed (targeted)</td><td>api 3, invariants 3, holdout 1</td></tr>
+<tr><td>26-click-insert-failure-breaks-redirect<br>click insert awaited with <code>?</code>; a failed insert turns the redirect into a 500</td><td>R-REDIR-6</td><td>medium (gray-box trigger: <code>CHECK (false) NOT VALID</code> on <code>clicks</code>)</td><td><strong>survived</strong></td><td>killed (targeted)</td><td>api 1</td></tr>
+<tr><td>27-click-insert-retry-delays-redirect<br>inline insert with 3 retries and 1 s sleeps; a failing insert delays the 302 by ~3 s</td><td>R-REDIR-6</td><td>medium (same trigger)</td><td><strong>survived</strong></td><td>killed (targeted)</td><td>api 1</td></tr>
+<tr><td>28-direct-stored-literally<br><code>referrer_host</code> stores <code>'direct'</code> instead of NULL; API output identical</td><td>R-DATA-2</td><td>medium (gray-box only)</td><td>killed (targeted)</td><td>killed (targeted)</td><td>api 2</td></tr>
+<tr><td>29-last-clicked-at-millis<br>timestamps formatted to milliseconds; <code>lastClickedAt</code> loses stored microseconds</td><td>R-GET-1</td><td>hard</td><td>killed (targeted)</td><td>killed (targeted)</td><td>api 2, holdout 1</td></tr>
+<tr><td>30-top-countries-limit-10<br><code>topCountries</code> returns up to 10 entries</td><td>R-STATS-5</td><td>medium</td><td>killed (targeted)</td><td>killed (targeted)</td><td>api 2, holdout 1</td></tr>
+<tr><td>31-list-tiebreak-id-asc<br>list tie-break <code>id ASC</code> for equal <code>createdAt</code></td><td>R-LIST-1</td><td>hard</td><td>killed (targeted)</td><td>killed (targeted)</td><td>api 1</td></tr>
+<tr><td>32-ui-multiple-confirm-open<br>per-row confirm state; several "Confirm delete" buttons can be open at once</td><td>R-UI-6</td><td>medium</td><td>killed (targeted)</td><td>killed (targeted)</td><td>ui 1</td></tr>
+<tr><td>33-ui-scheme-regex-lowercase-http-only<br>scheme test is <code>^https?://</code>; <code>HTTP://x.com</code> gets prefixed to <code>https://HTTP://x.com</code></td><td>R-UI-2</td><td>medium</td><td>killed (targeted)</td><td>killed (targeted)</td><td>ui 4, holdout-ui 1</td></tr>
+<tr><td>34-ui-days-number-parse<br><code>days</code> parsed with <code>Number()</code>; <code>007</code>, <code>+7</code>, <code>7.0</code>, <code>1e1</code> honored instead of 30</td><td>R-UI-8</td><td>hard</td><td>killed (targeted)</td><td>killed (targeted)</td><td>ui 1, holdout-ui 1</td></tr>
+<tr><td>35-ui-whitespace-destination-hits-server<br>only <code>""</code> is caught client-side; whitespace-only destination triggers the action POST</td><td>R-UI-12</td><td>medium</td><td>killed (targeted)</td><td>killed (targeted)</td><td>ui 1, holdout-ui 1</td></tr>
+<tr><td>36-ui-created-rounds-minute<br>Created column rounds to the nearest minute instead of truncating seconds</td><td>R-UI-5</td><td>hard</td><td>killed (targeted)</td><td>killed (targeted)</td><td>ui 2</td></tr>
+<tr><td>37-ui-click-counts-thousands-separators<br>"Total clicks: 1,234" with separators once a link has 1,000+ clicks</td><td>R-UI-7</td><td>hard</td><td>killed (targeted)</td><td>killed (targeted)</td><td>ui 1</td></tr>
+</tbody></table></div>
+<h2>Traceability</h2>
+<p>One row per requirement ID in <code>spec/SPEC.md</code>. Statuses: <strong>verified</strong> (a black-box test passed in every run), <strong>gray-box verified</strong> (only gray-box tests cover it), <strong>mutant-verified only</strong>, <strong>failing</strong>, <strong>pending</strong>, <strong>unverified</strong>. A skipped gray-box test is never a pass.</p>
+<div class="t"><table><thead><tr><th>ID</th><th>Labels</th><th>Status</th><th>Evidence</th><th>Mutants</th></tr></thead><tbody>
+<tr><td>R-LINK-1</td><td></td><td>verified</td><td>4 test(s), each passing in all 3+ run(s) of its suite</td><td></td></tr>
+<tr><td>R-LINK-2</td><td></td><td>verified</td><td>2 test(s), each passing in all 3+ run(s) of its suite</td><td></td></tr>
+<tr><td>R-LINK-3</td><td></td><td>verified</td><td>12 test(s), each passing in all 3+ run(s) of its suite</td><td>17-blank-alias-treated-as-none: killed (targeted)</td></tr>
+<tr><td>R-LINK-4</td><td></td><td>verified</td><td>2 test(s), each passing in all 3+ run(s) of its suite</td><td></td></tr>
+<tr><td>R-LINK-5</td><td></td><td>verified</td><td>2 test(s), each passing in all 3+ run(s) of its suite</td><td></td></tr>
+<tr><td>R-LINK-6</td><td></td><td>verified</td><td>2 test(s), each passing in all 3+ run(s) of its suite</td><td></td></tr>
+<tr><td>R-LINK-7</td><td>partly unverifiable</td><td>verified</td><td>4 test(s), each passing in all 3+ run(s) of its suite</td><td></td></tr>
+<tr><td>R-LINK-8</td><td></td><td>verified</td><td>3 test(s), each passing in all 3+ run(s) of its suite</td><td></td></tr>
+<tr><td>R-URL-1</td><td></td><td>verified</td><td>11 test(s), each passing in all 3+ run(s) of its suite</td><td>10-url-unicode-trim: killed (targeted)</td></tr>
+<tr><td>R-URL-2</td><td></td><td>verified</td><td>31 test(s), each passing in all 3+ run(s) of its suite</td><td></td></tr>
+<tr><td>R-URL-3</td><td></td><td>verified</td><td>8 test(s), each passing in all 3+ run(s) of its suite</td><td>01-url-length-bytes: killed (targeted)</td></tr>
+<tr><td>R-URL-4</td><td></td><td>verified</td><td>3 test(s), each passing in all 3+ run(s) of its suite</td><td>11-self-host-check-includes-port: killed (targeted)</td></tr>
+<tr><td>R-URL-5</td><td></td><td>verified</td><td>22 test(s), each passing in all 3+ run(s) of its suite</td><td></td></tr>
+<tr><td>R-ALIAS-1</td><td></td><td>verified</td><td>41 test(s), each passing in all 3+ run(s) of its suite</td><td>02-alias-max-length-exclusive: killed (targeted)</td></tr>
+<tr><td>R-ALIAS-2</td><td></td><td>verified</td><td>22 test(s), each passing in all 3+ run(s) of its suite</td><td></td></tr>
+<tr><td>R-ALIAS-3</td><td></td><td>verified</td><td>3 test(s), each passing in all 3+ run(s) of its suite</td><td></td></tr>
+<tr><td>R-ALIAS-4</td><td></td><td>verified</td><td>8 test(s), each passing in all 3+ run(s) of its suite</td><td></td></tr>
+<tr><td>R-ALIAS-5</td><td>probabilistic</td><td>verified</td><td>4 test(s), each passing in all 3+ run(s) of its suite</td><td>18-alias-check-then-upsert: killed (targeted)</td></tr>
+<tr><td>R-ERR-1</td><td></td><td>verified</td><td>2 test(s), each passing in all 3+ run(s) of its suite</td><td>23-healthz-405-text-plain: killed (targeted)</td></tr>
+<tr><td>R-ERR-2</td><td></td><td>verified</td><td>46 test(s), each passing in all 3+ run(s) of its suite</td><td>03-body-limit-off-by-one: killed (targeted); 12-url-validated-before-alias-type: killed (targeted)</td></tr>
+<tr><td>R-ERR-3</td><td></td><td>verified</td><td>16 test(s), each passing in all 3+ run(s) of its suite</td><td>04-query-integer-lenient-parse: killed (targeted)</td></tr>
+<tr><td>R-ERR-4</td><td></td><td>verified</td><td>3 test(s), each passing in all 3+ run(s) of its suite</td><td>25-alias-taken-echoes-alias: killed (targeted)</td></tr>
+<tr><td>R-ERR-5</td><td></td><td>verified</td><td>11 test(s), each passing in all 3+ run(s) of its suite</td><td>15-stats-route-no-percent-decode: killed (targeted)</td></tr>
+<tr><td>R-ERR-6</td><td></td><td>verified</td><td>19 test(s), each passing in all 3+ run(s) of its suite</td><td>13-stats-lookup-before-query-validation: killed (incidental)</td></tr>
+<tr><td>R-ERR-7</td><td>gray-box, mutant-verified</td><td>gray-box verified</td><td>1 test(s), each passing in all 3+ run(s) of its suite</td><td>24-internal-error-message-detail: killed (targeted)</td></tr>
+<tr><td>R-ERR-8</td><td></td><td>verified</td><td>13 test(s), each passing in all 3+ run(s) of its suite</td><td>22-allow-missing-head-on-link: killed (targeted)</td></tr>
+<tr><td>R-LIST-1</td><td></td><td>verified</td><td>12 test(s), each passing in all 3+ run(s) of its suite</td><td>31-list-tiebreak-id-asc: killed (targeted)</td></tr>
+<tr><td>R-LIST-2</td><td></td><td>verified</td><td>13 test(s), each passing in all 3+ run(s) of its suite</td><td></td></tr>
+<tr><td>R-GET-1</td><td></td><td>verified</td><td>6 test(s), each passing in all 3+ run(s) of its suite</td><td>29-last-clicked-at-millis: killed (targeted)</td></tr>
+<tr><td>R-DEL-1</td><td></td><td>verified</td><td>5 test(s), each passing in all 3+ run(s) of its suite</td><td></td></tr>
+<tr><td>R-DEL-2</td><td></td><td>verified</td><td>3 test(s), each passing in all 3+ run(s) of its suite</td><td></td></tr>
+<tr><td>R-REDIR-1</td><td></td><td>verified</td><td>15 test(s), each passing in all 3+ run(s) of its suite</td><td></td></tr>
+<tr><td>R-REDIR-2</td><td></td><td>verified</td><td>2 test(s), each passing in all 3+ run(s) of its suite</td><td></td></tr>
+<tr><td>R-REDIR-3</td><td></td><td>verified</td><td>13 test(s), each passing in all 3+ run(s) of its suite</td><td></td></tr>
+<tr><td>R-REDIR-4</td><td></td><td>verified</td><td>5 test(s), each passing in all 3+ run(s) of its suite</td><td></td></tr>
+<tr><td>R-REDIR-5</td><td>probabilistic</td><td>verified</td><td>2 test(s), each passing in all 3+ run(s) of its suite</td><td>19-click-writer-backpressure-drops: killed (targeted)</td></tr>
+<tr><td>R-REDIR-6</td><td>gray-box, mutant-verified</td><td>gray-box verified</td><td>1 test(s), each passing in all 3+ run(s) of its suite</td><td>26-click-insert-failure-breaks-redirect: killed (targeted); 27-click-insert-retry-delays-redirect: killed (targeted)</td></tr>
+<tr><td>R-REDIR-7</td><td></td><td>verified</td><td>6 test(s), each passing in all 3+ run(s) of its suite</td><td>21-head-redirect-missing-cache-control: killed (targeted)</td></tr>
+<tr><td>R-REDIR-8</td><td></td><td>verified</td><td>3 test(s), each passing in all 3+ run(s) of its suite</td><td></td></tr>
+<tr><td>R-REDIR-9</td><td></td><td>verified</td><td>10 test(s), each passing in all 3+ run(s) of its suite</td><td></td></tr>
+<tr><td>R-ROUTE-1</td><td></td><td>verified</td><td>4 test(s), each passing in all 3+ run(s) of its suite</td><td>14-trailing-slash-tolerated: killed (targeted)</td></tr>
+<tr><td>R-ROUTE-2</td><td></td><td>verified</td><td>43 test(s), each passing in all 3+ run(s) of its suite</td><td>16-dot-segment-uppercase-escape: killed (targeted)</td></tr>
+<tr><td>R-ROUTE-3</td><td></td><td>verified</td><td>16 test(s), each passing in all 3+ run(s) of its suite</td><td></td></tr>
+<tr><td>R-CLICK-1</td><td></td><td>verified</td><td>34 test(s), each passing in all 3+ run(s) of its suite</td><td>08-referrer-ip-host-direct: killed (targeted)</td></tr>
+<tr><td>R-CLICK-2</td><td></td><td>verified</td><td>21 test(s), each passing in all 3+ run(s) of its suite</td><td>09-country-duplicate-header-first-wins: killed (targeted)</td></tr>
+<tr><td>R-CLICK-3</td><td></td><td>verified</td><td>28 test(s), each passing in all 3+ run(s) of its suite</td><td>07-device-mobi-substring: killed (targeted)</td></tr>
+<tr><td>R-PRIV-1</td><td>gray-box</td><td>gray-box verified</td><td>2 test(s), each passing in all 3+ run(s) of its suite</td><td></td></tr>
+<tr><td>R-STATS-1</td><td></td><td>verified</td><td>14 test(s), each passing in all 3+ run(s) of its suite</td><td></td></tr>
+<tr><td>R-STATS-2</td><td>gray-box</td><td>verified</td><td>16 test(s), each passing in all 3+ run(s) of its suite</td><td></td></tr>
+<tr><td>R-STATS-3</td><td>gray-box</td><td>verified</td><td>4 test(s), each passing in all 3+ run(s) of its suite</td><td>05-stats-window-start-exclusive: killed (targeted)</td></tr>
+<tr><td>R-STATS-4</td><td></td><td>verified</td><td>4 test(s), each passing in all 3+ run(s) of its suite</td><td></td></tr>
+<tr><td>R-STATS-5</td><td></td><td>verified</td><td>5 test(s), each passing in all 3+ run(s) of its suite</td><td>30-top-countries-limit-10: killed (targeted)</td></tr>
+<tr><td>R-STATS-6</td><td></td><td>verified</td><td>4 test(s), each passing in all 3+ run(s) of its suite</td><td>06-devices-window-extra-day: killed (targeted)</td></tr>
+<tr><td>R-DATA-1</td><td>gray-box</td><td>gray-box verified</td><td>2 test(s), each passing in all 3+ run(s) of its suite</td><td></td></tr>
+<tr><td>R-DATA-2</td><td>gray-box</td><td>gray-box verified</td><td>3 test(s), each passing in all 3+ run(s) of its suite</td><td>28-direct-stored-literally: killed (targeted)</td></tr>
+<tr><td>R-DATA-3</td><td>gray-box</td><td>gray-box verified</td><td>1 test(s), each passing in all 3+ run(s) of its suite</td><td></td></tr>
+<tr><td>R-HEALTH-1</td><td></td><td>verified</td><td>3 test(s), each passing in all 3+ run(s) of its suite</td><td></td></tr>
+<tr><td>R-HEALTH-2</td><td>gray-box, partly unverifiable</td><td>gray-box verified</td><td>2 test(s), each passing in all 3+ run(s) of its suite</td><td></td></tr>
+<tr><td>R-HEALTH-3</td><td>gray-box</td><td>gray-box verified</td><td>1 test(s), each passing in all 3+ run(s) of its suite</td><td>20-health-cached-3s: killed (targeted)</td></tr>
+<tr><td>R-OAS-1</td><td></td><td>verified</td><td>14 test(s), each passing in all 3+ run(s) of its suite</td><td></td></tr>
+<tr><td>R-UI-1</td><td></td><td>verified</td><td>2 test(s), each passing in all 3+ run(s) of its suite</td><td></td></tr>
+<tr><td>R-UI-2</td><td></td><td>verified</td><td>9 test(s), each passing in all 3+ run(s) of its suite</td><td>33-ui-scheme-regex-lowercase-http-only: killed (targeted)</td></tr>
+<tr><td>R-UI-3</td><td></td><td>verified</td><td>2 test(s), each passing in all 3+ run(s) of its suite</td><td></td></tr>
+<tr><td>R-UI-4</td><td>partly unverifiable</td><td>verified</td><td>8 test(s), each passing in all 3+ run(s) of its suite</td><td></td></tr>
+<tr><td>R-UI-5</td><td>partly unverifiable</td><td>verified</td><td>6 test(s), each passing in all 3+ run(s) of its suite</td><td>36-ui-created-rounds-minute: killed (targeted)</td></tr>
+<tr><td>R-UI-6</td><td></td><td>verified</td><td>2 test(s), each passing in all 3+ run(s) of its suite</td><td>32-ui-multiple-confirm-open: killed (targeted)</td></tr>
+<tr><td>R-UI-7</td><td></td><td>verified</td><td>4 test(s), each passing in all 3+ run(s) of its suite</td><td>37-ui-click-counts-thousands-separators: killed (targeted)</td></tr>
+<tr><td>R-UI-8</td><td></td><td>verified</td><td>5 test(s), each passing in all 3+ run(s) of its suite</td><td>34-ui-days-number-parse: killed (targeted)</td></tr>
+<tr><td>R-UI-9</td><td></td><td>verified</td><td>3 test(s), each passing in all 3+ run(s) of its suite</td><td></td></tr>
+<tr><td>R-UI-10</td><td></td><td>verified</td><td>7 test(s), each passing in all 3+ run(s) of its suite</td><td></td></tr>
+<tr><td>R-UI-11</td><td></td><td>verified</td><td>1 test(s), each passing in all 3+ run(s) of its suite</td><td></td></tr>
+<tr><td>R-UI-12</td><td>partly unverifiable</td><td>verified</td><td>2 test(s), each passing in all 3+ run(s) of its suite</td><td>35-ui-whitespace-destination-hits-server: killed (targeted)</td></tr>
+</tbody></table></div>
+<h2>Static and implementer checks</h2>
+<p>Tool versions: rustc <code>rustc 1.99.1 (58cf8f9c3 2026-10-13)</code>, cargo-audit <code>cargo-audit-audit 0.22.2</code>, node <code>v22.19.0</code>, pnpm <code>11.20.0</code>.</p>
+<div class="t"><table><thead><tr><th>Check</th><th>Result</th><th>Command</th></tr></thead><tbody>
+<tr><td>forbid(unsafe_code)</td><td>pass</td><td><code>grep main.rs</code> (impls/api)</td></tr>
+<tr><td>cargo fmt --check</td><td>pass</td><td><code>cargo fmt --check</code> (impls/api)</td></tr>
+<tr><td>cargo clippy -D warnings</td><td>pass</td><td><code>cargo clippy --all-targets -- -D warnings</code> (impls/api)</td></tr>
+<tr><td>cargo test</td><td>pass</td><td><code>cargo test</code> (impls/api)</td></tr>
+<tr><td>cargo audit</td><td>pass</td><td><code>cargo audit</code> (impls/api)</td></tr>
+<tr><td>web: pnpm install</td><td>pass</td><td><code>pnpm install --frozen-lockfile</code> (impls/web)</td></tr>
+<tr><td>web: pnpm lint</td><td>pass</td><td><code>pnpm lint</code> (impls/web)</td></tr>
+<tr><td>web: pnpm build</td><td>pass</td><td><code>pnpm build</code> (impls/web)</td></tr>
+<tr><td>web: pnpm typecheck (after build)</td><td>pass</td><td><code>pnpm typecheck</code> (impls/web)</td></tr>
+</tbody></table></div>
+<h2>cargo-mutants (implementer-test quality)</h2>
+<p>This measures the implementer's own Rust tests, not the independent harness, and is reported for context only.</p>
+<p>Caught 174, missed 9, timeout 7, unviable 14. Command: <code>SQLX_OFFLINE=true DATABASE_URL=&lt;fresh db&gt; cargo mutants --in-place --timeout 120 (impls/api)</code>.</p>
+<h2>Isolation audit</h2>
+<p><strong>Method.</strong> Every subagent transcript (JSONL) was parsed, and every tool call's input was checked:</p>
+<ul>
+<li><strong>Absolute paths:</strong> each one was checked against an allowlist for the role (its workspace, package and browser caches, temp directories, system binaries).</li>
+<li><strong>Bash commands:</strong> each one was also scanned for URLs, relative <code>cd</code> escapes, and references to the repo, other workspaces or holdout locations.</li>
+<li><strong>Positive control:</strong> every audit counts the agent's references to its own workspace, so a zero for forbidden paths can't come from a broken scan.</li>
+</ul>
+<p>Per-run details are in <code>provenance/LOG.md</code>.</p>
+<p><strong>Consolidated holdout scan at reveal.</strong> Every subagent transcript in the project was searched for holdout locations (<code>tbv-holdout*</code>, the <code>pre-run5/6/7</code> snapshots, coordinator holdout output, <code>/holdout/</code>). Only the harness author, which wrote the holdout, touched it. Every other role, including both spec reviewers, the harness reviewer, both implementers and the red team, has <strong>0</strong> holdout references.</p>
+<div class="t"><table><thead><tr><th>Role (run)</th><th>Model</th><th>Workspace</th><th>Result</th></tr></thead><tbody>
+<tr><td>Spec reviewers (1, 2)</td><td>Opus, Fable</td><td>spec only</td><td>clean</td></tr>
+<tr><td>Harness author (4–7, 10)</td><td>Opus</td><td>spec only, plus public tool docs</td><td>clean. Run 10 fetched Schemathesis 4.29.1 source from GitHub with <code>curl</code> (public docs were in scope).</td></tr>
+<tr><td>Harness reviewer (5b, 7b, 10b)</td><td>Fable</td><td>spec, dispositions, public harness</td><td>clean, with 0 holdout references. A prompt slip in run 5b named a repo path. The audit shows it was never accessed.</td></tr>
+<tr><td>Api implementer (8)</td><td>Sonnet</td><td>worktree <code>impl-api</code></td><td>clean, with 0 holdout references. It wrote one log to <code>/tmp/x</code> (self-reported).</td></tr>
+<tr><td>Web implementer (9)</td><td>Sonnet</td><td>worktree <code>impl-web</code></td><td>clean, with 0 holdout references</td></tr>
+<tr><td>Red team (11)</td><td>Fable</td><td>spec plus an <code>impls/</code> export</td><td>clean: no harness, holdout or repo access, and no database connection</td></tr>
+<tr><td>Gap-round harness author (12, 12b)</td><td>Opus (fresh)</td><td>spec plus public harness only</td><td>clean: no implementation, mutant, holdout or repo access; it re-read only its own saved tool outputs</td></tr>
+<tr><td>Harness reviewer, round 4 (12c)</td><td>Fable</td><td>spec, dispositions, harness diff</td><td>clean</td></tr>
+</tbody></table></div>
+<p><strong>Incidents, all contained and logged:</strong></p>
+<ul>
+<li><strong>Shared scratchpad.</strong> The coordinator's session scratchpad, which every subagent receives as its temp directory, held harness-workspace snapshots that included holdout copies. A re-audit showed that no agent listed or read them. They were moved to a coordinator-only directory before the round-3 review.</li>
+<li><strong>Real-api output in the author's workspace.</strong> The coordinator once ran the fuzz suite against the real api from the harness author's workspace after that author had finished. The outputs were moved out right away and never imported or exported.</li>
+<li><strong>Shared tool-output directory.</strong> Claude Code saves long tool outputs in a per-session directory that all agents in the session can read. A scan of every transcript found no agent reading a saved output it hadn't produced itself.</li>
+<li><strong>A harness detail in the frozen code.</strong> The implementation itself mentions one harness detail (the R-UI-1 <code>required</code> check), and the red team could read it. It was left in, because mutants must apply to <code>impl-v1</code> exactly.</li>
+</ul>
+<p><strong>Residual.</strong> This audit shows what the agents *did*, not what they *could* have done. All roles ran on one machine with the same file permissions, so "didn't look" isn't "couldn't look". Every agent also received the same ambient context (a memory index line describing the project's goal).</p>
+<h2>What this does not prove</h2>
+<ul>
+<li><strong>That the spec is right.</strong> Everything here checks the implementation against <code>spec/SPEC.md</code>. A requirement that is wrong or missing gets tested and implemented faithfully. The spec had two adversarial reviews and the owner's sign-off. Beyond that, this is the human part.</li>
+<li><strong>Independence equal to unrelated humans.</strong> Every role is an LLM agent. Different model families were used per role (Opus for the spec and harness, Sonnet for the implementations, Fable for the reviews and red team), plus a non-LLM fuzzer, and mutants are measured by numbers. Shared training can still line up blind spots.</li>
+<li><strong>That the coordinator leaked nothing.</strong> One session wrote every prompt and saw every phase. The prompts are published verbatim in <code>provenance/prompts/</code> so this can be inspected. Post-freeze harness fixes were made by the blind harness author from SPEC reasoning alone and re-reviewed blind.</li>
+<li><strong>That agents couldn't have looked.</strong> Transcripts show what they did (see the isolation audit), not what was technically possible on a shared machine.</li>
+<li><strong>Requirements without a test.</strong> R-ERR-7 and R-REDIR-6 are *mutant-verified* by SPEC and have no direct test in the frozen harness. Their status comes only from the mutants and the gap loop (see the mutant table and traceability).</li>
+<li><strong>Gray-box coupling.</strong> Gray-box tests read and seed the database schema declared in SPEC, so a correct implementation with a different schema would fail them.</li>
+<li><strong>R-PRIV-1 has a residual false-failure path (HR2-03).</strong> An api that logs its database host's *resolved* address could match the client address and fail the log search. This can only produce a false failure, never a false pass. Verification runs use <code>DATABASE_URL</code> host <code>localhost</code>.</li>
+<li><strong>Probabilistic requirements.</strong> R-ALIAS-5 and R-REDIR-5 passing shows the races weren't observed in these runs, not that they can't happen.</li>
+<li><strong>Production behavior.</strong> All results are for a single instance on local Postgres (Postgres.app 17 on macOS): not scale, network faults, a hostile internet or another OS.</li>
+<li><strong>Intermittent failures.</strong> One full API run at <code>impl-v1</code> failed 4 tests during an unexplained ~3 s database stall (pool exhaustion), and it was not reproduced in later runs. The repeated-run table shows the pass rate actually observed. Its cause is unknown.</li>
+<li><strong>The UI beyond its contract.</strong> The UI is verified through roles and accessible names (R-UI-1 to R-UI-12), not visual design or usability. Some clauses are labeled unverifiable: R-UI-4's "anything else", R-UI-5's empty state, and R-UI-12's client-side GET.</li>
+</ul>
+</body></html>

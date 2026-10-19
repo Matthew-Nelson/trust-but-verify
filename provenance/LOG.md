@@ -31,6 +31,8 @@ One row per agent run. "Could see" describes the workspace actually given to the
 | 12b | 2026-10-18 | gap round 1 follow-up | harness author (same fresh agent, resumed) | Opus | same workspace with `spec-v1.5` | same | gate removed; 3 mismatches with the adopted text fixed (idle check, restore detection, Cache-Control variance now inconclusive); imported at `0ece60f` | subagent transcript (audited) |
 | 12c | 2026-10-18 | harness review, round 4 | harness reviewer (resumed) | Fable (same agent as 5b/7b/10b) | `tbv-ws/harness-review` refreshed: `spec-v1.5`, dispositions 07–08, harness `0ece60f`, both diffs | repo, holdout, implementations, mutants, any run against them | `spec/reviews/09-fable-harness-review-4.md`: **SIGN-OFF WITH NITS** (0 blocking, 6 nits), copied unmodified; disposition `09-disposition.md` | subagent transcript (audited) | subagent transcript |
 | – | 2026-10-18 | sign-off | Matthew ("Adopt HP-27/28/29" route) | — | — | — | reviewer signed off; tag `harness-v1.2` with harness bytes identical to the reviewed `0ece60f` | this session |
+| – | 2026-10-18 | verify: mutants round 1 | coordinator (tools) | claude-opus-5-5 | `impl-v1`, `harness-v1.2`, holdout seal 3, `mutants-v1` | — | **37 of 37 killed** (36 targeted); 6 fresh clean baselines, 0 unstable; `reports/raw/mutants/run-1/` | this session |
+| – | 2026-10-18 | verify: report | coordinator (tools) | claude-opus-5-5 | all evidence | — | trace (72/72: 64 verified, 8 gray-box verified), `reports/VERIFICATION.md`/`.html`, README results; CI split into acceptance / nightly / release tiers at Matthew's request; tag `verified-v1` | this session |
 
 **Deviation (run 1):** the plan assigned Fable 5.1 to spec review. Matthew chose Opus. The reviewer is therefore the same model family as the spec's author, which raises the risk of shared blind spots for this review. Mitigation: the harness author also reviews the spec in practice (it must interpret every rule), and its interpretations are reported.
 
@@ -184,3 +186,9 @@ Different models per role, so blind spots are less likely to line up:
 **Prompt for run 12c:** `provenance/prompts/07d-harness-review-round4.md` verbatim.
 
 **Isolation audit (run 12c):** 15 tool calls (Read 10, Bash 4, Write 1, hand-back 1), with 15 workspace references detected as a positive control. Nothing outside the workspace, no web access. Its only write was `HARNESS_REVIEW_4.md`.
+
+**Verification round 1 (`harness-v1.2`):** 3 api-side baselines (487 tests each: the 2 new fault tests, plus 13 per-operation fuzz rows that the round-0 runner didn't record) and 3 UI baselines (50 each), all passing, so nothing was excluded as unstable. All 37 mutants killed, 36 targeted (#13 still incidental, as in round 0). The former survivors were each killed by the new gray-box fault test for their requirement: #24 (a 500 whose message held a database error string), #26 (302 turned into 500 when the click write failed), #27 (302 delayed to 3,010 ms against a bound of 1,007 ms with B = 7 ms).
+
+**Fast acceptance tier (`tools/acceptance.mjs`), tested locally:** 537 of 537 passed (api 374, invariants 8, holdout 91, fuzz 14, UI 35, holdout UI 15), 0 gray-box skipped. Matthew asked for CI tiers instead of the full pipeline on every push: acceptance on every push and PR, nightly flakiness plus a conditional mutant run, and `make verify` on release tags. The workflow YAML was parsed and checked, but **it has not run on GitHub**: the repo hasn't been pushed, and pushing is Matthew's call.
+
+**Repeated-run tally since the one failing API run at `impl-v1`:** 18 full API runs, all green (10 re-runs at `impl-v1`, 1 smoke baseline, 3 baselines in round 0, 3 in round 1, 1 acceptance run).

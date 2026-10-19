@@ -39,8 +39,12 @@ const valid = (rs) => rs.results.filter((r) => r.verdict === 'killed' || r.verdi
 const bs = trace.bySuite;
 const sum = (keys, f) => keys.reduce((a, k) => a + (bs[k]?.[f] ?? 0), 0);
 
+// Highest spec-vX.Y tag named in SPEC's Status line.
+const specStatus = readFileSync(join(REPO, 'spec', 'SPEC.md'), 'utf8').split('\n').find((l) => l.startsWith('**Status')) ?? '';
+const specTag = (specStatus.match(/spec-v[0-9.]*[0-9]/g) ?? ['spec']).sort((a, b) => a.localeCompare(b, 'en', { numeric: true })).pop();
+
 P('# Verification report', '');
-P(`Generated ${new Date().toISOString()} by \`tools/report.mjs\` from the raw evidence in \`reports/raw/\`. Implementation \`impl-v1\`, spec \`spec-v1.4\`, harness \`${final?.harnessTag ?? 'harness-v1.1'}\`, holdout seal 3.`, '');
+P(`Generated ${new Date().toISOString()} by \`tools/report.mjs\` from the raw evidence in \`reports/raw/\`. Implementation \`impl-v1\`, spec \`${specTag}\`, harness \`${final?.harnessTag ?? '?'}\`, holdout seal 3.`, '');
 
 P('## Summary', '');
 P('| Evidence | Result |', '|---|---|');
@@ -60,6 +64,9 @@ for (const [k, v] of Object.entries(bs)) P(`| ${k} | ${v.tests} | ${v.passedAllR
 P('');
 
 P('## Mutants', '');
+if (rounds.length > 1) {
+  P(`**How to read the rounds.** ${first.name} measured the harness as frozen before anyone saw a mutant: that is the first-shot number. Its survivors were then described in spec terms only (requirement and undetected behavior, no patch) to a fresh harness author who never saw the implementation or the mutants, the resulting tests were reviewed blind, and ${final.name} re-ran every mutant against the new harness with fresh baselines. Later rounds are therefore not independent of earlier ones: they show the gaps were closable from the spec, not that the harness would have caught these bugs unaided.`, '');
+}
 P('Each mutant is a realistic bug written by a red team (Fable) that never saw the harness or the holdout. A mutant is **killed** when a test that passed in every clean baseline run fails; tests that failed in any baseline are excluded (unstable). **Targeted** means a killing test carries the mutant\'s requirement ID; **incidental** means only tests for other requirements caught it.', '');
 const idx = opt(join(REPO, 'mutants', 'INDEX.md')) ?? '';
 const desc = Object.fromEntries([...idx.matchAll(/^\| `([^`]+)\.patch` \| ([^|]+) \| ([^|]+) \| ([^|]+) \| ([^|]+) \|/gm)].map((m) => [m[1], { cat: m[3].trim(), text: m[4].trim(), guess: m[5].trim() }]));

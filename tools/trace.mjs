@@ -34,7 +34,7 @@ function parseSpec() {
     if (!m) continue;
     const body = m[2];
     const labels = [];
-    if (/\*\(gray-box/.test(body)) labels.push('gray-box');
+    if (/\*\(gray-box|also gray-box/.test(body)) labels.push('gray-box');
     if (/mutant-verified/.test(body)) labels.push('mutant-verified');
     if (/\*\(probabilistic/.test(body)) labels.push('probabilistic');
     if (/\*\(unverifiable\)\*\s*$/.test(body.trim()) || /^\*\(unverifiable\)\*/.test(body.trim())) labels.push('unverifiable');

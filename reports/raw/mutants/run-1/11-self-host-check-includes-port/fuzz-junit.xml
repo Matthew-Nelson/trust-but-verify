@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testsuites errors="0" failures="0" skipped="0" tests="13" time="6.369865">
+  <testsuite name="schemathesis" hostname="Matthews-MBP-2.lan" errors="0" failures="0" skipped="0" tests="13" time="6.369865">
+    <testcase name="POST /api/links" time="0.490077" />
+    <testcase name="GET /api/links" time="0.548505" />
+    <testcase name="GET /healthz" time="0.018742" />
+    <testcase name="GET /{code}" time="0.366236" />
+    <testcase name="HEAD /api/links" time="0.318641" />
+    <testcase name="HEAD /healthz" time="0.012300" />
+    <testcase name="HEAD /{code}" time="0.247289" />
+    <testcase name="GET /api/links/{code}" time="0.501353" />
+    <testcase name="GET /api/links/{code}/stats" time="0.714940" />
+    <testcase name="HEAD /api/links/{code}" time="0.403643" />
+    <testcase name="HEAD /api/links/{code}/stats" time="0.579292" />
+    <testcase name="DELETE /api/links/{code}" time="0.121521" />
+    <testcase name="Stateful tests" time="2.047325" />
+  </testsuite>
+</testsuites>

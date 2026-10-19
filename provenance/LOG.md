@@ -16,6 +16,8 @@ One row per agent run. "Could see" describes the workspace actually given to the
 | 7 | 2026-10-18 | harness update | harness author (resumed) | Opus (`a1fa35d76a896a0d7`) | same workspace, `spec-v1.3` | same | R-PRIV-1 inconclusive guard (HP-21 as amended); holdout unchanged; holdout re-sealed as seal 3 | subagent transcript (audited) |
 | 7b | 2026-10-18 | harness review, round 2 | harness reviewer (resumed) | Fable (same agent as 5b) | `tbv-ws/harness-review` refreshed: `spec-v1.3`, dispositions, harness `6ff8513` and both diffs, round-1 report | repo, holdout, METHOD, other prompts | `spec/reviews/05-fable-harness-review-2.md`: **SIGN-OFF WITH NITS** (0 blocking, 5 nits); disposition `05-disposition.md` | subagent transcript (audited) |
 | – | 2026-10-18 | sign-off | Matthew (delegated) | — | — | — | Delegated rule met ("If they give signoff then i approve as well"); tag `harness-v1` created by the coordinator at the reviewed commit | this session |
+| 8 | 2026-10-18 | build | api implementer | Sonnet (fresh context, background subagent) | worktree `tbv-wt/impl-api` (branch `impl-api` from `941db32`; harness/spec identical to `harness-v1`); Postgres DBs `shortlink`, `shortlink_fuzz`; crates.io, npm | holdout (outside the repo; transcript to be audited), the web worktree | *in progress* | subagent transcript |
+| 9 | 2026-10-18 | build | web implementer | Sonnet (fresh context, background subagent) | worktree `tbv-wt/impl-web` (branch `impl-web` from `941db32`); Prism mock of `spec/openapi.json`; npm | holdout, the api worktree, the real api (not yet built) | *in progress* | subagent transcript |
 
 **Deviation (run 1):** the plan assigned Fable 5.1 to spec review. Matthew chose Opus. The reviewer is therefore the same model family as the spec's author, which raises the risk of shared blind spots for this review. Mitigation: the harness author also reviews the spec in practice (it must interpret every rule), and its interpretations are reported.
 
@@ -94,3 +96,5 @@ Different models per role, so blind spots are less likely to line up:
 | API implementer | Sonnet 5.5 |
 | Web implementer | Sonnet 5.5 |
 | Red team | Fable 5.1 |
+
+**Prompts for runs 8 and 9:** `provenance/prompts/03-04-launch-header.md` (workspace, ports, databases) followed by `03-api.md` / `04-web.md` at `941db32`, verbatim. Matthew approved starting the build without changing the HR2-01 `%2F` decision ("nah go ahead").

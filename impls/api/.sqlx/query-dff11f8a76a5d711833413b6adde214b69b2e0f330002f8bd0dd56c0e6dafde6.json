@@ -1,0 +1,31 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT name AS \"name!\", clicks AS \"clicks!\" FROM (\n               SELECT COALESCE(referrer_host, 'direct') AS name, count(*) AS clicks\n               FROM clicks\n               WHERE link_id = $1\n                 AND clicked_at >= (((now() AT TIME ZONE 'UTC')::date - ($2::int - 1))::timestamp AT TIME ZONE 'UTC')\n                 AND clicked_at <  (((now() AT TIME ZONE 'UTC')::date + 1)::timestamp AT TIME ZONE 'UTC')\n               GROUP BY 1) t\n           ORDER BY clicks DESC, name COLLATE \"C\" ASC LIMIT 5",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "name!",
+        "type_info": "Text",
+        "origin": "Expression"
+      },
+      {
+        "ordinal": 1,
+        "name": "clicks!",
+        "type_info": "Int8",
+        "origin": "Expression"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Int8",
+        "Int4"
+      ]
+    },
+    "nullable": [
+      null,
+      null
+    ]
+  },
+  "hash": "dff11f8a76a5d711833413b6adde214b69b2e0f330002f8bd0dd56c0e6dafde6"
+}

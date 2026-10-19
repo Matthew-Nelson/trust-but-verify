@@ -1,0 +1,31 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT (clicked_at AT TIME ZONE 'UTC')::date AS \"day!\", count(*) AS \"clicks!\"\n           FROM clicks\n           WHERE link_id = $1\n             AND clicked_at >= (((now() AT TIME ZONE 'UTC')::date - ($2::int - 1))::timestamp AT TIME ZONE 'UTC')\n             AND clicked_at <  (((now() AT TIME ZONE 'UTC')::date + 1)::timestamp AT TIME ZONE 'UTC')\n           GROUP BY 1",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "day!",
+        "type_info": "Date",
+        "origin": "Expression"
+      },
+      {
+        "ordinal": 1,
+        "name": "clicks!",
+        "type_info": "Int8",
+        "origin": "Expression"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Int8",
+        "Int4"
+      ]
+    },
+    "nullable": [
+      null,
+      null
+    ]
+  },
+  "hash": "fec79fb43a7a5807ee0abc60d2c7b2cc2d5942b36e49af4dd1d8ca3b8bcacd04"
+}

@@ -16,7 +16,7 @@
 // Writes reports/raw/trace.json.
 import { existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { REPO, fuzzRows } from './lib.mjs';
+import { REPO, fuzzRows, readText } from './lib.mjs';
 
 const args = process.argv.slice(2);
 const all = (name) => args.flatMap((a, i) => (args[i - 1] === `--${name}` ? [a] : []));
@@ -56,7 +56,7 @@ function loadRuns() {
       const junit = join(dir, sub, 'fuzz-junit.xml');
       if (existsSync(junit)) {
         const kept = rows.filter((r) => r.suite !== 'fuzz');
-        runs.push({ run: sub, rows: kept.concat(fuzzRows(readFileSync(junit, 'utf8'), exits.fuzz, readFileSync(join(dir, sub, 'fuzz.log'), 'utf8'))) });
+        runs.push({ run: sub, rows: kept.concat(fuzzRows(readFileSync(junit, 'utf8'), exits.fuzz, readText(join(dir, sub, 'fuzz.log')) ?? '')) });
       } else runs.push({ run: sub, rows });
     }
   }

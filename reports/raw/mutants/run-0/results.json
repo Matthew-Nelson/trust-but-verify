@@ -1,0 +1,1512 @@
+{
+ "tag": "impl-v1",
+ "baselines": 3,
+ "unstable": {
+  "api": [],
+  "web": []
+ },
+ "results": [
+  {
+   "mutant": "01-url-length-bytes",
+   "id": "R-URL-3",
+   "kind": "api",
+   "verdict": "killed",
+   "targeted": true,
+   "killersBySuite": {
+    "api": 1,
+    "holdout": 1
+   },
+   "killers": [
+    {
+     "suite": "api",
+     "name": "URL validation > [R-URL-3] length counts code points, not bytes or UTF-16 units; the normalized form may be longer",
+     "ids": [
+      "R-URL-3"
+     ],
+     "error": "{\"error\":{\"code\":\"invalid_url\",\"message\":\"URL must be an absolute http or https URL of at most 2048 characters.\"}}: expected 422 to be 201 // Object.is equality"
+    },
+    {
+     "suite": "holdout",
+     "name": "holdout: URL validation > [R-URL-3] 2047 and 2048 code points of two-byte characters are accepted; 2049 and 2050 are not",
+     "ids": [
+      "R-URL-3"
+     ],
+     "error": "2047: expected 422 to be 201 // Object.is equality"
+    }
+   ],
+   "unstableFailures": [],
+   "detail": null
+  },
+  {
+   "mutant": "02-alias-max-length-exclusive",
+   "id": "R-ALIAS-1",
+   "kind": "api",
+   "verdict": "killed",
+   "targeted": true,
+   "killersBySuite": {
+    "api": 1,
+    "holdout": 1
+   },
+   "killers": [
+    {
+     "suite": "api",
+     "name": "alias validation > [R-ALIAS-1] a 32-character alias is accepted; 33 characters -> 422 invalid_alias",
+     "ids": [
+      "R-ALIAS-1"
+     ],
+     "error": "{\"error\":{\"code\":\"invalid_alias\",\"message\":\"Alias must be 3 to 32 letters, numbers, hyphens or underscores.\"}}: expected 422 to be 201 // Object.is equality"
+    },
+    {
+     "suite": "holdout",
+     "name": "holdout: aliases > [R-ALIAS-1] lengths 31 and 32 accepted; 33 and 40 rejected; 2 rejected",
+     "ids": [
+      "R-ALIAS-1"
+     ],
+     "error": "expected 422 to be 201 // Object.is equality"
+    }
+   ],
+   "unstableFailures": [],
+   "detail": null
+  },
+  {
+   "mutant": "03-body-limit-off-by-one",
+   "id": "R-ERR-2",
+   "kind": "api",
+   "verdict": "killed",
+   "targeted": true,
+   "killersBySuite": {
+    "api": 1,
+    "holdout": 1
+   },
+   "killers": [
+    {
+     "suite": "api",
+     "name": "R-ERR-2 body parsing and precedence > [R-ERR-2] a 64 KiB body (65536 bytes) is accepted; 65537 bytes -> 400 bad_request",
+     "ids": [
+      "R-ERR-2"
+     ],
+     "error": "{\"error\":{\"code\":\"bad_request\",\"message\":\"Request body must be a JSON object with a 'url' string.\"}}: expected 400 to be 201 // Object.is equality"
+    },
+    {
+     "suite": "holdout",
+     "name": "holdout: R-ERR-2 > [R-ERR-2] 65536 bytes with a different padding field is accepted; 65538 -> 400",
+     "ids": [
+      "R-ERR-2"
+     ],
+     "error": "expected 400 to be 201 // Object.is equality"
+    }
+   ],
+   "unstableFailures": [],
+   "detail": null
+  },
+  {
+   "mutant": "04-query-integer-lenient-parse",
+   "id": "R-ERR-3",
+   "kind": "api",
+   "verdict": "killed",
+   "targeted": true,
+   "killersBySuite": {
+    "api": 3,
+    "holdout": 1
+   },
+   "killers": [
+    {
+     "suite": "api",
+     "name": "R-ERR-3 query integers > [R-ERR-3][R-LIST-1] limit must be a query integer in 1..100, never clamped -> otherwise 400",
+     "ids": [
+      "R-ERR-3",
+      "R-LIST-1"
+     ],
+     "error": "?limit=05 -> 200 {\"items\":[{\"code\":\"cFT6Wnx\",\"url\":\"https://example.com/ws/dg3sn094nsf3\",\"shortUrl\":\"http://localhost:8180/cFT6Wnx\",\"isCu: expected 200 to be 400 // Object.is equality"
+    },
+    {
+     "suite": "api",
+     "name": "R-ERR-3 query integers > [R-ERR-3][R-LIST-1] offset must be a query integer >= 0 that fits in i64 -> otherwise 400",
+     "ids": [
+      "R-ERR-3",
+      "R-LIST-1"
+     ],
+     "error": "?offset=01 -> 200 {\"items\":[{\"code\":\"Tl9vL2C\",\"url\":\"https://example.com/s2b/amwqocb96ux6\",\"shortUrl\":\"http://localhost:8180/Tl9vL2C\",\"isC: expected 200 to be 400 // Object.is equality"
+    },
+    {
+     "suite": "api",
+     "name": "R-ERR-3 query integers > [R-ERR-3][R-STATS-1] days must be a query integer in 1..365 -> otherwise 400",
+     "ids": [
+      "R-ERR-3",
+      "R-STATS-1"
+     ],
+     "error": "?days=030 -> 200 {\"code\":\"err-c4w6a4ezwa\",\"days\":30,\"totalClicks\":0,\"rangeClicks\":0,\"daily\":[{\"date\":\"2026-09-20\",\"clicks\":0},{\"date\":\"20: expected 200 to be 400 // Object.is equality"
+    },
+    {
+     "suite": "holdout",
+     "name": "holdout: R-ERR-3 > [R-ERR-3][R-LIST-1] other non-query-integer limit/offset values -> 400",
+     "ids": [
+      "R-ERR-3",
+      "R-LIST-1"
+     ],
+     "error": "offset=%2B1: expected 200 to be 400 // Object.is equality"
+    }
+   ],
+   "unstableFailures": [],
+   "detail": null
+  },
+  {
+   "mutant": "05-stats-window-start-exclusive",
+   "id": "R-STATS-3",
+   "kind": "api",
+   "verdict": "killed",
+   "targeted": true,
+   "killersBySuite": {
+    "api": 2,
+    "holdout": 1
+   },
+   "killers": [
+    {
+     "suite": "api",
+     "name": "stats with seeded clicks (gray-box) > [R-STATS-2][R-STATS-3][gray-box] window is [first day 00:00Z, day after today 00:00Z); daily is exact and oldest first",
+     "ids": [
+      "R-STATS-2",
+      "R-STATS-3"
+     ],
+     "error": "expected [ +0, +0, +0, +0, +0, 1, 3 ] to deeply equal [ 1, +0, +0, +0, +0, 1, 3 ]"
+    },
+    {
+     "suite": "api",
+     "name": "stats with seeded clicks (gray-box) > [R-STATS-3][R-STATS-5][R-STATS-6][gray-box] breakdowns count only clicks in the window",
+     "ids": [
+      "R-STATS-3",
+      "R-STATS-5",
+      "R-STATS-6"
+     ],
+     "error": "expected +0 to be 1 // Object.is equality"
+    },
+    {
+     "suite": "holdout",
+     "name": "holdout: seeded stats (gray-box) > [R-STATS-2][R-STATS-3][R-STATS-4][gray-box] days=14 and days=2 windows with boundary instants",
+     "ids": [
+      "R-STATS-2",
+      "R-STATS-3",
+      "R-STATS-4"
+     ],
+     "error": "expected { date: '2026-10-06', clicks: +0 } to deeply equal { date: '2026-10-06', clicks: 1 }"
+    }
+   ],
+   "unstableFailures": [],
+   "detail": null
+  },
+  {
+   "mutant": "06-devices-window-extra-day",
+   "id": "R-STATS-6",
+   "kind": "api",
+   "verdict": "killed",
+   "targeted": true,
+   "killersBySuite": {
+    "api": 1
+   },
+   "killers": [
+    {
+     "suite": "api",
+     "name": "stats with seeded clicks (gray-box) > [R-STATS-3][R-STATS-5][R-STATS-6][gray-box] breakdowns count only clicks in the window",
+     "ids": [
+      "R-STATS-3",
+      "R-STATS-5",
+      "R-STATS-6"
+     ],
+     "error": "expected [ { name: 'bot', clicks: 10 }, …(1) ] to deeply equal [ { name: 'tablet', clicks: 1 } ]"
+    }
+   ],
+   "unstableFailures": [],
+   "detail": null
+  },
+  {
+   "mutant": "07-device-mobi-substring",
+   "id": "R-CLICK-3",
+   "kind": "api",
+   "verdict": "killed",
+   "targeted": true,
+   "killersBySuite": {
+    "api": 1
+   },
+   "killers": [
+    {
+     "suite": "api",
+     "name": "R-CLICK-3 device > [R-CLICK-3] User-Agent Opera Mobi -> \"Opera/9.80 (S60; SymbOS; Opera Mobi/499)\"",
+     "ids": [
+      "R-CLICK-3"
+     ],
+     "error": "expected [ { name: 'desktop', clicks: 1 } ] to deeply equal [ { name: 'mobile', clicks: 1 } ]"
+    }
+   ],
+   "unstableFailures": [],
+   "detail": null
+  },
+  {
+   "mutant": "08-referrer-ip-host-direct",
+   "id": "R-CLICK-1",
+   "kind": "api",
+   "verdict": "killed",
+   "targeted": true,
+   "killersBySuite": {
+    "api": 2,
+    "holdout": 1
+   },
+   "killers": [
+    {
+     "suite": "api",
+     "name": "R-CLICK-1 referrer > [R-CLICK-1] Referer IPv6 host -> [\"Referer\",\"https://[::1]:3000/\"]",
+     "ids": [
+      "R-CLICK-1"
+     ],
+     "error": "expected [ { name: 'direct', clicks: 1 } ] to deeply equal [ { name: '[::1]', clicks: 1 } ]"
+    },
+    {
+     "suite": "api",
+     "name": "R-CLICK-1 referrer > [R-CLICK-1] Referer hex IPv4 host is canonicalized -> [\"Referer\",\"http://0xc0.0xa8.1/\"]",
+     "ids": [
+      "R-CLICK-1"
+     ],
+     "error": "expected [ { name: 'direct', clicks: 1 } ] to deeply equal [ { name: '192.168.0.1', clicks: 1 } ]"
+    },
+    {
+     "suite": "holdout",
+     "name": "holdout: clicks > [R-CLICK-1] Referer decimal IPv4 -> [\"Referer\",\"http://3232235521/\"]",
+     "ids": [
+      "R-CLICK-1"
+     ],
+     "error": "expected [ { name: 'direct', clicks: 1 } ] to deeply equal [ { name: '192.168.0.1', clicks: 1 } ]"
+    }
+   ],
+   "unstableFailures": [],
+   "detail": null
+  },
+  {
+   "mutant": "09-country-duplicate-header-first-wins",
+   "id": "R-CLICK-2",
+   "kind": "api",
+   "verdict": "killed",
+   "targeted": true,
+   "killersBySuite": {
+    "api": 1,
+    "holdout": 1
+   },
+   "killers": [
+    {
+     "suite": "api",
+     "name": "R-CLICK-2 country > [R-CLICK-2] country header header sent twice (same value) -> [\"cf-ipcountry\",\"us\",\"cf-ipcountry\",\"us\"]",
+     "ids": [
+      "R-CLICK-2"
+     ],
+     "error": "expected [ { name: 'US', clicks: 1 } ] to deeply equal [ { name: 'unknown', clicks: 1 } ]"
+    },
+    {
+     "suite": "holdout",
+     "name": "holdout: clicks > [R-CLICK-2] country two different values -> [\"cf-ipcountry\",\"us\",\"cf-ipcountry\",\"gb\"]",
+     "ids": [
+      "R-CLICK-2"
+     ],
+     "error": "expected [ { name: 'US', clicks: 1 } ] to deeply equal [ { name: 'unknown', clicks: 1 } ]"
+    }
+   ],
+   "unstableFailures": [],
+   "detail": null
+  },
+  {
+   "mutant": "10-url-unicode-trim",
+   "id": "R-URL-1",
+   "kind": "api",
+   "verdict": "killed",
+   "targeted": true,
+   "killersBySuite": {
+    "api": 3,
+    "holdout": 1
+   },
+   "killers": [
+    {
+     "suite": "api",
+     "name": "URL validation > [R-URL-1][R-URL-2] a leading non-ASCII space (U+00A0, U+2003) is not trimmed -> 422 invalid_url",
+     "ids": [
+      "R-URL-1",
+      "R-URL-2"
+     ],
+     "error": "POST /api/links: 201 {\"code\":\"AzxFpbU\",\"url\":\"https://example.com/mvx2jfzasy\",\"shortUrl\":\"http://localhost:8180/AzxFpbU\",\"isCustom\":false,\"createdAt\":\"2026-10-19T03:29:21.967219Z\",\"clickCount\":0,\"lastClickedAt\":null}: expected 201 to be 422 // Object.is equality"
+    },
+    {
+     "suite": "api",
+     "name": "URL validation > [R-URL-1][R-URL-5] a trailing U+00A0 is not trimmed; the parser percent-encodes it",
+     "ids": [
+      "R-URL-1",
+      "R-URL-5"
+     ],
+     "error": "expected 'https://example.com/75fbbw4r8o' to be 'https://example.com/75fbbw4r8o%C2%A0' // Object.is equality"
+    },
+    {
+     "suite": "api",
+     "name": "URL validation: leading C0 controls (spec-v1.1) > [R-URL-3][R-URL-1] a leading U+000B counts toward the limit: 2048 code points including it -> 201; 2049 -> 422",
+     "ids": [
+      "R-URL-3",
+      "R-URL-1"
+     ],
+     "error": "POST /api/links: 201 {\"code\":\"siW8PVs\",\"url\":\"https://example.com/vt/obcz9qsxn4/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa: expected 201 to be 422 // Object.is equality"
+    },
+    {
+     "suite": "holdout",
+     "name": "holdout: URL validation > [R-URL-1][R-URL-2] a leading ideographic space (U+3000) is not trimmed -> 422",
+     "ids": [
+      "R-URL-1",
+      "R-URL-2"
+     ],
+     "error": "POST /api/links: 201 {\"code\":\"JsFHBr2\",\"url\":\"https://example.net/vfilwglnca\",\"shortUrl\":\"http://localhost:8180/JsFHBr2\",\"isCustom\":false,\"createdAt\":\"2026-10-19T03:29:49.342528Z\",\"clickCount\":0,\"lastClickedAt\":null}: expected 201 to be 422 // Object.is equality"
+    }
+   ],
+   "unstableFailures": [],
+   "detail": null
+  },
+  {
+   "mutant": "11-self-host-check-includes-port",
+   "id": "R-URL-4",
+   "kind": "api",
+   "verdict": "killed",
+   "targeted": true,
+   "killersBySuite": {
+    "api": 1,
+    "holdout": 1
+   },
+   "killers": [
+    {
+     "suite": "api",
+     "name": "URL validation > [R-URL-4] a URL whose hostname equals PUBLIC_BASE_URL's hostname -> 422, ignoring port, scheme, case and userinfo",
+     "ids": [
+      "R-URL-4"
+     ],
+     "error": "POST /api/links: 201 {\"code\":\"40BTxRK\",\"url\":\"http://localhost/624aw1gqyl\",\"shortUrl\":\"http://localhost:8180/40BTxRK\",\"isCustom\":false,\"createdAt\":\"2026-10-19T03:30:30.427729Z\",\"clickCount\":0,\"lastClickedAt\":null}: expected 201 to be 422 // Object.is equality"
+    },
+    {
+     "suite": "holdout",
+     "name": "holdout: URL validation > [R-URL-4] the api hostname in other spellings -> 422; a trailing-dot host is a different hostname",
+     "ids": [
+      "R-URL-4"
+     ],
+     "error": "POST /api/links: 201 {\"code\":\"gN4CENc\",\"url\":\"https://localhost/mcmeuo5c3f\",\"shortUrl\":\"http://localhost:8180/gN4CENc\",\"isCustom\":false,\"createdAt\":\"2026-10-19T03:30:57.564170Z\",\"clickCount\":0,\"lastClickedAt\":null}: expected 201 to be 422 // Object.is equality"
+    }
+   ],
+   "unstableFailures": [],
+   "detail": null
+  },
+  {
+   "mutant": "12-url-validated-before-alias-type",
+   "id": "R-ERR-2",
+   "kind": "api",
+   "verdict": "killed",
+   "targeted": true,
+   "killersBySuite": {
+    "api": 1
+   },
+   "killers": [
+    {
+     "suite": "api",
+     "name": "R-ERR-2 body parsing and precedence > [R-ERR-2] malformed beats content errors: url not a string with a reserved alias -> 400",
+     "ids": [
+      "R-ERR-2"
+     ],
+     "error": "POST /api/links: 422 {\"error\":{\"code\":\"invalid_url\",\"message\":\"URL must be an absolute http or https URL of at most 2048 characters.\"}}: expected 422 to be 400 // Object.is equality"
+    }
+   ],
+   "unstableFailures": [],
+   "detail": null
+  },
+  {
+   "mutant": "13-stats-lookup-before-query-validation",
+   "id": "R-ERR-6",
+   "kind": "api",
+   "verdict": "killed",
+   "targeted": false,
+   "killersBySuite": {
+    "api": 2
+   },
+   "killers": [
+    {
+     "suite": "api",
+     "name": "R-ERR-3 query integers > [R-ERR-3][R-ERR-5] query validation runs before code lookup: unknown code -> 400 with bad days, 404 with good days",
+     "ids": [
+      "R-ERR-3",
+      "R-ERR-5"
+     ],
+     "error": "GET /api/links/nope-37k0cql1bv/stats?days=0: 404 {\"error\":{\"code\":\"not_found\",\"message\":\"No link with that code.\"}}: expected 404 to be 400 // Object.is equality"
+    },
+    {
+     "suite": "api",
+     "name": "R-ERR-4 safe messages > [R-ERR-4] error messages never echo codes, aliases, URLs or header values",
+     "ids": [
+      "R-ERR-4"
+     ],
+     "error": "GET /api/links/probe8vesfbppxk/stats?days=probe8vesfbppxk: 404 {\"error\":{\"code\":\"not_found\",\"message\":\"No link with that code.\"}}: expected 404 to be 400 // Object.is equality"
+    }
+   ],
+   "unstableFailures": [],
+   "detail": null
+  },
+  {
+   "mutant": "14-trailing-slash-tolerated",
+   "id": "R-ROUTE-1",
+   "kind": "api",
+   "verdict": "killed",
+   "targeted": true,
+   "killersBySuite": {
+    "api": 7,
+    "holdout": 1
+   },
+   "killers": [
+    {
+     "suite": "api",
+     "name": "R-ERR-6 check order and 405s > [R-ERR-6] unmatched path is 404 not_found regardless of method: PUT /api/links/",
+     "ids": [
+      "R-ERR-6"
+     ],
+     "error": "PUT /api/links/: 405 {\"error\":{\"code\":\"method_not_allowed\",\"message\":\"That method is not allowed here.\"}}: expected 405 to be 404 // Object.is equality"
+    },
+    {
+     "suite": "api",
+     "name": "R-ERR-6 check order and 405s > [R-ERR-6] unmatched path is 404 not_found regardless of method: PATCH /api/links/x/",
+     "ids": [
+      "R-ERR-6"
+     ],
+     "error": "PATCH /api/links/x/: 405 {\"error\":{\"code\":\"method_not_allowed\",\"message\":\"That method is not allowed here.\"}}: expected 405 to be 404 // Object.is equality"
+    },
+    {
+     "suite": "api",
+     "name": "R-ERR-6 check order and 405s > [R-ERR-6] unmatched path is 404 not_found regardless of method: POST /api/links/x/stats/",
+     "ids": [
+      "R-ERR-6"
+     ],
+     "error": "POST /api/links/x/stats/: 405 {\"error\":{\"code\":\"method_not_allowed\",\"message\":\"That method is not allowed here.\"}}: expected 405 to be 404 // Object.is equality"
+    },
+    {
+     "suite": "api",
+     "name": "R-ERR-6 check order and 405s > [R-ERR-6] unmatched non-/api/ paths are 404 text/plain regardless of method",
+     "ids": [
+      "R-ERR-6"
+     ],
+     "error": "POST /err-13g8n76a69/: expected 405 to be 404 // Object.is equality"
+    },
+    {
+     "suite": "api",
+     "name": "R-ROUTE-1 trailing slashes > [R-ROUTE-1] /{code}/ for an existing code -> 404 text/plain (not a redirect)",
+     "ids": [
+      "R-ROUTE-1"
+     ],
+     "error": "GET /rt-ubc0zy4ngb/: 302 undefined: expected 302 to be 404 // Object.is equality"
+    },
+    {
+     "suite": "api",
+     "name": "R-ROUTE-1 trailing slashes > [R-ROUTE-1] /api/links/ and /api/links/{code}/ and /stats/ -> 404 not_found",
+     "ids": [
+      "R-ROUTE-1"
+     ],
+     "error": "GET /api/links/: 200 {\"items\":[{\"code\":\"YCWVt5X\",\"url\":\"https://example.com/u3/aehjwkcs11/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa: expected 200 to be 404 // Object.is equality"
+    },
+    {
+     "suite": "api",
+     "name": "R-ROUTE-1 trailing slashes > [R-ROUTE-1] /healthz/ is a different path -> 404 text/plain",
+     "ids": [
+      "R-ROUTE-1"
+     ],
+     "error": "GET /healthz/: 200 application/json: expected 200 to be 404 // Object.is equality"
+    },
+    {
+     "suite": "holdout",
+     "name": "holdout: routes and redirects > [R-ROUTE-1][R-ROUTE-2][R-ROUTE-3] other unmatched shapes",
+     "ids": [
+      "R-ROUTE-1",
+      "R-ROUTE-2",
+      "R-ROUTE-3"
+     ],
+     "error": "POST /BAFOlyE/: 405 text/plain; charset=utf-8: expected 405 to be 404 // Object.is equality"
+    }
+   ],
+   "unstableFailures": [],
+   "detail": null
+  },
+  {
+   "mutant": "15-stats-route-no-percent-decode",
+   "id": "R-ERR-5",
+   "kind": "api",
+   "verdict": "killed",
+   "targeted": true,
+   "killersBySuite": {
+    "api": 1
+   },
+   "killers": [
+    {
+     "suite": "api",
+     "name": "R-ERR-5 code lookup > [R-ERR-5][R-STATS-1] path segments are percent-decoded exactly once before lookup",
+     "ids": [
+      "R-ERR-5",
+      "R-STATS-1"
+     ],
+     "error": "{\"error\":{\"code\":\"not_found\",\"message\":\"No link with that code.\"}}: expected 404 to be 200 // Object.is equality"
+    }
+   ],
+   "unstableFailures": [],
+   "detail": null
+  },
+  {
+   "mutant": "16-dot-segment-uppercase-escape",
+   "id": "R-ROUTE-2",
+   "kind": "api",
+   "verdict": "killed",
+   "targeted": true,
+   "killersBySuite": {
+    "holdout": 1
+   },
+   "killers": [
+    {
+     "suite": "holdout",
+     "name": "holdout: percent-decoding and encoded dot segments > [R-ROUTE-2][R-ERR-6] other encoded dot-segment spellings are unmatched for any method (never 200/302/405)",
+     "ids": [
+      "R-ROUTE-2",
+      "R-ERR-6"
+     ],
+     "error": "PATCH /api/links/%2E.: expected [ 200, 201, 302, 405 ] to not include 405"
+    }
+   ],
+   "unstableFailures": [],
+   "detail": null
+  },
+  {
+   "mutant": "17-blank-alias-treated-as-none",
+   "id": "R-LINK-3",
+   "kind": "api",
+   "verdict": "killed",
+   "targeted": true,
+   "killersBySuite": {
+    "api": 1,
+    "holdout": 2
+   },
+   "killers": [
+    {
+     "suite": "api",
+     "name": "POST /api/links > [R-LINK-3][R-ALIAS-1] alias with whitespace (three spaces) is never trimmed -> 422 invalid_alias",
+     "ids": [
+      "R-LINK-3",
+      "R-ALIAS-1"
+     ],
+     "error": "POST /api/links: 201 {\"code\":\"YAShC3X\",\"url\":\"https://example.com/l3w/tsv8l4un4ucl\",\"shortUrl\":\"http://localhost:8180/YAShC3X\",\"isCustom\":false,\"createdAt\":\"2026-10-19T03:38:16.550696Z\",\"clickCount\":0,\"lastClickedAt\":null: expected 201 to be 422 // Object.is equality"
+    },
+    {
+     "suite": "holdout",
+     "name": "holdout: create > [R-LINK-3][R-ALIAS-1] alias single space is not trimmed -> 422 invalid_alias",
+     "ids": [
+      "R-LINK-3",
+      "R-ALIAS-1"
+     ],
+     "error": "POST /api/links: 201 {\"code\":\"H0lqkqs\",\"url\":\"http://example.net/h3-dls4utlev\",\"shortUrl\":\"http://localhost:8180/H0lqkqs\",\"isCustom\":false,\"createdAt\":\"2026-10-19T03:38:44.024223Z\",\"clickCount\":0,\"lastClickedAt\":null}: expected 201 to be 422 // Object.is equality"
+    },
+    {
+     "suite": "holdout",
+     "name": "holdout: create > [R-LINK-3][R-ALIAS-1] alias tab is not trimmed -> 422 invalid_alias",
+     "ids": [
+      "R-LINK-3",
+      "R-ALIAS-1"
+     ],
+     "error": "POST /api/links: 201 {\"code\":\"fpHv0cw\",\"url\":\"http://example.net/h3-r4fh5fi8f\",\"shortUrl\":\"http://localhost:8180/fpHv0cw\",\"isCustom\":false,\"createdAt\":\"2026-10-19T03:38:44.037034Z\",\"clickCount\":0,\"lastClickedAt\":null}: expected 201 to be 422 // Object.is equality"
+    }
+   ],
+   "unstableFailures": [],
+   "detail": null
+  },
+  {
+   "mutant": "18-alias-check-then-upsert",
+   "id": "R-ALIAS-5",
+   "kind": "api",
+   "verdict": "killed",
+   "targeted": true,
+   "killersBySuite": {
+    "invariants": 1
+   },
+   "killers": [
+    {
+     "suite": "invariants",
+     "name": "[R-ALIAS-5] 3: 20 concurrent creates of one new alias -> exactly one 201, nineteen 409 alias_taken, nothing else",
+     "ids": [
+      "R-ALIAS-5"
+     ],
+     "error": "statuses: 201,201,201,201,201,201,201,409,201,201,201,201,201,201,201,201,201,201,201,201: expected [ 201, 201, 201, 201, 201, 201, …(13) ] to have a length of 1 but got 19"
+    }
+   ],
+   "unstableFailures": [],
+   "detail": null
+  },
+  {
+   "mutant": "19-click-writer-backpressure-drops",
+   "id": "R-REDIR-5",
+   "kind": "api",
+   "verdict": "killed",
+   "targeted": true,
+   "killersBySuite": {
+    "api": 21,
+    "invariants": 1,
+    "holdout": 9
+   },
+   "killers": [
+    {
+     "suite": "api",
+     "name": "R-CLICK-1 referrer > [R-CLICK-1] Referer bare www host -> [\"Referer\",\"https://www/\"]",
+     "ids": [
+      "R-CLICK-1"
+     ],
+     "error": "rangeClicks for 5GwngTc is 0, expected 1 within 2500 ms of the last redirect"
+    },
+    {
+     "suite": "api",
+     "name": "R-CLICK-1 referrer > [R-CLICK-1] Referer UTF-8 IDN host is punycoded -> [\"Referer\",\"https://bÃ¼cher.example/p\"]",
+     "ids": [
+      "R-CLICK-1"
+     ],
+     "error": "rangeClicks for HFZpfD2 is 0, expected 1 within 2500 ms of the last redirect"
+    },
+    {
+     "suite": "api",
+     "name": "R-CLICK-1 referrer > [R-CLICK-1] Referer invalid UTF-8 bytes -> [\"Referer\",\"https://exÿample.com/\"]",
+     "ids": [
+      "R-CLICK-1"
+     ],
+     "error": "rangeClicks for VYTLVjC is 0, expected 1 within 2500 ms of the last redirect"
+    },
+    {
+     "suite": "api",
+     "name": "R-CLICK-1 referrer > [R-CLICK-1] Referer file scheme (empty host) -> [\"Referer\",\"file:///etc/passwd\"]",
+     "ids": [
+      "R-CLICK-1"
+     ],
+     "error": "rangeClicks for vdUkFeD is 0, expected 1 within 2500 ms of the last redirect"
+    },
+    {
+     "suite": "api",
+     "name": "R-CLICK-1 referrer > [R-CLICK-1] Referer unparseable http:// -> [\"Referer\",\"http://\"]",
+     "ids": [
+      "R-CLICK-1"
+     ],
+     "error": "rangeClicks for 6znyYB5 is 0, expected 1 within 2500 ms of the last redirect"
+    },
+    {
+     "suite": "api",
+     "name": "R-CLICK-1 referrer > [R-CLICK-1] Referer empty value -> [\"Referer\",\"\"]",
+     "ids": [
+      "R-CLICK-1"
+     ],
+     "error": "rangeClicks for mTfvKBs is 0, expected 1 within 2500 ms of the last redirect"
+    },
+    {
+     "suite": "api",
+     "name": "R-CLICK-2 country > [R-CLICK-2] country header lower-case us -> [\"cf-ipcountry\",\"us\"]",
+     "ids": [
+      "R-CLICK-2"
+     ],
+     "error": "rangeClicks for 3vy9NTP is 0, expected 1 within 2500 ms of the last redirect"
+    },
+    {
+     "suite": "api",
+     "name": "R-CLICK-2 country > [R-CLICK-2] country header header name matched case-insensitively -> [\"CF-IPCOUNTRY\",\"de\"]",
+     "ids": [
+      "R-CLICK-2"
+     ],
+     "error": "rangeClicks for gyh5v5K is 0, expected 1 within 2500 ms of the last redirect"
+    },
+    {
+     "suite": "api",
+     "name": "R-CLICK-2 country > [R-CLICK-2] country header absent -> []",
+     "ids": [
+      "R-CLICK-2"
+     ],
+     "error": "rangeClicks for TO8nAf3 is 0, expected 1 within 2500 ms of the last redirect"
+    },
+    {
+     "suite": "api",
+     "name": "R-CLICK-2 country > [R-CLICK-2] country header three letters -> [\"cf-ipcountry\",\"USA\"]",
+     "ids": [
+      "R-CLICK-2"
+     ],
+     "error": "rangeClicks for v1zty3j is 0, expected 1 within 2500 ms of the last redirect"
+    },
+    {
+     "suite": "api",
+     "name": "R-CLICK-2 country > [R-CLICK-2] country header empty -> [\"cf-ipcountry\",\"\"]",
+     "ids": [
+      "R-CLICK-2"
+     ],
+     "error": "rangeClicks for Kwa5NLY is 0, expected 1 within 2500 ms of the last redirect"
+    },
+    {
+     "suite": "api",
+     "name": "R-CLICK-2 country > [R-CLICK-2] country header digit -> [\"cf-ipcountry\",\"1A\"]",
+     "ids": [
+      "R-CLICK-2"
+     ],
+     "error": "rangeClicks for QNq64ha is 0, expected 1 within 2500 ms of the last redirect"
+    },
+    {
+     "suite": "api",
+     "name": "R-CLICK-2 country > [R-CLICK-2] country header inner space -> [\"cf-ipcountry\",\"U S\"]",
+     "ids": [
+      "R-CLICK-2"
+     ],
+     "error": "rangeClicks for OxUuMp6 is 0, expected 1 within 2500 ms of the last redirect"
+    },
+    {
+     "suite": "api",
+     "name": "R-CLICK-2 country > [R-CLICK-2] country header non-ASCII letter (UTF-8) -> [\"cf-ipcountry\",\"ÃS\"]",
+     "ids": [
+      "R-CLICK-2"
+     ],
+     "error": "rangeClicks for Moo3xId is 0, expected 1 within 2500 ms of the last redirect"
+    },
+    {
+     "suite": "api",
+     "name": "R-CLICK-3 device > [R-CLICK-3] User-Agent absent -> null",
+     "ids": [
+      "R-CLICK-3"
+     ],
+     "error": "rangeClicks for C4YqJER is 0, expected 1 within 2500 ms of the last redirect"
+    },
+    {
+     "suite": "api",
+     "name": "R-CLICK-3 device > [R-CLICK-3] User-Agent whitespace only -> \"   \"",
+     "ids": [
+      "R-CLICK-3"
+     ],
+     "error": "rangeClicks for n7rsD78 is 0, expected 1 within 2500 ms of the last redirect"
+    },
+    {
+     "suite": "api",
+     "name": "R-CLICK-3 device > [R-CLICK-3] User-Agent Googlebot -> \"Googlebot/2.1 (+http://www.google.com/bot.html)\"",
+     "ids": [
+      "R-CLICK-3"
+     ],
+     "error": "rangeClicks for 3xcTgi3 is 0, expected 1 within 2500 ms of the last redirect"
+    },
+    {
+     "suite": "api",
+     "name": "R-CLICK-3 device > [R-CLICK-3] User-Agent bingbot -> \"Mozilla/5.0 (compatible; bingbot/2.0)\"",
+     "ids": [
+      "R-CLICK-3"
+     ],
+     "error": "rangeClicks for JJgyCTR is 0, expected 1 within 2500 ms of the last redirect"
+    },
+    {
+     "suite": "api",
+     "name": "R-CLICK-3 device > [R-CLICK-3] User-Agent preview (upper-case) -> \"WhatsApp Link PREVIEW\"",
+     "ids": [
+      "R-CLICK-3"
+     ],
+     "error": "rangeClicks for 8opTHUp is 0, expected 1 within 2500 ms of the last redirect"
+    },
+    {
+     "suite": "api",
+     "name": "R-CLICK-3 device > [R-CLICK-3] User-Agent iPhone -> \"Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) Mobile/15E148\"",
+     "ids": [
+      "R-CLICK-3"
+     ],
+     "error": "rangeClicks for UKj30om is 0, expected 1 within 2500 ms of the last redirect"
+    },
+    {
+     "suite": "api",
+     "name": "R-CLICK-3 device > [R-CLICK-3] User-Agent Windows Chrome -> \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0\"",
+     "ids": [
+      "R-CLICK-3"
+     ],
+     "error": "rangeClicks for GYCUmpu is 0, expected 1 within 2500 ms of the last redirect"
+    },
+    {
+     "suite": "invariants",
+     "name": "[R-REDIR-5] 500 GET /{code} with >= 100 in flight: all 302, clickCount = start + 500 at 2 s and again at 4 s",
+     "ids": [
+      "R-REDIR-5"
+     ],
+     "error": "expected 316 to be 500 // Object.is equality"
+    },
+    {
+     "suite": "holdout",
+     "name": "holdout: clicks > [R-CLICK-1] Referer mailto -> [\"Referer\",\"mailto:a@b.c\"]",
+     "ids": [
+      "R-CLICK-1"
+     ],
+     "error": "rangeClicks for 0GQUP8J is 0, expected 1 within 2500 ms of the last redirect"
+    },
+    {
+     "suite": "holdout",
+     "name": "holdout: clicks > [R-CLICK-1] Referer IDN with sharp s (UTF-8) -> [\"Referer\",\"https://straÃe.example/\"]",
+     "ids": [
+      "R-CLICK-1"
+     ],
+     "error": "rangeClicks for e4m0s8Y is 0, expected 1 within 2500 ms of the last redirect"
+    },
+    {
+     "suite": "holdout",
+     "name": "holdout: clicks > [R-CLICK-1] Referer host \"Direct\" (case-folded) -> [\"Referer\",\"https://Direct/\"]",
+     "ids": [
+      "R-CLICK-1"
+     ],
+     "error": "rangeClicks for 5fkeff8 is 0, expected 1 within 2500 ms of the last redirect"
+    },
+    {
+     "suite": "holdout",
+     "name": "holdout: clicks > [R-CLICK-1] Referer truncated UTF-8 -> [\"Referer\",\"https://aÃ.example/\"]",
+     "ids": [
+      "R-CLICK-1"
+     ],
+     "error": "rangeClicks for U674k3C is 0, expected 1 within 2500 ms of the last redirect"
+    },
+    {
+     "suite": "holdout",
+     "name": "holdout: clicks > [R-CLICK-1] Referer three Referer headers -> [\"Referer\",\"https://a.example/\",\"Referer\",\"https://a.example/\",\"Referer\",\"https://a.example/\"]",
+     "ids": [
+      "R-CLICK-1"
+     ],
+     "error": "rangeClicks for tuOpB9n is 0, expected 1 within 2500 ms of the last redirect"
+    },
+    {
+     "suite": "holdout",
+     "name": "holdout: clicks > [R-CLICK-2] country fr -> [\"cf-ipcountry\",\"fr\"]",
+     "ids": [
+      "R-CLICK-2"
+     ],
+     "error": "rangeClicks for 7OExGGD is 0, expected 1 within 2500 ms of the last redirect"
+    },
+    {
+     "suite": "holdout",
+     "name": "holdout: clicks > [R-CLICK-2] country leading tab jp -> [\"cf-ipcountry\",\"\\tjp\"]",
+     "ids": [
+      "R-CLICK-2"
+     ],
+     "error": "rangeClicks for BJz9hnP is 0, expected 1 within 2500 ms of the last redirect"
+    },
+    {
+     "suite": "holdout",
+     "name": "holdout: clicks > [R-CLICK-2] country Zz -> [\"cf-ipcountry\",\"Zz\"]",
+     "ids": [
+      "R-CLICK-2"
+     ],
+     "error": "rangeClicks for N8PGhuR is 0, expected 1 within 2500 ms of the last redirect"
+    },
+    {
+     "suite": "holdout",
+     "name": "[R-REDIR-5] 500 redirects of a generated code with mobile UA and referrers, >= 100 in flight -> all 302, +500 exactly",
+     "ids": [
+      "R-REDIR-5"
+     ],
+     "error": "expected 139 to be 500 // Object.is equality"
+    }
+   ],
+   "unstableFailures": [],
+   "detail": null
+  },
+  {
+   "mutant": "20-health-cached-3s",
+   "id": "R-HEALTH-3",
+   "kind": "api",
+   "verdict": "killed",
+   "targeted": true,
+   "killersBySuite": {
+    "api": 1
+   },
+   "killers": [
+    {
+     "suite": "api",
+     "name": "spawned api instance (gray-box) > [R-HEALTH-3][R-HEALTH-1][gray-box] the health check queries the database on every request (no cached result)",
+     "ids": [
+      "R-HEALTH-3",
+      "R-HEALTH-1"
+     ],
+     "error": "GET /healthz: 200 {\"status\":\"ok\"}: expected 200 to be 503 // Object.is equality"
+    }
+   ],
+   "unstableFailures": [],
+   "detail": null
+  },
+  {
+   "mutant": "21-head-redirect-missing-cache-control",
+   "id": "R-REDIR-7",
+   "kind": "api",
+   "verdict": "killed",
+   "targeted": true,
+   "killersBySuite": {
+    "api": 2,
+    "holdout": 1
+   },
+   "killers": [
+    {
+     "suite": "api",
+     "name": "GET /{code} > [R-REDIR-7] HEAD /{code} -> same status, Location and Cache-Control as GET, no body, and no click",
+     "ids": [
+      "R-REDIR-7"
+     ],
+     "error": "expected undefined to be 'no-store' // Object.is equality"
+    },
+    {
+     "suite": "api",
+     "name": "R-REDIR-3 percent-decoding of /{code} (spec-v1.1) > [R-REDIR-3][R-REDIR-7] HEAD on a percent-encoded known code -> 302 with the same Location and Cache-Control as GET, no body, and no click",
+     "ids": [
+      "R-REDIR-3",
+      "R-REDIR-7"
+     ],
+     "error": "expected undefined to be 'no-store' // Object.is equality"
+    },
+    {
+     "suite": "holdout",
+     "name": "holdout: redirect > [R-REDIR-7] HEAD with a query string on a generated code: 302, same headers, no body, no click",
+     "ids": [
+      "R-REDIR-7"
+     ],
+     "error": "expected [ 302, …(2) ] to deeply equal [ 302, …(2) ]"
+    }
+   ],
+   "unstableFailures": [],
+   "detail": null
+  },
+  {
+   "mutant": "22-allow-missing-head-on-link",
+   "id": "R-ERR-8",
+   "kind": "api",
+   "verdict": "killed",
+   "targeted": true,
+   "killersBySuite": {
+    "api": 4,
+    "holdout": 1
+   },
+   "killers": [
+    {
+     "suite": "api",
+     "name": "R-ERR-6 check order and 405s > [R-ERR-6][R-ERR-8] /api/links/{existing}: unsupported methods -> 405 method_not_allowed with Allow = supported set",
+     "ids": [
+      "R-ERR-6",
+      "R-ERR-8"
+     ],
+     "error": "PUT /api/links/err-g28huw7tni Allow: expected Set{ 'GET', 'DELETE' } to deeply equal Set{ 'GET', 'HEAD', 'DELETE' }"
+    },
+    {
+     "suite": "api",
+     "name": "R-ERR-6 check order and 405s > [R-ERR-6][R-ERR-8] /api/links/{unknown}: unsupported methods -> 405 method_not_allowed with Allow = supported set",
+     "ids": [
+      "R-ERR-6",
+      "R-ERR-8"
+     ],
+     "error": "PUT /api/links/nope-ui4urq10sb Allow: expected Set{ 'GET', 'DELETE' } to deeply equal Set{ 'GET', 'HEAD', 'DELETE' }"
+    },
+    {
+     "suite": "api",
+     "name": "R-ERR-8 HEAD and OPTIONS > [R-ERR-8][R-REDIR-9] OPTIONS is unsupported everywhere -> 405",
+     "ids": [
+      "R-ERR-8",
+      "R-REDIR-9"
+     ],
+     "error": "/api/links/err-g28huw7tni Allow includes HEAD: expected false to be true // Object.is equality"
+    },
+    {
+     "suite": "api",
+     "name": "R-ROUTE-2 matching on the undecoded path (spec-v1.2) > [R-ROUTE-2][R-ERR-6][R-ERR-5] %2F inside /api/links/{code} does not split the segment: matched routes give 405/404, not an unmatched 404 for every method",
+     "ids": [
+      "R-ROUTE-2",
+      "R-ERR-6",
+      "R-ERR-5"
+     ],
+     "error": "expected Set{ 'GET', 'DELETE' } to deeply equal Set{ 'GET', 'HEAD', 'DELETE' }"
+    },
+    {
+     "suite": "holdout",
+     "name": "holdout: R-ERR-4/5/6/8 > [R-ERR-6] other unmatched paths and 405 sets",
+     "ids": [
+      "R-ERR-6"
+     ],
+     "error": "expected Set{ 'GET', 'DELETE' } to deeply equal Set{ 'GET', 'HEAD', 'DELETE' }"
+    }
+   ],
+   "unstableFailures": [],
+   "detail": null
+  },
+  {
+   "mutant": "23-healthz-405-text-plain",
+   "id": "R-ERR-1",
+   "kind": "api",
+   "verdict": "killed",
+   "targeted": true,
+   "killersBySuite": {
+    "api": 3,
+    "holdout": 1
+   },
+   "killers": [
+    {
+     "suite": "api",
+     "name": "R-ERR-1 error envelope > [R-ERR-1] /healthz and /api/links errors are JSON envelopes (405 and 400 examples)",
+     "ids": [
+      "R-ERR-1"
+     ],
+     "error": "[R-ERR-1] POST /healthz -> 405: Content-Type is \"text/plain; charset=utf-8\", expected application/json"
+    },
+    {
+     "suite": "api",
+     "name": "R-ERR-6 check order and 405s > [R-ERR-6][R-ERR-8] /healthz: unsupported methods -> 405 method_not_allowed with Allow = supported set",
+     "ids": [
+      "R-ERR-6",
+      "R-ERR-8"
+     ],
+     "error": "[R-ERR-1] POST /healthz -> 405: Content-Type is \"text/plain; charset=utf-8\", expected application/json"
+    },
+    {
+     "suite": "api",
+     "name": "R-ERR-8 HEAD and OPTIONS > [R-ERR-8][R-REDIR-9] OPTIONS is unsupported everywhere -> 405",
+     "ids": [
+      "R-ERR-8",
+      "R-REDIR-9"
+     ],
+     "error": "[R-ERR-1] OPTIONS /healthz -> 405: Content-Type is \"text/plain; charset=utf-8\", expected application/json"
+    },
+    {
+     "suite": "holdout",
+     "name": "holdout: R-ERR-4/5/6/8 > [R-ERR-6] other unmatched paths and 405 sets",
+     "ids": [
+      "R-ERR-6"
+     ],
+     "error": "[R-ERR-1] PUT /healthz -> 405: Content-Type is \"text/plain; charset=utf-8\", expected application/json"
+    }
+   ],
+   "unstableFailures": [],
+   "detail": null
+  },
+  {
+   "mutant": "24-internal-error-message-detail",
+   "id": "R-ERR-7",
+   "kind": "api",
+   "verdict": "survived",
+   "targeted": null,
+   "killersBySuite": {},
+   "killers": [],
+   "unstableFailures": [],
+   "detail": null
+  },
+  {
+   "mutant": "25-alias-taken-echoes-alias",
+   "id": "R-ERR-4",
+   "kind": "api",
+   "verdict": "killed",
+   "targeted": true,
+   "killersBySuite": {
+    "api": 3,
+    "invariants": 3,
+    "holdout": 1
+   },
+   "killers": [
+    {
+     "suite": "api",
+     "name": "alias validation > [R-ALIAS-3] an alias already in use -> 409 alias_taken, and the existing link is unchanged",
+     "ids": [
+      "R-ALIAS-3"
+     ],
+     "error": "[R-ERR-4] message echoes request value \"a3-o62ykr7gdg\": expected 'The alias \"a3-o62ykr7gdg\" is already …' not to contain 'a3-o62ykr7gdg'"
+    },
+    {
+     "suite": "api",
+     "name": "alias validation > [R-ALIAS-3] an alias equal to an existing generated code -> 409 alias_taken",
+     "ids": [
+      "R-ALIAS-3"
+     ],
+     "error": "[R-ERR-4] message echoes request value \"gflwVpv\": expected 'The alias \"gflwVpv\" is already in use.' not to contain 'gflwVpv'"
+    },
+    {
+     "suite": "api",
+     "name": "R-ERR-4 safe messages > [R-ERR-4] error messages never echo codes, aliases, URLs or header values",
+     "ids": [
+      "R-ERR-4"
+     ],
+     "error": "[R-ERR-4] message echoes request value \"err-mw9mu0gsj9\": expected 'The alias \"err-mw9mu0gsj9\" is already…' not to contain 'err-mw9mu0gsj9'"
+    },
+    {
+     "suite": "invariants",
+     "name": "[R-ALIAS-5] 1: 20 concurrent creates of one new alias -> exactly one 201, nineteen 409 alias_taken, nothing else",
+     "ids": [
+      "R-ALIAS-5"
+     ],
+     "error": "[R-ERR-4] message echoes request value \"race-zdtx4l6zyd\": expected 'The alias \"race-zdtx4l6zyd\" is alread…' not to contain 'race-zdtx4l6zyd'"
+    },
+    {
+     "suite": "invariants",
+     "name": "[R-ALIAS-5] 2: 20 concurrent creates of one new alias -> exactly one 201, nineteen 409 alias_taken, nothing else",
+     "ids": [
+      "R-ALIAS-5"
+     ],
+     "error": "[R-ERR-4] message echoes request value \"race-0g2ujh7k5m\": expected 'The alias \"race-0g2ujh7k5m\" is alread…' not to contain 'race-0g2ujh7k5m'"
+    },
+    {
+     "suite": "invariants",
+     "name": "[R-ALIAS-5] 3: 20 concurrent creates of one new alias -> exactly one 201, nineteen 409 alias_taken, nothing else",
+     "ids": [
+      "R-ALIAS-5"
+     ],
+     "error": "[R-ERR-4] message echoes request value \"race-yncnix4dyw\": expected 'The alias \"race-yncnix4dyw\" is alread…' not to contain 'race-yncnix4dyw'"
+    },
+    {
+     "suite": "holdout",
+     "name": "holdout: aliases > [R-ALIAS-3] reusing a live alias -> 409 alias_taken and the original survives",
+     "ids": [
+      "R-ALIAS-3"
+     ],
+     "error": "[R-ERR-4] message echoes request value \"Taken_sz2ln3\": expected 'The alias \"Taken_sz2ln3\" is already i…' not to contain 'Taken_sz2ln3'"
+    }
+   ],
+   "unstableFailures": [],
+   "detail": null
+  },
+  {
+   "mutant": "26-click-insert-failure-breaks-redirect",
+   "id": "R-REDIR-6",
+   "kind": "api",
+   "verdict": "survived",
+   "targeted": null,
+   "killersBySuite": {},
+   "killers": [],
+   "unstableFailures": [],
+   "detail": null
+  },
+  {
+   "mutant": "27-click-insert-retry-delays-redirect",
+   "id": "R-REDIR-6",
+   "kind": "api",
+   "verdict": "survived",
+   "targeted": null,
+   "killersBySuite": {},
+   "killers": [],
+   "unstableFailures": [],
+   "detail": null
+  },
+  {
+   "mutant": "28-direct-stored-literally",
+   "id": "R-DATA-2",
+   "kind": "api",
+   "verdict": "killed",
+   "targeted": true,
+   "killersBySuite": {
+    "api": 2
+   },
+   "killers": [
+    {
+     "suite": "api",
+     "name": "storage (gray-box) > [R-DATA-2][R-CLICK-1][R-CLICK-2][R-CLICK-3][gray-box] click columns use the stored encodings",
+     "ids": [
+      "R-DATA-2",
+      "R-CLICK-1",
+      "R-CLICK-2",
+      "R-CLICK-3"
+     ],
+     "error": "expected [ { referrer_host: 'direct', …(2) } ] to deeply equal [ { referrer_host: null, …(2) } ]"
+    },
+    {
+     "suite": "api",
+     "name": "storage (gray-box) > [R-DATA-2][gray-box] no click row anywhere stores '' or 'direct' as referrer, or a non-upper-case country",
+     "ids": [
+      "R-DATA-2"
+     ],
+     "error": "expected 70 to be +0 // Object.is equality"
+    }
+   ],
+   "unstableFailures": [],
+   "detail": null
+  },
+  {
+   "mutant": "29-last-clicked-at-millis",
+   "id": "R-GET-1",
+   "kind": "api",
+   "verdict": "killed",
+   "targeted": true,
+   "killersBySuite": {
+    "api": 2,
+    "holdout": 1
+   },
+   "killers": [
+    {
+     "suite": "api",
+     "name": "stats with seeded clicks (gray-box) > [R-DATA-1][R-STATS-4][gray-box] a row inserted into clicks appears in every click-derived field on the next request",
+     "ids": [
+      "R-DATA-1",
+      "R-STATS-4"
+     ],
+     "error": "expected 1792224550654000n to be 1792224550654321n // Object.is equality"
+    },
+    {
+     "suite": "api",
+     "name": "stats with seeded clicks (gray-box) > [R-GET-1][gray-box] clickCount is the row count and lastClickedAt is max(clicked_at) at full microsecond precision",
+     "ids": [
+      "R-GET-1"
+     ],
+     "error": "expected 1792154096123000n to be 1792154096123457n // Object.is equality"
+    },
+    {
+     "suite": "holdout",
+     "name": "holdout: seeded stats (gray-box) > [R-DATA-1][R-GET-1][R-STATS-5][gray-box] inserted rows show up at once with exact precision and window-only breakdowns",
+     "ids": [
+      "R-DATA-1",
+      "R-GET-1",
+      "R-STATS-5"
+     ],
+     "error": "expected 1792367999000000n to be 1792367999000001n // Object.is equality"
+    }
+   ],
+   "unstableFailures": [],
+   "detail": null
+  },
+  {
+   "mutant": "30-top-countries-limit-10",
+   "id": "R-STATS-5",
+   "kind": "api",
+   "verdict": "killed",
+   "targeted": true,
+   "killersBySuite": {
+    "api": 2,
+    "holdout": 1
+   },
+   "killers": [
+    {
+     "suite": "api",
+     "name": "stats with seeded clicks (gray-box) > [R-STATS-5][gray-box] top-5 cut-off with ties resolved by code-point name order",
+     "ids": [
+      "R-STATS-5"
+     ],
+     "error": "expected [ { name: 'BB', clicks: 4 }, …(5) ] to deeply equal [ { name: 'BB', clicks: 4 }, …(4) ]"
+    },
+    {
+     "suite": "api",
+     "name": "GET /api/links/{code}/stats > [R-STATS-5][R-STATS-6] breakdowns: at most 5, clicks desc then name asc in code-point order, direct/unknown ordinary",
+     "ids": [
+      "R-STATS-5",
+      "R-STATS-6"
+     ],
+     "error": "topCountries: expected 7 to be less than or equal to 5"
+    },
+    {
+     "suite": "holdout",
+     "name": "holdout: stats > [R-STATS-4][R-STATS-5][R-STATS-6] seven referrers, ties by code point, devices complete",
+     "ids": [
+      "R-STATS-4",
+      "R-STATS-5",
+      "R-STATS-6"
+     ],
+     "error": "expected [ { name: 'UA', clicks: 2 }, …(5) ] to deeply equal [ { name: 'UA', clicks: 2 }, …(4) ]"
+    }
+   ],
+   "unstableFailures": [],
+   "detail": null
+  },
+  {
+   "mutant": "31-list-tiebreak-id-asc",
+   "id": "R-LIST-1",
+   "kind": "api",
+   "verdict": "killed",
+   "targeted": true,
+   "killersBySuite": {
+    "api": 1
+   },
+   "killers": [
+    {
+     "suite": "api",
+     "name": "GET /api/links > [R-LIST-1][gray-box] ties on createdAt break by internal id descending; createdAt dominates id",
+     "ids": [
+      "R-LIST-1"
+     ],
+     "error": "expected [ 'gD-ail45sux1j', …(3) ] to deeply equal [ 'gD-ail45sux1j', …(3) ]"
+    }
+   ],
+   "unstableFailures": [],
+   "detail": null
+  },
+  {
+   "mutant": "32-ui-multiple-confirm-open",
+   "id": "R-UI-6",
+   "kind": "web",
+   "verdict": "killed",
+   "targeted": true,
+   "killersBySuite": {
+    "ui": 1
+   },
+   "killers": [
+    {
+     "suite": "ui",
+     "name": "home page / > [R-UI-6] Delete reveals \"Confirm delete\" in the same row; only one open at a time; nothing deleted until confirmed",
+     "ids": [
+      "R-UI-6"
+     ],
+     "error": "Error: expect(locator).toHaveCount(expected) failed"
+    }
+   ],
+   "unstableFailures": [],
+   "detail": null
+  },
+  {
+   "mutant": "33-ui-scheme-regex-lowercase-http-only",
+   "id": "R-UI-2",
+   "kind": "web",
+   "verdict": "killed",
+   "targeted": true,
+   "killersBySuite": {
+    "ui": 4,
+    "holdout-ui": 1
+   },
+   "killers": [
+    {
+     "suite": "ui",
+     "name": "accessibility > [R-UI-10] / after an error",
+     "ids": [
+      "R-UI-10"
+     ],
+     "error": "Error: expect(locator).toHaveCount(expected) failed"
+    },
+    {
+     "suite": "ui",
+     "name": "home page / > [R-UI-2] destination: an explicit upper-case scheme is sent unchanged",
+     "ids": [
+      "R-UI-2"
+     ],
+     "error": "Error: expect(received).toBe(expected) // Object.is equality"
+    },
+    {
+     "suite": "ui",
+     "name": "home page / > [R-UI-4] API error (unsupported scheme) shows exactly the invalid_url message in an alert",
+     "ids": [
+      "R-UI-4"
+     ],
+     "error": "Error: expect(locator).toHaveText(expected) failed"
+    },
+    {
+     "suite": "ui",
+     "name": "[R-UI-11] a full create -> stats -> delete -> error journey sends no browser request to /api/",
+     "ids": [
+      "R-UI-11"
+     ],
+     "error": "Error: expect(locator).toHaveCount(expected) failed"
+    },
+    {
+     "suite": "holdout-ui",
+     "name": "[R-UI-4] gopher scheme shows the invalid_url message",
+     "ids": [
+      "R-UI-4"
+     ],
+     "error": "Error: expect(locator).toHaveText(expected) failed"
+    }
+   ],
+   "unstableFailures": [],
+   "detail": null
+  },
+  {
+   "mutant": "34-ui-days-number-parse",
+   "id": "R-UI-8",
+   "kind": "web",
+   "verdict": "killed",
+   "targeted": true,
+   "killersBySuite": {
+    "ui": 1,
+    "holdout-ui": 1
+   },
+   "killers": [
+    {
+     "suite": "ui",
+     "name": "stats page /links/{code} > [R-UI-8] missing or invalid days behaves exactly like days=30, including aria-current on \"30 days\"",
+     "ids": [
+      "R-UI-8"
+     ],
+     "error": "Error: query ?days=07"
+    },
+    {
+     "suite": "holdout-ui",
+     "name": "[R-UI-8] days=08, days=1e1 and days=366 fall back to 30",
+     "ids": [
+      "R-UI-8"
+     ],
+     "error": "Error: expect(locator).toHaveCount(expected) failed"
+    }
+   ],
+   "unstableFailures": [],
+   "detail": null
+  },
+  {
+   "mutant": "35-ui-whitespace-destination-hits-server",
+   "id": "R-UI-12",
+   "kind": "web",
+   "verdict": "killed",
+   "targeted": true,
+   "killersBySuite": {
+    "ui": 1,
+    "holdout-ui": 1
+   },
+   "killers": [
+    {
+     "suite": "ui",
+     "name": "home page / > [R-UI-12] an empty or whitespace-only destination shows the invalid_url alert; submitting causes no navigation and no non-GET/HEAD request",
+     "ids": [
+      "R-UI-12"
+     ],
+     "error": "Error: requests after submitting \"  \\t  \""
+    },
+    {
+     "suite": "holdout-ui",
+     "name": "[R-UI-12] a destination of only newline and tab shows the invalid_url alert with no navigation and no non-GET/HEAD request",
+     "ids": [
+      "R-UI-12"
+     ],
+     "error": "Error: expect(received).toEqual(expected) // deep equality"
+    }
+   ],
+   "unstableFailures": [],
+   "detail": null
+  },
+  {
+   "mutant": "36-ui-created-rounds-minute",
+   "id": "R-UI-5",
+   "kind": "web",
+   "verdict": "killed",
+   "targeted": true,
+   "killersBySuite": {
+    "ui": 1,
+    "holdout-ui": 1
+   },
+   "killers": [
+    {
+     "suite": "ui",
+     "name": "home page / > [R-UI-5][gray-box] Clicks has no thousands separator and Created truncates seconds (hh:mm:59.9 is not rounded up)",
+     "ids": [
+      "R-UI-5"
+     ],
+     "error": "Error: expect(locator).toHaveText(expected) failed"
+    },
+    {
+     "suite": "holdout-ui",
+     "name": "[R-UI-5] a link with clicks shows its count and created time in its row",
+     "ids": [
+      "R-UI-5"
+     ],
+     "error": "Error: expect(locator).toHaveText(expected) failed"
+    }
+   ],
+   "unstableFailures": [],
+   "detail": null
+  },
+  {
+   "mutant": "37-ui-click-counts-thousands-separators",
+   "id": "R-UI-7",
+   "kind": "web",
+   "verdict": "killed",
+   "targeted": true,
+   "killersBySuite": {
+    "ui": 1
+   },
+   "killers": [
+    {
+     "suite": "ui",
+     "name": "stats page /links/{code} > [R-UI-7][gray-box] totals are base-10 integers without separators",
+     "ids": [
+      "R-UI-7"
+     ],
+     "error": "Error: expect(locator).toBeVisible() failed"
+    }
+   ],
+   "unstableFailures": [],
+   "detail": null
+  }
+ ]
+}

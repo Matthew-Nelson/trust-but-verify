@@ -1,0 +1,12 @@
+schemathesis: schemathesis==4.29.1
+target: http://localhost:8181
+seed: 20261017
+max-examples per operation: 100
+checks: all except positive_data_acceptance
+mode: all (positive + negative)
+redirects: never followed; a 3xx is the recorded response (hook fuzz/no_redirects.py: allow_redirects=False + resolve_redirects guard)
+config: fuzz/schemathesis.toml ([generation] allow-extra-parameters = false; hooks = fuzz/no_redirects.py)
+format "uri" stripped at: (none)
+command: uvx --from schemathesis==4.29.1 schemathesis --config-file /Users/matthewnelson/Workspace/trust-but-verify/harness/fuzz/schemathesis.toml run /Users/matthewnelson/Workspace/trust-but-verify/harness/fuzz/out/openapi.fuzz.json --url http://localhost:8181 --checks all --exclude-checks positive_data_acceptance --mode all --seed 20261017 --max-examples 100 --request-timeout 10 --report junit,ndjson --report-dir /Users/matthewnelson/Workspace/trust-but-verify/harness/fuzz/out
+exit: 0
+duration: 18 s

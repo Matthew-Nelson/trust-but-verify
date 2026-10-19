@@ -1,0 +1,85 @@
+{
+ "tests": [
+  {
+   "project": "",
+   "file": "tests/invariants/alias-race.test.ts",
+   "name": "[R-ALIAS-5] 1: 20 concurrent creates of one new alias -> exactly one 201, nineteen 409 alias_taken, nothing else",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 30
+  },
+  {
+   "project": "",
+   "file": "tests/invariants/alias-race.test.ts",
+   "name": "[R-ALIAS-5] 2: 20 concurrent creates of one new alias -> exactly one 201, nineteen 409 alias_taken, nothing else",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 10
+  },
+  {
+   "project": "",
+   "file": "tests/invariants/alias-race.test.ts",
+   "name": "[R-ALIAS-5] 3: 20 concurrent creates of one new alias -> exactly one 201, nineteen 409 alias_taken, nothing else",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 7
+  },
+  {
+   "project": "",
+   "file": "tests/invariants/list-total.test.ts",
+   "name": "[R-LIST-2][R-LIST-1] total equals the number of distinct links reachable by paging; pages do not overlap",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 78
+  },
+  {
+   "project": "",
+   "file": "tests/invariants/list-total.test.ts",
+   "name": "[R-LIST-1] offset skips exactly that many items in list order",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 12
+  },
+  {
+   "project": "",
+   "file": "tests/invariants/list-total.test.ts",
+   "name": "[R-LIST-2] offset >= total -> 200 with items [] (offset = total and offset = total + 1000)",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 20
+  },
+  {
+   "project": "",
+   "file": "tests/invariants/redirect-burst.test.ts",
+   "name": "[R-REDIR-5] 500 GET /{code} with >= 100 in flight: all 302, clickCount = start + 500 at 2 s and again at 4 s",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 4127
+  },
+  {
+   "project": "",
+   "file": "tests/invariants/unique-codes.test.ts",
+   "name": "[R-LINK-6][R-LINK-7][R-LINK-1] 1,000 sequential creates with no alias: all 201, 1,000 distinct well-formed codes, none reserved",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 630
+  }
+ ],
+ "unhandledErrors": []
+}

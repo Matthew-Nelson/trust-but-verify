@@ -1,0 +1,917 @@
+{
+ "tests": [
+  {
+   "project": "holdout-api",
+   "file": "api/create-url-alias.test.ts",
+   "name": "holdout: create > [R-LINK-1] no alias, url with query and fragment -> 7-char code, isCustom false",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 18
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/create-url-alias.test.ts",
+   "name": "holdout: create > [R-LINK-2][R-LINK-4] digits/underscore/hyphen alias kept exactly; shortUrl = base + \"/\" + alias",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 3
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/create-url-alias.test.ts",
+   "name": "holdout: create > [R-LINK-3][R-ALIAS-1] alias single space is not trimmed -> 422 invalid_alias",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 3
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/create-url-alias.test.ts",
+   "name": "holdout: create > [R-LINK-3][R-ALIAS-1] alias tab is not trimmed -> 422 invalid_alias",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/create-url-alias.test.ts",
+   "name": "holdout: create > [R-LINK-3][R-ALIAS-1] alias newline-wrapped is not trimmed -> 422 invalid_alias",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/create-url-alias.test.ts",
+   "name": "holdout: create > [R-LINK-3] alias \"\" with an unknown field still means no alias",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 6
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/create-url-alias.test.ts",
+   "name": "holdout: create > [R-LINK-5][R-GET-1] a new custom link reads back with no clicks",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 4
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/create-url-alias.test.ts",
+   "name": "holdout: create > [R-LINK-7] 15 parallel creates of one http URL with alias null never 409",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 23
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/create-url-alias.test.ts",
+   "name": "holdout: create > [R-LINK-8] unknown fields of various types are ignored",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/create-url-alias.test.ts",
+   "name": "holdout: URL validation > [R-URL-1] CR/LF/space around the URL are trimmed; LF inside the host is removed",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/create-url-alias.test.ts",
+   "name": "holdout: URL validation > [R-URL-1][R-URL-2] a leading ideographic space (U+3000) is not trimmed -> 422",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/create-url-alias.test.ts",
+   "name": "holdout: URL validation > [R-URL-2] other invalid inputs -> 422 invalid_url",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 8
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/create-url-alias.test.ts",
+   "name": "holdout: URL validation > [R-URL-5][R-REDIR-1] other inputs are stored and redirected as their WHATWG serialization",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 31
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/create-url-alias.test.ts",
+   "name": "holdout: URL validation > [R-URL-3] 2047 and 2048 code points of two-byte characters are accepted; 2049 and 2050 are not",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 49
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/create-url-alias.test.ts",
+   "name": "holdout: URL validation > [R-URL-3][R-URL-1] 2048 code points wrapped in CR/LF are accepted (trim before measuring)",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 13
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/create-url-alias.test.ts",
+   "name": "holdout: URL validation > [R-URL-4] the api hostname in other spellings -> 422; a trailing-dot host is a different hostname",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/create-url-alias.test.ts",
+   "name": "holdout: C0 controls at the ends > [R-URL-1][R-URL-5][R-URL-3] leading U+0001 and trailing U+001F are removed by the parser but count toward 2048",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 17
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/create-url-alias.test.ts",
+   "name": "holdout: aliases > [R-ALIAS-1] lengths 31 and 32 accepted; 33 and 40 rejected; 2 rejected",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 4
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/create-url-alias.test.ts",
+   "name": "holdout: aliases > [R-ALIAS-1] a random 3-character alias is accepted",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/create-url-alias.test.ts",
+   "name": "holdout: aliases > [R-ALIAS-1] alias containing \"#\" -> 422 invalid_alias",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/create-url-alias.test.ts",
+   "name": "holdout: aliases > [R-ALIAS-1] alias containing \"?\" -> 422 invalid_alias",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 0
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/create-url-alias.test.ts",
+   "name": "holdout: aliases > [R-ALIAS-1] alias containing \"&\" -> 422 invalid_alias",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/create-url-alias.test.ts",
+   "name": "holdout: aliases > [R-ALIAS-1] alias containing \"=\" -> 422 invalid_alias",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 0
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/create-url-alias.test.ts",
+   "name": "holdout: aliases > [R-ALIAS-1] alias containing \"*\" -> 422 invalid_alias",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 0
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/create-url-alias.test.ts",
+   "name": "holdout: aliases > [R-ALIAS-1] alias containing \"\\r\" -> 422 invalid_alias",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 0
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/create-url-alias.test.ts",
+   "name": "holdout: aliases > [R-ALIAS-1] alias containing \"ß\" -> 422 invalid_alias",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 0
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/create-url-alias.test.ts",
+   "name": "holdout: aliases > [R-ALIAS-1] alias containing \"\\t\" -> 422 invalid_alias",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 0
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/create-url-alias.test.ts",
+   "name": "holdout: aliases > [R-ALIAS-1] alias containing \"​\" -> 422 invalid_alias",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 0
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/create-url-alias.test.ts",
+   "name": "holdout: aliases > [R-ALIAS-2] reserved words in other letter cases -> 422 alias_reserved",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 3
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/create-url-alias.test.ts",
+   "name": "holdout: aliases > [R-ALIAS-2] near misses are not reserved",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/create-url-alias.test.ts",
+   "name": "holdout: aliases > [R-ALIAS-3] reusing a live alias -> 409 alias_taken and the original survives",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/create-url-alias.test.ts",
+   "name": "holdout: aliases > [R-ALIAS-4] three case variants are three links",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 7
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/errors-routes.test.ts",
+   "name": "holdout: R-ERR-2 > [R-ERR-2] other malformed bodies -> 400 bad_request",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 21
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/errors-routes.test.ts",
+   "name": "holdout: R-ERR-2 > [R-ERR-2] a lone UTF-8 continuation byte -> 400",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 5
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/errors-routes.test.ts",
+   "name": "holdout: R-ERR-2 > [R-ERR-2] 65536 bytes with a different padding field is accepted; 65538 -> 400",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 10
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/errors-routes.test.ts",
+   "name": "holdout: R-ERR-2 > [R-ERR-2] precedence with other inputs",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 25
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/errors-routes.test.ts",
+   "name": "holdout: R-ERR-2 > [R-ERR-2] duplicate alias keys: the last (valid) one wins",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/errors-routes.test.ts",
+   "name": "holdout: R-ERR-2 > [R-ERR-2] Content-Type application/xml is ignored",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 4
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/errors-routes.test.ts",
+   "name": "holdout: R-ERR-2 > [R-ERR-2] Content-Type multipart/form-data; boundary=x is ignored",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 4
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/errors-routes.test.ts",
+   "name": "holdout: R-ERR-3 > [R-ERR-3][R-LIST-1] other non-query-integer limit/offset values -> 400",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 6
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/errors-routes.test.ts",
+   "name": "holdout: R-ERR-3 > [R-ERR-3][R-LIST-2] limit=99 and offset=%32 are echoed",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 3
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/errors-routes.test.ts",
+   "name": "holdout: R-ERR-3 > [R-ERR-3][R-STATS-1] days=00, 365.0, %33%36%36 -> 400; %33%36%35 -> 365 entries",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 12
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/errors-routes.test.ts",
+   "name": "holdout: R-ERR-4/5/6/8 > [R-ERR-4] probes in alias, url and path are not echoed",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 3
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/errors-routes.test.ts",
+   "name": "holdout: R-ERR-4/5/6/8 > [R-ERR-5] other impossible codes -> 404 not_found; percent-decoded once",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 10
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/errors-routes.test.ts",
+   "name": "holdout: R-ERR-4/5/6/8 > [R-ERR-6] other unmatched paths and 405 sets",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 8
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/errors-routes.test.ts",
+   "name": "holdout: R-ERR-4/5/6/8 > [R-ERR-8] HEAD mirrors GET for other queries",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 18
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/errors-routes.test.ts",
+   "name": "holdout: routes and redirects > [R-REDIR-3] other unknown codes -> 404 text/plain",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/errors-routes.test.ts",
+   "name": "holdout: routes and redirects > [R-REDIR-9] PURGE and PUT on /{code} -> 405 text/plain, Allow {GET, HEAD}",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/errors-routes.test.ts",
+   "name": "holdout: routes and redirects > [R-ROUTE-1][R-ROUTE-2][R-ROUTE-3] other unmatched shapes",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 13
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/errors-routes.test.ts",
+   "name": "holdout: list, read, delete > [R-LIST-1] four links created in sequence are listed newest first",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 7
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/errors-routes.test.ts",
+   "name": "holdout: list, read, delete > [R-LIST-2] offset far past the end -> items []",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 6
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/errors-routes.test.ts",
+   "name": "holdout: list, read, delete > [R-DEL-1][R-DEL-2] delete a generated link, everything 404s, then the code is reusable as an alias",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 8
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/errors-routes.test.ts",
+   "name": "holdout: percent-decoding and encoded dot segments > [R-REDIR-3][R-REDIR-1][R-REDIR-7] encoded letters/underscore in /{code}: GET redirects and counts, HEAD redirects without a click",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2510
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/errors-routes.test.ts",
+   "name": "holdout: percent-decoding and encoded dot segments > [R-ROUTE-2][R-ERR-6] other encoded dot-segment spellings are unmatched for any method (never 200/302/405)",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 9
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/errors-routes.test.ts",
+   "name": "holdout: undecoded-path matching > [R-ROUTE-2][R-REDIR-9][R-ERR-6] lower-case %2f keeps one segment on /{code} and /api/links/{code}",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 4
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/graybox.test.ts",
+   "name": "holdout: seeded stats (gray-box) > [R-STATS-2][R-STATS-3][R-STATS-4][gray-box] days=14 and days=2 windows with boundary instants",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 86
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/graybox.test.ts",
+   "name": "holdout: seeded stats (gray-box) > [R-DATA-1][R-GET-1][R-STATS-5][gray-box] inserted rows show up at once with exact precision and window-only breakdowns",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 21
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/redirect-click-stats.test.ts",
+   "name": "holdout: redirect > [R-REDIR-1][R-REDIR-2] mixed-case alias with an IDN destination: Location exact, no-store",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 19
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/redirect-click-stats.test.ts",
+   "name": "holdout: redirect > [R-REDIR-4] two spaced redirects -> exactly two clicks, stable at 4 s",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 4012
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/redirect-click-stats.test.ts",
+   "name": "holdout: redirect > [R-REDIR-7] HEAD with a query string on a generated code: 302, same headers, no body, no click",
+   "state": "failed",
+   "note": null,
+   "annotations": [],
+   "errors": [
+    "expected [ 302, …(2) ] to deeply equal [ 302, …(2) ]"
+   ],
+   "durationMs": 2515
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/redirect-click-stats.test.ts",
+   "name": "holdout: redirect > [R-REDIR-8] odd query with a fragment-bearing stored URL -> Location exactly stored, one click",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 4005
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/redirect-click-stats.test.ts",
+   "name": "holdout: clicks > [R-CLICK-1] Referer upper-case www and path -> [\"Referer\",\"http://WWW.GitHub.com/x/y\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 21
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/redirect-click-stats.test.ts",
+   "name": "holdout: clicks > [R-CLICK-1] Referer three www labels -> [\"Referer\",\"https://www.www.www.b.io/\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 17
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/redirect-click-stats.test.ts",
+   "name": "holdout: clicks > [R-CLICK-1] Referer upper-case bare WWW -> [\"Referer\",\"http://WWW/\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 19
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/redirect-click-stats.test.ts",
+   "name": "holdout: clicks > [R-CLICK-1] Referer mailto -> [\"Referer\",\"mailto:a@b.c\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 18
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/redirect-click-stats.test.ts",
+   "name": "holdout: clicks > [R-CLICK-1] Referer IDN with sharp s (UTF-8) -> [\"Referer\",\"https://straÃe.example/\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 23
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/redirect-click-stats.test.ts",
+   "name": "holdout: clicks > [R-CLICK-1] Referer host \"Direct\" (case-folded) -> [\"Referer\",\"https://Direct/\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 20
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/redirect-click-stats.test.ts",
+   "name": "holdout: clicks > [R-CLICK-1] Referer decimal IPv4 -> [\"Referer\",\"http://3232235521/\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 21
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/redirect-click-stats.test.ts",
+   "name": "holdout: clicks > [R-CLICK-1] Referer truncated UTF-8 -> [\"Referer\",\"https://aÃ.example/\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 21
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/redirect-click-stats.test.ts",
+   "name": "holdout: clicks > [R-CLICK-1] Referer three Referer headers -> [\"Referer\",\"https://a.example/\",\"Referer\",\"https://a.example/\",\"Referer\",\"https://a.example/\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 22
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/redirect-click-stats.test.ts",
+   "name": "holdout: clicks > [R-CLICK-2] country fr -> [\"cf-ipcountry\",\"fr\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 22
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/redirect-click-stats.test.ts",
+   "name": "holdout: clicks > [R-CLICK-2] country leading tab jp -> [\"cf-ipcountry\",\"\\tjp\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 22
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/redirect-click-stats.test.ts",
+   "name": "holdout: clicks > [R-CLICK-2] country Zz -> [\"cf-ipcountry\",\"Zz\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 21
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/redirect-click-stats.test.ts",
+   "name": "holdout: clicks > [R-CLICK-2] country ZZZ -> [\"cf-ipcountry\",\"ZZZ\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 10
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/redirect-click-stats.test.ts",
+   "name": "holdout: clicks > [R-CLICK-2] country two different values -> [\"cf-ipcountry\",\"us\",\"cf-ipcountry\",\"gb\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 13
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/redirect-click-stats.test.ts",
+   "name": "holdout: clicks > [R-CLICK-2] country header name in mixed case -> [\"cF-IpCoUnTrY\",\"nz\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 11
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/redirect-click-stats.test.ts",
+   "name": "holdout: clicks > [R-CLICK-3] User-Agent YandexBot -> \"Mozilla/5.0 (compatible; YandexBot/3.0)\"",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 9
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/redirect-click-stats.test.ts",
+   "name": "holdout: clicks > [R-CLICK-3] User-Agent Baiduspider -> \"Baiduspider+(+http://www.baidu.com/search/spider.htm)\"",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 7
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/redirect-click-stats.test.ts",
+   "name": "holdout: clicks > [R-CLICK-3] User-Agent previewer -> \"SomePreviewer/2\"",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 7
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/redirect-click-stats.test.ts",
+   "name": "holdout: clicks > [R-CLICK-3] User-Agent crawler with iPhone -> \"CRAWLER-iPhone\"",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 8
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/redirect-click-stats.test.ts",
+   "name": "holdout: clicks > [R-CLICK-3] User-Agent Kindle Tablet -> \"Mozilla/5.0 (Linux; Kindle Tablet)\"",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 8
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/redirect-click-stats.test.ts",
+   "name": "holdout: clicks > [R-CLICK-3] User-Agent Android Mobile -> \"Mozilla/5.0 (Linux; Android 12; SM-G991B) Mobile\"",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 8
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/redirect-click-stats.test.ts",
+   "name": "holdout: clicks > [R-CLICK-3] User-Agent Linux Firefox -> \"Mozilla/5.0 (X11; Linux x86_64) Firefox/120.0\"",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 8
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/redirect-click-stats.test.ts",
+   "name": "holdout: clicks > [R-CLICK-3] User-Agent tabs only -> \"\\t \\t\"",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 8
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/redirect-click-stats.test.ts",
+   "name": "holdout: stats > [R-STATS-1][R-STATS-2] days=3 -> that many zero-filled entries ending today",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 5
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/redirect-click-stats.test.ts",
+   "name": "holdout: stats > [R-STATS-1][R-STATS-2] days=45 -> that many zero-filled entries ending today",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 4
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/redirect-click-stats.test.ts",
+   "name": "holdout: stats > [R-STATS-1][R-STATS-2] days=300 -> that many zero-filled entries ending today",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 10
+  },
+  {
+   "project": "holdout-api",
+   "file": "api/redirect-click-stats.test.ts",
+   "name": "holdout: stats > [R-STATS-4][R-STATS-5][R-STATS-6] seven referrers, ties by code point, devices complete",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 9
+  },
+  {
+   "project": "holdout-invariants",
+   "file": "invariants/invariants.test.ts",
+   "name": "[R-ALIAS-5] 20 concurrent creates of a mixed-case alias with http:// urls -> one 201, nineteen 409",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 34
+  },
+  {
+   "project": "holdout-invariants",
+   "file": "invariants/invariants.test.ts",
+   "name": "[R-REDIR-5] 500 redirects of a generated code with mobile UA and referrers, >= 100 in flight -> all 302, +500 exactly",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 4101
+  },
+  {
+   "project": "holdout-invariants",
+   "file": "invariants/invariants.test.ts",
+   "name": "[R-LINK-6][R-LINK-7] 1,000 sequential creates alternating alias null / \"\" / omitted -> 1,000 distinct codes",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 673
+  }
+ ],
+ "unhandledErrors": []
+}

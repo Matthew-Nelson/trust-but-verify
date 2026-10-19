@@ -1,0 +1,142 @@
+{
+ "generatedAt": "2026-10-19T04:00:37.602Z",
+ "versions": {
+  "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)",
+  "cargo-audit": "cargo-audit-audit 0.22.2",
+  "node": "v22.19.0",
+  "pnpm": "11.20.0"
+ },
+ "results": [
+  {
+   "name": "forbid(unsafe_code)",
+   "command": "grep main.rs",
+   "cwd": "impls/api",
+   "ok": true,
+   "exit": null,
+   "seconds": 0,
+   "tail": []
+  },
+  {
+   "name": "cargo fmt --check",
+   "command": "cargo fmt --check",
+   "cwd": "impls/api",
+   "ok": true,
+   "exit": 0,
+   "seconds": 0,
+   "tail": [
+    ""
+   ]
+  },
+  {
+   "name": "cargo clippy -D warnings",
+   "command": "cargo clippy --all-targets -- -D warnings",
+   "cwd": "impls/api",
+   "ok": true,
+   "exit": 0,
+   "seconds": 0,
+   "tail": [
+    "Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.34s"
+   ]
+  },
+  {
+   "name": "cargo test",
+   "command": "cargo test",
+   "cwd": "impls/api",
+   "ok": true,
+   "exit": 0,
+   "seconds": 2,
+   "tail": [
+    "test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.13s",
+    "",
+    "",
+    "running 0 tests",
+    "",
+    "test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+    "",
+    "    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.16s",
+    "     Running unittests src/lib.rs (target/debug/deps/shortlink_api-e66cd16c1d57b8f0)",
+    "     Running unittests src/main.rs (target/debug/deps/shortlink_api-12219eea95151804)",
+    "     Running tests/api.rs (target/debug/deps/api-50aea73e5e58c6b4)",
+    "   Doc-tests shortlink_api"
+   ]
+  },
+  {
+   "name": "cargo audit",
+   "command": "cargo audit",
+   "cwd": "impls/api",
+   "ok": true,
+   "exit": 0,
+   "seconds": 1,
+   "tail": [
+    "Fetching advisory database from `https://github.com/RustSec/advisory-db.git`",
+    "      Loaded 1338 security advisories (from /Users/matthewnelson/.cargo/advisory-db)",
+    "    Updating crates.io index",
+    "    Scanning Cargo.lock for vulnerabilities (213 crate dependencies)"
+   ]
+  },
+  {
+   "name": "web: pnpm install",
+   "command": "pnpm install --frozen-lockfile",
+   "cwd": "impls/web",
+   "ok": true,
+   "exit": 0,
+   "seconds": 0,
+   "tail": [
+    "✓ Lockfile passes supply-chain policies (verified 2h ago)",
+    "Lockfile is up to date, resolution step is skipped",
+    "Already up to date",
+    "",
+    "Done in 433ms using pnpm v11.20.0"
+   ]
+  },
+  {
+   "name": "web: pnpm lint",
+   "command": "pnpm lint",
+   "cwd": "impls/web",
+   "ok": true,
+   "exit": 0,
+   "seconds": 3,
+   "tail": [
+    "✓ Lockfile passes supply-chain policies (verified 2h ago)",
+    "Lockfile is up to date, resolution step is skipped",
+    "Already up to date",
+    "",
+    "Done in 398ms using pnpm v11.20.0",
+    "$ eslint"
+   ]
+  },
+  {
+   "name": "web: pnpm build",
+   "command": "pnpm build",
+   "cwd": "impls/web",
+   "ok": true,
+   "exit": 0,
+   "seconds": 12,
+   "tail": [
+    "  Finalizing page optimization ...",
+    "",
+    "Route (app)",
+    "┌ ƒ /",
+    "├ ○ /_not-found",
+    "└ ƒ /links/[code]",
+    "",
+    "",
+    "○  (Static)   prerendered as static content",
+    "ƒ  (Dynamic)  server-rendered on demand",
+    "",
+    "$ next build"
+   ]
+  },
+  {
+   "name": "web: pnpm typecheck (after build)",
+   "command": "pnpm typecheck",
+   "cwd": "impls/web",
+   "ok": true,
+   "exit": 0,
+   "seconds": 1,
+   "tail": [
+    "$ tsc --noEmit"
+   ]
+  }
+ ]
+}

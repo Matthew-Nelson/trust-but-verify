@@ -1,0 +1,3732 @@
+{
+ "tests": [
+  {
+   "project": "",
+   "file": "tests/api/alias.test.ts",
+   "name": "alias validation > [R-ALIAS-1] a 3-character alias is accepted (lower bound)",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 135
+  },
+  {
+   "project": "",
+   "file": "tests/api/alias.test.ts",
+   "name": "alias validation > [R-ALIAS-1] a 2-character alias -> 422 invalid_alias",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 6
+  },
+  {
+   "project": "",
+   "file": "tests/api/alias.test.ts",
+   "name": "alias validation > [R-ALIAS-1] a 32-character alias is accepted; 33 characters -> 422 invalid_alias",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 10
+  },
+  {
+   "project": "",
+   "file": "tests/api/alias.test.ts",
+   "name": "alias validation > [R-ALIAS-1] every allowed character class is accepted: letters, digits, \"_\" and \"-\", in any position",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 26
+  },
+  {
+   "project": "",
+   "file": "tests/api/alias.test.ts",
+   "name": "alias validation > [R-ALIAS-1] alias with exclamation mark -> 422 invalid_alias",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/alias.test.ts",
+   "name": "alias validation > [R-ALIAS-1] alias with dot -> 422 invalid_alias",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/alias.test.ts",
+   "name": "alias validation > [R-ALIAS-1] alias with inner space -> 422 invalid_alias",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/alias.test.ts",
+   "name": "alias validation > [R-ALIAS-1] alias with slash -> 422 invalid_alias",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2
+  },
+  {
+   "project": "",
+   "file": "tests/api/alias.test.ts",
+   "name": "alias validation > [R-ALIAS-1] alias with percent-escape -> 422 invalid_alias",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 16
+  },
+  {
+   "project": "",
+   "file": "tests/api/alias.test.ts",
+   "name": "alias validation > [R-ALIAS-1] alias with plus -> 422 invalid_alias",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 3
+  },
+  {
+   "project": "",
+   "file": "tests/api/alias.test.ts",
+   "name": "alias validation > [R-ALIAS-1] alias with tilde -> 422 invalid_alias",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 4
+  },
+  {
+   "project": "",
+   "file": "tests/api/alias.test.ts",
+   "name": "alias validation > [R-ALIAS-1] alias with colon -> 422 invalid_alias",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 6
+  },
+  {
+   "project": "",
+   "file": "tests/api/alias.test.ts",
+   "name": "alias validation > [R-ALIAS-1] alias with non-ASCII letter -> 422 invalid_alias",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 3
+  },
+  {
+   "project": "",
+   "file": "tests/api/alias.test.ts",
+   "name": "alias validation > [R-ALIAS-1] alias with Arabic-Indic digit -> 422 invalid_alias",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2
+  },
+  {
+   "project": "",
+   "file": "tests/api/alias.test.ts",
+   "name": "alias validation > [R-ALIAS-1] alias with full-width letters -> 422 invalid_alias",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/alias.test.ts",
+   "name": "alias validation > [R-ALIAS-1] alias with emoji -> 422 invalid_alias",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/alias.test.ts",
+   "name": "alias validation > [R-ALIAS-1] alias with trailing newline (\\z semantics) -> 422 invalid_alias",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/alias.test.ts",
+   "name": "alias validation > [R-ALIAS-1] alias with leading newline -> 422 invalid_alias",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 6
+  },
+  {
+   "project": "",
+   "file": "tests/api/alias.test.ts",
+   "name": "alias validation > [R-ALIAS-1] alias with NUL byte -> 422 invalid_alias",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 4
+  },
+  {
+   "project": "",
+   "file": "tests/api/alias.test.ts",
+   "name": "alias validation > [R-ALIAS-1][R-ALIAS-2] favicon.ico -> 422 invalid_alias (pattern checked before the reserved list)",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 3
+  },
+  {
+   "project": "",
+   "file": "tests/api/alias.test.ts",
+   "name": "alias validation > [R-ALIAS-1][R-ALIAS-2] robots.txt -> 422 invalid_alias (pattern checked before the reserved list)",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 4
+  },
+  {
+   "project": "",
+   "file": "tests/api/alias.test.ts",
+   "name": "alias validation > [R-ALIAS-1][R-ALIAS-2] openapi.json -> 422 invalid_alias (pattern checked before the reserved list)",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2
+  },
+  {
+   "project": "",
+   "file": "tests/api/alias.test.ts",
+   "name": "alias validation > [R-ALIAS-2] reserved alias \"api\" -> 422 alias_reserved",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/alias.test.ts",
+   "name": "alias validation > [R-ALIAS-2] reserved alias \"healthz\" -> 422 alias_reserved",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2
+  },
+  {
+   "project": "",
+   "file": "tests/api/alias.test.ts",
+   "name": "alias validation > [R-ALIAS-2] reserved alias \"docs\" -> 422 alias_reserved",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/alias.test.ts",
+   "name": "alias validation > [R-ALIAS-2] reserved alias \"admin\" -> 422 alias_reserved",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/alias.test.ts",
+   "name": "alias validation > [R-ALIAS-2] reserved alias \"static\" -> 422 alias_reserved",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/alias.test.ts",
+   "name": "alias validation > [R-ALIAS-2] reserved alias \"assets\" -> 422 alias_reserved",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/alias.test.ts",
+   "name": "alias validation > [R-ALIAS-2] reserved alias \"login\" -> 422 alias_reserved",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/alias.test.ts",
+   "name": "alias validation > [R-ALIAS-2] reserved alias \"logout\" -> 422 alias_reserved",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/alias.test.ts",
+   "name": "alias validation > [R-ALIAS-2] reserved aliases compare case-insensitively: \"API\" -> 422 alias_reserved",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/alias.test.ts",
+   "name": "alias validation > [R-ALIAS-2] reserved aliases compare case-insensitively: \"Healthz\" -> 422 alias_reserved",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/alias.test.ts",
+   "name": "alias validation > [R-ALIAS-2] reserved aliases compare case-insensitively: \"DOCS\" -> 422 alias_reserved",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/alias.test.ts",
+   "name": "alias validation > [R-ALIAS-2] reserved aliases compare case-insensitively: \"aDmIn\" -> 422 alias_reserved",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/alias.test.ts",
+   "name": "alias validation > [R-ALIAS-2] reserved aliases compare case-insensitively: \"Static\" -> 422 alias_reserved",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/alias.test.ts",
+   "name": "alias validation > [R-ALIAS-2] reserved aliases compare case-insensitively: \"ASSETS\" -> 422 alias_reserved",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/alias.test.ts",
+   "name": "alias validation > [R-ALIAS-2] reserved aliases compare case-insensitively: \"LogIn\" -> 422 alias_reserved",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/alias.test.ts",
+   "name": "alias validation > [R-ALIAS-2] reserved aliases compare case-insensitively: \"logOUT\" -> 422 alias_reserved",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2
+  },
+  {
+   "project": "",
+   "file": "tests/api/alias.test.ts",
+   "name": "alias validation > [R-ALIAS-2] only exact (case-insensitive) matches are reserved: prefixes and suffixes are fine",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 11
+  },
+  {
+   "project": "",
+   "file": "tests/api/alias.test.ts",
+   "name": "alias validation > [R-ALIAS-3] an alias already in use -> 409 alias_taken, and the existing link is unchanged",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 7
+  },
+  {
+   "project": "",
+   "file": "tests/api/alias.test.ts",
+   "name": "alias validation > [R-ALIAS-3] an alias equal to an existing generated code -> 409 alias_taken",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 4
+  },
+  {
+   "project": "",
+   "file": "tests/api/alias.test.ts",
+   "name": "alias validation > [R-ALIAS-4] codes are case-sensitive: Launch-x and launch-x are different links",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 7
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-1 referrer > [R-CLICK-1] Referer absent -> []",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 163
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-1 referrer > [R-CLICK-1] Referer https://WWW.Example.com:8443/x (normative) -> [\"Referer\",\"https://WWW.Example.com:8443/x\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 249
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-1 referrer > [R-CLICK-1] Referer https://www.www.a.io/ (normative) -> [\"Referer\",\"https://www.www.a.io/\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 241
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-1 referrer > [R-CLICK-1] Referer example.com/page (normative) -> [\"Referer\",\"example.com/page\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 235
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-1 referrer > [R-CLICK-1] Referer android-app://com.slack/ (normative) -> [\"Referer\",\"android-app://com.slack/\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 259
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-1 referrer > [R-CLICK-1] Referer www. with nothing after it is kept -> [\"Referer\",\"http://www./\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 226
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-1 referrer > [R-CLICK-1] Referer bare www host -> [\"Referer\",\"https://www/\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 218
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-1 referrer > [R-CLICK-1] Referer www without a dot is not stripped -> [\"Referer\",\"https://wwwexample.com/\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 248
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-1 referrer > [R-CLICK-1] Referer host literally \"direct\" -> [\"Referer\",\"https://direct/\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 259
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-1 referrer > [R-CLICK-1] Referer www.direct strips to \"direct\" -> [\"Referer\",\"https://www.direct/x\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 204
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-1 referrer > [R-CLICK-1] Referer UTF-8 IDN host is punycoded -> [\"Referer\",\"https://bÃ¼cher.example/p\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 223
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-1 referrer > [R-CLICK-1] Referer invalid UTF-8 bytes -> [\"Referer\",\"https://exÿample.com/\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 232
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-1 referrer > [R-CLICK-1] Referer header sent twice -> [\"Referer\",\"https://one.example/\",\"Referer\",\"https://two.example/\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 62
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-1 referrer > [R-CLICK-1] Referer ftp scheme -> [\"Referer\",\"ftp://example.com/\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 45
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-1 referrer > [R-CLICK-1] Referer file scheme (empty host) -> [\"Referer\",\"file:///etc/passwd\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 48
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-1 referrer > [R-CLICK-1] Referer unparseable http:// -> [\"Referer\",\"http://\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 56
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-1 referrer > [R-CLICK-1] Referer empty value -> [\"Referer\",\"\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 148
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-1 referrer > [R-CLICK-1] Referer scheme-relative -> [\"Referer\",\"//example.com/x\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 50
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-1 referrer > [R-CLICK-1] Referer trailing-dot host is kept as parsed -> [\"Referer\",\"https://EXAMPLE.org./\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 38
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-1 referrer > [R-CLICK-1] Referer IPv6 host -> [\"Referer\",\"https://[::1]:3000/\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 36
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-1 referrer > [R-CLICK-1] Referer hex IPv4 host is canonicalized -> [\"Referer\",\"http://0xc0.0xa8.1/\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 31
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-1 referrer > [R-CLICK-1] Referer userinfo and www -> [\"Referer\",\"https://user:pw@www.site.com/\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 31
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-1 referrer > [R-CLICK-1] Referer upper-case scheme and www -> [\"Referer\",\"HTTPS://WWW.X.io\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 31
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-1 referrer > [R-CLICK-1] Referer URL inside the query is ignored -> [\"Referer\",\"https://www.example.com/p?u=https://other.com/\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 35
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-2 country > [R-CLICK-2] country header lower-case us -> [\"cf-ipcountry\",\"us\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 30
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-2 country > [R-CLICK-2] country header mixed-case Us -> [\"cf-ipcountry\",\"Us\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 37
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-2 country > [R-CLICK-2] country header surrounding spaces and tabs -> [\"cf-ipcountry\",\" \\tgb \\t\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 32
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-2 country > [R-CLICK-2] country header not ISO-checked: xx -> [\"cf-ipcountry\",\"xx\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 33
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-2 country > [R-CLICK-2] country header header name matched case-insensitively -> [\"CF-IPCOUNTRY\",\"de\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 33
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-2 country > [R-CLICK-2] country header absent -> []",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 39
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-2 country > [R-CLICK-2] country header three letters -> [\"cf-ipcountry\",\"USA\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 37
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-2 country > [R-CLICK-2] country header one letter -> [\"cf-ipcountry\",\"U\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 40
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-2 country > [R-CLICK-2] country header empty -> [\"cf-ipcountry\",\"\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 41
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-2 country > [R-CLICK-2] country header digit -> [\"cf-ipcountry\",\"1A\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 41
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-2 country > [R-CLICK-2] country header inner space -> [\"cf-ipcountry\",\"U S\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 40
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-2 country > [R-CLICK-2] country header non-ASCII letter (UTF-8) -> [\"cf-ipcountry\",\"ÃS\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 45
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-2 country > [R-CLICK-2] country header header sent twice (same value) -> [\"cf-ipcountry\",\"us\",\"cf-ipcountry\",\"us\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 15
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-2 country > [R-CLICK-2] country header punctuation -> [\"cf-ipcountry\",\"u-\"]",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 28
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-3 device > [R-CLICK-3] User-Agent absent -> null",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 27
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-3 device > [R-CLICK-3] User-Agent empty -> \"\"",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 25
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-3 device > [R-CLICK-3] User-Agent whitespace only -> \"   \"",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 24
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-3 device > [R-CLICK-3] User-Agent Googlebot -> \"Googlebot/2.1 (+http://www.google.com/bot.html)\"",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 26
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-3 device > [R-CLICK-3] User-Agent bingbot -> \"Mozilla/5.0 (compatible; bingbot/2.0)\"",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 26
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-3 device > [R-CLICK-3] User-Agent crawl -> \"SomeCrawler/1.0\"",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 22
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-3 device > [R-CLICK-3] User-Agent spider -> \"Spider-X\"",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 23
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-3 device > [R-CLICK-3] User-Agent preview (upper-case) -> \"WhatsApp Link PREVIEW\"",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 25
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-3 device > [R-CLICK-3] User-Agent facebookexternalhit -> \"facebookexternalhit/1.1\"",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 25
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-3 device > [R-CLICK-3] User-Agent ROBOT contains bot -> \"ROBOT\"",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 26
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-3 device > [R-CLICK-3] User-Agent bot wins over ipad -> \"Mozilla/5.0 (iPad) Googlebot\"",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 21
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-3 device > [R-CLICK-3] User-Agent iPad -> \"Mozilla/5.0 (iPad; CPU OS 17_0 like Mac OS X) Mobile/15E148\"",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 25
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-3 device > [R-CLICK-3] User-Agent tablet wins over android -> \"Mozilla/5.0 (Linux; Android 14; SM-X710) Tablet\"",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 17
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-3 device > [R-CLICK-3] User-Agent iPhone -> \"Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) Mobile/15E148\"",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 18
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-3 device > [R-CLICK-3] User-Agent Android phone -> \"Mozilla/5.0 (Linux; Android 14; Pixel 8)\"",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 22
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-3 device > [R-CLICK-3] User-Agent Opera Mobi -> \"Opera/9.80 (S60; SymbOS; Opera Mobi/499)\"",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 21
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-3 device > [R-CLICK-3] User-Agent ANDROID upper-case -> \"ANDROID\"",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 20
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-3 device > [R-CLICK-3] User-Agent Windows Chrome -> \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0\"",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 21
+  },
+  {
+   "project": "",
+   "file": "tests/api/click.test.ts",
+   "name": "R-CLICK-3 device > [R-CLICK-3] User-Agent curl -> \"curl/8.4.0\"",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 17
+  },
+  {
+   "project": "",
+   "file": "tests/api/create.test.ts",
+   "name": "POST /api/links > [R-LINK-1] no alias -> 201 with a 7-char [A-Za-z0-9] code and isCustom false",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 25
+  },
+  {
+   "project": "",
+   "file": "tests/api/create.test.ts",
+   "name": "POST /api/links > [R-LINK-1] 25 generated codes all match ^[A-Za-z0-9]{7}$ and each resolves to its own url",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 73
+  },
+  {
+   "project": "",
+   "file": "tests/api/create.test.ts",
+   "name": "POST /api/links > [R-LINK-2] alias -> 201 with code equal to the alias exactly as sent and isCustom true",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/create.test.ts",
+   "name": "POST /api/links > [R-LINK-3] alias omitted is treated as no alias",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/create.test.ts",
+   "name": "POST /api/links > [R-LINK-3] alias null is treated as no alias",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 14
+  },
+  {
+   "project": "",
+   "file": "tests/api/create.test.ts",
+   "name": "POST /api/links > [R-LINK-3] alias empty string is treated as no alias",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 3
+  },
+  {
+   "project": "",
+   "file": "tests/api/create.test.ts",
+   "name": "POST /api/links > [R-LINK-3][R-ALIAS-1] alias with whitespace (three spaces) is never trimmed -> 422 invalid_alias",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 6
+  },
+  {
+   "project": "",
+   "file": "tests/api/create.test.ts",
+   "name": "POST /api/links > [R-LINK-3][R-ALIAS-1] alias with whitespace (leading space) is never trimmed -> 422 invalid_alias",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 3
+  },
+  {
+   "project": "",
+   "file": "tests/api/create.test.ts",
+   "name": "POST /api/links > [R-LINK-3][R-ALIAS-1] alias with whitespace (trailing space) is never trimmed -> 422 invalid_alias",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2
+  },
+  {
+   "project": "",
+   "file": "tests/api/create.test.ts",
+   "name": "POST /api/links > [R-LINK-3][R-ALIAS-1] alias with whitespace (trailing tab) is never trimmed -> 422 invalid_alias",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 3
+  },
+  {
+   "project": "",
+   "file": "tests/api/create.test.ts",
+   "name": "POST /api/links > [R-LINK-3][R-ALIAS-1] alias with whitespace (leading NBSP) is never trimmed -> 422 invalid_alias",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 4
+  },
+  {
+   "project": "",
+   "file": "tests/api/create.test.ts",
+   "name": "POST /api/links > [R-LINK-4] shortUrl is PUBLIC_BASE_URL + \"/\" + code, for generated and custom codes",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 18
+  },
+  {
+   "project": "",
+   "file": "tests/api/create.test.ts",
+   "name": "POST /api/links > [R-LINK-5] a new link has clickCount 0 and lastClickedAt null, on create and on GET",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2
+  },
+  {
+   "project": "",
+   "file": "tests/api/create.test.ts",
+   "name": "POST /api/links > [R-LINK-7] requests with no alias never return 409, even for the same url sent repeatedly",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 44
+  },
+  {
+   "project": "",
+   "file": "tests/api/create.test.ts",
+   "name": "POST /api/links > [R-LINK-8] unknown body fields are ignored (including ones named like Link fields)",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 6
+  },
+  {
+   "project": "",
+   "file": "tests/api/create.test.ts",
+   "name": "POST /api/links > [R-LINK-8] unknown fields next to an alias are ignored",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 8
+  },
+  {
+   "project": "",
+   "file": "tests/api/data.graybox.test.ts",
+   "name": "storage (gray-box) > [R-DATA-2][R-CLICK-1][R-CLICK-2][R-CLICK-3][gray-box] click columns use the stored encodings",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 227
+  },
+  {
+   "project": "",
+   "file": "tests/api/data.graybox.test.ts",
+   "name": "storage (gray-box) > [R-DATA-2][gray-box] no click row anywhere stores '' or 'direct' as referrer, or a non-upper-case country",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/data.graybox.test.ts",
+   "name": "storage (gray-box) > [R-DATA-3][gray-box] migrations create exactly the SPEC schema (columns, keys, constraints, index, no triggers)",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 19
+  },
+  {
+   "project": "",
+   "file": "tests/api/data.graybox.test.ts",
+   "name": "storage (gray-box) > [R-PRIV-1][gray-box] no column can hold a client address, and click rows do not contain this client's address",
+   "state": "passed",
+   "note": null,
+   "annotations": [
+    "R-PRIV-1: searched click rows for 127.0.0.1, ::ffff:127.0.0.1, ::ffff:7f00:1, 0:0:0:0:0:ffff:7f00:1, ::1, 0:0:0:0:0:0:0:1 (probe connection came from 127.0.0.1)"
+   ],
+   "errors": [],
+   "durationMs": 9
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-1 error envelope > [R-ERR-1] unknown /api/ path -> 404 JSON {\"error\":{\"code\":\"not_found\",\"message\"}}",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 20
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-1 error envelope > [R-ERR-1] /healthz and /api/links errors are JSON envelopes (405 and 400 examples)",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 7
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-2 body parsing and precedence > [R-ERR-2] malformed body (invalid JSON) -> 400 bad_request",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-2 body parsing and precedence > [R-ERR-2] malformed body (empty body) -> 400 bad_request",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-2 body parsing and precedence > [R-ERR-2] malformed body (trailing garbage) -> 400 bad_request",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 3
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-2 body parsing and precedence > [R-ERR-2] malformed body (trailing comma) -> 400 bad_request",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-2 body parsing and precedence > [R-ERR-2] malformed body (single quotes) -> 400 bad_request",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 4
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-2 body parsing and precedence > [R-ERR-2] malformed body (top-level array) -> 400 bad_request",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 8
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-2 body parsing and precedence > [R-ERR-2] malformed body (top-level string) -> 400 bad_request",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 3
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-2 body parsing and precedence > [R-ERR-2] malformed body (top-level number) -> 400 bad_request",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 3
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-2 body parsing and precedence > [R-ERR-2] malformed body (top-level null) -> 400 bad_request",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 3
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-2 body parsing and precedence > [R-ERR-2] malformed body (top-level true) -> 400 bad_request",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 3
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-2 body parsing and precedence > [R-ERR-2] malformed body (url absent) -> 400 bad_request",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 6
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-2 body parsing and precedence > [R-ERR-2] malformed body (url absent, alias present) -> 400 bad_request",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 22
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-2 body parsing and precedence > [R-ERR-2] malformed body (url null) -> 400 bad_request",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 21
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-2 body parsing and precedence > [R-ERR-2] malformed body (url number) -> 400 bad_request",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 15
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-2 body parsing and precedence > [R-ERR-2] malformed body (url boolean) -> 400 bad_request",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 32
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-2 body parsing and precedence > [R-ERR-2] malformed body (url array) -> 400 bad_request",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 25
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-2 body parsing and precedence > [R-ERR-2] malformed body (url object) -> 400 bad_request",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 17
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-2 body parsing and precedence > [R-ERR-2] malformed body (alias number) -> 400 bad_request",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 22
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-2 body parsing and precedence > [R-ERR-2] malformed body (alias boolean) -> 400 bad_request",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 15
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-2 body parsing and precedence > [R-ERR-2] malformed body (alias array) -> 400 bad_request",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 8
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-2 body parsing and precedence > [R-ERR-2] malformed body (alias object) -> 400 bad_request",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 7
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-2 body parsing and precedence > [R-ERR-2] malformed body (NaN literal) -> 400 bad_request",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 5
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-2 body parsing and precedence > [R-ERR-2] malformed body (unpaired high surrogate in url) -> 400 bad_request",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 6
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-2 body parsing and precedence > [R-ERR-2] malformed body (unpaired low surrogate in alias) -> 400 bad_request",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 6
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-2 body parsing and precedence > [R-ERR-2] malformed body (reversed surrogate pair) -> 400 bad_request",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-2 body parsing and precedence > [R-ERR-2] a body that is not valid UTF-8 -> 400 bad_request",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 4
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-2 body parsing and precedence > [R-ERR-2] a properly paired surrogate escape is valid and is percent-encoded",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 3
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-2 body parsing and precedence > [R-ERR-2] a 64 KiB body (65536 bytes) is accepted; 65537 bytes -> 400 bad_request",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 3
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-2 body parsing and precedence > [R-ERR-2] malformed beats content errors: url not a string with a reserved alias -> 400",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 4
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-2 body parsing and precedence > [R-ERR-2] R-URL beats R-ALIAS-1/2/3: bad url with bad, reserved or taken alias -> 422 invalid_url",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 16
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-2 body parsing and precedence > [R-ERR-2] R-ALIAS-1 beats R-ALIAS-2: a reserved word with an invalid character -> invalid_alias",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 5
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-2 body parsing and precedence > [R-ERR-2] content checks are never 400: empty url string, overlong url and odd aliases are 422",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 10
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-2 body parsing and precedence > [R-ERR-2] Content-Type is ignored (text/plain): the body is parsed as JSON",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-2 body parsing and precedence > [R-ERR-2] Content-Type is ignored (form-urlencoded): the body is parsed as JSON",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 5
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-2 body parsing and precedence > [R-ERR-2] Content-Type is ignored (absent): the body is parsed as JSON",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-2 body parsing and precedence > [R-ERR-2] Content-Type is ignored (nonsense): the body is parsed as JSON",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-2 body parsing and precedence > [R-ERR-2] Content-Type is ignored for malformed bodies too: application/json header with a form body -> 400",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-2 body parsing and precedence > [R-ERR-2] duplicate keys: the last value wins",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 9
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-2 body parsing and precedence > [R-ERR-2] insignificant JSON whitespace around and inside the body is fine",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-3 query integers > [R-ERR-3][R-LIST-1] limit must be a query integer in 1..100, never clamped -> otherwise 400",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 10
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-3 query integers > [R-ERR-3][R-LIST-1] offset must be a query integer >= 0 that fits in i64 -> otherwise 400",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 13
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-3 query integers > [R-ERR-3] a repeated parameter is not a query integer -> 400, even when the values are equal and valid",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 22
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-3 query integers > [R-ERR-3][R-LIST-2] GET /api/links?limit=1 -> 200 echoing limit 1 offset 0",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 4
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-3 query integers > [R-ERR-3][R-LIST-2] GET /api/links?limit=100 -> 200 echoing limit 100 offset 0",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 3
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-3 query integers > [R-ERR-3][R-LIST-2] GET /api/links?limit=%31%30 -> 200 echoing limit 10 offset 0",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 3
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-3 query integers > [R-ERR-3][R-LIST-2] GET /api/links?offset=%31 -> 200 echoing limit 20 offset 1",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 3
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-3 query integers > [R-ERR-3][R-LIST-2] GET /api/links?limit=3&offset=2 -> 200 echoing limit 3 offset 2",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-3 query integers > [R-ERR-3][R-LIST-2] GET /api/links?foo=bar&days=abc&limit=7 -> 200 echoing limit 7 offset 0",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-3 query integers > [R-ERR-3][R-LIST-2] offset = 2^63-1 is a valid query integer -> 200 with items []",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-3 query integers > [R-ERR-3][R-STATS-1] days must be a query integer in 1..365 -> otherwise 400",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 12
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-3 query integers > [R-ERR-3][R-ERR-5] query validation runs before code lookup: unknown code -> 400 with bad days, 404 with good days",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 7
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-3 query integers > [R-ERR-3] parameters are ignored where undefined: limit/offset/days on other endpoints",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 18
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-4 safe messages > [R-ERR-4] error messages never echo codes, aliases, URLs or header values",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 20
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-4 safe messages > [R-ERR-4] SQL-looking and path-looking inputs do not leak into messages",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 4
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-5 code lookup > [R-ERR-5] random unknown code -> 404 not_found on GET, DELETE and stats",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 7
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-5 code lookup > [R-ERR-5] single char -> 404 not_found on GET, DELETE and stats",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 9
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-5 code lookup > [R-ERR-5] 64 chars -> 404 not_found on GET, DELETE and stats",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 13
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-5 code lookup > [R-ERR-5] non-ASCII -> 404 not_found on GET, DELETE and stats",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 7
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-5 code lookup > [R-ERR-5] space -> 404 not_found on GET, DELETE and stats",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 7
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-5 code lookup > [R-ERR-5] punctuation -> 404 not_found on GET, DELETE and stats",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 3
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-5 code lookup > [R-ERR-5] encoded slash -> 404 not_found on GET, DELETE and stats",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 35
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-5 code lookup > [R-ERR-5][R-STATS-1] path segments are percent-decoded exactly once before lookup",
+   "state": "failed",
+   "note": null,
+   "annotations": [],
+   "errors": [
+    "{\"error\":{\"code\":\"not_found\",\"message\":\"No link with that code.\"}}: expected 404 to be 200 // Object.is equality"
+   ],
+   "durationMs": 14
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-6 check order and 405s > [R-ERR-6] unmatched path is 404 not_found regardless of method: POST /api/nope",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 11
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-6 check order and 405s > [R-ERR-6] unmatched path is 404 not_found regardless of method: DELETE /api/links/x/stats/extra",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-6 check order and 405s > [R-ERR-6] unmatched path is 404 not_found regardless of method: PUT /api/links/",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-6 check order and 405s > [R-ERR-6] unmatched path is 404 not_found regardless of method: PATCH /api/links/x/",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 3
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-6 check order and 405s > [R-ERR-6] unmatched path is 404 not_found regardless of method: POST /api/links/x/stats/",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 3
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-6 check order and 405s > [R-ERR-6] unmatched non-/api/ paths are 404 text/plain regardless of method",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 22
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-6 check order and 405s > [R-ERR-6][R-ERR-8] /api/links: unsupported methods -> 405 method_not_allowed with Allow = supported set",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 18
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-6 check order and 405s > [R-ERR-6][R-ERR-8] /api/links/{existing}: unsupported methods -> 405 method_not_allowed with Allow = supported set",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 18
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-6 check order and 405s > [R-ERR-6][R-ERR-8] /api/links/{unknown}: unsupported methods -> 405 method_not_allowed with Allow = supported set",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 12
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-6 check order and 405s > [R-ERR-6][R-ERR-8] /api/links/{existing}/stats: unsupported methods -> 405 method_not_allowed with Allow = supported set",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 8
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-6 check order and 405s > [R-ERR-6][R-ERR-8] /api/links/{unknown}/stats: unsupported methods -> 405 method_not_allowed with Allow = supported set",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 3
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-6 check order and 405s > [R-ERR-6][R-ERR-8] /healthz: unsupported methods -> 405 method_not_allowed with Allow = supported set",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 7
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-6 check order and 405s > [R-ERR-6] method is checked before query validation",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 4
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-6 check order and 405s > [R-ERR-6] the 405 does not depend on whether the code exists, and nothing is deleted or changed",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 4
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-8 HEAD and OPTIONS > [R-ERR-8] HEAD /healthz -> same status and Content-Type as GET, no body",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 8
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-8 HEAD and OPTIONS > [R-ERR-8] HEAD /api/links (default and with a bad limit) mirrors GET",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 18
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-8 HEAD and OPTIONS > [R-ERR-8] HEAD /api/links/{code} mirrors GET for known and unknown codes",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 26
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-8 HEAD and OPTIONS > [R-ERR-8] HEAD /api/links/{code}/stats mirrors GET (200, 400, 404)",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 31
+  },
+  {
+   "project": "",
+   "file": "tests/api/errors.test.ts",
+   "name": "R-ERR-8 HEAD and OPTIONS > [R-ERR-8][R-REDIR-9] OPTIONS is unsupported everywhere -> 405",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 8
+  },
+  {
+   "project": "",
+   "file": "tests/api/health.test.ts",
+   "name": "GET /healthz > [R-HEALTH-1][R-ERR-8] with the database reachable, GET (and HEAD) -> 200 application/json body exactly {\"status\":\"ok\"} within 3 s",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 25
+  },
+  {
+   "project": "",
+   "file": "tests/api/list.test.ts",
+   "name": "GET /api/links > [R-LIST-1] my three new links appear newest-first (sequential creates)",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 38
+  },
+  {
+   "project": "",
+   "file": "tests/api/list.test.ts",
+   "name": "GET /api/links > [R-LIST-2] total grows by at least the number of links created",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 26
+  },
+  {
+   "project": "",
+   "file": "tests/api/list.test.ts",
+   "name": "GET /api/links > [R-LIST-1][R-LIST-2] defaults: limit 20, offset 0, exactly 20 items when total > 20",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 40
+  },
+  {
+   "project": "",
+   "file": "tests/api/list.test.ts",
+   "name": "GET /api/links > [R-LIST-1] limit bounds the page size exactly (1, 5, 100)",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 9
+  },
+  {
+   "project": "",
+   "file": "tests/api/list.test.ts",
+   "name": "GET /api/links > [R-LIST-1][R-GET-1] list items carry the same field values as GET, including click data",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 9
+  },
+  {
+   "project": "",
+   "file": "tests/api/list.test.ts",
+   "name": "GET /api/links > [R-LIST-1][gray-box] ties on createdAt break by internal id descending; createdAt dominates id",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 56
+  },
+  {
+   "project": "",
+   "file": "tests/api/list.test.ts",
+   "name": "GET /api/links > [R-LIST-1] every link in a page is a complete Link and the page is sorted by createdAt descending",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 6
+  },
+  {
+   "project": "",
+   "file": "tests/api/read-delete.test.ts",
+   "name": "GET /api/links/{code} > [R-GET-1] returns the same Link the create returned (every field)",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 26
+  },
+  {
+   "project": "",
+   "file": "tests/api/read-delete.test.ts",
+   "name": "GET /api/links/{code} > [R-GET-1][R-REDIR-4] clickCount counts redirects and lastClickedAt is set, after createdAt, and advances",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 12
+  },
+  {
+   "project": "",
+   "file": "tests/api/read-delete.test.ts",
+   "name": "DELETE /api/links/{code} > [R-DEL-1] delete -> 204 with no body; afterwards GET, DELETE, stats and /{code} all 404",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 13
+  },
+  {
+   "project": "",
+   "file": "tests/api/read-delete.test.ts",
+   "name": "DELETE /api/links/{code} > [R-DEL-1][R-ALIAS-4] deleting a link leaves its case-variant sibling alone",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 5
+  },
+  {
+   "project": "",
+   "file": "tests/api/read-delete.test.ts",
+   "name": "DELETE /api/links/{code} > [R-DEL-2] after deletion the alias can be reused, and the new link starts with no clicks",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 6
+  },
+  {
+   "project": "",
+   "file": "tests/api/read-delete.test.ts",
+   "name": "DELETE /api/links/{code} > [R-DEL-2] a deleted generated code can be reused as a custom alias",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 3
+  },
+  {
+   "project": "",
+   "file": "tests/api/redirect.test.ts",
+   "name": "GET /{code} > [R-REDIR-1] a known code -> 302 with Location equal to the stored url (generated and custom codes)",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 191
+  },
+  {
+   "project": "",
+   "file": "tests/api/redirect.test.ts",
+   "name": "GET /{code} > [R-REDIR-2][R-REDIR-1] the redirect for a new link has Cache-Control with the no-store directive",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 18
+  },
+  {
+   "project": "",
+   "file": "tests/api/redirect.test.ts",
+   "name": "GET /{code} > [R-REDIR-4] one redirect records exactly one click, visible within 2.5 s and unchanged at 4 s",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 4026
+  },
+  {
+   "project": "",
+   "file": "tests/api/redirect.test.ts",
+   "name": "GET /{code} > [R-REDIR-4] five sequential redirects record exactly five clicks",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 4040
+  },
+  {
+   "project": "",
+   "file": "tests/api/redirect.test.ts",
+   "name": "GET /{code} > [R-REDIR-7] HEAD /{code} -> same status, Location and Cache-Control as GET, no body, and no click",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2778
+  },
+  {
+   "project": "",
+   "file": "tests/api/redirect.test.ts",
+   "name": "GET /{code} > [R-REDIR-7] HEAD on an unknown code -> 404 with the same Content-Type as GET, no body",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 28
+  },
+  {
+   "project": "",
+   "file": "tests/api/redirect.test.ts",
+   "name": "GET /{code} > [R-REDIR-8] the request query string is ignored: Location is the stored url, and one click is recorded",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 4032
+  },
+  {
+   "project": "",
+   "file": "tests/api/redirect.test.ts",
+   "name": "GET /{code} > [R-REDIR-8] an empty or odd query string still redirects to exactly the stored url",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 11
+  },
+  {
+   "project": "",
+   "file": "tests/api/redirect.test.ts",
+   "name": "R-REDIR-3 percent-decoding of /{code} (spec-v1.1) > [R-REDIR-3][R-REDIR-1][R-REDIR-4] GET on a percent-encoded known code (/pct%2Dx) -> 302 to its URL, and records exactly one click",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 4042
+  },
+  {
+   "project": "",
+   "file": "tests/api/redirect.test.ts",
+   "name": "R-REDIR-3 percent-decoding of /{code} (spec-v1.1) > [R-REDIR-3][R-REDIR-7] HEAD on a percent-encoded known code -> 302 with the same Location and Cache-Control as GET, no body, and no click",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2557
+  },
+  {
+   "project": "",
+   "file": "tests/api/redirect.test.ts",
+   "name": "R-REDIR-3 percent-decoding of /{code} (spec-v1.1) > [R-REDIR-3] a percent-encoded unknown code -> 404 text/plain; decoding happens only once",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 41
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "unknown codes on /{code} > [R-REDIR-3] unknown code -> 404 text/plain with a non-empty body and no Location",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 18
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "unknown codes on /{code} > [R-REDIR-3][R-ALIAS-4] single char -> 404 text/plain",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 43
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "unknown codes on /{code} > [R-REDIR-3][R-ALIAS-4] 64 chars -> 404 text/plain",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "unknown codes on /{code} > [R-REDIR-3][R-ALIAS-4] non-ASCII (encoded) -> 404 text/plain",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 10
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "unknown codes on /{code} > [R-REDIR-3][R-ALIAS-4] encoded space -> 404 text/plain",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 135
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "unknown codes on /{code} > [R-REDIR-3][R-ALIAS-4] case variant of an existing alias -> 404 text/plain",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 11
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "unknown codes on /{code} > [R-REDIR-3] /api and /api/ are handled as /{code} and /{code}/ -> 404 text/plain",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 29
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-REDIR-9 methods on /{code} > [R-REDIR-9] POST /{code} -> 405 text/plain with Allow {GET, HEAD}, for known and unknown codes",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 13
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-REDIR-9 methods on /{code} > [R-REDIR-9] PUT /{code} -> 405 text/plain with Allow {GET, HEAD}, for known and unknown codes",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 8
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-REDIR-9 methods on /{code} > [R-REDIR-9] PATCH /{code} -> 405 text/plain with Allow {GET, HEAD}, for known and unknown codes",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 5
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-REDIR-9 methods on /{code} > [R-REDIR-9] DELETE /{code} -> 405 text/plain with Allow {GET, HEAD}, for known and unknown codes",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 4
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-REDIR-9 methods on /{code} > [R-REDIR-9] OPTIONS /{code} -> 405 text/plain with Allow {GET, HEAD}, for known and unknown codes",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-REDIR-9 methods on /{code} > [R-REDIR-9] DELETE /{code} -> 405 and the link still exists",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 11
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-1 trailing slashes > [R-ROUTE-1] /{code}/ for an existing code -> 404 text/plain (not a redirect)",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 6
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-1 trailing slashes > [R-ROUTE-1] /api/links/ and /api/links/{code}/ and /stats/ -> 404 not_found",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 18
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-1 trailing slashes > [R-ROUTE-1] /healthz/ is a different path -> 404 text/plain",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 3
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-2 no path normalization > [R-ROUTE-2] /api/links/../links -> 404 not_found, never a redirect",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 3
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-2 no path normalization > [R-ROUTE-2] /api/./links -> 404 not_found, never a redirect",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 3
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-2 no path normalization > [R-ROUTE-2] /api//links -> 404 not_found, never a redirect",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-2 no path normalization > [R-ROUTE-2] /api/links//{code} -> 404 not_found, never a redirect",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-2 no path normalization > [R-ROUTE-2] /api/links/./{code} -> 404 not_found, never a redirect",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 3
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-2 no path normalization > [R-ROUTE-2] /api/links/{code}/../{code} -> 404 not_found, never a redirect",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-2 no path normalization > [R-ROUTE-2] /api/links/%zz -> 404 not_found, never a redirect",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-2 no path normalization > [R-ROUTE-2] /api/links/%E -> 404 not_found, never a redirect",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-2 no path normalization > [R-ROUTE-2] /api/links/{code}/stats/.. -> 404 not_found, never a redirect",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-2 no path normalization > [R-ROUTE-2] /./{code} -> 404 text/plain, never a redirect",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-2 no path normalization > [R-ROUTE-2] //{code} -> 404 text/plain, never a redirect",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-2 no path normalization > [R-ROUTE-2] /{code}/.. -> 404 text/plain, never a redirect",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-2 no path normalization > [R-ROUTE-2] /{code}/. -> 404 text/plain, never a redirect",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-2 no path normalization > [R-ROUTE-2] /x/../{code} -> 404 text/plain, never a redirect",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-2 no path normalization > [R-ROUTE-2] /%zz -> 404 text/plain, never a redirect",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-2 no path normalization > [R-ROUTE-2] /abc% -> 404 text/plain, never a redirect",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-2 no path normalization > [R-ROUTE-2] /healthz/../healthz -> 404 text/plain, never a redirect",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-3 nothing at / or reserved paths > [R-ROUTE-3] GET / -> 404 text/plain",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-3 nothing at / or reserved paths > [R-ROUTE-3] GET /docs -> 404 text/plain",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-3 nothing at / or reserved paths > [R-ROUTE-3] GET /admin -> 404 text/plain",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-3 nothing at / or reserved paths > [R-ROUTE-3] GET /static -> 404 text/plain",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-3 nothing at / or reserved paths > [R-ROUTE-3] GET /assets -> 404 text/plain",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-3 nothing at / or reserved paths > [R-ROUTE-3] GET /login -> 404 text/plain",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-3 nothing at / or reserved paths > [R-ROUTE-3] GET /logout -> 404 text/plain",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-3 nothing at / or reserved paths > [R-ROUTE-3] GET /ADMIN -> 404 text/plain",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-3 nothing at / or reserved paths > [R-ROUTE-3] GET /Docs -> 404 text/plain",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-3 nothing at / or reserved paths > [R-ROUTE-3] GET /favicon.ico -> 404 text/plain",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-3 nothing at / or reserved paths > [R-ROUTE-3] GET /robots.txt -> 404 text/plain",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-3 nothing at / or reserved paths > [R-ROUTE-3] GET /openapi.json -> 404 text/plain",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-3 nothing at / or reserved paths > [R-ROUTE-3] GET /static/app.js -> 404 text/plain",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-3 nothing at / or reserved paths > [R-ROUTE-3] GET /docs/ -> 404 text/plain",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-3 nothing at / or reserved paths > [R-ROUTE-3][R-REDIR-7] HEAD / -> 404 text/plain",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-2 encoded dot segments (spec-v1.1) > [R-ROUTE-2] GET /api/links/%2e -> 404 not_found (never 200/302/405)",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-2 encoded dot segments (spec-v1.1) > [R-ROUTE-2] GET /api/links/%2E%2E -> 404 not_found (never 200/302/405)",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-2 encoded dot segments (spec-v1.1) > [R-ROUTE-2] GET /api/links/.%2E -> 404 not_found (never 200/302/405)",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-2 encoded dot segments (spec-v1.1) > [R-ROUTE-2] GET /api/links/%2e. -> 404 not_found (never 200/302/405)",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-2 encoded dot segments (spec-v1.1) > [R-ROUTE-2] GET /api/%2e/links -> 404 not_found (never 200/302/405)",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-2 encoded dot segments (spec-v1.1) > [R-ROUTE-2] GET /api/%2E%2E/healthz -> 404 not_found (never 200/302/405)",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-2 encoded dot segments (spec-v1.1) > [R-ROUTE-2] GET /api/links/%2e%2e/links -> 404 not_found (never 200/302/405)",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-2 encoded dot segments (spec-v1.1) > [R-ROUTE-2] GET /api/links/{code}/%2e -> 404 not_found (never 200/302/405)",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-2 encoded dot segments (spec-v1.1) > [R-ROUTE-2] GET /api/links/{code}/%2e%2e/{code} -> 404 not_found (never 200/302/405)",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-2 encoded dot segments (spec-v1.1) > [R-ROUTE-2] GET /api/links/{code}/stats/.%2e -> 404 not_found (never 200/302/405)",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-2 encoded dot segments (spec-v1.1) > [R-ROUTE-2] GET /api/links/%2e%2e/%2e%2e/healthz -> 404 not_found (never 200/302/405)",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-2 encoded dot segments (spec-v1.1) > [R-ROUTE-2] GET /%2e -> 404 text/plain (never 200/302/405)",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-2 encoded dot segments (spec-v1.1) > [R-ROUTE-2] GET /%2E%2E -> 404 text/plain (never 200/302/405)",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-2 encoded dot segments (spec-v1.1) > [R-ROUTE-2] GET /.%2e -> 404 text/plain (never 200/302/405)",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-2 encoded dot segments (spec-v1.1) > [R-ROUTE-2] GET /%2e/{code} -> 404 text/plain (never 200/302/405)",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-2 encoded dot segments (spec-v1.1) > [R-ROUTE-2] GET /x/%2E%2E/{code} -> 404 text/plain (never 200/302/405)",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-2 encoded dot segments (spec-v1.1) > [R-ROUTE-2] GET /{code}/%2e -> 404 text/plain (never 200/302/405)",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-2 encoded dot segments (spec-v1.1) > [R-ROUTE-2] GET /y/.%2E/{code} -> 404 text/plain (never 200/302/405)",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-2 encoded dot segments (spec-v1.1) > [R-ROUTE-2] GET /%2e%2e/{code} -> 404 text/plain (never 200/302/405)",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-2 encoded dot segments (spec-v1.1) > [R-ROUTE-2][R-ERR-6] encoded dot-segment paths are unmatched for every method: PUT /api/links/%2e%2e -> 404 not_found",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 11
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-2 encoded dot segments (spec-v1.1) > [R-ROUTE-2] decode-then-normalize would land on a real link, but the path is still unmatched: 404 and nothing deleted",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 7
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-2 matching on the undecoded path (spec-v1.2) > [R-ROUTE-2][R-REDIR-9][R-REDIR-3] /a%2Fb is a /{code} path: GET/HEAD 404 text/plain, PUT/DELETE 405 with Allow {GET, HEAD}",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 5
+  },
+  {
+   "project": "",
+   "file": "tests/api/routes.test.ts",
+   "name": "R-ROUTE-2 matching on the undecoded path (spec-v1.2) > [R-ROUTE-2][R-ERR-6][R-ERR-5] %2F inside /api/links/{code} does not split the segment: matched routes give 405/404, not an unmatched 404 for every method",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 6
+  },
+  {
+   "project": "",
+   "file": "tests/api/spawned.graybox.test.ts",
+   "name": "spawned api instance (gray-box) > [R-HEALTH-1][gray-box] database accepts TCP but never responds -> 503 unavailable within 3 s",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 4172
+  },
+  {
+   "project": "",
+   "file": "tests/api/spawned.graybox.test.ts",
+   "name": "spawned api instance (gray-box) > [R-HEALTH-2][gray-box] with the database unreachable at startup the api opens its port within 10 s, serves /healthz and keeps running",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 7143
+  },
+  {
+   "project": "",
+   "file": "tests/api/spawned.graybox.test.ts",
+   "name": "spawned api instance (gray-box) > [R-HEALTH-2][gray-box] once the database becomes reachable the api recovers (/healthz 200 and a create succeed)",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 223
+  },
+  {
+   "project": "",
+   "file": "tests/api/spawned.graybox.test.ts",
+   "name": "spawned api instance (gray-box) > [R-HEALTH-3][R-HEALTH-1][gray-box] the health check queries the database on every request (no cached result)",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2127
+  },
+  {
+   "project": "",
+   "file": "tests/api/spawned.graybox.test.ts",
+   "name": "spawned api instance (gray-box) > [R-PRIV-1][gray-box] api stdout/stderr after the first request never contain the client address",
+   "state": "passed",
+   "note": null,
+   "annotations": [
+    "R-PRIV-1: client connected from 127.0.0.1 with Host: localhost:62538; excluded (equal to the DATABASE_URL host): none",
+    "R-PRIV-1: searched 6 log lines for 127.0.0.1, ::ffff:127.0.0.1, ::ffff:7f00:1, 0:0:0:0:0:ffff:7f00:1"
+   ],
+   "errors": [],
+   "durationMs": 2733
+  },
+  {
+   "project": "",
+   "file": "tests/api/stats.graybox.test.ts",
+   "name": "stats with seeded clicks (gray-box) > [R-STATS-2][R-STATS-3][gray-box] window is [first day 00:00Z, day after today 00:00Z); daily is exact and oldest first",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 129
+  },
+  {
+   "project": "",
+   "file": "tests/api/stats.graybox.test.ts",
+   "name": "stats with seeded clicks (gray-box) > [R-STATS-2][gray-box] the last daily entry is the database's today, and the default window has 30 entries",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 24
+  },
+  {
+   "project": "",
+   "file": "tests/api/stats.graybox.test.ts",
+   "name": "stats with seeded clicks (gray-box) > [R-STATS-3][R-STATS-5][R-STATS-6][gray-box] breakdowns count only clicks in the window",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 15
+  },
+  {
+   "project": "",
+   "file": "tests/api/stats.graybox.test.ts",
+   "name": "stats with seeded clicks (gray-box) > [R-STATS-5][gray-box] top-5 cut-off with ties resolved by code-point name order",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 14
+  },
+  {
+   "project": "",
+   "file": "tests/api/stats.graybox.test.ts",
+   "name": "stats with seeded clicks (gray-box) > [R-DATA-1][R-STATS-4][gray-box] a row inserted into clicks appears in every click-derived field on the next request",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 17
+  },
+  {
+   "project": "",
+   "file": "tests/api/stats.graybox.test.ts",
+   "name": "stats with seeded clicks (gray-box) > [R-GET-1][gray-box] clickCount is the row count and lastClickedAt is max(clicked_at) at full microsecond precision",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 7
+  },
+  {
+   "project": "",
+   "file": "tests/api/stats.graybox.test.ts",
+   "name": "stats with seeded clicks (gray-box) > [R-DATA-2][gray-box] the api reports stored values unchanged, mapping NULL to direct/unknown",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 10
+  },
+  {
+   "project": "",
+   "file": "tests/api/stats.test.ts",
+   "name": "GET /api/links/{code}/stats > [R-STATS-1][R-STATS-2] default days is 30: days 30 and exactly 30 daily entries, code echoed",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 68
+  },
+  {
+   "project": "",
+   "file": "tests/api/stats.test.ts",
+   "name": "GET /api/links/{code}/stats > [R-STATS-1][R-STATS-2] days=1 -> days echoed and exactly that many entries",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 130
+  },
+  {
+   "project": "",
+   "file": "tests/api/stats.test.ts",
+   "name": "GET /api/links/{code}/stats > [R-STATS-1][R-STATS-2] days=2 -> days echoed and exactly that many entries",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 32
+  },
+  {
+   "project": "",
+   "file": "tests/api/stats.test.ts",
+   "name": "GET /api/links/{code}/stats > [R-STATS-1][R-STATS-2] days=7 -> days echoed and exactly that many entries",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 25
+  },
+  {
+   "project": "",
+   "file": "tests/api/stats.test.ts",
+   "name": "GET /api/links/{code}/stats > [R-STATS-1][R-STATS-2] days=90 -> days echoed and exactly that many entries",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 15
+  },
+  {
+   "project": "",
+   "file": "tests/api/stats.test.ts",
+   "name": "GET /api/links/{code}/stats > [R-STATS-1][R-STATS-2] days=364 -> days echoed and exactly that many entries",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 15
+  },
+  {
+   "project": "",
+   "file": "tests/api/stats.test.ts",
+   "name": "GET /api/links/{code}/stats > [R-STATS-1][R-STATS-2] days=365 -> days echoed and exactly that many entries",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 20
+  },
+  {
+   "project": "",
+   "file": "tests/api/stats.test.ts",
+   "name": "GET /api/links/{code}/stats > [R-STATS-1] days is a query integer after percent-decoding: days=%37 means 7",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 6
+  },
+  {
+   "project": "",
+   "file": "tests/api/stats.test.ts",
+   "name": "GET /api/links/{code}/stats > [R-STATS-2] a link created today gets the full window, zero-filled, ending today",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 7
+  },
+  {
+   "project": "",
+   "file": "tests/api/stats.test.ts",
+   "name": "GET /api/links/{code}/stats > [R-STATS-2][R-STATS-3] a click now lands on the last entry (today), for days=1, 7 and 365",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 49
+  },
+  {
+   "project": "",
+   "file": "tests/api/stats.test.ts",
+   "name": "GET /api/links/{code}/stats > [R-STATS-2] windows of different sizes agree: days=7 equals the last 7 entries of days=30",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 28
+  },
+  {
+   "project": "",
+   "file": "tests/api/stats.test.ts",
+   "name": "GET /api/links/{code}/stats > [R-STATS-4] rangeClicks is the sum of daily and totalClicks equals clickCount",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 14
+  },
+  {
+   "project": "",
+   "file": "tests/api/stats.test.ts",
+   "name": "GET /api/links/{code}/stats > [R-STATS-5][R-STATS-6] breakdowns: at most 5, clicks desc then name asc in code-point order, direct/unknown ordinary",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 49
+  },
+  {
+   "project": "",
+   "file": "tests/api/stats.test.ts",
+   "name": "GET /api/links/{code}/stats > [R-STATS-6] devices lists only classes with at least one click",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 11
+  },
+  {
+   "project": "",
+   "file": "tests/api/url.test.ts",
+   "name": "URL validation > [R-URL-1] leading/trailing ASCII whitespace (TAB LF FF CR SP) is trimmed",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 21
+  },
+  {
+   "project": "",
+   "file": "tests/api/url.test.ts",
+   "name": "URL validation > [R-URL-1] internal TAB/LF/CR are removed by the parser, not rejected",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 3
+  },
+  {
+   "project": "",
+   "file": "tests/api/url.test.ts",
+   "name": "URL validation > [R-URL-1][R-URL-2] a leading non-ASCII space (U+00A0, U+2003) is not trimmed -> 422 invalid_url",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 4
+  },
+  {
+   "project": "",
+   "file": "tests/api/url.test.ts",
+   "name": "URL validation > [R-URL-1][R-URL-5] a trailing U+00A0 is not trimmed; the parser percent-encodes it",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 3
+  },
+  {
+   "project": "",
+   "file": "tests/api/url.test.ts",
+   "name": "URL validation > [R-URL-2] empty string -> 422 invalid_url",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2
+  },
+  {
+   "project": "",
+   "file": "tests/api/url.test.ts",
+   "name": "URL validation > [R-URL-2] whitespace only -> 422 invalid_url",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/url.test.ts",
+   "name": "URL validation > [R-URL-2] javascript scheme -> 422 invalid_url",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/url.test.ts",
+   "name": "URL validation > [R-URL-2] ftp scheme -> 422 invalid_url",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 4
+  },
+  {
+   "project": "",
+   "file": "tests/api/url.test.ts",
+   "name": "URL validation > [R-URL-2] relative path -> 422 invalid_url",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2
+  },
+  {
+   "project": "",
+   "file": "tests/api/url.test.ts",
+   "name": "URL validation > [R-URL-2] no scheme -> 422 invalid_url",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/url.test.ts",
+   "name": "URL validation > [R-URL-2] http with empty host -> 422 invalid_url",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/url.test.ts",
+   "name": "URL validation > [R-URL-2] https with only slashes -> 422 invalid_url",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/url.test.ts",
+   "name": "URL validation > [R-URL-2] mailto -> 422 invalid_url",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/url.test.ts",
+   "name": "URL validation > [R-URL-2] file scheme (empty host) -> 422 invalid_url",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/url.test.ts",
+   "name": "URL validation > [R-URL-2] data scheme -> 422 invalid_url",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/url.test.ts",
+   "name": "URL validation > [R-URL-2] ws scheme -> 422 invalid_url",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/url.test.ts",
+   "name": "URL validation > [R-URL-2] space in host -> 422 invalid_url",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2
+  },
+  {
+   "project": "",
+   "file": "tests/api/url.test.ts",
+   "name": "URL validation > [R-URL-2] unclosed IPv6 -> 422 invalid_url",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/url.test.ts",
+   "name": "URL validation > [R-URL-2] port only -> 422 invalid_url",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/url.test.ts",
+   "name": "URL validation > [R-URL-2] bad port -> 422 invalid_url",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/url.test.ts",
+   "name": "URL validation > [R-URL-2] invalid IPv4 (part > 255) -> 422 invalid_url",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/url.test.ts",
+   "name": "URL validation > [R-URL-2] forbidden host code point -> 422 invalid_url",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/url.test.ts",
+   "name": "URL validation > [R-URL-2][R-URL-5] valid http(s) URL (upper-case scheme and host) -> 201 with the WHATWG serialization",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/url.test.ts",
+   "name": "URL validation > [R-URL-2][R-URL-5] valid http(s) URL (IPv4 host) -> 201 with the WHATWG serialization",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2
+  },
+  {
+   "project": "",
+   "file": "tests/api/url.test.ts",
+   "name": "URL validation > [R-URL-2][R-URL-5] valid http(s) URL (IPv6 host) -> 201 with the WHATWG serialization",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2
+  },
+  {
+   "project": "",
+   "file": "tests/api/url.test.ts",
+   "name": "URL validation > [R-URL-2][R-URL-5] valid http(s) URL (userinfo) -> 201 with the WHATWG serialization",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 7
+  },
+  {
+   "project": "",
+   "file": "tests/api/url.test.ts",
+   "name": "URL validation > [R-URL-2][R-URL-5] valid http(s) URL (explicit non-default port) -> 201 with the WHATWG serialization",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 12
+  },
+  {
+   "project": "",
+   "file": "tests/api/url.test.ts",
+   "name": "URL validation > [R-URL-2][R-URL-5] valid http(s) URL (query and fragment) -> 201 with the WHATWG serialization",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 52
+  },
+  {
+   "project": "",
+   "file": "tests/api/url.test.ts",
+   "name": "URL validation > [R-URL-3] exactly 2048 code points -> 201; 2049 -> 422 invalid_url",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 96
+  },
+  {
+   "project": "",
+   "file": "tests/api/url.test.ts",
+   "name": "URL validation > [R-URL-3] length counts code points, not bytes or UTF-16 units; the normalized form may be longer",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 65
+  },
+  {
+   "project": "",
+   "file": "tests/api/url.test.ts",
+   "name": "URL validation > [R-URL-3][R-URL-1] length is measured after trimming: 2048 code points plus surrounding whitespace -> 201",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 19
+  },
+  {
+   "project": "",
+   "file": "tests/api/url.test.ts",
+   "name": "URL validation > [R-URL-3] length is measured before parsing: 2049 code points that include internal tabs -> 422",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 17
+  },
+  {
+   "project": "",
+   "file": "tests/api/url.test.ts",
+   "name": "URL validation > [R-URL-4] a URL whose hostname equals PUBLIC_BASE_URL's hostname -> 422, ignoring port, scheme, case and userinfo",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 3
+  },
+  {
+   "project": "",
+   "file": "tests/api/url.test.ts",
+   "name": "URL validation > [R-URL-4] no DNS/IP equivalence: other hosts, subdomains and loopback IPs are accepted",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 4
+  },
+  {
+   "project": "",
+   "file": "tests/api/url.test.ts",
+   "name": "URL validation > [R-URL-5][R-REDIR-1] \"https://example.com\" is stored, returned and redirected as \"https://example.com/\"",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 3
+  },
+  {
+   "project": "",
+   "file": "tests/api/url.test.ts",
+   "name": "URL validation > [R-URL-5][R-REDIR-1] \"HTTPS://Example.COM:443/a/../b\" is stored, returned and redirected as \"https://example.com/b\"",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2
+  },
+  {
+   "project": "",
+   "file": "tests/api/url.test.ts",
+   "name": "URL validation > [R-URL-5][R-REDIR-1] \"https://bücher.example/ä\" is stored, returned and redirected as \"https://xn--bcher-kva.example/%C3%A4\"",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2
+  },
+  {
+   "project": "",
+   "file": "tests/api/url.test.ts",
+   "name": "URL validation > [R-URL-5][R-REDIR-1] \"https://example.com/a b\" is stored, returned and redirected as \"https://example.com/a%20b\"",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 2
+  },
+  {
+   "project": "",
+   "file": "tests/api/url.test.ts",
+   "name": "URL validation > [R-URL-5][R-REDIR-1] \"http:example.com\" is stored, returned and redirected as \"http://example.com/\"",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 9
+  },
+  {
+   "project": "",
+   "file": "tests/api/url.test.ts",
+   "name": "URL validation > [R-URL-5][R-REDIR-1] \"http:///example.com\" is stored, returned and redirected as \"http://example.com/\"",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 5
+  },
+  {
+   "project": "",
+   "file": "tests/api/url.test.ts",
+   "name": "URL validation > [R-URL-5][R-REDIR-1] \"https://example.com\\\\path\" is stored, returned and redirected as \"https://example.com/path\"",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 4
+  },
+  {
+   "project": "",
+   "file": "tests/api/url.test.ts",
+   "name": "URL validation > [R-URL-5][R-REDIR-1] \"  https://example.com/x  \" is stored, returned and redirected as \"https://example.com/x\"",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 6
+  },
+  {
+   "project": "",
+   "file": "tests/api/url.test.ts",
+   "name": "URL validation > [R-URL-5][R-URL-2] normative rejection \"javascript:alert(1)\" -> 422 invalid_url",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 1
+  },
+  {
+   "project": "",
+   "file": "tests/api/url.test.ts",
+   "name": "URL validation > [R-URL-5][R-URL-2] normative rejection \"ftp://example.com/\" -> 422 invalid_url",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 4
+  },
+  {
+   "project": "",
+   "file": "tests/api/url.test.ts",
+   "name": "URL validation > [R-URL-5][R-URL-2] normative rejection \"/relative\" -> 422 invalid_url",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 4
+  },
+  {
+   "project": "",
+   "file": "tests/api/url.test.ts",
+   "name": "URL validation > [R-URL-5][R-URL-2] normative rejection \"example.com\" -> 422 invalid_url",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 3
+  },
+  {
+   "project": "",
+   "file": "tests/api/url.test.ts",
+   "name": "URL validation: leading C0 controls (spec-v1.1) > [R-URL-5][R-URL-1][R-REDIR-1] normative: \"\\u000Bhttps://example.com/x\" (leading vertical tab) is valid -> https://example.com/x",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 4
+  },
+  {
+   "project": "",
+   "file": "tests/api/url.test.ts",
+   "name": "URL validation: leading C0 controls (spec-v1.1) > [R-URL-3][R-URL-1] a leading U+000B counts toward the limit: 2048 code points including it -> 201; 2049 -> 422",
+   "state": "passed",
+   "note": null,
+   "annotations": [],
+   "errors": [],
+   "durationMs": 50
+  }
+ ],
+ "unhandledErrors": []
+}

@@ -1,0 +1,1363 @@
+{
+  "config": {
+    "argv": [
+      "/Users/matthewnelson/.nvm/versions/node/v22.19.0/bin/node",
+      "/Users/matthewnelson/Workspace/trust-but-verify/harness/node_modules/@playwright/test/cli.js",
+      "test",
+      "--config",
+      "/Users/matthewnelson/Workspace/trust-but-verify/harness/playwright.config.ts"
+    ],
+    "configFile": "/Users/matthewnelson/Workspace/trust-but-verify/harness/playwright.config.ts",
+    "rootDir": "/Users/matthewnelson/Workspace/trust-but-verify/harness/tests/ui",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/Users/matthewnelson/Workspace/trust-but-verify/harness/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "/Users/matthewnelson/Workspace/trust-but-verify/harness/tests/ui",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "results/ui.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "a11y.spec.ts",
+      "file": "a11y.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "accessibility",
+          "file": "a11y.spec.ts",
+          "line": 13,
+          "column": 6,
+          "specs": [
+            {
+              "title": "[R-UI-10] / with an empty form",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 562,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-19T03:55:49.048Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "aa3ad05f8c0e05077efb-0c2276161788402d7ecb",
+              "file": "a11y.spec.ts",
+              "line": 14,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-10] / after a success",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 600,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-19T03:55:49.846Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "aa3ad05f8c0e05077efb-a1d17f1bf4c8c54fb39a",
+              "file": "a11y.spec.ts",
+              "line": 20,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-10] / after an error",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 895,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-19T03:55:50.450Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "aa3ad05f8c0e05077efb-e3ba8d79ceeaf6ab97fd",
+              "file": "a11y.spec.ts",
+              "line": 28,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-10] / with a delete confirmation revealed",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 846,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-19T03:55:51.350Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "aa3ad05f8c0e05077efb-328c546d8cd9c632b78d",
+              "file": "a11y.spec.ts",
+              "line": 36,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-10] /links/{code} for each days link",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1583,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-19T03:55:52.202Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "aa3ad05f8c0e05077efb-6c0a1b2aa52e7d0d8f19",
+              "file": "a11y.spec.ts",
+              "line": 43,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-10] /links/{unknown}",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 530,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-19T03:55:53.790Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "aa3ad05f8c0e05077efb-7f162cea90791498a600",
+              "file": "a11y.spec.ts",
+              "line": 52,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "home.spec.ts",
+      "file": "home.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "home page /",
+          "file": "home.spec.ts",
+          "line": 11,
+          "column": 6,
+          "specs": [
+            {
+              "title": "[R-UI-1] form has the Destination URL and Custom alias (optional) textboxes and a Shorten button, with no constraint validation",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 309,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-19T03:55:54.347Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-6914aefa6939f5a8d6b9",
+              "file": "home.spec.ts",
+              "line": 12,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-2] destination: bare host gets https://",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 287,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-19T03:55:54.661Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-d80ac4805a2bc05b90a3",
+              "file": "home.spec.ts",
+              "line": 51,
+              "column": 5
+            },
+            {
+              "title": "[R-UI-2] destination: bare host and path gets https://",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 337,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-19T03:55:54.953Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-e0b165cbb4f244786937",
+              "file": "home.spec.ts",
+              "line": 51,
+              "column": 5
+            },
+            {
+              "title": "[R-UI-2] destination: an explicit upper-case scheme is sent unchanged",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 320,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-19T03:55:55.295Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-c60ed5fa783ee4a6d104",
+              "file": "home.spec.ts",
+              "line": 51,
+              "column": 5
+            },
+            {
+              "title": "[R-UI-2] destination: host:port without a scheme gets https://",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 326,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-19T03:55:55.619Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-c07c6350f9401d5c70ad",
+              "file": "home.spec.ts",
+              "line": 51,
+              "column": 5
+            },
+            {
+              "title": "[R-UI-2] destination: surrounding ASCII whitespace is trimmed",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 352,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-19T03:55:55.950Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-196d0214b978213ffa57",
+              "file": "home.spec.ts",
+              "line": 51,
+              "column": 5
+            },
+            {
+              "title": "[R-UI-2] the alias field is trimmed; a whitespace-only alias is omitted (generated code)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 646,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-19T03:55:56.308Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-496c809722afe92120fb",
+              "file": "home.spec.ts",
+              "line": 62,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-3] success shows a status with a link to the shortUrl and a working \"Copy short link\" button",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 461,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-19T03:55:56.958Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-d2396925e1a5054c9813",
+              "file": "home.spec.ts",
+              "line": 80,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-4] API error (invalid alias) shows exactly the invalid_alias message in an alert",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 384,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-19T03:55:57.424Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-450b121da5c9cdd6a768",
+              "file": "home.spec.ts",
+              "line": 105,
+              "column": 5
+            },
+            {
+              "title": "[R-UI-4] API error (reserved alias (mixed case)) shows exactly the alias_reserved message in an alert",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 314,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-19T03:55:57.813Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-ee18cb03d67cd81847f2",
+              "file": "home.spec.ts",
+              "line": 105,
+              "column": 5
+            },
+            {
+              "title": "[R-UI-4] API error (unsupported scheme) shows exactly the invalid_url message in an alert",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 346,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-19T03:55:58.132Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-c0e0ea91469aaa97b923",
+              "file": "home.spec.ts",
+              "line": 105,
+              "column": 5
+            },
+            {
+              "title": "[R-UI-4] API error (URL over 2048 code points) shows exactly the invalid_url message in an alert",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 345,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-19T03:55:58.483Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-600102502e5a5739599c",
+              "file": "home.spec.ts",
+              "line": 105,
+              "column": 5
+            },
+            {
+              "title": "[R-UI-4] taken alias shows exactly the alias_taken message",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 399,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-19T03:55:58.833Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-2c548c3c3803a39fc01c",
+              "file": "home.spec.ts",
+              "line": 116,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-5] \"Your links\" table: exactly one header row with Short link, Destination, Clicks, Created",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 331,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-19T03:55:59.236Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-1e12a0ddf13ef7961743",
+              "file": "home.spec.ts",
+              "line": 127,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-5] the table lists the 20 newest links in API order",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 302,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-19T03:55:59.571Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-f1c5ddfa9f42b7d685af",
+              "file": "home.spec.ts",
+              "line": 135,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-5] row cells: shortUrl link, url, clickCount as a plain integer, createdAt as UTC YYYY-MM-DD HH:MM; Stats and Delete controls",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 387,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-19T03:55:59.878Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-c5dced42eea59e818aa5",
+              "file": "home.spec.ts",
+              "line": 149,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-5][gray-box] Clicks has no thousands separator and Created truncates seconds (hh:mm:59.9 is not rounded up)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 231,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-19T03:56:00.269Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-91229fa0ba56f55a2a65",
+              "file": "home.spec.ts",
+              "line": 166,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-5] after a successful create the table is re-fetched without a full page reload",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 341,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-19T03:56:00.503Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-dbcc985f94695dfeae26",
+              "file": "home.spec.ts",
+              "line": 180,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-6] Delete reveals \"Confirm delete\" in the same row; only one open at a time; nothing deleted until confirmed",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 596,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-19T03:56:00.849Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-21f5ff727b020b9915c2",
+              "file": "home.spec.ts",
+              "line": 192,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-12] an empty or whitespace-only destination shows the invalid_url alert; submitting causes no navigation and no non-GET/HEAD request",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3032,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-19T03:56:01.450Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d318381359a9b96acb1e-6d210960d1d1da536d32",
+              "file": "home.spec.ts",
+              "line": 225,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "network.spec.ts",
+      "file": "network.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "[R-UI-11] a full create -> stats -> delete -> error journey sends no browser request to /api/",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 814,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T03:56:04.492Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5567a9004528a7a67849-d097598c82cdd93b4935",
+          "file": "network.spec.ts",
+          "line": 6,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "stats-page.spec.ts",
+      "file": "stats-page.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "stats page /links/{code}",
+          "file": "stats-page.spec.ts",
+          "line": 46,
+          "column": 6,
+          "specs": [
+            {
+              "title": "[R-UI-7] heading, totals and the four tables match the API stats (default window)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 997,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-19T03:56:05.315Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "feddb1a36edbf83baea8-51d98c1b7ee89bad5acd",
+              "file": "stats-page.spec.ts",
+              "line": 47,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-7] a link with no clicks: zero totals and breakdown tables with a header row and no body rows",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 571,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-19T03:56:06.317Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "feddb1a36edbf83baea8-1a89e0502aad08b590c8",
+              "file": "stats-page.spec.ts",
+              "line": 56,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-7][gray-box] totals are base-10 integers without separators",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 170,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-19T03:56:06.893Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "feddb1a36edbf83baea8-4962ed102e64d10d5909",
+              "file": "stats-page.spec.ts",
+              "line": 66,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-8] the 7/30/90 days links set ?days= and the matching one has aria-current=\"page\"",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3561,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-19T03:56:07.068Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "feddb1a36edbf83baea8-94d9f4fd1ccf0c8ae8a7",
+              "file": "stats-page.spec.ts",
+              "line": 76,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-8] a valid days without a link is honored (1 and 365) and no link is current",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 474,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-19T03:56:10.633Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "feddb1a36edbf83baea8-def9199a5592cf7a5b03",
+              "file": "stats-page.spec.ts",
+              "line": 98,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-8] missing or invalid days behaves exactly like days=30, including aria-current on \"30 days\"",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 5946,
+                      "error": {
+                        "message": "Error: query ?days=07\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('table', { name: 'Clicks per day', exact: true }).getByRole('row').filter({ hasNot: getByRole('columnheader') })\nExpected: \u001b[32m30\u001b[39m\nReceived: \u001b[31m7\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - query ?days=07 getByRole('table', { name: 'Clicks per day', exact: true }).getByRole('row').filter({ hasNot: getByRole('columnheader') }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('table', { name: 'Clicks per day', exact: true }).getByRole('row').filter({ hasNot: getByRole('columnheader') })\u001b[22m\n\u001b[2m    14 × locator resolved to 7 elements\u001b[22m\n\u001b[2m       - unexpected value \"7\"\u001b[22m\n",
+                        "stack": "Error: query ?days=07\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('table', { name: 'Clicks per day', exact: true }).getByRole('row').filter({ hasNot: getByRole('columnheader') })\nExpected: \u001b[32m30\u001b[39m\nReceived: \u001b[31m7\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - query ?days=07 getByRole('table', { name: 'Clicks per day', exact: true }).getByRole('row').filter({ hasNot: getByRole('columnheader') }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('table', { name: 'Clicks per day', exact: true }).getByRole('row').filter({ hasNot: getByRole('columnheader') })\u001b[22m\n\u001b[2m    14 × locator resolved to 7 elements\u001b[22m\n\u001b[2m       - unexpected value \"7\"\u001b[22m\n\n    at /Users/matthewnelson/Workspace/trust-but-verify/harness/tests/ui/stats-page.spec.ts:113:83\n    at retryIfDayChanged (/Users/matthewnelson/Workspace/trust-but-verify/harness/lib/links.ts:223:22)\n    at /Users/matthewnelson/Workspace/trust-but-verify/harness/tests/ui/stats-page.spec.ts:109:5",
+                        "location": {
+                          "file": "/Users/matthewnelson/Workspace/trust-but-verify/harness/tests/ui/stats-page.spec.ts",
+                          "column": 83,
+                          "line": 113
+                        },
+                        "snippet": "  111 |       for (const q of ['', '?days=0', '?days=366', '?days=abc', '?days=07', '?days=-1', '?days=1.5', '?days=', '?days=7&days=7', '?days=%2B7']) {\n  112 |         await page.goto(`/links/${enc(l.code)}${q}`);\n> 113 |         await expect(bodyRows(page, table(page, 'Clicks per day')), `query ${q}`).toHaveCount(30);\n      |                                                                                   ^\n  114 |         await expect(page.getByRole('link', { name: '30 days', exact: true })).toHaveAttribute('aria-current', 'page');\n  115 |         for (const n of [7, 90]) expect(await page.getByRole('link', { name: `${n} days`, exact: true }).getAttribute('aria-current')).not.toBe('page');\n  116 |         await expect(page.getByText(`Clicks in range: ${s30.rangeClicks}`, { exact: true })).toBeVisible();"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/matthewnelson/Workspace/trust-but-verify/harness/tests/ui/stats-page.spec.ts",
+                            "column": 83,
+                            "line": 113
+                          },
+                          "message": "Error: query ?days=07\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('table', { name: 'Clicks per day', exact: true }).getByRole('row').filter({ hasNot: getByRole('columnheader') })\nExpected: \u001b[32m30\u001b[39m\nReceived: \u001b[31m7\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - query ?days=07 getByRole('table', { name: 'Clicks per day', exact: true }).getByRole('row').filter({ hasNot: getByRole('columnheader') }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('table', { name: 'Clicks per day', exact: true }).getByRole('row').filter({ hasNot: getByRole('columnheader') })\u001b[22m\n\u001b[2m    14 × locator resolved to 7 elements\u001b[22m\n\u001b[2m       - unexpected value \"7\"\u001b[22m\n\n\n  111 |       for (const q of ['', '?days=0', '?days=366', '?days=abc', '?days=07', '?days=-1', '?days=1.5', '?days=', '?days=7&days=7', '?days=%2B7']) {\n  112 |         await page.goto(`/links/${enc(l.code)}${q}`);\n> 113 |         await expect(bodyRows(page, table(page, 'Clicks per day')), `query ${q}`).toHaveCount(30);\n      |                                                                                   ^\n  114 |         await expect(page.getByRole('link', { name: '30 days', exact: true })).toHaveAttribute('aria-current', 'page');\n  115 |         for (const n of [7, 90]) expect(await page.getByRole('link', { name: `${n} days`, exact: true }).getAttribute('aria-current')).not.toBe('page');\n  116 |         await expect(page.getByText(`Clicks in range: ${s30.rangeClicks}`, { exact: true })).toBeVisible();\n    at /Users/matthewnelson/Workspace/trust-but-verify/harness/tests/ui/stats-page.spec.ts:113:83\n    at retryIfDayChanged (/Users/matthewnelson/Workspace/trust-but-verify/harness/lib/links.ts:223:22)\n    at /Users/matthewnelson/Workspace/trust-but-verify/harness/tests/ui/stats-page.spec.ts:109:5"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-19T03:56:11.112Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/matthewnelson/Workspace/trust-but-verify/harness/test-results/stats-page-stats-page-link-60c9f-ng-aria-current-on-30-days-/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/matthewnelson/Workspace/trust-but-verify/harness/test-results/stats-page-stats-page-link-60c9f-ng-aria-current-on-30-days-/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/matthewnelson/Workspace/trust-but-verify/harness/tests/ui/stats-page.spec.ts",
+                        "column": 83,
+                        "line": 113
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "feddb1a36edbf83baea8-cde4c90ffeca7b029d7e",
+              "file": "stats-page.spec.ts",
+              "line": 107,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-9] an unknown code responds 404 with the level-1 heading \"Link not found\"",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 296,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-19T03:56:17.478Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "feddb1a36edbf83baea8-18aa73250df2845a0193",
+              "file": "stats-page.spec.ts",
+              "line": 121,
+              "column": 3
+            },
+            {
+              "title": "[R-UI-9][R-DEL-1] a deleted link's page responds 404 \"Link not found\"",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 355,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-19T03:56:18.057Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "feddb1a36edbf83baea8-26c0af7d85ccc199d330",
+              "file": "stats-page.spec.ts",
+              "line": 127,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-19T03:55:48.592Z",
+    "duration": 29870.613,
+    "expected": 34,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

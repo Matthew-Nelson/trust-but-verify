@@ -7,6 +7,7 @@ import { existsSync, lstatSync, mkdirSync, openSync, readFileSync, rmSync, symli
 import { join, resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { userInfo } from 'node:os';
+import { gunzipSync } from 'node:zlib';
 
 export const REPO = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 export const HARNESS = join(REPO, 'harness');
@@ -16,6 +17,13 @@ const REPORTER = join(REPO, 'tools', 'vitest-reporter.mjs');
 
 export const PGUSER = process.env.PGUSER || userInfo().username;
 export const dbUrl = (name) => `postgres://${PGUSER}@localhost:5432/${name}`;
+
+/** Reads a text file, or its gzipped form (`<path>.gz`) if only that exists. Returns null if neither. */
+export function readText(path) {
+  if (existsSync(path)) return readFileSync(path, 'utf8');
+  if (existsSync(`${path}.gz`)) return gunzipSync(readFileSync(`${path}.gz`)).toString('utf8');
+  return null;
+}
 
 export function log(...a) {
   console.log(`[${new Date().toISOString().slice(11, 19)}]`, ...a);

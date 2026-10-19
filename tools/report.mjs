@@ -7,7 +7,7 @@
 //   reports/AUDIT.md, reports/LIMITS.md (hand-written: isolation audit, what this does not prove)
 import { existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { REPO } from './lib.mjs';
+import { REPO, readText } from './lib.mjs';
 
 const RAW = join(REPO, 'reports', 'raw');
 const read = (p) => JSON.parse(readFileSync(p, 'utf8'));
@@ -25,7 +25,7 @@ const cargoMutants = existsSync(join(RAW, 'cargo-mutants', 'summary.json')) ? re
 const fuzzRuns = [];
 for (const r of trace.runs) {
   const dir = join(RAW, 'mutants', rounds[0]?.name ?? 'run-0', r);
-  const log = opt(join(dir, 'fuzz.log'));
+  const log = readText(join(dir, 'fuzz.log'));
   const m = log?.match(/(\d+) generated, (\d+) passed/);
   if (m) fuzzRuns.push({ run: r, generated: Number(m[1]), passed: Number(m[2]) });
 }

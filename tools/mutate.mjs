@@ -114,6 +114,8 @@ async function runJob(label, kind, patch) {
   } finally {
     for (const p of procs) p.stop();
     await new Promise((s) => setTimeout(s, 1000));
+    // Logs are evidence but large; keep them compressed (zcat / rg -z read them).
+    sh('sh', ['-c', `find "${dir}" -name '*.log' -exec gzip -9f {} +`]);
   }
 }
 

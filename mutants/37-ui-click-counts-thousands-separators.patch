@@ -1,0 +1,23 @@
+# Mutant 37 — R-UI-7
+# Description: "Total clicks: N" and "Clicks in range: N" are rendered with thousands separators
+#   (`1,234`), so N is no longer a plain base-10 integer once a link has 1,000 or more clicks. Links with
+#   fewer clicks render identically; the per-day and breakdown tables are unchanged.
+# Why realistic: formatting a big number for humans is a reflexive "polish" change.
+# Trigger (gray-box): seed >= 1000 clicks for a link (or run the R-REDIR-5 load test twice on one link);
+#   GET /links/{code} -> the text reads "Total clicks: 1,000".
+
+diff --git a/impls/web/src/app/links/[code]/page.tsx b/impls/web/src/app/links/[code]/page.tsx
+index cbc3046..9cfae0f 100644
+--- a/impls/web/src/app/links/[code]/page.tsx
++++ b/impls/web/src/app/links/[code]/page.tsx
+@@ -60,8 +60,8 @@ export default async function StatsPage({
+         </Link>
+       </p>
+       <h1 className="mt-4 text-3xl font-bold">Stats for {code}</h1>
+-      <p className="mt-4">Total clicks: {stats.totalClicks}</p>
+-      <p>Clicks in range: {stats.rangeClicks}</p>
++      <p className="mt-4">Total clicks: {stats.totalClicks.toLocaleString("en-US")}</p>
++      <p>Clicks in range: {stats.rangeClicks.toLocaleString("en-US")}</p>
+ 
+       <nav aria-label="Date range" className="mt-4 flex gap-4">
+         {PRESETS.map((n) => (

@@ -1,0 +1,32 @@
+# Mutant 26 — R-REDIR-6
+# Description: the click INSERT is awaited inline and its error is propagated with `?`, so a failed
+#   insert turns the redirect into a 500 `internal` JSON response. When inserts succeed, the redirect
+#   is unchanged (and the click is visible immediately, which R-REDIR-4 allows).
+# Why realistic: removing the background task "so the count is consistent right after the redirect"
+#   and letting `?` handle the error is the simplest code.
+# Trigger (gray-box, on a harness-owned database): make click inserts fail without affecting reads, e.g.
+#   `ALTER TABLE clicks ADD CONSTRAINT no_clicks CHECK (false) NOT VALID;` (or REVOKE INSERT ON clicks
+#   from the api's role). Then GET /{code} -> expect 302 within normal latency, get 500. Drop the
+#   constraint afterwards. R-DATA-3 is checked on the shared database, which is not touched.
+
+diff --git a/impls/api/src/redirect.rs b/impls/api/src/redirect.rs
+index 822e765..2da4aea 100644
+--- a/impls/api/src/redirect.rs
++++ b/impls/api/src/redirect.rs
+@@ -117,14 +117,8 @@ pub async fn follow(
+ 
+     if should_record {
+         let info = classify(headers, &state.config.country_header);
+-        let pool = state.pool.clone();
+-        let link_id = link.id;
+-        // Fire and forget: the redirect never waits for, or depends on, the insert (R-REDIR-4/6).
+-        tokio::spawn(async move {
+-            if let Err(e) = record_click(&pool, link_id, &info).await {
+-                tracing::warn!(error = %e, "could not record click");
+-            }
+-        });
++        // Record the click before answering so the count is already visible on the next request.
++        record_click(&state.pool, link.id, &info).await?;
+     }
+ 
+     let mut res = Response::new(axum::body::Body::empty());

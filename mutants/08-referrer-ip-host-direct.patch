@@ -1,0 +1,21 @@
+# Mutant 08 — R-CLICK-1
+# Description: the referrer hostname is taken from `Url::domain()` instead of `host_str()`. `domain()`
+#   is None for IP-literal hosts, so a Referer such as `http://203.0.113.9/page` or `http://[::1]/` is
+#   recorded as `direct` instead of `203.0.113.9` / `[::1]`. Named hosts behave as before.
+# Why realistic: `domain()` sounds like the right accessor for "the domain of the referrer"; the IP case
+#   is easy to overlook.
+# Trigger: GET /{code} with `Referer: http://203.0.113.9/x` -> topReferrers shows direct, not 203.0.113.9.
+
+diff --git a/impls/api/src/redirect.rs b/impls/api/src/redirect.rs
+index 822e765..f105768 100644
+--- a/impls/api/src/redirect.rs
++++ b/impls/api/src/redirect.rs
+@@ -40,7 +40,7 @@ fn referrer_host(headers: &HeaderMap) -> Option<String> {
+     if parsed.scheme() != "http" && parsed.scheme() != "https" {
+         return None;
+     }
+-    let host = parsed.host_str().filter(|h| !h.is_empty())?;
++    let host = parsed.domain().filter(|h| !h.is_empty())?;
+     let host = match host.strip_prefix("www.") {
+         Some(rest) if !rest.is_empty() => rest,
+         _ => host,

@@ -1,0 +1,23 @@
+# Mutant 35 — R-UI-12
+# Description: the client-side check only catches an exactly-empty destination. A whitespace-only
+#   destination is submitted to the Server Action, which trims it and returns the invalid_url message, so
+#   the same alert text appears, but the submit causes a POST (the server-action request). An empty
+#   destination still produces no request.
+# Why realistic: `=== ""` is the natural first draft; the server already handles whitespace, so the UI
+#   looks correct in manual testing.
+# Trigger: type "   " in Destination URL, activate "Shorten" -> alert shows the invalid_url message, but
+#   the network capture records a non-GET request (the action POST) that the SPEC forbids.
+
+diff --git a/impls/web/src/components/shorten-form.tsx b/impls/web/src/components/shorten-form.tsx
+index fd2146f..0fed242 100644
+--- a/impls/web/src/components/shorten-form.tsx
++++ b/impls/web/src/components/shorten-form.tsx
+@@ -29,7 +29,7 @@ export function ShortenForm() {
+         }}
+         onSubmit={(e) => {
+           const dest = String(new FormData(e.currentTarget).get("destination") ?? "");
+-          if (/^[ \t\n\r\f\v]*$/.test(dest)) {
++          if (dest === "") {
+             e.preventDefault();
+             setClientError(messageFor("invalid_url"));
+           }

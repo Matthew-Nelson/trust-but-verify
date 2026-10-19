@@ -1,0 +1,44 @@
+# Mutant 20 — R-HEALTH-3
+# Description: a successful health check is cached for 3 s; within that window /healthz answers 200
+#   without querying the database. Failures are never cached, so the first probe and any probe after a
+#   failure still hit the database (R-HEALTH-1 timing holds).
+# Why realistic: "don't let the load balancer's 1 s probes hammer the pool" is a standard optimization;
+#   a short TTL feels harmless.
+# Trigger: the R-HEALTH-3 proxy test -> after a 200, stop forwarding and call /healthz again within 3 s:
+#   expect 503, get 200. (A harness that waits more than 3 s between the two calls will miss it.)
+
+diff --git a/impls/api/src/app.rs b/impls/api/src/app.rs
+index 098e4af..1423847 100644
+--- a/impls/api/src/app.rs
++++ b/impls/api/src/app.rs
+@@ -180,15 +180,28 @@ struct Health {
+     status: &'static str,
+ }
+ 
+-/// Queries the database on every call, with a 2 second limit (R-HEALTH-1, R-HEALTH-3).
++/// When the last check succeeded, how long that result is reused before the database is asked again.
++const HEALTH_OK_TTL: Duration = Duration::from_secs(3);
++static LAST_HEALTHY: std::sync::Mutex<Option<std::time::Instant>> = std::sync::Mutex::new(None);
++
++/// Queries the database with a 2 second limit (R-HEALTH-1). Load balancers probe this endpoint
++/// every second, so a healthy result is reused for a short while instead of hitting the pool.
+ async fn health(state: &AppState) -> Result<Response, ApiError> {
++    if let Some(at) = *LAST_HEALTHY.lock().expect("health lock")
++        && at.elapsed() < HEALTH_OK_TTL
++    {
++        return Ok(json_response(StatusCode::OK, &Health { status: "ok" }));
++    }
+     let check = tokio::time::timeout(
+         Duration::from_secs(2),
+         sqlx::query("SELECT 1").execute(&state.pool),
+     )
+     .await;
+     match check {
+-        Ok(Ok(_)) => Ok(json_response(StatusCode::OK, &Health { status: "ok" })),
++        Ok(Ok(_)) => {
++            *LAST_HEALTHY.lock().expect("health lock") = Some(std::time::Instant::now());
++            Ok(json_response(StatusCode::OK, &Health { status: "ok" }))
++        }
+         _ => Err(ApiError::Unavailable),
+     }
+ }

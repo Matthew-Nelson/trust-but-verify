@@ -1,0 +1,129 @@
+# Mutant 18 — R-ALIAS-5
+# Description: alias creation becomes check-then-write: a SELECT returns 409 if the alias exists, and
+#   the INSERT gains `ON CONFLICT (code) DO UPDATE SET url = EXCLUDED.url` so it never fails. Sequential
+#   behaviour is unchanged (R-ALIAS-3 still 409), but N concurrent creates with the same new alias can
+#   all pass the SELECT, all get 201, and the stored url is the last writer's, not the first 201's.
+# Why realistic: "check for a friendly error, then upsert so retries are idempotent" is a common
+#   pattern that an agent writes to avoid handling the unique-violation error code.
+# Trigger: the R-ALIAS-5 test itself (20 simultaneous creates, same alias, distinct urls) -> more than
+#   one 201 and/or GET returns a url from a request that got 409.
+
+diff --git a/impls/api/.sqlx/query-d5131a7b68953483ba3eb78ac0aedcce2a26614e41736de212962f5026ec89ec.json b/impls/api/.sqlx/query-d5131a7b68953483ba3eb78ac0aedcce2a26614e41736de212962f5026ec89ec.json
+new file mode 100644
+index 0000000..592c550
+--- /dev/null
++++ b/impls/api/.sqlx/query-d5131a7b68953483ba3eb78ac0aedcce2a26614e41736de212962f5026ec89ec.json
+@@ -0,0 +1,66 @@
++{
++  "db_name": "PostgreSQL",
++  "query": "INSERT INTO links (code, url, is_custom) VALUES ($1, $2, $3)\n           ON CONFLICT (code) DO UPDATE SET url = EXCLUDED.url\n           RETURNING code, url, is_custom, created_at",
++  "describe": {
++    "columns": [
++      {
++        "ordinal": 0,
++        "name": "code",
++        "type_info": "Text",
++        "origin": {
++          "Table": {
++            "table": "links",
++            "name": "code"
++          }
++        }
++      },
++      {
++        "ordinal": 1,
++        "name": "url",
++        "type_info": "Text",
++        "origin": {
++          "Table": {
++            "table": "links",
++            "name": "url"
++          }
++        }
++      },
++      {
++        "ordinal": 2,
++        "name": "is_custom",
++        "type_info": "Bool",
++        "origin": {
++          "Table": {
++            "table": "links",
++            "name": "is_custom"
++          }
++        }
++      },
++      {
++        "ordinal": 3,
++        "name": "created_at",
++        "type_info": "Timestamptz",
++        "origin": {
++          "Table": {
++            "table": "links",
++            "name": "created_at"
++          }
++        }
++      }
++    ],
++    "parameters": {
++      "Left": [
++        "Text",
++        "Text",
++        "Bool"
++      ]
++    },
++    "nullable": [
++      false,
++      false,
++      false,
++      false
++    ]
++  },
++  "hash": "d5131a7b68953483ba3eb78ac0aedcce2a26614e41736de212962f5026ec89ec"
++}
+diff --git a/impls/api/src/links.rs b/impls/api/src/links.rs
+index 170bdff..d09e90d 100644
+--- a/impls/api/src/links.rs
++++ b/impls/api/src/links.rs
+@@ -162,10 +162,20 @@ pub fn parse_create_request(body: &[u8], public_hostname: &str) -> Result<Create
+ pub async fn create(state: &AppState, body: &[u8]) -> Result<Response, ApiError> {
+     let req = parse_create_request(body, &state.config.public_hostname)?;
+     let row = match req.alias {
+-        Some(alias) => match insert_link(state, &alias, &req.url, true).await? {
+-            Some(row) => row,
+-            None => return Err(ApiError::AliasTaken),
+-        },
++        Some(alias) => {
++            // Check first so a taken alias gets a clean 409 before we touch the row.
++            if sqlx::query!("SELECT id, url FROM links WHERE code = $1", alias)
++                .fetch_optional(&state.pool)
++                .await?
++                .is_some()
++            {
++                return Err(ApiError::AliasTaken);
++            }
++            match insert_link(state, &alias, &req.url, true).await? {
++                Some(row) => row,
++                None => return Err(ApiError::AliasTaken),
++            }
++        }
+         None => {
+             let mut created = None;
+             for _ in 0..MAX_CODE_ATTEMPTS {
+@@ -181,8 +191,7 @@ pub async fn create(state: &AppState, body: &[u8]) -> Result<Response, ApiError>
+     Ok(json_response(StatusCode::CREATED, &link))
+ }
+ 
+-/// Inserts a link. Returns `None` when the code already exists: the database's unique
+-/// constraint decides, so concurrent requests cannot both win (R-ALIAS-5).
++/// Inserts a link, or updates the destination if the code already exists (idempotent retries).
+ async fn insert_link(
+     state: &AppState,
+     code: &str,
+@@ -191,6 +200,7 @@ async fn insert_link(
+ ) -> Result<Option<LinkRow>, ApiError> {
+     let result = sqlx::query!(
+         r#"INSERT INTO links (code, url, is_custom) VALUES ($1, $2, $3)
++           ON CONFLICT (code) DO UPDATE SET url = EXCLUDED.url
+            RETURNING code, url, is_custom, created_at"#,
+         code,
+         url,

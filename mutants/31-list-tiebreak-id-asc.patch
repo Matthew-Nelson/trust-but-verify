@@ -1,0 +1,107 @@
+# Mutant 31 — R-LIST-1
+# Description: the list tie-break is `id ASC` instead of `id DESC`, so links sharing the same
+#   `created_at` are returned oldest-first among themselves. Links created at distinct instants (the
+#   normal case over HTTP, with microsecond timestamps) are still in the right order.
+# Why realistic: a tie-break added after the fact defaults to ascending; it looks harmless because
+#   timestamps almost never collide in manual testing.
+# Trigger (gray-box): insert two links with the same explicit `created_at`; GET /api/links -> the lower
+#   id comes first, SPEC wants the higher id first.
+
+diff --git a/impls/api/.sqlx/query-c4c7d1374674eb37ece6d3b5366233578246d27bf12b825628821d5b87a81eee.json b/impls/api/.sqlx/query-c4c7d1374674eb37ece6d3b5366233578246d27bf12b825628821d5b87a81eee.json
+new file mode 100644
+index 0000000..eb954ff
+--- /dev/null
++++ b/impls/api/.sqlx/query-c4c7d1374674eb37ece6d3b5366233578246d27bf12b825628821d5b87a81eee.json
+@@ -0,0 +1,79 @@
++{
++  "db_name": "PostgreSQL",
++  "query": "SELECT l.code, l.url, l.is_custom, l.created_at,\n                  (SELECT count(*) FROM clicks c WHERE c.link_id = l.id) AS \"click_count!\",\n                  (SELECT max(c.clicked_at) FROM clicks c WHERE c.link_id = l.id) AS last_clicked_at\n           FROM links l ORDER BY l.created_at DESC, l.id ASC LIMIT $1 OFFSET $2",
++  "describe": {
++    "columns": [
++      {
++        "ordinal": 0,
++        "name": "code",
++        "type_info": "Text",
++        "origin": {
++          "Table": {
++            "table": "links",
++            "name": "code"
++          }
++        }
++      },
++      {
++        "ordinal": 1,
++        "name": "url",
++        "type_info": "Text",
++        "origin": {
++          "Table": {
++            "table": "links",
++            "name": "url"
++          }
++        }
++      },
++      {
++        "ordinal": 2,
++        "name": "is_custom",
++        "type_info": "Bool",
++        "origin": {
++          "Table": {
++            "table": "links",
++            "name": "is_custom"
++          }
++        }
++      },
++      {
++        "ordinal": 3,
++        "name": "created_at",
++        "type_info": "Timestamptz",
++        "origin": {
++          "Table": {
++            "table": "links",
++            "name": "created_at"
++          }
++        }
++      },
++      {
++        "ordinal": 4,
++        "name": "click_count!",
++        "type_info": "Int8",
++        "origin": "Expression"
++      },
++      {
++        "ordinal": 5,
++        "name": "last_clicked_at",
++        "type_info": "Timestamptz",
++        "origin": "Expression"
++      }
++    ],
++    "parameters": {
++      "Left": [
++        "Int8",
++        "Int8"
++      ]
++    },
++    "nullable": [
++      false,
++      false,
++      false,
++      false,
++      null,
++      null
++    ]
++  },
++  "hash": "c4c7d1374674eb37ece6d3b5366233578246d27bf12b825628821d5b87a81eee"
++}
+diff --git a/impls/api/src/links.rs b/impls/api/src/links.rs
+index 170bdff..31095b2 100644
+--- a/impls/api/src/links.rs
++++ b/impls/api/src/links.rs
+@@ -265,7 +265,7 @@ pub async fn list(state: &AppState, query: Option<&str>) -> Result<Response, Api
+         r#"SELECT l.code, l.url, l.is_custom, l.created_at,
+                   (SELECT count(*) FROM clicks c WHERE c.link_id = l.id) AS "click_count!",
+                   (SELECT max(c.clicked_at) FROM clicks c WHERE c.link_id = l.id) AS last_clicked_at
+-           FROM links l ORDER BY l.created_at DESC, l.id DESC LIMIT $1 OFFSET $2"#,
++           FROM links l ORDER BY l.created_at DESC, l.id ASC LIMIT $1 OFFSET $2"#,
+         limit,
+         offset
+     )

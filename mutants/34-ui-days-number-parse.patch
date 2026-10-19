@@ -1,0 +1,29 @@
+# Mutant 34 — R-UI-8
+# Description: `days` is parsed with `Number()` plus an integer/range check, so values that are not
+#   query integers are honored instead of falling back to 30: `days=007` -> 7 (and "7 days" gets
+#   aria-current), `days=+7` -> 7, `days=7.0` -> 7, `days=1e1` -> 10, `days=0x1E` -> 30 by luck.
+#   Missing, out-of-range, repeated and non-numeric values still behave like 30.
+# Why realistic: `Number()` with an `isInteger` guard looks like careful validation; the "query integer"
+#   grammar (no leading zeros, no sign) is easy to skip.
+# Trigger: GET /links/{code}?days=007 -> expect the 30-day view with aria-current on "30 days"; get the
+#   7-day view with aria-current on "7 days" and 7 "Clicks per day" rows.
+
+diff --git a/impls/web/src/app/links/[code]/page.tsx b/impls/web/src/app/links/[code]/page.tsx
+index cbc3046..a07dd29 100644
+--- a/impls/web/src/app/links/[code]/page.tsx
++++ b/impls/web/src/app/links/[code]/page.tsx
+@@ -5,11 +5,11 @@ export const dynamic = "force-dynamic";
+ 
+ const PRESETS = [7, 30, 90];
+ 
+-/** R-UI-8: a plain integer 1..365 (no sign, no leading zero, no repeats); anything else is 30. */
++/** R-UI-8: an integer 1..365; anything else is 30. */
+ function parseDays(raw: string | string[] | undefined): number {
+-  if (typeof raw !== "string" || !/^[1-9][0-9]{0,2}$/.test(raw)) return 30;
++  if (typeof raw !== "string" || raw.trim() === "") return 30;
+   const n = Number(raw);
+-  return n >= 1 && n <= 365 ? n : 30;
++  return Number.isInteger(n) && n >= 1 && n <= 365 ? n : 30;
+ }
+ 
+ function StatTable({ title, nameHeader, rows }: { title: string; nameHeader: string; rows: { name: string; clicks: number }[] }) {

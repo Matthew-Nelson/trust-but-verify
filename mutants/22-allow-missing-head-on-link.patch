@@ -1,0 +1,19 @@
+# Mutant 22 — R-ERR-8 (Allow set, also R-ERR-6)
+# Description: the 405 for `/api/links/{code}` advertises `Allow: GET, DELETE`, omitting HEAD, although
+#   HEAD is still served. Other routes' Allow sets are unchanged.
+# Why realistic: HEAD is implicit in most frameworks, so it is forgotten when the Allow string is typed.
+# Trigger: PUT /api/links/{anything} -> Allow set should be {GET, HEAD, DELETE}; it is {GET, DELETE}.
+
+diff --git a/impls/api/src/app.rs b/impls/api/src/app.rs
+index 098e4af..59aa3a8 100644
+--- a/impls/api/src/app.rs
++++ b/impls/api/src/app.rs
+@@ -154,7 +154,7 @@ async fn dispatch(
+             } else if *method == Method::DELETE {
+                 links::delete(state, decode_code(code)).await
+             } else {
+-                Err(ApiError::MethodNotAllowed("GET, HEAD, DELETE"))
++                Err(ApiError::MethodNotAllowed("GET, DELETE"))
+             }
+         }
+         Route::Stats(code) => {

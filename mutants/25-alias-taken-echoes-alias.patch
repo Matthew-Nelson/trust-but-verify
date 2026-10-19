@@ -1,0 +1,46 @@
+# Mutant 25 — R-ERR-4
+# Description: the 409 alias_taken message names the alias that was requested
+#   (`The alias "launch" is already in use.`), echoing a request-supplied value. Status, code and
+#   body shape are unchanged; no other message changes.
+# Why realistic: a "helpful" error message that mentions what the user typed is the default instinct.
+# Trigger: create alias X twice; the second 409's message contains X.
+
+diff --git a/impls/api/src/error.rs b/impls/api/src/error.rs
+index b0b0716..29b4467 100644
+--- a/impls/api/src/error.rs
++++ b/impls/api/src/error.rs
+@@ -16,7 +16,7 @@ pub enum ApiError {
+     #[error("alias reserved")]
+     AliasReserved,
+     #[error("alias taken")]
+-    AliasTaken,
++    AliasTaken(String),
+     /// JSON 404, used under `/api/`.
+     #[error("not found")]
+     NotFound,
+@@ -79,10 +79,10 @@ impl IntoResponse for ApiError {
+                 "alias_reserved",
+                 "That alias is reserved.",
+             ),
+-            ApiError::AliasTaken => json_error(
++            ApiError::AliasTaken(alias) => json_error(
+                 StatusCode::CONFLICT,
+                 "alias_taken",
+-                "That alias is already in use.",
++                &format!("The alias \"{alias}\" is already in use."),
+             ),
+             ApiError::NotFound => json_error(
+                 StatusCode::NOT_FOUND,
+diff --git a/impls/api/src/links.rs b/impls/api/src/links.rs
+index 170bdff..db225f1 100644
+--- a/impls/api/src/links.rs
++++ b/impls/api/src/links.rs
+@@ -164,7 +164,7 @@ pub async fn create(state: &AppState, body: &[u8]) -> Result<Response, ApiError>
+     let row = match req.alias {
+         Some(alias) => match insert_link(state, &alias, &req.url, true).await? {
+             Some(row) => row,
+-            None => return Err(ApiError::AliasTaken),
++            None => return Err(ApiError::AliasTaken(alias)),
+         },
+         None => {
+             let mut created = None;

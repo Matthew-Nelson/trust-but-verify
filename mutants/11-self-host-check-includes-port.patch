@@ -1,0 +1,39 @@
+# Mutant 11 — R-URL-4
+# Description: the self-reference check compares the URL's authority (`host:port`, as the url crate
+#   serializes it) with PUBLIC_BASE_URL's authority instead of comparing hostnames. With the default
+#   PUBLIC_BASE_URL `http://localhost:8080`, `http://localhost:8080/x` is still rejected, but
+#   `http://localhost/x`, `https://localhost/x`, `http://localhost:9999/x` and `http://u@localhost:8080/x`
+#   are accepted (201) where the SPEC says ports are ignored -> 422.
+# Why realistic: "the link must not point at ourselves" is naturally coded as an origin/authority compare.
+# Trigger: POST {"url":"http://localhost:9999/x"} (or "http://localhost/x") -> expect 422, get 201.
+
+diff --git a/impls/api/src/config.rs b/impls/api/src/config.rs
+index 2b45ff0..be4d5a1 100644
+--- a/impls/api/src/config.rs
++++ b/impls/api/src/config.rs
+@@ -39,10 +39,8 @@ impl Config {
+         let public_base_url = public_base_url.trim().trim_end_matches('/').to_string();
+         let parsed =
+             Url::parse(&public_base_url).map_err(|_| "PUBLIC_BASE_URL is not a valid URL")?;
+-        let public_hostname = parsed
+-            .host_str()
+-            .ok_or("PUBLIC_BASE_URL has no host")?
+-            .to_string();
++        parsed.host_str().ok_or("PUBLIC_BASE_URL has no host")?;
++        let public_hostname = parsed.authority().to_string();
+         // HeaderName::from_bytes lowercases nothing itself, so lowercase first (names are case-insensitive).
+         let country_header =
+             HeaderName::from_bytes(country_header.trim().to_ascii_lowercase().as_bytes())
+diff --git a/impls/api/src/links.rs b/impls/api/src/links.rs
+index 170bdff..2e175a3 100644
+--- a/impls/api/src/links.rs
++++ b/impls/api/src/links.rs
+@@ -83,7 +83,7 @@ pub fn validate_url(raw: &str, public_hostname: &str) -> Result<String, ApiError
+     }
+     match parsed.host_str() {
+         None | Some("") => return Err(ApiError::InvalidUrl),
+-        Some(host) if host == public_hostname => return Err(ApiError::InvalidUrl),
++        Some(_) if parsed.authority() == public_hostname => return Err(ApiError::InvalidUrl),
+         Some(_) => {}
+     }
+     Ok(parsed.to_string())

@@ -1,0 +1,41 @@
+# Mutant 19 — R-REDIR-5
+# Description: click inserts go through a 4-permit semaphore with `try_acquire`; when all permits are
+#   busy the click is silently dropped. Single redirects (R-REDIR-4) still record exactly one click;
+#   under 100+ concurrent redirects a large fraction of clicks are lost while every response is 302.
+# Why realistic: "protect the pool from analytics writes" backpressure, written with try_acquire
+#   instead of acquire so the task never blocks.
+# Trigger: the R-REDIR-5 test (500 GETs, >=100 in flight) -> clickCount grows by far fewer than 500.
+
+diff --git a/impls/api/src/redirect.rs b/impls/api/src/redirect.rs
+index 822e765..c34a181 100644
+--- a/impls/api/src/redirect.rs
++++ b/impls/api/src/redirect.rs
+@@ -4,6 +4,7 @@
+ use axum::http::{HeaderMap, HeaderName, HeaderValue, StatusCode, header};
+ use axum::response::Response;
+ use sqlx::PgPool;
++use tokio::sync::Semaphore;
+ use url::Url;
+ 
+ use crate::app::AppState;
+@@ -97,6 +98,9 @@ pub fn device_from_user_agent(ua: &str) -> &'static str {
+ 
+ // -------------------------------------------------------------------- handler
+ 
++/// Bounds in-flight click inserts so a burst of redirects can't exhaust the connection pool.
++static CLICK_WRITERS: Semaphore = Semaphore::const_new(4);
++
+ /// `should_record` is false for HEAD (R-REDIR-7).
+ pub async fn follow(
+     state: &AppState,
+@@ -121,6 +125,10 @@ pub async fn follow(
+         let link_id = link.id;
+         // Fire and forget: the redirect never waits for, or depends on, the insert (R-REDIR-4/6).
+         tokio::spawn(async move {
++            let Ok(_permit) = CLICK_WRITERS.try_acquire() else {
++                tracing::debug!("click writers busy, skipping click");
++                return;
++            };
+             if let Err(e) = record_click(&pool, link_id, &info).await {
+                 tracing::warn!(error = %e, "could not record click");
+             }

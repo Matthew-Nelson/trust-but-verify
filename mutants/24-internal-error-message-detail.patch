@@ -1,0 +1,27 @@
+# Mutant 24 — R-ERR-7
+# Description: the 500 body's message carries the internal error detail
+#   (`"Internal server error: pool timed out while waiting for an open connection"`), so it is no longer
+#   JSON-equal to the fixed body. Status, code and the body's shape are unchanged.
+# Why realistic: "include the reason so ops can debug from the response" is a common quick change.
+# Trigger: run the api with DATABASE_URL pointing at the harness's accept-and-never-respond listener (the
+#   R-HEALTH-1 instance) or at a closed port, then GET /api/links -> 500 with the detail in `message`.
+#   Any other 500 (e.g. a database error) shows the same leak.
+
+diff --git a/impls/api/src/error.rs b/impls/api/src/error.rs
+index b0b0716..14b128c 100644
+--- a/impls/api/src/error.rs
++++ b/impls/api/src/error.rs
+@@ -112,12 +112,11 @@ impl IntoResponse for ApiError {
+                 "Database unavailable.",
+             ),
+             ApiError::Internal(detail) => {
+-                // The detail goes to the log only, never to the client.
+                 tracing::error!(%detail, "internal error");
+                 json_error(
+                     StatusCode::INTERNAL_SERVER_ERROR,
+                     "internal",
+-                    "Internal server error.",
++                    &format!("Internal server error: {detail}"),
+                 )
+             }
+         }

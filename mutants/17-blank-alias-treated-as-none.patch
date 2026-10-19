@@ -1,0 +1,21 @@
+# Mutant 17 — R-LINK-3
+# Description: an alias that is whitespace-only (`"   "`, `"\n"`) is treated as "no alias" and a random
+#   code is generated (201, isCustom false) instead of 422 invalid_alias. Exactly `""`, null and omitted
+#   behave as before; non-blank aliases are still never trimmed.
+# Why realistic: "blank means not provided" is the usual form-handling instinct; the SPEC's "`\"   \"`
+#   is an alias" sentence is a trap.
+# Trigger: POST {"url":"https://example.com/","alias":"   "} -> expect 422 invalid_alias, get 201.
+
+diff --git a/impls/api/src/links.rs b/impls/api/src/links.rs
+index 170bdff..9518440 100644
+--- a/impls/api/src/links.rs
++++ b/impls/api/src/links.rs
+@@ -146,7 +146,7 @@ pub fn parse_create_request(body: &[u8], public_hostname: &str) -> Result<Create
+     };
+     let alias = match map.get("alias") {
+         None | Some(Value::Null) => None,
+-        Some(Value::String(s)) if s.is_empty() => None,
++        Some(Value::String(s)) if s.trim().is_empty() => None,
+         Some(Value::String(s)) => Some(s.clone()),
+         Some(_) => return Err(bad()),
+     };

@@ -1,0 +1,24 @@
+# Mutant 09 — R-CLICK-2
+# Description: when the country header appears more than once, the first value is used instead of
+#   recording `unknown`. The Referer duplicate rule (R-CLICK-1) is untouched.
+# Why realistic: `headers.get(name)` is the idiomatic one-liner; the "appears more than once" clause is
+#   an unusual requirement that is easy to drop while tidying the function.
+# Trigger: GET /{code} with two `cf-ipcountry: US` headers (or `US` and `DE`) -> topCountries shows US
+#   instead of unknown.
+
+diff --git a/impls/api/src/redirect.rs b/impls/api/src/redirect.rs
+index 822e765..5d97128 100644
+--- a/impls/api/src/redirect.rs
++++ b/impls/api/src/redirect.rs
+@@ -54,10 +54,7 @@ fn referrer_host(headers: &HeaderMap) -> Option<String> {
+ 
+ /// R-CLICK-2. Exactly one header, trimmed of spaces and tabs, two ASCII letters.
+ fn country(headers: &HeaderMap, name: &HeaderName) -> Option<String> {
+-    let mut values = headers.get_all(name).iter();
+-    let (Some(value), None) = (values.next(), values.next()) else {
+-        return None;
+-    };
++    let value = headers.get(name)?;
+     let text = std::str::from_utf8(value.as_bytes()).ok()?;
+     let text = text.trim_matches(|c| c == ' ' || c == '\t');
+     if text.len() == 2 && text.bytes().all(|b| b.is_ascii_alphabetic()) {

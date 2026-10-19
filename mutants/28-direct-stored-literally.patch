@@ -1,0 +1,22 @@
+# Mutant 28 — R-DATA-2
+# Description: a click with no usable referrer stores the literal text 'direct' in `referrer_host`
+#   instead of NULL. Every API field still reads `direct` (the stats query COALESCEs, and both spellings
+#   group together), so the violation is only visible by inspecting the clicks table.
+# Why realistic: "store what we show" avoids a NULL and looks self-describing; the developer never sees a
+#   difference in the API.
+# Trigger (gray-box): GET /{code} with no Referer, then `SELECT referrer_host FROM clicks WHERE link_id=…`
+#   -> expect NULL, get 'direct'.
+
+diff --git a/impls/api/src/redirect.rs b/impls/api/src/redirect.rs
+index 822e765..f1ce552 100644
+--- a/impls/api/src/redirect.rs
++++ b/impls/api/src/redirect.rs
+@@ -139,7 +139,7 @@ async fn record_click(pool: &PgPool, link_id: i64, info: &ClickInfo) -> Result<(
+     sqlx::query!(
+         "INSERT INTO clicks (link_id, referrer_host, country, device) VALUES ($1, $2, $3, $4)",
+         link_id,
+-        info.referrer_host,
++        info.referrer_host.as_deref().unwrap_or("direct"),
+         info.country,
+         info.device
+     )

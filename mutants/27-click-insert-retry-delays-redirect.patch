@@ -1,0 +1,38 @@
+# Mutant 27 — R-REDIR-6
+# Description: the click INSERT is awaited inline with up to 3 attempts and a 1 s sleep after each
+#   failure, so a failing insert delays the redirect by about 3 s before the 302 is sent (status,
+#   Location and Cache-Control stay correct). Successful inserts add only their own latency.
+# Why realistic: "retry transient database errors" written in the request path; the sleep looks cheap.
+# Trigger (gray-box, harness-owned database): block inserts without affecting reads, e.g.
+#   `ALTER TABLE clicks ADD CONSTRAINT no_clicks CHECK (false) NOT VALID;` then time GET /{code}:
+#   expect a 302 within normal latency, get it after ~3 s. Also reproducible by inserting through a proxy
+#   that delays only after the first query of a connection; the simplest is the constraint.
+
+diff --git a/impls/api/src/redirect.rs b/impls/api/src/redirect.rs
+index 822e765..bbfe438 100644
+--- a/impls/api/src/redirect.rs
++++ b/impls/api/src/redirect.rs
+@@ -117,14 +117,16 @@ pub async fn follow(
+ 
+     if should_record {
+         let info = classify(headers, &state.config.country_header);
+-        let pool = state.pool.clone();
+-        let link_id = link.id;
+-        // Fire and forget: the redirect never waits for, or depends on, the insert (R-REDIR-4/6).
+-        tokio::spawn(async move {
+-            if let Err(e) = record_click(&pool, link_id, &info).await {
+-                tracing::warn!(error = %e, "could not record click");
++        // Retry a failed insert a few times before giving up; the redirect is sent either way.
++        for attempt in 1..=3 {
++            match record_click(&state.pool, link.id, &info).await {
++                Ok(()) => break,
++                Err(e) => {
++                    tracing::warn!(error = %e, attempt, "could not record click");
++                    tokio::time::sleep(std::time::Duration::from_secs(1)).await;
++                }
+             }
+-        });
++        }
+     }
+ 
+     let mut res = Response::new(axum::body::Body::empty());

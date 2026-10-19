@@ -1,0 +1,64 @@
+# Mutant 06 — R-STATS-6 (window per R-STATS-3)
+# Description: the `devices` breakdown computes its window start as `today - days` instead of
+#   `today - (days - 1)`, so it covers days+1 days. A click on the day before the window's first day
+#   is counted in `devices` but not in `daily`, `rangeClicks`, `topReferrers` or `topCountries`.
+# Why realistic: four copies of the same window expression; one copy lost its `- 1` during an edit.
+# Trigger (gray-box): seed a click with clicked_at = `(today - days) 12:00:00Z` (just outside the
+#   window) and a distinctive device, e.g. User-Agent "tablet"; GET stats?days=N -> `devices` lists
+#   tablet with 1 click while rangeClicks excludes it.
+
+diff --git a/impls/api/.sqlx/query-8e896479a1dd2c1487a722485d05beb710b48f14f810512351b7b0470734fbb7.json b/impls/api/.sqlx/query-8e896479a1dd2c1487a722485d05beb710b48f14f810512351b7b0470734fbb7.json
+new file mode 100644
+index 0000000..0379c70
+--- /dev/null
++++ b/impls/api/.sqlx/query-8e896479a1dd2c1487a722485d05beb710b48f14f810512351b7b0470734fbb7.json
+@@ -0,0 +1,36 @@
++{
++  "db_name": "PostgreSQL",
++  "query": "SELECT name AS \"name!\", clicks AS \"clicks!\" FROM (\n               SELECT device AS name, count(*) AS clicks\n               FROM clicks\n               WHERE link_id = $1\n                 AND clicked_at >= (((now() AT TIME ZONE 'UTC')::date - $2::int)::timestamp AT TIME ZONE 'UTC')\n                 AND clicked_at <  (((now() AT TIME ZONE 'UTC')::date + 1)::timestamp AT TIME ZONE 'UTC')\n               GROUP BY 1) t\n           ORDER BY clicks DESC, name COLLATE \"C\" ASC",
++  "describe": {
++    "columns": [
++      {
++        "ordinal": 0,
++        "name": "name!",
++        "type_info": "Text",
++        "origin": {
++          "Table": {
++            "table": "clicks",
++            "name": "device"
++          }
++        }
++      },
++      {
++        "ordinal": 1,
++        "name": "clicks!",
++        "type_info": "Int8",
++        "origin": "Expression"
++      }
++    ],
++    "parameters": {
++      "Left": [
++        "Int8",
++        "Int4"
++      ]
++    },
++    "nullable": [
++      false,
++      null
++    ]
++  },
++  "hash": "8e896479a1dd2c1487a722485d05beb710b48f14f810512351b7b0470734fbb7"
++}
+diff --git a/impls/api/src/stats.rs b/impls/api/src/stats.rs
+index 3eb10bd..d0043fe 100644
+--- a/impls/api/src/stats.rs
++++ b/impls/api/src/stats.rs
+@@ -138,7 +138,7 @@ pub async fn stats(
+                SELECT device AS name, count(*) AS clicks
+                FROM clicks
+                WHERE link_id = $1
+-                 AND clicked_at >= (((now() AT TIME ZONE 'UTC')::date - ($2::int - 1))::timestamp AT TIME ZONE 'UTC')
++                 AND clicked_at >= (((now() AT TIME ZONE 'UTC')::date - $2::int)::timestamp AT TIME ZONE 'UTC')
+                  AND clicked_at <  (((now() AT TIME ZONE 'UTC')::date + 1)::timestamp AT TIME ZONE 'UTC')
+                GROUP BY 1) t
+            ORDER BY clicks DESC, name COLLATE "C" ASC"#,

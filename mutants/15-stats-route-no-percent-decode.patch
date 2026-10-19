@@ -1,0 +1,21 @@
+# Mutant 15 — R-ERR-5
+# Description: the stats route passes the raw path segment to the handler without percent-decoding it,
+#   so `GET /api/links/pct%2Dx/stats` returns 404 for the existing code `pct-x`, while
+#   `GET /api/links/pct%2Dx` and `GET /pct%2Dx` still work. Codes without escapes are unaffected.
+# Why realistic: a copy-paste of the route arm that forgot the `decode_code` call; codes rarely contain
+#   characters anyone encodes.
+# Trigger: create alias `pct-x…`; GET /api/links/pct%2Dx…/stats -> expect 200, get 404 not_found.
+
+diff --git a/impls/api/src/app.rs b/impls/api/src/app.rs
+index 098e4af..8a6570c 100644
+--- a/impls/api/src/app.rs
++++ b/impls/api/src/app.rs
+@@ -161,7 +161,7 @@ async fn dispatch(
+             if !is_get {
+                 return Err(ApiError::MethodNotAllowed("GET, HEAD"));
+             }
+-            stats::stats(state, decode_code(code), query).await
++            stats::stats(state, Some(code.to_string()), query).await
+         }
+         Route::Redirect(code) => {
+             if !is_get {

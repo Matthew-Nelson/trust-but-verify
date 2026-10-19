@@ -1,0 +1,38 @@
+# Mutant 21 — R-REDIR-7
+# Description: `Cache-Control: no-store` is only added on the counted (GET) redirect; `HEAD /{code}`
+#   returns 302 with the same Location but no Cache-Control header. GET behaviour (R-REDIR-2) is unchanged.
+# Why realistic: the header is set "because of the click", so it lands in the same block as the click.
+# Trigger: HEAD /{code} for a known code -> expect Cache-Control containing no-store, header absent.
+
+diff --git a/impls/api/src/redirect.rs b/impls/api/src/redirect.rs
+index 822e765..5e31d27 100644
+--- a/impls/api/src/redirect.rs
++++ b/impls/api/src/redirect.rs
+@@ -115,6 +115,10 @@ pub async fn follow(
+     let location = HeaderValue::from_str(&link.url)
+         .map_err(|_| ApiError::Internal("stored url is not a valid header value".into()))?;
+ 
++    let mut res = Response::new(axum::body::Body::empty());
++    *res.status_mut() = StatusCode::FOUND;
++    res.headers_mut().insert(header::LOCATION, location);
++
+     if should_record {
+         let info = classify(headers, &state.config.country_header);
+         let pool = state.pool.clone();
+@@ -125,13 +129,10 @@ pub async fn follow(
+                 tracing::warn!(error = %e, "could not record click");
+             }
+         });
++        // A cached redirect would skip the click above, so forbid caching on the counted request.
++        res.headers_mut()
++            .insert(header::CACHE_CONTROL, HeaderValue::from_static("no-store"));
+     }
+-
+-    let mut res = Response::new(axum::body::Body::empty());
+-    *res.status_mut() = StatusCode::FOUND;
+-    res.headers_mut().insert(header::LOCATION, location);
+-    res.headers_mut()
+-        .insert(header::CACHE_CONTROL, HeaderValue::from_static("no-store"));
+     Ok(res)
+ }
+ 

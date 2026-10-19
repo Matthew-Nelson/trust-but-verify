@@ -1,0 +1,22 @@
+# Mutant 10 — R-URL-1
+# Description: the destination URL is trimmed with `str::trim()` (all Unicode White_Space) instead of
+#   the five ASCII whitespace characters. A leading U+00A0 (NBSP), U+2003, U+000B (VT) or U+0085 is now
+#   stripped, so `" https://example.com/x"` returns 201 instead of 422, and a 2048-code-point URL
+#   preceded by U+000B is accepted instead of rejected by R-URL-3's count.
+# Why realistic: `.trim()` is the default reflex; the SPEC's narrow definition of ASCII whitespace is
+#   easy to miss.
+# Trigger: POST {"url":" https://example.com/x"} -> expect 422 invalid_url, get 201.
+
+diff --git a/impls/api/src/links.rs b/impls/api/src/links.rs
+index 170bdff..f6ec245 100644
+--- a/impls/api/src/links.rs
++++ b/impls/api/src/links.rs
+@@ -73,7 +73,7 @@ fn is_spec_whitespace(c: char) -> bool {
+ 
+ /// Validates a destination URL and returns its WHATWG serialization (R-URL-1..4).
+ pub fn validate_url(raw: &str, public_hostname: &str) -> Result<String, ApiError> {
+-    let trimmed = raw.trim_matches(is_spec_whitespace);
++    let trimmed = raw.trim();
+     if trimmed.chars().count() > MAX_URL_CODE_POINTS {
+         return Err(ApiError::InvalidUrl);
+     }

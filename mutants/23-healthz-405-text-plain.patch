@@ -1,0 +1,20 @@
+# Mutant 23 — R-ERR-1 (also R-ERR-6's "method_not_allowed JSON under /healthz")
+# Description: an unsupported method on /healthz returns the text/plain 405 used for /{code} instead of
+#   the JSON `{"error":{"code":"method_not_allowed",...}}` body. Status and Allow are still correct.
+# Why realistic: /healthz is "not part of the API", so the plain variant looks right; the two error
+#   variants have near-identical names.
+# Trigger: POST /healthz -> expect application/json error body, get text/plain.
+
+diff --git a/impls/api/src/app.rs b/impls/api/src/app.rs
+index 098e4af..29d7c97 100644
+--- a/impls/api/src/app.rs
++++ b/impls/api/src/app.rs
+@@ -131,7 +131,7 @@ async fn dispatch(
+         Route::Unmatched { json: false } => Err(ApiError::PlainNotFound),
+         Route::Health => {
+             if !is_get {
+-                return Err(ApiError::MethodNotAllowed("GET, HEAD"));
++                return Err(ApiError::PlainMethodNotAllowed("GET, HEAD"));
+             }
+             health(state).await
+         }

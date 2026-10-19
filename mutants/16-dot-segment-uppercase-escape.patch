@@ -1,0 +1,21 @@
+# Mutant 16 — R-ROUTE-2
+# Description: dot-segment detection only recognizes lowercase `%2e`. A segment spelled with `%2E`
+#   (`/%2E`, `/.%2E`, `/%2E%2E`, `/api/links/%2E`) is treated as a code instead of an unmatched path.
+#   GET still yields 404 (the decoded code "." is never found), so the difference is only visible on
+#   other methods: `PUT /%2E` -> 405 text/plain (SPEC: 404), `PUT /api/links/%2E%2E` -> 405 JSON (SPEC: 404).
+# Why realistic: percent-escapes are case-insensitive but lowercase is what people type and test.
+# Trigger: PUT /%2E (or POST /.%2E, PUT /api/links/%2E) -> expect 404, get 405 with an Allow header.
+
+diff --git a/impls/api/src/app.rs b/impls/api/src/app.rs
+index 098e4af..d83cb24 100644
+--- a/impls/api/src/app.rs
++++ b/impls/api/src/app.rs
+@@ -78,7 +78,7 @@ enum Route<'a> {
+ 
+ /// True for `.` and `..`, spelled with literal dots and/or `%2e` in any case.
+ fn is_dot_segment(segment: &str) -> bool {
+-    let lower = segment.to_ascii_lowercase().replace("%2e", ".");
++    let lower = segment.replace("%2e", ".");
+     lower == "." || lower == ".."
+ }
+ 

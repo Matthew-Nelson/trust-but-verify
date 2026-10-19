@@ -1,0 +1,20 @@
+# Mutant 01 — R-URL-3
+# Description: the 2048 limit on the trimmed URL is measured in UTF-8 bytes (`len()`) instead of
+#   Unicode code points, so a URL of exactly 2048 code points that contains any non-ASCII character
+#   is rejected with 422 invalid_url. ASCII-only boundary tests still pass.
+# Why realistic: `.len()` is the obvious Rust call; a hurried developer treats "characters" as bytes.
+# Trigger: POST a 2048-code-point URL such as "https://example.com/" + "é" * 2028 -> expect 201, get 422.
+
+diff --git a/impls/api/src/links.rs b/impls/api/src/links.rs
+index 170bdff..868a291 100644
+--- a/impls/api/src/links.rs
++++ b/impls/api/src/links.rs
+@@ -74,7 +74,7 @@ fn is_spec_whitespace(c: char) -> bool {
+ /// Validates a destination URL and returns its WHATWG serialization (R-URL-1..4).
+ pub fn validate_url(raw: &str, public_hostname: &str) -> Result<String, ApiError> {
+     let trimmed = raw.trim_matches(is_spec_whitespace);
+-    if trimmed.chars().count() > MAX_URL_CODE_POINTS {
++    if trimmed.len() > MAX_URL_CODE_POINTS {
+         return Err(ApiError::InvalidUrl);
+     }
+     let parsed = Url::parse(trimmed).map_err(|_| ApiError::InvalidUrl)?;

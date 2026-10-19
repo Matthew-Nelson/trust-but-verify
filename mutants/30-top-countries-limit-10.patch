@@ -1,0 +1,58 @@
+# Mutant 30 — R-STATS-5
+# Description: `topCountries` returns up to 10 entries instead of at most 5. Order, window and
+#   `topReferrers` are unchanged, so any test with five or fewer distinct countries passes.
+# Why realistic: a limit tweaked during debugging ("show me more") and not reverted; the two breakdown
+#   queries are separate literals, so one can drift from the other.
+# Trigger: record (or seed) clicks with six or more distinct country headers in the window; GET stats ->
+#   topCountries has more than 5 entries.
+
+diff --git a/impls/api/.sqlx/query-a189203a8681f3753b32d0464d0f51b4ec5d12bedd4977137cd783aedefb3418.json b/impls/api/.sqlx/query-a189203a8681f3753b32d0464d0f51b4ec5d12bedd4977137cd783aedefb3418.json
+new file mode 100644
+index 0000000..a5b2443
+--- /dev/null
++++ b/impls/api/.sqlx/query-a189203a8681f3753b32d0464d0f51b4ec5d12bedd4977137cd783aedefb3418.json
+@@ -0,0 +1,31 @@
++{
++  "db_name": "PostgreSQL",
++  "query": "SELECT name AS \"name!\", clicks AS \"clicks!\" FROM (\n               SELECT COALESCE(country::text, 'unknown') AS name, count(*) AS clicks\n               FROM clicks\n               WHERE link_id = $1\n                 AND clicked_at >= (((now() AT TIME ZONE 'UTC')::date - ($2::int - 1))::timestamp AT TIME ZONE 'UTC')\n                 AND clicked_at <  (((now() AT TIME ZONE 'UTC')::date + 1)::timestamp AT TIME ZONE 'UTC')\n               GROUP BY 1) t\n           ORDER BY clicks DESC, name COLLATE \"C\" ASC LIMIT 10",
++  "describe": {
++    "columns": [
++      {
++        "ordinal": 0,
++        "name": "name!",
++        "type_info": "Text",
++        "origin": "Expression"
++      },
++      {
++        "ordinal": 1,
++        "name": "clicks!",
++        "type_info": "Int8",
++        "origin": "Expression"
++      }
++    ],
++    "parameters": {
++      "Left": [
++        "Int8",
++        "Int4"
++      ]
++    },
++    "nullable": [
++      null,
++      null
++    ]
++  },
++  "hash": "a189203a8681f3753b32d0464d0f51b4ec5d12bedd4977137cd783aedefb3418"
++}
+diff --git a/impls/api/src/stats.rs b/impls/api/src/stats.rs
+index 3eb10bd..f29ee07 100644
+--- a/impls/api/src/stats.rs
++++ b/impls/api/src/stats.rs
+@@ -123,7 +123,7 @@ pub async fn stats(
+                  AND clicked_at >= (((now() AT TIME ZONE 'UTC')::date - ($2::int - 1))::timestamp AT TIME ZONE 'UTC')
+                  AND clicked_at <  (((now() AT TIME ZONE 'UTC')::date + 1)::timestamp AT TIME ZONE 'UTC')
+                GROUP BY 1) t
+-           ORDER BY clicks DESC, name COLLATE "C" ASC LIMIT 5"#,
++           ORDER BY clicks DESC, name COLLATE "C" ASC LIMIT 10"#,
+         link.id,
+         days as i32
+     )

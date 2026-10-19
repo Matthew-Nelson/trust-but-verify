@@ -1,0 +1,19 @@
+# Mutant 02 — R-ALIAS-1
+# Description: alias length range written as `3..32` (exclusive) instead of `3..=32`, so a
+#   32-character alias gets 422 invalid_alias. 3..31 characters and 33+ behave as specified.
+# Why realistic: classic inclusive/exclusive range slip; `..` vs `..=` is a one-character mistake.
+# Trigger: POST {"url":"https://example.com/","alias":"a"*32} -> expect 201, get 422 invalid_alias.
+
+diff --git a/impls/api/src/links.rs b/impls/api/src/links.rs
+index 170bdff..203b107 100644
+--- a/impls/api/src/links.rs
++++ b/impls/api/src/links.rs
+@@ -91,7 +91,7 @@ pub fn validate_url(raw: &str, public_hostname: &str) -> Result<String, ApiError
+ 
+ /// Checks a custom alias: format first (R-ALIAS-1), then the reserved list (R-ALIAS-2).
+ pub fn validate_alias(alias: &str) -> Result<(), ApiError> {
+-    let well_formed = (3..=32).contains(&alias.len())
++    let well_formed = (3..32).contains(&alias.len())
+         && alias
+             .bytes()
+             .all(|b| b.is_ascii_alphanumeric() || b == b'_' || b == b'-');

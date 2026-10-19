@@ -1,0 +1,29 @@
+# Mutant 04 — R-ERR-3
+# Description: "query integer" parsing is replaced by a plain `str::parse::<i64>()`, which accepts
+#   a leading `+` and leading zeros. `limit=05`, `limit=+5`, `offset=00` and `days=007` are now
+#   accepted (as 5, 5, 0, 7) instead of 400 bad_request. Empty, decimal, exponent, overflow,
+#   repeated and out-of-range values are still rejected.
+# Why realistic: the hand-written regex check looks redundant next to `parse()`; an agent "simplifying"
+#   the code or a developer who never read the "Query integer" definition would write exactly this.
+# Trigger: GET /api/links?limit=05 -> expect 400, get 200 with "limit":5. Same for limit=%2B5.
+
+diff --git a/impls/api/src/query.rs b/impls/api/src/query.rs
+index 7016e6a..fc6facd 100644
+--- a/impls/api/src/query.rs
++++ b/impls/api/src/query.rs
+@@ -61,15 +61,6 @@ pub fn decode_code(segment: &str) -> Option<String> {
+ 
+ /// A SPEC "query integer": `^(0|[1-9][0-9]*)$` that fits in a signed 64-bit integer.
+ pub fn parse_query_integer(value: &str) -> Option<i64> {
+-    let ok = value == "0"
+-        || (value
+-            .as_bytes()
+-            .first()
+-            .is_some_and(|b| (b'1'..=b'9').contains(b))
+-            && value.bytes().all(|b| b.is_ascii_digit()));
+-    if !ok {
+-        return None;
+-    }
+     value.parse::<i64>().ok()
+ }
+ 

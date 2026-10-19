@@ -1,0 +1,22 @@
+# Mutant 36 — R-UI-5
+# Description: the Created cell rounds `createdAt` to the nearest minute instead of truncating the
+#   seconds, so a link created at hh:mm:30 or later shows hh:(mm+1). Links created in the first half
+#   of a minute display correctly.
+# Why realistic: "nearest minute" is what most date helpers do, and the difference is invisible in about
+#   half of manual checks.
+# Trigger: a link whose createdAt has seconds >= 30 (seed `created_at` gray-box, or create one and read its
+#   createdAt) -> the table shows one minute later than `YYYY-MM-DD HH:MM` truncated.
+
+diff --git a/impls/web/src/lib/format.ts b/impls/web/src/lib/format.ts
+index 3c0c502..c9e0bf8 100644
+--- a/impls/web/src/lib/format.ts
++++ b/impls/web/src/lib/format.ts
+@@ -1,4 +1,6 @@
+-/** createdAt as UTC "YYYY-MM-DD HH:MM", seconds truncated (R-UI-5). */
++/** createdAt as UTC "YYYY-MM-DD HH:MM" to the nearest minute (R-UI-5). */
+ export function formatCreated(iso: string): string {
+-  return new Date(iso).toISOString().slice(0, 16).replace("T", " ");
++  const minute = 60_000;
++  const rounded = new Date(Math.round(new Date(iso).getTime() / minute) * minute);
++  return rounded.toISOString().slice(0, 16).replace("T", " ");
+ }

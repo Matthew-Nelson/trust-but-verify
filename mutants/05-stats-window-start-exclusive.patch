@@ -1,0 +1,59 @@
+# Mutant 05 — R-STATS-3
+# Description: the per-day bucket query uses `clicked_at > window_start` instead of `>=`, so a click
+#   stamped exactly at 00:00:00Z on the first day of the window is excluded from `daily` and
+#   `rangeClicks` (it still counts in totalClicks, and topReferrers/topCountries/devices are unchanged).
+# Why realistic: half-open interval written with the wrong comparison on the closed end; only a click
+#   on the exact microsecond of midnight reveals it.
+# Trigger (gray-box): seed a click at `(today - days + 1) 00:00:00Z`; GET stats -> daily[0].clicks is
+#   one short and rangeClicks != sum of what the seed implies.
+
+diff --git a/impls/api/.sqlx/query-b38105321f329641d195dbfb0f531be5a4af90035b35d8305eb73b75602d779c.json b/impls/api/.sqlx/query-b38105321f329641d195dbfb0f531be5a4af90035b35d8305eb73b75602d779c.json
+new file mode 100644
+index 0000000..39beac4
+--- /dev/null
++++ b/impls/api/.sqlx/query-b38105321f329641d195dbfb0f531be5a4af90035b35d8305eb73b75602d779c.json
+@@ -0,0 +1,31 @@
++{
++  "db_name": "PostgreSQL",
++  "query": "SELECT (clicked_at AT TIME ZONE 'UTC')::date AS \"day!\", count(*) AS \"clicks!\"\n           FROM clicks\n           WHERE link_id = $1\n             AND clicked_at > (((now() AT TIME ZONE 'UTC')::date - ($2::int - 1))::timestamp AT TIME ZONE 'UTC')\n             AND clicked_at <  (((now() AT TIME ZONE 'UTC')::date + 1)::timestamp AT TIME ZONE 'UTC')\n           GROUP BY 1",
++  "describe": {
++    "columns": [
++      {
++        "ordinal": 0,
++        "name": "day!",
++        "type_info": "Date",
++        "origin": "Expression"
++      },
++      {
++        "ordinal": 1,
++        "name": "clicks!",
++        "type_info": "Int8",
++        "origin": "Expression"
++      }
++    ],
++    "parameters": {
++      "Left": [
++        "Int8",
++        "Int4"
++      ]
++    },
++    "nullable": [
++      null,
++      null
++    ]
++  },
++  "hash": "b38105321f329641d195dbfb0f531be5a4af90035b35d8305eb73b75602d779c"
++}
+diff --git a/impls/api/src/stats.rs b/impls/api/src/stats.rs
+index 3eb10bd..acc7265 100644
+--- a/impls/api/src/stats.rs
++++ b/impls/api/src/stats.rs
+@@ -76,7 +76,7 @@ pub async fn stats(
+         r#"SELECT (clicked_at AT TIME ZONE 'UTC')::date AS "day!", count(*) AS "clicks!"
+            FROM clicks
+            WHERE link_id = $1
+-             AND clicked_at >= (((now() AT TIME ZONE 'UTC')::date - ($2::int - 1))::timestamp AT TIME ZONE 'UTC')
++             AND clicked_at > (((now() AT TIME ZONE 'UTC')::date - ($2::int - 1))::timestamp AT TIME ZONE 'UTC')
+              AND clicked_at <  (((now() AT TIME ZONE 'UTC')::date + 1)::timestamp AT TIME ZONE 'UTC')
+            GROUP BY 1"#,
+         link.id,

@@ -1,0 +1,20 @@
+# Mutant 33 — R-UI-2
+# Description: the "already has a scheme" test is `^https?://` (case-sensitive, http/https only) instead
+#   of `^[A-Za-z][A-Za-z0-9+.-]*://`. `HTTP://x.com` and `ftp://x.com` are now prefixed, so the UI sends
+#   `https://HTTP://x.com` (a valid URL with host "http") instead of the value unchanged. Lowercase
+#   http(s) and bare hostnames behave as specified.
+# Why realistic: "does it start with http(s)://" is how most people would write this check.
+# Trigger: submit destination `HTTP://x.com` -> the created link's url should be `http://x.com/`;
+#   it is `https://http//x.com`. (`ftp://x.com` gives a link instead of the invalid_url alert.)
+
+diff --git a/impls/web/src/lib/normalize.ts b/impls/web/src/lib/normalize.ts
+index c643af5..7aadb39 100644
+--- a/impls/web/src/lib/normalize.ts
++++ b/impls/web/src/lib/normalize.ts
+@@ -5,5 +5,5 @@ export const trimAscii = (s: string): string => s.replace(ASCII_WS, "");
+ 
+ export function normalizeDestination(raw: string): string {
+   const t = trimAscii(raw);
+-  return /^[A-Za-z][A-Za-z0-9+.-]*:\/\//.test(t) ? t : `https://${t}`;
++  return /^https?:\/\//.test(t) ? t : `https://${t}`;
+ }

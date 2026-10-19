@@ -1,0 +1,23 @@
+# Mutant 29 — R-GET-1
+# Description: timestamps are formatted with millisecond precision, so `lastClickedAt` is truncated from
+#   the stored microseconds (`…23:59:59.999999Z` -> `…23:59:59.999Z`). Still valid RFC 3339 with <=6
+#   fractional digits, so the schema and R-OAS-1 pass; only an instant-level comparison with the seeded
+#   or stored value notices.
+# Why realistic: JavaScript-friendly millisecond timestamps are a common "normalization"; AutoSi vs
+#   Millis is one enum variant apart.
+# Trigger (gray-box): seed a click at `D-1 23:59:59.999999Z`; GET /api/links/{code} -> lastClickedAt
+#   parsed as an instant is 999 microseconds earlier than the seeded value.
+
+diff --git a/impls/api/src/links.rs b/impls/api/src/links.rs
+index 170bdff..8aca7bc 100644
+--- a/impls/api/src/links.rs
++++ b/impls/api/src/links.rs
+@@ -47,7 +47,7 @@ pub struct LinkRow {
+ 
+ /// RFC 3339 in UTC with a `Z` suffix; fractional seconds appear only when non-zero.
+ fn format_time(t: DateTime<Utc>) -> String {
+-    t.to_rfc3339_opts(SecondsFormat::AutoSi, true)
++    t.to_rfc3339_opts(SecondsFormat::Millis, true)
+ }
+ 
+ impl LinkRow {

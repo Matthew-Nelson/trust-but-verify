@@ -1,0 +1,19 @@
+# Mutant 03 — R-ERR-2
+# Description: the body-size check uses `>=` so a body of exactly 65,536 bytes is rejected with
+#   400 bad_request. 65,535 is accepted and 65,537 is rejected as before.
+# Why realistic: off-by-one on "at most N bytes"; limits are routinely written as `>= MAX`.
+# Trigger: POST a valid JSON body padded with an unknown key to exactly 65,536 bytes -> expect 201, get 400.
+
+diff --git a/impls/api/src/links.rs b/impls/api/src/links.rs
+index 170bdff..ca7ae6b 100644
+--- a/impls/api/src/links.rs
++++ b/impls/api/src/links.rs
+@@ -133,7 +133,7 @@ pub struct CreateRequest {
+ /// malformed body (400), then URL, then alias format, then reserved.
+ pub fn parse_create_request(body: &[u8], public_hostname: &str) -> Result<CreateRequest, ApiError> {
+     let bad = || ApiError::BadRequest("Request body must be a JSON object with a 'url' string.");
+-    if body.len() > MAX_BODY_BYTES {
++    if body.len() >= MAX_BODY_BYTES {
+         return Err(bad());
+     }
+     // serde_json rejects invalid UTF-8 and unpaired surrogate escapes; with duplicate keys the last wins.

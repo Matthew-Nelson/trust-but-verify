@@ -1,0 +1,27 @@
+# Mutant 12 — R-ERR-2
+# Description: the URL is validated before the `alias` field's type is checked. A body whose `alias` is
+#   neither a string nor null AND whose `url` is invalid now returns 422 invalid_url instead of 400
+#   bad_request. Each fault alone still gets the right status.
+# Why realistic: the fields are parsed top to bottom; moving the URL check up "to fail fast" reorders
+#   the malformed-body check without anyone noticing.
+# Trigger: POST {"url":"nope","alias":5} -> expect 400 bad_request, get 422 invalid_url.
+
+diff --git a/impls/api/src/links.rs b/impls/api/src/links.rs
+index 170bdff..05e402a 100644
+--- a/impls/api/src/links.rs
++++ b/impls/api/src/links.rs
+@@ -144,13 +144,13 @@ pub fn parse_create_request(body: &[u8], public_hostname: &str) -> Result<Create
+     let Some(Value::String(url)) = map.get("url") else {
+         return Err(bad());
+     };
++    let url = validate_url(url, public_hostname)?;
+     let alias = match map.get("alias") {
+         None | Some(Value::Null) => None,
+         Some(Value::String(s)) if s.is_empty() => None,
+         Some(Value::String(s)) => Some(s.clone()),
+         Some(_) => return Err(bad()),
+     };
+-    let url = validate_url(url, public_hostname)?;
+     if let Some(alias) = &alias {
+         validate_alias(alias)?;
+     }

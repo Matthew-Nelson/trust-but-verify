@@ -1,0 +1,75 @@
+# Mutant 32 — R-UI-6
+# Description: the "Delete {code}" / "Confirm delete" pair is extracted into a per-row component with
+#   its own open state, so opening a second row's confirmation no longer closes the first: two or more
+#   "Confirm delete" buttons can be visible at once. Confirming still deletes only that row's link, and
+#   nothing is deleted without confirmation.
+# Why realistic: extracting a row component is a routine refactor, and local state is the default;
+#   the "at most one open" rule lives only in a comment that the refactor deletes.
+# Trigger: click "Delete A", then "Delete B" -> expect exactly one "Confirm delete" (in row B); get two.
+
+diff --git a/impls/web/src/components/links-table.tsx b/impls/web/src/components/links-table.tsx
+index 582f135..a42a670 100644
+--- a/impls/web/src/components/links-table.tsx
++++ b/impls/web/src/components/links-table.tsx
+@@ -6,15 +6,33 @@ import { deleteLinkAction } from "@/app/actions";
+ 
+ export type Row = { code: string; shortUrl: string; url: string; clickCount: number; created: string };
+ 
++function DeleteControls({ code, pending, onConfirm }: { code: string; pending: boolean; onConfirm: (code: string) => void }) {
++  const [open, setOpen] = useState(false);
++  return (
++    <>
++      <button type="button" onClick={() => setOpen(true)} className="ml-2 rounded border border-gray-700 px-2 py-1">
++        Delete {code}
++      </button>
++      {open && (
++        <button
++          type="button"
++          disabled={pending}
++          onClick={() => onConfirm(code)}
++          className="ml-2 rounded bg-red-800 px-2 py-1 text-white disabled:opacity-60"
++        >
++          Confirm delete
++        </button>
++      )}
++    </>
++  );
++}
++
+ export function LinksTable({ rows }: { rows: Row[] }) {
+-  // One piece of state for the whole table, so at most one confirmation is open (R-UI-6).
+-  const [open, setOpen] = useState<string | null>(null);
+   const [pending, startTransition] = useTransition();
+ 
+   function confirmDelete(code: string) {
+     startTransition(async () => {
+       await deleteLinkAction(code);
+-      setOpen(null);
+     });
+   }
+ 
+@@ -52,23 +70,7 @@ export function LinksTable({ rows }: { rows: Row[] }) {
+                   >
+                     Stats for {r.code}
+                   </Link>{" "}
+-                  <button
+-                    type="button"
+-                    onClick={() => setOpen(r.code)}
+-                    className="ml-2 rounded border border-gray-700 px-2 py-1"
+-                  >
+-                    Delete {r.code}
+-                  </button>
+-                  {open === r.code && (
+-                    <button
+-                      type="button"
+-                      disabled={pending}
+-                      onClick={() => confirmDelete(r.code)}
+-                      className="ml-2 rounded bg-red-800 px-2 py-1 text-white disabled:opacity-60"
+-                    >
+-                      Confirm delete
+-                    </button>
+-                  )}
++                  <DeleteControls code={r.code} pending={pending} onConfirm={confirmDelete} />
+                 </td>
+               </tr>
+             ))}

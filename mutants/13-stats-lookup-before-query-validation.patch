@@ -1,0 +1,29 @@
+# Mutant 13 — R-ERR-6 (check order; also stated in R-ERR-3/R-ERR-5)
+# Description: on GET /api/links/{code}/stats the link lookup runs before `days` is validated, so an
+#   unknown code with an invalid `days` returns 404 not_found instead of 400 bad_request. Known codes
+#   and valid queries are unaffected.
+# Why realistic: "find the link, then read its options" is the natural handler order; the SPEC's
+#   explicit ordering is counter-intuitive.
+# Trigger: GET /api/links/does-not-exist-xyz/stats?days=0 -> expect 400, get 404.
+
+diff --git a/impls/api/src/stats.rs b/impls/api/src/stats.rs
+index 3eb10bd..a36c7cb 100644
+--- a/impls/api/src/stats.rs
++++ b/impls/api/src/stats.rs
+@@ -42,8 +42,6 @@ pub async fn stats(
+     code: Option<String>,
+     query: Option<&str>,
+ ) -> Result<Response, ApiError> {
+-    // Query validation runs before the code lookup (R-ERR-3, R-ERR-6).
+-    let days = integer_param(query, "days", 1, 365, 30)?;
+     let Some(code) = code else {
+         return Err(ApiError::NotFound);
+     };
+@@ -58,6 +56,7 @@ pub async fn stats(
+         .fetch_optional(&mut *tx)
+         .await?
+         .ok_or(ApiError::NotFound)?;
++    let days = integer_param(query, "days", 1, 365, 30)?;
+ 
+     let today: NaiveDate =
+         sqlx::query_scalar!(r#"SELECT (now() AT TIME ZONE 'UTC')::date AS "today!""#)

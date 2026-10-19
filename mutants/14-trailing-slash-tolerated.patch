@@ -1,0 +1,21 @@
+# Mutant 14 — R-ROUTE-1
+# Description: one trailing slash is stripped before route matching, so `/api/links/`, `/api/links/{code}/`,
+#   `/{code}/` and `/healthz/` behave like the path without the slash (200/302/405 as appropriate)
+#   instead of 404. `/` and `//` remain unmatched.
+# Why realistic: most web frameworks normalize trailing slashes; a developer adds the one-liner after
+#   seeing a 404 in a browser.
+# Trigger: GET /api/links/ -> expect 404 not_found, get 200 with a page. GET /{code}/ -> 302 instead of 404.
+
+diff --git a/impls/api/src/app.rs b/impls/api/src/app.rs
+index 098e4af..36fe4a8 100644
+--- a/impls/api/src/app.rs
++++ b/impls/api/src/app.rs
+@@ -89,6 +89,8 @@ fn match_route(path: &str) -> Route<'_> {
+     let Some(rest) = path.strip_prefix('/') else {
+         return unmatched;
+     };
++    // Be lenient about a trailing slash, like most routers.
++    let rest = rest.strip_suffix('/').unwrap_or(rest);
+     let segments: Vec<&str> = rest.split('/').collect();
+     if segments
+         .iter()

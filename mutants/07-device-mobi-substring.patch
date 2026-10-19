@@ -1,0 +1,21 @@
+# Mutant 07 — R-CLICK-3
+# Description: the mobile rule matches the substring `mobile` instead of `mobi`, so user agents that
+#   only contain `Mobi` as a fragment (e.g. "Opera Mobi/…", "Mobi Safari", "Mobitel") are classified
+#   `desktop`. Agents containing "Mobile", "iPhone" or "Android" are still `mobile`.
+# Why realistic: `mobi` reads like a typo of `mobile`; an agent or reviewer "fixes" it.
+# Trigger: GET /{code} with User-Agent "Opera/9.80 (J2ME/MIDP; Opera Mobi/23.348; U; en)" -> stats
+#   devices shows desktop instead of mobile.
+
+diff --git a/impls/api/src/redirect.rs b/impls/api/src/redirect.rs
+index 822e765..3878b87 100644
+--- a/impls/api/src/redirect.rs
++++ b/impls/api/src/redirect.rs
+@@ -88,7 +88,7 @@ pub fn device_from_user_agent(ua: &str) -> &'static str {
+         "bot"
+     } else if has(&["ipad", "tablet"]) {
+         "tablet"
+-    } else if has(&["mobi", "iphone", "android"]) {
++    } else if has(&["mobile", "iphone", "android"]) {
+         "mobile"
+     } else {
+         "desktop"

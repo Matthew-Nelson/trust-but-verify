@@ -1,0 +1,21 @@
+--- src/app.rs
++++ delete match arm ["healthz"] in match_route
+@@ -92,17 +92,17 @@
+     let segments: Vec<&str> = rest.split('/').collect();
+     if segments
+         .iter()
+         .any(|s| s.is_empty() || is_dot_segment(s) || !escapes_are_well_formed(s))
+     {
+         return unmatched;
+     }
+     match segments.as_slice() {
+-        ["healthz"] => Route::Health,
++         /* ~ changed by cargo-mutants ~ */
+         ["api", "links"] => Route::Links,
+         ["api", "links", code] => Route::Link(code),
+         ["api", "links", code, "stats"] => Route::Stats(code),
+         [code] => Route::Redirect(code),
+         _ => unmatched,
+     }
+ }
+ 

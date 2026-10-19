@@ -1,0 +1,27 @@
+--- src/error.rs
++++ replace json_error -> Response with Default::default()
+@@ -37,23 +37,17 @@
+ 
+ impl From<sqlx::Error> for ApiError {
+     fn from(e: sqlx::Error) -> Self {
+         ApiError::Internal(e.to_string())
+     }
+ }
+ 
+ fn json_error(status: StatusCode, code: &str, message: &str) -> Response {
+-    let body = json!({ "error": { "code": code, "message": message } }).to_string();
+-    let mut res = (status, body).into_response();
+-    res.headers_mut().insert(
+-        header::CONTENT_TYPE,
+-        HeaderValue::from_static("application/json"),
+-    );
+-    res
++    Default::default() /* ~ changed by cargo-mutants ~ */
+ }
+ 
+ fn plain(status: StatusCode, text: &'static str) -> Response {
+     let mut res = (status, text).into_response();
+     res.headers_mut().insert(
+         header::CONTENT_TYPE,
+         HeaderValue::from_static("text/plain; charset=utf-8"),
+     );

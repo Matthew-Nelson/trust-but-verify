@@ -1,0 +1,24 @@
+--- src/redirect.rs
++++ replace device -> &'static str with ""
+@@ -64,20 +64,17 @@
+         Some(text.to_ascii_uppercase())
+     } else {
+         None
+     }
+ }
+ 
+ /// R-CLICK-3. First matching rule wins, case-insensitive.
+ fn device(headers: &HeaderMap) -> &'static str {
+-    let Some(value) = headers.get(header::USER_AGENT) else {
+-        return "unknown";
+-    };
+-    device_from_user_agent(&String::from_utf8_lossy(value.as_bytes()))
++    "" /* ~ changed by cargo-mutants ~ */
+ }
+ 
+ pub fn device_from_user_agent(ua: &str) -> &'static str {
+     if ua
+         .trim_matches(|c: char| c.is_ascii_whitespace())
+         .is_empty()
+     {
+         return "unknown";

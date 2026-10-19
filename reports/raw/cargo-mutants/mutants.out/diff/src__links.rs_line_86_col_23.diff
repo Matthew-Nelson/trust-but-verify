@@ -1,0 +1,21 @@
+--- src/links.rs
++++ replace match guard host == public_hostname with true in validate_url
+@@ -78,17 +78,17 @@
+         return Err(ApiError::InvalidUrl);
+     }
+     let parsed = Url::parse(trimmed).map_err(|_| ApiError::InvalidUrl)?;
+     if parsed.scheme() != "http" && parsed.scheme() != "https" {
+         return Err(ApiError::InvalidUrl);
+     }
+     match parsed.host_str() {
+         None | Some("") => return Err(ApiError::InvalidUrl),
+-        Some(host) if host == public_hostname => return Err(ApiError::InvalidUrl),
++        Some(host) if true /* ~ changed by cargo-mutants ~ */ => return Err(ApiError::InvalidUrl),
+         Some(_) => {}
+     }
+     Ok(parsed.to_string())
+ }
+ 
+ /// Checks a custom alias: format first (R-ALIAS-1), then the reserved list (R-ALIAS-2).
+ pub fn validate_alias(alias: &str) -> Result<(), ApiError> {
+     let well_formed = (3..=32).contains(&alias.len())

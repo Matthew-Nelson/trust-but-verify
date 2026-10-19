@@ -1,0 +1,21 @@
+--- src/app.rs
++++ delete match arm ["api", "links"] in match_route
+@@ -93,17 +93,17 @@
+     if segments
+         .iter()
+         .any(|s| s.is_empty() || is_dot_segment(s) || !escapes_are_well_formed(s))
+     {
+         return unmatched;
+     }
+     match segments.as_slice() {
+         ["healthz"] => Route::Health,
+-        ["api", "links"] => Route::Links,
++         /* ~ changed by cargo-mutants ~ */
+         ["api", "links", code] => Route::Link(code),
+         ["api", "links", code, "stats"] => Route::Stats(code),
+         [code] => Route::Redirect(code),
+         _ => unmatched,
+     }
+ }
+ 
+ async fn handle(State(state): State<Arc<AppState>>, req: Request<Body>) -> Response {

@@ -1,0 +1,21 @@
+--- src/query.rs
++++ replace += with *= in integer_param
+@@ -85,17 +85,17 @@
+     let mut found: Option<&str> = None;
+     let mut count = 0;
+     for pair in query.unwrap_or("").split('&') {
+         if pair.is_empty() {
+             continue;
+         }
+         let (raw_name, raw_value) = pair.split_once('=').unwrap_or((pair, ""));
+         if percent_decode(raw_name) == name.as_bytes() {
+-            count += 1;
++            count *= /* ~ changed by cargo-mutants ~ */ 1;
+             found = Some(raw_value);
+         }
+     }
+     let Some(raw_value) = found else {
+         return Ok(default);
+     };
+     if count > 1 {
+         return Err(bad_param());

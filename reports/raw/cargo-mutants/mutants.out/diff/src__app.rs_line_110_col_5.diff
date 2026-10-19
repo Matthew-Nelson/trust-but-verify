@@ -1,0 +1,26 @@
+--- src/app.rs
++++ replace handle -> Response with Default::default()
+@@ -102,22 +102,17 @@
+         ["api", "links", code] => Route::Link(code),
+         ["api", "links", code, "stats"] => Route::Stats(code),
+         [code] => Route::Redirect(code),
+         _ => unmatched,
+     }
+ }
+ 
+ async fn handle(State(state): State<Arc<AppState>>, req: Request<Body>) -> Response {
+-    let (parts, body) = req.into_parts();
+-    let result = dispatch(&state, parts, body).await;
+-    match result {
+-        Ok(res) => res,
+-        Err(e) => axum::response::IntoResponse::into_response(e),
+-    }
++    Default::default() /* ~ changed by cargo-mutants ~ */
+ }
+ 
+ async fn dispatch(
+     state: &AppState,
+     parts: axum::http::request::Parts,
+     body: Body,
+ ) -> Result<Response, ApiError> {
+     let method = &parts.method;

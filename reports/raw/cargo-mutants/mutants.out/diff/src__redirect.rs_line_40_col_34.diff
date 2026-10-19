@@ -1,0 +1,21 @@
+--- src/redirect.rs
++++ replace && with || in referrer_host
+@@ -32,17 +32,17 @@
+ /// R-CLICK-1. One `Referer` header that parses as an http(s) URL with a host.
+ fn referrer_host(headers: &HeaderMap) -> Option<String> {
+     let mut values = headers.get_all(header::REFERER).iter();
+     let (Some(value), None) = (values.next(), values.next()) else {
+         return None;
+     };
+     let text = std::str::from_utf8(value.as_bytes()).ok()?;
+     let parsed = Url::parse(text).ok()?;
+-    if parsed.scheme() != "http" && parsed.scheme() != "https" {
++    if parsed.scheme() != "http" || /* ~ changed by cargo-mutants ~ */ parsed.scheme() != "https" {
+         return None;
+     }
+     let host = parsed.host_str().filter(|h| !h.is_empty())?;
+     let host = match host.strip_prefix("www.") {
+         Some(rest) if !rest.is_empty() => rest,
+         _ => host,
+     };
+     // The literal host "direct" would be ambiguous with no referrer, so it is stored as NULL too.

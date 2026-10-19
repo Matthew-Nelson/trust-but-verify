@@ -1,0 +1,21 @@
+--- src/query.rs
++++ replace || with && in parse_query_integer
+@@ -57,17 +57,17 @@
+ pub fn decode_code(segment: &str) -> Option<String> {
+     let s = String::from_utf8(percent_decode(segment)).ok()?;
+     if s.contains('\0') { None } else { Some(s) }
+ }
+ 
+ /// A SPEC "query integer": `^(0|[1-9][0-9]*)$` that fits in a signed 64-bit integer.
+ pub fn parse_query_integer(value: &str) -> Option<i64> {
+     let ok = value == "0"
+-        || (value
++        && /* ~ changed by cargo-mutants ~ */ (value
+             .as_bytes()
+             .first()
+             .is_some_and(|b| (b'1'..=b'9').contains(b))
+             && value.bytes().all(|b| b.is_ascii_digit()));
+     if !ok {
+         return None;
+     }
+     value.parse::<i64>().ok()

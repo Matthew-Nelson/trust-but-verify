@@ -1,0 +1,21 @@
+--- src/links.rs
++++ replace == with != in delete
+@@ -235,17 +235,17 @@
+ 
+ pub async fn delete(state: &AppState, code: Option<String>) -> Result<Response, ApiError> {
+     let Some(code) = code else {
+         return Err(ApiError::NotFound);
+     };
+     let result = sqlx::query!("DELETE FROM links WHERE code = $1", code)
+         .execute(&state.pool)
+         .await?;
+-    if result.rows_affected() == 0 {
++    if result.rows_affected() != /* ~ changed by cargo-mutants ~ */ 0 {
+         return Err(ApiError::NotFound);
+     }
+     Ok(Response::builder()
+         .status(StatusCode::NO_CONTENT)
+         .body(axum::body::Body::empty())
+         .expect("static response"))
+ }
+ 

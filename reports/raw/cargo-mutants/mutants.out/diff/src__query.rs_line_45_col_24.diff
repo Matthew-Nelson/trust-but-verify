@@ -1,0 +1,21 @@
+--- src/query.rs
++++ replace * with + in percent_decode
+@@ -37,17 +37,17 @@
+     let b = s.as_bytes();
+     let mut out = Vec::with_capacity(b.len());
+     let mut i = 0;
+     while i < b.len() {
+         if b[i] == b'%'
+             && i + 2 < b.len()
+             && let (Some(h), Some(l)) = (hex_value(b[i + 1]), hex_value(b[i + 2]))
+         {
+-            out.push(h * 16 + l);
++            out.push(h + /* ~ changed by cargo-mutants ~ */ 16 + l);
+             i += 3;
+             continue;
+         }
+         out.push(b[i]);
+         i += 1;
+     }
+     out
+ }

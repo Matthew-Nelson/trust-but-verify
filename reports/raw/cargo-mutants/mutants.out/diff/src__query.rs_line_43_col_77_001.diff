@@ -1,0 +1,21 @@
+--- src/query.rs
++++ replace + with * in percent_decode
+@@ -35,17 +35,17 @@
+ /// Returns raw bytes, since the result need not be valid UTF-8.
+ pub fn percent_decode(s: &str) -> Vec<u8> {
+     let b = s.as_bytes();
+     let mut out = Vec::with_capacity(b.len());
+     let mut i = 0;
+     while i < b.len() {
+         if b[i] == b'%'
+             && i + 2 < b.len()
+-            && let (Some(h), Some(l)) = (hex_value(b[i + 1]), hex_value(b[i + 2]))
++            && let (Some(h), Some(l)) = (hex_value(b[i + 1]), hex_value(b[i * /* ~ changed by cargo-mutants ~ */ 2]))
+         {
+             out.push(h * 16 + l);
+             i += 3;
+             continue;
+         }
+         out.push(b[i]);
+         i += 1;
+     }

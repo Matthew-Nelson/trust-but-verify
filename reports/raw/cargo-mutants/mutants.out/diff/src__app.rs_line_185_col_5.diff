@@ -1,0 +1,29 @@
+--- src/app.rs
++++ replace health -> Result<Response, ApiError> with Ok(Default::default())
+@@ -177,25 +177,17 @@
+ 
+ #[derive(Serialize)]
+ struct Health {
+     status: &'static str,
+ }
+ 
+ /// Queries the database on every call, with a 2 second limit (R-HEALTH-1, R-HEALTH-3).
+ async fn health(state: &AppState) -> Result<Response, ApiError> {
+-    let check = tokio::time::timeout(
+-        Duration::from_secs(2),
+-        sqlx::query("SELECT 1").execute(&state.pool),
+-    )
+-    .await;
+-    match check {
+-        Ok(Ok(_)) => Ok(json_response(StatusCode::OK, &Health { status: "ok" })),
+-        _ => Err(ApiError::Unavailable),
+-    }
++    Ok(Default::default()) /* ~ changed by cargo-mutants ~ */
+ }
+ 
+ /// Applies migrations, retrying until the database is reachable. Never gives up (R-HEALTH-2).
+ pub async fn migrate_forever(pool: PgPool) {
+     loop {
+         let attempt = tokio::time::timeout(
+             Duration::from_secs(15),
+             sqlx::migrate!("./migrations").run(&pool),

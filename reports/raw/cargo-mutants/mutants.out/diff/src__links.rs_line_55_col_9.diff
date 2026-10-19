@@ -1,0 +1,29 @@
+--- src/links.rs
++++ replace LinkRow::into_link -> Link with Default::default()
+@@ -47,25 +47,17 @@
+ 
+ /// RFC 3339 in UTC with a `Z` suffix; fractional seconds appear only when non-zero.
+ fn format_time(t: DateTime<Utc>) -> String {
+     t.to_rfc3339_opts(SecondsFormat::AutoSi, true)
+ }
+ 
+ impl LinkRow {
+     pub fn into_link(self, public_base_url: &str) -> Link {
+-        Link {
+-            short_url: format!("{public_base_url}/{}", self.code),
+-            code: self.code,
+-            url: self.url,
+-            is_custom: self.is_custom,
+-            created_at: format_time(self.created_at),
+-            click_count: self.click_count,
+-            last_clicked_at: self.last_clicked_at.map(format_time),
+-        }
++        Default::default() /* ~ changed by cargo-mutants ~ */
+     }
+ }
+ 
+ // ---------------------------------------------------------------- validation
+ 
+ /// ASCII whitespace as defined by the SPEC: tab, LF, FF, CR and space. Nothing else.
+ fn is_spec_whitespace(c: char) -> bool {
+     matches!(c, '\t' | '\n' | '\u{000C}' | '\r' | ' ')

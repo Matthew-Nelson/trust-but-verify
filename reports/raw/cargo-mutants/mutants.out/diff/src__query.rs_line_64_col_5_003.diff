@@ -1,0 +1,30 @@
+--- src/query.rs
++++ replace parse_query_integer -> Option<i64> with Some(-1)
+@@ -56,26 +56,17 @@
+ /// (or hold a NUL, which Postgres text cannot store), so no link can have that code.
+ pub fn decode_code(segment: &str) -> Option<String> {
+     let s = String::from_utf8(percent_decode(segment)).ok()?;
+     if s.contains('\0') { None } else { Some(s) }
+ }
+ 
+ /// A SPEC "query integer": `^(0|[1-9][0-9]*)$` that fits in a signed 64-bit integer.
+ pub fn parse_query_integer(value: &str) -> Option<i64> {
+-    let ok = value == "0"
+-        || (value
+-            .as_bytes()
+-            .first()
+-            .is_some_and(|b| (b'1'..=b'9').contains(b))
+-            && value.bytes().all(|b| b.is_ascii_digit()));
+-    if !ok {
+-        return None;
+-    }
+-    value.parse::<i64>().ok()
++    Some(-1) /* ~ changed by cargo-mutants ~ */
+ }
+ 
+ /// Reads one optional integer parameter from a raw query string and checks its range.
+ /// Absent -> `default`. Repeated, malformed or out-of-range -> 400.
+ pub fn integer_param(
+     query: Option<&str>,
+     name: &str,
+     min: i64,

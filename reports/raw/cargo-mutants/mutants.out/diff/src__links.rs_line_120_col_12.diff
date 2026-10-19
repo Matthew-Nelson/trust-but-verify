@@ -1,0 +1,21 @@
+--- src/links.rs
++++ delete ! in generate_code
+@@ -112,17 +112,17 @@
+ 
+ fn generate_code() -> String {
+     let mut rng = rand::rng();
+     loop {
+         let code: String = (0..CODE_LENGTH)
+             .map(|_| CODE_ALPHABET[rng.random_range(0..CODE_ALPHABET.len())] as char)
+             .collect();
+         // "healthz" has 7 letters, so a random code could equal a reserved alias.
+-        if !is_reserved(&code) {
++        if  /* ~ changed by cargo-mutants ~ */is_reserved(&code) {
+             return code;
+         }
+     }
+ }
+ 
+ /// The parsed, validated body of `POST /api/links`.
+ pub struct CreateRequest {
+     pub url: String,

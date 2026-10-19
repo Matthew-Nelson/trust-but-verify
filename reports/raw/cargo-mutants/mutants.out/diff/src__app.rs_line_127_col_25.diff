@@ -1,0 +1,21 @@
+--- src/app.rs
++++ replace == with != in dispatch
+@@ -119,17 +119,17 @@
+     state: &AppState,
+     parts: axum::http::request::Parts,
+     body: Body,
+ ) -> Result<Response, ApiError> {
+     let method = &parts.method;
+     let path = parts.uri.path();
+     let query = parts.uri.query();
+     // HEAD runs the GET logic; hyper drops the body from the response.
+-    let is_get = method == Method::GET || method == Method::HEAD;
++    let is_get = method != /* ~ changed by cargo-mutants ~ */ Method::GET || method == Method::HEAD;
+ 
+     match match_route(path) {
+         Route::Unmatched { json: true } => Err(ApiError::NotFound),
+         Route::Unmatched { json: false } => Err(ApiError::PlainNotFound),
+         Route::Health => {
+             if !is_get {
+                 return Err(ApiError::MethodNotAllowed("GET, HEAD"));
+             }

@@ -1,0 +1,21 @@
+--- src/links.rs
++++ replace && with || in validate_url
+@@ -73,17 +73,17 @@
+ 
+ /// Validates a destination URL and returns its WHATWG serialization (R-URL-1..4).
+ pub fn validate_url(raw: &str, public_hostname: &str) -> Result<String, ApiError> {
+     let trimmed = raw.trim_matches(is_spec_whitespace);
+     if trimmed.chars().count() > MAX_URL_CODE_POINTS {
+         return Err(ApiError::InvalidUrl);
+     }
+     let parsed = Url::parse(trimmed).map_err(|_| ApiError::InvalidUrl)?;
+-    if parsed.scheme() != "http" && parsed.scheme() != "https" {
++    if parsed.scheme() != "http" || /* ~ changed by cargo-mutants ~ */ parsed.scheme() != "https" {
+         return Err(ApiError::InvalidUrl);
+     }
+     match parsed.host_str() {
+         None | Some("") => return Err(ApiError::InvalidUrl),
+         Some(host) if host == public_hostname => return Err(ApiError::InvalidUrl),
+         Some(_) => {}
+     }
+     Ok(parsed.to_string())

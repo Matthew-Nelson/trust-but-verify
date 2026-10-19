@@ -1,0 +1,21 @@
+--- src/app.rs
++++ delete ! in dispatch
+@@ -125,17 +125,17 @@
+     let query = parts.uri.query();
+     // HEAD runs the GET logic; hyper drops the body from the response.
+     let is_get = method == Method::GET || method == Method::HEAD;
+ 
+     match match_route(path) {
+         Route::Unmatched { json: true } => Err(ApiError::NotFound),
+         Route::Unmatched { json: false } => Err(ApiError::PlainNotFound),
+         Route::Health => {
+-            if !is_get {
++            if  /* ~ changed by cargo-mutants ~ */is_get {
+                 return Err(ApiError::MethodNotAllowed("GET, HEAD"));
+             }
+             health(state).await
+         }
+         Route::Links => {
+             if *method == Method::POST {
+                 // Content-Type is ignored; the raw bytes are parsed as JSON.
+                 let bytes = to_bytes(body, links::MAX_BODY_BYTES).await.map_err(|_| {

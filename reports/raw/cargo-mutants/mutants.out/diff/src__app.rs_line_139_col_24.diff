@@ -1,0 +1,21 @@
+--- src/app.rs
++++ replace == with != in dispatch
+@@ -131,17 +131,17 @@
+         Route::Unmatched { json: false } => Err(ApiError::PlainNotFound),
+         Route::Health => {
+             if !is_get {
+                 return Err(ApiError::MethodNotAllowed("GET, HEAD"));
+             }
+             health(state).await
+         }
+         Route::Links => {
+-            if *method == Method::POST {
++            if *method != /* ~ changed by cargo-mutants ~ */ Method::POST {
+                 // Content-Type is ignored; the raw bytes are parsed as JSON.
+                 let bytes = to_bytes(body, links::MAX_BODY_BYTES).await.map_err(|_| {
+                     ApiError::BadRequest("Request body is too large or unreadable.")
+                 })?;
+                 links::create(state, &bytes).await
+             } else if is_get {
+                 links::list(state, query).await
+             } else {

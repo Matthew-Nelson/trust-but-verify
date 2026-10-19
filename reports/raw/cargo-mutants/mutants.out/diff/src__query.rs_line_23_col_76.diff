@@ -1,0 +1,21 @@
+--- src/query.rs
++++ replace + with - in escapes_are_well_formed
+@@ -15,17 +15,17 @@
+ 
+ /// True if every `%` in `s` is followed by two hex digits.
+ pub fn escapes_are_well_formed(s: &str) -> bool {
+     let b = s.as_bytes();
+     let mut i = 0;
+     while i < b.len() {
+         if b[i] == b'%' {
+             let complete = i + 2 < b.len();
+-            if !complete || hex_value(b[i + 1]).is_none() || hex_value(b[i + 2]).is_none() {
++            if !complete || hex_value(b[i + 1]).is_none() || hex_value(b[i - /* ~ changed by cargo-mutants ~ */ 2]).is_none() {
+                 return false;
+             }
+             i += 3;
+         } else {
+             i += 1;
+         }
+     }
+     true

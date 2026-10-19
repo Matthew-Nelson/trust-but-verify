@@ -1,0 +1,21 @@
+--- src/links.rs
++++ replace match guard s.is_empty() with false in parse_create_request
+@@ -141,17 +141,17 @@
+     let Value::Object(map) = value else {
+         return Err(bad());
+     };
+     let Some(Value::String(url)) = map.get("url") else {
+         return Err(bad());
+     };
+     let alias = match map.get("alias") {
+         None | Some(Value::Null) => None,
+-        Some(Value::String(s)) if s.is_empty() => None,
++        Some(Value::String(s)) if false /* ~ changed by cargo-mutants ~ */ => None,
+         Some(Value::String(s)) => Some(s.clone()),
+         Some(_) => return Err(bad()),
+     };
+     let url = validate_url(url, public_hostname)?;
+     if let Some(alias) = &alias {
+         validate_alias(alias)?;
+     }
+     Ok(CreateRequest { url, alias })

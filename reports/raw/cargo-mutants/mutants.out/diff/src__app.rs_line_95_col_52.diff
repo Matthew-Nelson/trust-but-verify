@@ -1,0 +1,21 @@
+--- src/app.rs
++++ replace || with && in match_route
+@@ -87,17 +87,17 @@
+     let json = path.starts_with("/api/") && path.len() > "/api/".len();
+     let unmatched = Route::Unmatched { json };
+     let Some(rest) = path.strip_prefix('/') else {
+         return unmatched;
+     };
+     let segments: Vec<&str> = rest.split('/').collect();
+     if segments
+         .iter()
+-        .any(|s| s.is_empty() || is_dot_segment(s) || !escapes_are_well_formed(s))
++        .any(|s| s.is_empty() || is_dot_segment(s) && /* ~ changed by cargo-mutants ~ */ !escapes_are_well_formed(s))
+     {
+         return unmatched;
+     }
+     match segments.as_slice() {
+         ["healthz"] => Route::Health,
+         ["api", "links"] => Route::Links,
+         ["api", "links", code] => Route::Link(code),
+         ["api", "links", code, "stats"] => Route::Stats(code),

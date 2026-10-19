@@ -1,0 +1,71 @@
+--- src/app.rs
++++ replace dispatch -> Result<Response, ApiError> with Ok(Default::default())
+@@ -115,67 +115,17 @@
+     }
+ }
+ 
+ async fn dispatch(
+     state: &AppState,
+     parts: axum::http::request::Parts,
+     body: Body,
+ ) -> Result<Response, ApiError> {
+-    let method = &parts.method;
+-    let path = parts.uri.path();
+-    let query = parts.uri.query();
+-    // HEAD runs the GET logic; hyper drops the body from the response.
+-    let is_get = method == Method::GET || method == Method::HEAD;
+-
+-    match match_route(path) {
+-        Route::Unmatched { json: true } => Err(ApiError::NotFound),
+-        Route::Unmatched { json: false } => Err(ApiError::PlainNotFound),
+-        Route::Health => {
+-            if !is_get {
+-                return Err(ApiError::MethodNotAllowed("GET, HEAD"));
+-            }
+-            health(state).await
+-        }
+-        Route::Links => {
+-            if *method == Method::POST {
+-                // Content-Type is ignored; the raw bytes are parsed as JSON.
+-                let bytes = to_bytes(body, links::MAX_BODY_BYTES).await.map_err(|_| {
+-                    ApiError::BadRequest("Request body is too large or unreadable.")
+-                })?;
+-                links::create(state, &bytes).await
+-            } else if is_get {
+-                links::list(state, query).await
+-            } else {
+-                Err(ApiError::MethodNotAllowed("GET, HEAD, POST"))
+-            }
+-        }
+-        Route::Link(code) => {
+-            if is_get {
+-                links::get(state, decode_code(code)).await
+-            } else if *method == Method::DELETE {
+-                links::delete(state, decode_code(code)).await
+-            } else {
+-                Err(ApiError::MethodNotAllowed("GET, HEAD, DELETE"))
+-            }
+-        }
+-        Route::Stats(code) => {
+-            if !is_get {
+-                return Err(ApiError::MethodNotAllowed("GET, HEAD"));
+-            }
+-            stats::stats(state, decode_code(code), query).await
+-        }
+-        Route::Redirect(code) => {
+-            if !is_get {
+-                return Err(ApiError::PlainMethodNotAllowed("GET, HEAD"));
+-            }
+-            let record = *method == Method::GET;
+-            redirect::follow(state, decode_code(code), &parts.headers, record).await
+-        }
+-    }
++    Ok(Default::default()) /* ~ changed by cargo-mutants ~ */
+ }
+ 
+ // ---------------------------------------------------------------------- health
+ 
+ #[derive(Serialize)]
+ struct Health {
+     status: &'static str,
+ }

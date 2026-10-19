@@ -1,0 +1,30 @@
+--- src/links.rs
++++ replace generate_code -> String with String::new()
+@@ -106,26 +106,17 @@
+ 
+ fn is_reserved(code: &str) -> bool {
+     RESERVED_ALIASES
+         .iter()
+         .any(|r| r.eq_ignore_ascii_case(code))
+ }
+ 
+ fn generate_code() -> String {
+-    let mut rng = rand::rng();
+-    loop {
+-        let code: String = (0..CODE_LENGTH)
+-            .map(|_| CODE_ALPHABET[rng.random_range(0..CODE_ALPHABET.len())] as char)
+-            .collect();
+-        // "healthz" has 7 letters, so a random code could equal a reserved alias.
+-        if !is_reserved(&code) {
+-            return code;
+-        }
+-    }
++    String::new() /* ~ changed by cargo-mutants ~ */
+ }
+ 
+ /// The parsed, validated body of `POST /api/links`.
+ pub struct CreateRequest {
+     pub url: String,
+     pub alias: Option<String>,
+ }
+ 

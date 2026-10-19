@@ -1,0 +1,31 @@
+--- src/redirect.rs
++++ replace country -> Option<String> with None
+@@ -49,27 +49,17 @@
+     if host == "direct" {
+         return None;
+     }
+     Some(host.to_string())
+ }
+ 
+ /// R-CLICK-2. Exactly one header, trimmed of spaces and tabs, two ASCII letters.
+ fn country(headers: &HeaderMap, name: &HeaderName) -> Option<String> {
+-    let mut values = headers.get_all(name).iter();
+-    let (Some(value), None) = (values.next(), values.next()) else {
+-        return None;
+-    };
+-    let text = std::str::from_utf8(value.as_bytes()).ok()?;
+-    let text = text.trim_matches(|c| c == ' ' || c == '\t');
+-    if text.len() == 2 && text.bytes().all(|b| b.is_ascii_alphabetic()) {
+-        Some(text.to_ascii_uppercase())
+-    } else {
+-        None
+-    }
++    None /* ~ changed by cargo-mutants ~ */
+ }
+ 
+ /// R-CLICK-3. First matching rule wins, case-insensitive.
+ fn device(headers: &HeaderMap) -> &'static str {
+     let Some(value) = headers.get(header::USER_AGENT) else {
+         return "unknown";
+     };
+     device_from_user_agent(&String::from_utf8_lossy(value.as_bytes()))

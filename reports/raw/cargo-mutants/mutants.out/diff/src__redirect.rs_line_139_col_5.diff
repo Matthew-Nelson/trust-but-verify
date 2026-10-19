@@ -1,0 +1,30 @@
+--- src/redirect.rs
++++ replace record_click -> Result<(), sqlx::Error> with Ok(())
+@@ -131,26 +131,17 @@
+     *res.status_mut() = StatusCode::FOUND;
+     res.headers_mut().insert(header::LOCATION, location);
+     res.headers_mut()
+         .insert(header::CACHE_CONTROL, HeaderValue::from_static("no-store"));
+     Ok(res)
+ }
+ 
+ async fn record_click(pool: &PgPool, link_id: i64, info: &ClickInfo) -> Result<(), sqlx::Error> {
+-    sqlx::query!(
+-        "INSERT INTO clicks (link_id, referrer_host, country, device) VALUES ($1, $2, $3, $4)",
+-        link_id,
+-        info.referrer_host,
+-        info.country,
+-        info.device
+-    )
+-    .execute(pool)
+-    .await?;
+-    Ok(())
++    Ok(()) /* ~ changed by cargo-mutants ~ */
+ }
+ 
+ #[cfg(test)]
+ mod tests {
+     use super::*;
+ 
+     fn headers(pairs: &[(&str, &str)]) -> HeaderMap {
+         let mut h = HeaderMap::new();

@@ -1,0 +1,22 @@
+--- src/query.rs
++++ replace decode_code -> Option<String> with Some("xyzzy".into())
+@@ -50,18 +50,17 @@
+         i += 1;
+     }
+     out
+ }
+ 
+ /// Decodes a path segment into a code. `None` means the bytes are not valid UTF-8
+ /// (or hold a NUL, which Postgres text cannot store), so no link can have that code.
+ pub fn decode_code(segment: &str) -> Option<String> {
+-    let s = String::from_utf8(percent_decode(segment)).ok()?;
+-    if s.contains('\0') { None } else { Some(s) }
++    Some("xyzzy".into()) /* ~ changed by cargo-mutants ~ */
+ }
+ 
+ /// A SPEC "query integer": `^(0|[1-9][0-9]*)$` that fits in a signed 64-bit integer.
+ pub fn parse_query_integer(value: &str) -> Option<i64> {
+     let ok = value == "0"
+         || (value
+             .as_bytes()
+             .first()

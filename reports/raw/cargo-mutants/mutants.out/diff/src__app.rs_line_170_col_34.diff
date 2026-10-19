@@ -1,0 +1,21 @@
+--- src/app.rs
++++ replace == with != in dispatch
+@@ -162,17 +162,17 @@
+                 return Err(ApiError::MethodNotAllowed("GET, HEAD"));
+             }
+             stats::stats(state, decode_code(code), query).await
+         }
+         Route::Redirect(code) => {
+             if !is_get {
+                 return Err(ApiError::PlainMethodNotAllowed("GET, HEAD"));
+             }
+-            let record = *method == Method::GET;
++            let record = *method != /* ~ changed by cargo-mutants ~ */ Method::GET;
+             redirect::follow(state, decode_code(code), &parts.headers, record).await
+         }
+     }
+ }
+ 
+ // ---------------------------------------------------------------------- health
+ 
+ #[derive(Serialize)]

@@ -1,0 +1,21 @@
+--- src/stats.rs
++++ replace - with / in stats
+@@ -83,17 +83,17 @@
+         days as i32
+     )
+     .fetch_all(&mut *tx)
+     .await?;
+     let by_day: HashMap<NaiveDate, i64> =
+         day_counts.into_iter().map(|r| (r.day, r.clicks)).collect();
+     let daily: Vec<DailyClicks> = (0..days)
+         .map(|i| {
+-            let date = today - Duration::days(days - 1 - i);
++            let date = today - Duration::days(days - 1 / /* ~ changed by cargo-mutants ~ */ i);
+             DailyClicks {
+                 date: date.format("%Y-%m-%d").to_string(),
+                 clicks: by_day.get(&date).copied().unwrap_or(0),
+             }
+         })
+         .collect();
+     let range_clicks = daily.iter().map(|d| d.clicks).sum();
+ 

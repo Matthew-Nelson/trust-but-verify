@@ -1,0 +1,32 @@
+--- src/app.rs
++++ replace json_response -> Response with Default::default()
+@@ -41,28 +41,17 @@
+         });
+     Router::new()
+         .fallback(handle)
+         .with_state(state)
+         .layer(trace)
+ }
+ 
+ pub fn json_response<T: Serialize>(status: StatusCode, value: &T) -> Response {
+-    match serde_json::to_vec(value) {
+-        Ok(bytes) => {
+-            let mut res = Response::new(Body::from(bytes));
+-            *res.status_mut() = status;
+-            res.headers_mut().insert(
+-                header::CONTENT_TYPE,
+-                HeaderValue::from_static("application/json"),
+-            );
+-            res
+-        }
+-        Err(e) => axum::response::IntoResponse::into_response(ApiError::Internal(e.to_string())),
+-    }
++    Default::default() /* ~ changed by cargo-mutants ~ */
+ }
+ 
+ // -------------------------------------------------------------------- routing
+ 
+ /// A path that matched a route. Codes are still percent-encoded.
+ #[derive(Debug, PartialEq, Eq)]
+ enum Route<'a> {
+     Health,

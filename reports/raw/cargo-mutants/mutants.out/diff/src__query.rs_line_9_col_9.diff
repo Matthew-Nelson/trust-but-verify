@@ -1,0 +1,21 @@
+--- src/query.rs
++++ delete match arm b'0'..= b'9' in hex_value
+@@ -1,17 +1,17 @@
+ //! Raw path and query-string parsing. Axum's `Query`/`Path` extractors differ from SPEC
+ //! (they turn `+` into a space, accept leading zeros, and allow repeated parameters),
+ //! so this module follows the SPEC "Query integer" definition by hand.
+ 
+ use crate::error::ApiError;
+ 
+ fn hex_value(b: u8) -> Option<u8> {
+     match b {
+-        b'0'..=b'9' => Some(b - b'0'),
++         /* ~ changed by cargo-mutants ~ */
+         b'a'..=b'f' => Some(b - b'a' + 10),
+         b'A'..=b'F' => Some(b - b'A' + 10),
+         _ => None,
+     }
+ }
+ 
+ /// True if every `%` in `s` is followed by two hex digits.
+ pub fn escapes_are_well_formed(s: &str) -> bool {

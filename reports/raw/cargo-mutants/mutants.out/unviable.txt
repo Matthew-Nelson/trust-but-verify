@@ -1,0 +1,14 @@
+src/app.rs:87:5: replace match_route -> Route<'_> with Default::default()
+src/config.rs:19:9: replace Config::from_env -> Result<Config, String> with Ok(Default::default())
+src/config.rs:39:9: replace Config::build -> Result<Config, String> with Ok(Default::default())
+src/error.rs:40:9: replace <impl From<sqlx::Error> for ApiError>::from -> Self with Default::default()
+src/links.rs:55:9: replace LinkRow::into_link -> Link with Default::default()
+src/links.rs:135:5: replace parse_create_request -> Result<CreateRequest, ApiError> with Ok(Default::default())
+src/links.rs:192:5: replace insert_link -> Result<Option<LinkRow>, ApiError> with Ok(Some(Default::default()))
+src/query.rs:10:38: replace + with * in hex_value
+src/query.rs:11:38: replace + with * in hex_value
+src/query.rs:43:13: replace && with || in percent_decode
+src/query.rs:42:13: replace && with || in percent_decode
+src/query.rs:111:5: replace bad_param -> ApiError with Default::default()
+src/redirect.rs:25:5: replace classify -> ClickInfo with Default::default()
+src/stats.rs:91:30: replace - with / in stats

@@ -1,0 +1,21 @@
+--- src/query.rs
++++ replace += with -= in escapes_are_well_formed
+@@ -18,17 +18,17 @@
+     let b = s.as_bytes();
+     let mut i = 0;
+     while i < b.len() {
+         if b[i] == b'%' {
+             let complete = i + 2 < b.len();
+             if !complete || hex_value(b[i + 1]).is_none() || hex_value(b[i + 2]).is_none() {
+                 return false;
+             }
+-            i += 3;
++            i -= /* ~ changed by cargo-mutants ~ */ 3;
+         } else {
+             i += 1;
+         }
+     }
+     true
+ }
+ 
+ /// Percent-decodes once. `+` stays a plus. A malformed escape is kept literally.

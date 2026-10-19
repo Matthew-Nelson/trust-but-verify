@@ -1,0 +1,21 @@
+--- src/query.rs
++++ replace += with -= in escapes_are_well_formed
+@@ -20,17 +20,17 @@
+     while i < b.len() {
+         if b[i] == b'%' {
+             let complete = i + 2 < b.len();
+             if !complete || hex_value(b[i + 1]).is_none() || hex_value(b[i + 2]).is_none() {
+                 return false;
+             }
+             i += 3;
+         } else {
+-            i += 1;
++            i -= /* ~ changed by cargo-mutants ~ */ 1;
+         }
+     }
+     true
+ }
+ 
+ /// Percent-decodes once. `+` stays a plus. A malformed escape is kept literally.
+ /// Returns raw bytes, since the result need not be valid UTF-8.
+ pub fn percent_decode(s: &str) -> Vec<u8> {

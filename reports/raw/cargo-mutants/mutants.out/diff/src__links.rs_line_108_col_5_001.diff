@@ -1,0 +1,23 @@
+--- src/links.rs
++++ replace is_reserved -> bool with false
+@@ -100,19 +100,17 @@
+     }
+     if is_reserved(alias) {
+         return Err(ApiError::AliasReserved);
+     }
+     Ok(())
+ }
+ 
+ fn is_reserved(code: &str) -> bool {
+-    RESERVED_ALIASES
+-        .iter()
+-        .any(|r| r.eq_ignore_ascii_case(code))
++    false /* ~ changed by cargo-mutants ~ */
+ }
+ 
+ fn generate_code() -> String {
+     let mut rng = rand::rng();
+     loop {
+         let code: String = (0..CODE_LENGTH)
+             .map(|_| CODE_ALPHABET[rng.random_range(0..CODE_ALPHABET.len())] as char)
+             .collect();

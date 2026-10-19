@@ -1,0 +1,26 @@
+--- src/error.rs
++++ replace plain -> Response with Default::default()
+@@ -47,22 +47,17 @@
+     res.headers_mut().insert(
+         header::CONTENT_TYPE,
+         HeaderValue::from_static("application/json"),
+     );
+     res
+ }
+ 
+ fn plain(status: StatusCode, text: &'static str) -> Response {
+-    let mut res = (status, text).into_response();
+-    res.headers_mut().insert(
+-        header::CONTENT_TYPE,
+-        HeaderValue::from_static("text/plain; charset=utf-8"),
+-    );
+-    res
++    Default::default() /* ~ changed by cargo-mutants ~ */
+ }
+ 
+ impl IntoResponse for ApiError {
+     fn into_response(self) -> Response {
+         match self {
+             ApiError::BadRequest(msg) => json_error(StatusCode::BAD_REQUEST, "bad_request", msg),
+             ApiError::InvalidUrl => json_error(
+                 StatusCode::UNPROCESSABLE_ENTITY,

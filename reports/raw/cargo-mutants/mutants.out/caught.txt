@@ -1,0 +1,174 @@
+src/app.rs:32:5: replace router -> Router with Default::default()
+src/app.rs:49:5: replace json_response -> Response with Default::default()
+src/app.rs:81:5: replace is_dot_segment -> bool with true
+src/app.rs:81:5: replace is_dot_segment -> bool with false
+src/app.rs:82:18: replace || with && in is_dot_segment
+src/app.rs:82:11: replace == with != in is_dot_segment
+src/app.rs:82:27: replace == with != in is_dot_segment
+src/app.rs:87:42: replace && with || in match_route
+src/app.rs:87:56: replace > with == in match_route
+src/app.rs:87:56: replace > with < in match_route
+src/app.rs:87:56: replace > with >= in match_route
+src/app.rs:95:52: replace || with && in match_route
+src/app.rs:95:31: replace || with && in match_route
+src/app.rs:95:55: delete ! in match_route
+src/app.rs:100:9: delete match arm ["healthz"] in match_route
+src/app.rs:101:9: delete match arm ["api", "links"] in match_route
+src/app.rs:102:9: delete match arm ["api", "links", code] in match_route
+src/app.rs:103:9: delete match arm ["api", "links", code, "stats"] in match_route
+src/app.rs:104:9: delete match arm [code] in match_route
+src/app.rs:110:5: replace handle -> Response with Default::default()
+src/app.rs:123:5: replace dispatch -> Result<Response, ApiError> with Ok(Default::default())
+src/app.rs:127:40: replace || with && in dispatch
+src/app.rs:127:25: replace == with != in dispatch
+src/app.rs:127:50: replace == with != in dispatch
+src/app.rs:133:16: delete ! in dispatch
+src/app.rs:139:24: replace == with != in dispatch
+src/app.rs:154:31: replace == with != in dispatch
+src/app.rs:161:16: delete ! in dispatch
+src/app.rs:167:16: delete ! in dispatch
+src/app.rs:170:34: replace == with != in dispatch
+src/app.rs:185:5: replace health -> Result<Response, ApiError> with Ok(Default::default())
+src/app.rs:191:9: delete match arm Ok(Ok(_)) in health
+src/error.rs:45:5: replace json_error -> Response with Default::default()
+src/error.rs:55:5: replace plain -> Response with Default::default()
+src/error.rs:65:9: replace <impl IntoResponse for ApiError>::into_response -> Response with Default::default()
+src/links.rs:50:5: replace format_time -> String with String::new()
+src/links.rs:50:5: replace format_time -> String with "xyzzy".into()
+src/links.rs:71:5: replace is_spec_whitespace -> bool with true
+src/links.rs:71:5: replace is_spec_whitespace -> bool with false
+src/links.rs:76:5: replace validate_url -> Result<String, ApiError> with Ok(String::new())
+src/links.rs:76:5: replace validate_url -> Result<String, ApiError> with Ok("xyzzy".into())
+src/links.rs:77:32: replace > with == in validate_url
+src/links.rs:77:32: replace > with < in validate_url
+src/links.rs:77:32: replace > with >= in validate_url
+src/links.rs:81:34: replace && with || in validate_url
+src/links.rs:81:24: replace != with == in validate_url
+src/links.rs:81:53: replace != with == in validate_url
+src/links.rs:86:23: replace match guard host == public_hostname with true in validate_url
+src/links.rs:86:23: replace match guard host == public_hostname with false in validate_url
+src/links.rs:86:28: replace == with != in validate_url
+src/links.rs:94:5: replace validate_alias -> Result<(), ApiError> with Ok(())
+src/links.rs:95:9: replace && with || in validate_alias
+src/links.rs:97:61: replace || with && in validate_alias
+src/links.rs:97:48: replace || with && in validate_alias
+src/links.rs:97:53: replace == with != in validate_alias
+src/links.rs:97:66: replace == with != in validate_alias
+src/links.rs:98:8: delete ! in validate_alias
+src/links.rs:108:5: replace is_reserved -> bool with false
+src/links.rs:114:5: replace generate_code -> String with String::new()
+src/links.rs:114:5: replace generate_code -> String with "xyzzy".into()
+src/links.rs:136:19: replace > with == in parse_create_request
+src/links.rs:136:19: replace > with < in parse_create_request
+src/links.rs:136:19: replace > with >= in parse_create_request
+src/links.rs:149:35: replace match guard s.is_empty() with true in parse_create_request
+src/links.rs:149:35: replace match guard s.is_empty() with false in parse_create_request
+src/links.rs:163:5: replace create -> Result<Response, ApiError> with Ok(Default::default())
+src/links.rs:192:5: replace insert_link -> Result<Option<LinkRow>, ApiError> with Ok(None)
+src/links.rs:210:42: replace match guard e.is_unique_violation() with false in insert_link
+src/links.rs:216:5: replace get -> Result<Response, ApiError> with Ok(Default::default())
+src/links.rs:237:5: replace delete -> Result<Response, ApiError> with Ok(Default::default())
+src/links.rs:243:31: replace == with != in delete
+src/links.rs:261:5: replace list -> Result<Response, ApiError> with Ok(Default::default())
+src/query.rs:8:5: replace hex_value -> Option<u8> with None
+src/query.rs:8:5: replace hex_value -> Option<u8> with Some(0)
+src/query.rs:8:5: replace hex_value -> Option<u8> with Some(1)
+src/query.rs:9:9: delete match arm b'0'..= b'9' in hex_value
+src/query.rs:10:9: delete match arm b'a'..= b'f' in hex_value
+src/query.rs:11:9: delete match arm b'A'..= b'F' in hex_value
+src/query.rs:9:31: replace - with + in hex_value
+src/query.rs:9:31: replace - with / in hex_value
+src/query.rs:10:38: replace + with - in hex_value
+src/query.rs:11:38: replace + with - in hex_value
+src/query.rs:11:31: replace - with + in hex_value
+src/query.rs:11:31: replace - with / in hex_value
+src/query.rs:18:5: replace escapes_are_well_formed -> bool with true
+src/query.rs:18:5: replace escapes_are_well_formed -> bool with false
+src/query.rs:20:13: replace < with == in escapes_are_well_formed
+src/query.rs:20:13: replace < with > in escapes_are_well_formed
+src/query.rs:20:13: replace < with <= in escapes_are_well_formed
+src/query.rs:21:17: replace == with != in escapes_are_well_formed
+src/query.rs:22:34: replace < with == in escapes_are_well_formed
+src/query.rs:22:34: replace < with > in escapes_are_well_formed
+src/query.rs:22:34: replace < with <= in escapes_are_well_formed
+src/query.rs:22:30: replace + with - in escapes_are_well_formed
+src/query.rs:22:30: replace + with * in escapes_are_well_formed
+src/query.rs:23:26: replace || with && in escapes_are_well_formed
+src/query.rs:23:16: delete ! in escapes_are_well_formed
+src/query.rs:23:43: replace + with - in escapes_are_well_formed
+src/query.rs:23:43: replace + with * in escapes_are_well_formed
+src/query.rs:23:76: replace + with - in escapes_are_well_formed
+src/query.rs:23:76: replace + with * in escapes_are_well_formed
+src/query.rs:28:15: replace += with -= in escapes_are_well_formed
+src/query.rs:37:5: replace percent_decode -> Vec<u8> with vec![]
+src/query.rs:37:5: replace percent_decode -> Vec<u8> with vec![0]
+src/query.rs:37:5: replace percent_decode -> Vec<u8> with vec![1]
+src/query.rs:40:13: replace < with == in percent_decode
+src/query.rs:40:13: replace < with > in percent_decode
+src/query.rs:40:13: replace < with <= in percent_decode
+src/query.rs:41:17: replace == with != in percent_decode
+src/query.rs:42:22: replace < with == in percent_decode
+src/query.rs:42:22: replace < with > in percent_decode
+src/query.rs:42:18: replace + with - in percent_decode
+src/query.rs:43:56: replace + with - in percent_decode
+src/query.rs:43:56: replace + with * in percent_decode
+src/query.rs:43:77: replace + with - in percent_decode
+src/query.rs:43:77: replace + with * in percent_decode
+src/query.rs:45:29: replace + with - in percent_decode
+src/query.rs:45:29: replace + with * in percent_decode
+src/query.rs:45:24: replace * with + in percent_decode
+src/query.rs:45:24: replace * with / in percent_decode
+src/query.rs:50:11: replace += with -= in percent_decode
+src/query.rs:58:5: replace decode_code -> Option<String> with None
+src/query.rs:58:5: replace decode_code -> Option<String> with Some(String::new())
+src/query.rs:58:5: replace decode_code -> Option<String> with Some("xyzzy".into())
+src/query.rs:64:5: replace parse_query_integer -> Option<i64> with None
+src/query.rs:64:5: replace parse_query_integer -> Option<i64> with Some(0)
+src/query.rs:64:5: replace parse_query_integer -> Option<i64> with Some(1)
+src/query.rs:64:5: replace parse_query_integer -> Option<i64> with Some(-1)
+src/query.rs:65:9: replace || with && in parse_query_integer
+src/query.rs:64:20: replace == with != in parse_query_integer
+src/query.rs:69:13: replace && with || in parse_query_integer
+src/query.rs:70:8: delete ! in parse_query_integer
+src/query.rs:85:5: replace integer_param -> Result<i64, ApiError> with Ok(0)
+src/query.rs:85:5: replace integer_param -> Result<i64, ApiError> with Ok(1)
+src/query.rs:85:5: replace integer_param -> Result<i64, ApiError> with Ok(-1)
+src/query.rs:92:37: replace == with != in integer_param
+src/query.rs:93:19: replace += with -= in integer_param
+src/query.rs:93:19: replace += with *= in integer_param
+src/query.rs:100:14: replace > with == in integer_param
+src/query.rs:100:14: replace > with < in integer_param
+src/query.rs:100:14: replace > with >= in integer_param
+src/query.rs:105:20: replace match guard (min..=max).contains(&n) with true in integer_param
+src/query.rs:105:20: replace match guard (min..=max).contains(&n) with false in integer_param
+src/redirect.rs:34:5: replace referrer_host -> Option<String> with None
+src/redirect.rs:34:5: replace referrer_host -> Option<String> with Some(String::new())
+src/redirect.rs:34:5: replace referrer_host -> Option<String> with Some("xyzzy".into())
+src/redirect.rs:40:34: replace && with || in referrer_host
+src/redirect.rs:40:24: replace != with == in referrer_host
+src/redirect.rs:40:53: replace != with == in referrer_host
+src/redirect.rs:43:45: delete ! in referrer_host
+src/redirect.rs:45:23: replace match guard !rest.is_empty() with true in referrer_host
+src/redirect.rs:45:23: replace match guard !rest.is_empty() with false in referrer_host
+src/redirect.rs:45:23: delete ! in referrer_host
+src/redirect.rs:49:13: replace == with != in referrer_host
+src/redirect.rs:57:5: replace country -> Option<String> with None
+src/redirect.rs:57:5: replace country -> Option<String> with Some(String::new())
+src/redirect.rs:57:5: replace country -> Option<String> with Some("xyzzy".into())
+src/redirect.rs:62:47: replace || with && in country
+src/redirect.rs:62:40: replace == with != in country
+src/redirect.rs:62:52: replace == with != in country
+src/redirect.rs:63:24: replace && with || in country
+src/redirect.rs:63:19: replace == with != in country
+src/redirect.rs:72:5: replace device -> &'static str with ""
+src/redirect.rs:72:5: replace device -> &'static str with "xyzzy"
+src/redirect.rs:79:5: replace device_from_user_agent -> &'static str with ""
+src/redirect.rs:79:5: replace device_from_user_agent -> &'static str with "xyzzy"
+src/redirect.rs:107:5: replace follow -> Result<Response, ApiError> with Ok(Default::default())
+src/redirect.rs:139:5: replace record_click -> Result<(), sqlx::Error> with Ok(())
+src/stats.rs:46:5: replace stats -> Result<Response, ApiError> with Ok(Default::default())
+src/stats.rs:91:30: replace - with + in stats
+src/stats.rs:91:56: replace - with + in stats
+src/stats.rs:91:56: replace - with / in stats
+src/stats.rs:91:52: replace - with + in stats
+src/stats.rs:91:52: replace - with / in stats

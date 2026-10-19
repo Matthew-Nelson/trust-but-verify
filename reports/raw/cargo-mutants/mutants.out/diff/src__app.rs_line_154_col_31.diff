@@ -1,0 +1,21 @@
+--- src/app.rs
++++ replace == with != in dispatch
+@@ -146,17 +146,17 @@
+                 links::list(state, query).await
+             } else {
+                 Err(ApiError::MethodNotAllowed("GET, HEAD, POST"))
+             }
+         }
+         Route::Link(code) => {
+             if is_get {
+                 links::get(state, decode_code(code)).await
+-            } else if *method == Method::DELETE {
++            } else if *method != /* ~ changed by cargo-mutants ~ */ Method::DELETE {
+                 links::delete(state, decode_code(code)).await
+             } else {
+                 Err(ApiError::MethodNotAllowed("GET, HEAD, DELETE"))
+             }
+         }
+         Route::Stats(code) => {
+             if !is_get {
+                 return Err(ApiError::MethodNotAllowed("GET, HEAD"));

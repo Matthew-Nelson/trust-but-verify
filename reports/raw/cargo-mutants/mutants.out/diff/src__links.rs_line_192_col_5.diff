@@ -1,0 +1,41 @@
+--- src/links.rs
++++ replace insert_link -> Result<Option<LinkRow>, ApiError> with Ok(None)
+@@ -184,37 +184,17 @@
+ /// Inserts a link. Returns `None` when the code already exists: the database's unique
+ /// constraint decides, so concurrent requests cannot both win (R-ALIAS-5).
+ async fn insert_link(
+     state: &AppState,
+     code: &str,
+     url: &str,
+     is_custom: bool,
+ ) -> Result<Option<LinkRow>, ApiError> {
+-    let result = sqlx::query!(
+-        r#"INSERT INTO links (code, url, is_custom) VALUES ($1, $2, $3)
+-           RETURNING code, url, is_custom, created_at"#,
+-        code,
+-        url,
+-        is_custom
+-    )
+-    .fetch_one(&state.pool)
+-    .await;
+-    match result {
+-        Ok(r) => Ok(Some(LinkRow {
+-            code: r.code,
+-            url: r.url,
+-            is_custom: r.is_custom,
+-            created_at: r.created_at,
+-            click_count: 0,
+-            last_clicked_at: None,
+-        })),
+-        Err(sqlx::Error::Database(e)) if e.is_unique_violation() => Ok(None),
+-        Err(e) => Err(e.into()),
+-    }
++    Ok(None) /* ~ changed by cargo-mutants ~ */
+ }
+ 
+ pub async fn get(state: &AppState, code: Option<String>) -> Result<Response, ApiError> {
+     let Some(code) = code else {
+         return Err(ApiError::NotFound);
+     };
+     let row = sqlx::query_as!(
+         LinkRow,

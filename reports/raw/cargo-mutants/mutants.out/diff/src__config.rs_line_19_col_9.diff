@@ -1,0 +1,32 @@
+--- src/config.rs
++++ replace Config::from_env -> Result<Config, String> with Ok(Default::default())
+@@ -11,28 +11,17 @@
+     pub public_base_url: String,
+     /// Hostname of `PUBLIC_BASE_URL`, used to reject self-referencing URLs (R-URL-4).
+     pub public_hostname: String,
+     pub country_header: HeaderName,
+ }
+ 
+ impl Config {
+     pub fn from_env() -> Result<Config, String> {
+-        let database_url = std::env::var("DATABASE_URL").map_err(|_| "DATABASE_URL is required")?;
+-        let port = match std::env::var("PORT") {
+-            Ok(p) => p
+-                .trim()
+-                .parse::<u16>()
+-                .map_err(|_| "PORT must be a port number")?,
+-            Err(_) => 8080,
+-        };
+-        let base =
+-            std::env::var("PUBLIC_BASE_URL").unwrap_or_else(|_| "http://localhost:8080".into());
+-        let country = std::env::var("COUNTRY_HEADER").unwrap_or_else(|_| "cf-ipcountry".into());
+-        Config::build(database_url, port, &base, &country)
++        Ok(Default::default()) /* ~ changed by cargo-mutants ~ */
+     }
+ 
+     pub fn build(
+         database_url: String,
+         port: u16,
+         public_base_url: &str,
+         country_header: &str,
+     ) -> Result<Config, String> {

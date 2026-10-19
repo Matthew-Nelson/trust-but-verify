@@ -1,0 +1,21 @@
+--- src/query.rs
++++ delete ! in parse_query_integer
+@@ -62,17 +62,17 @@
+ /// A SPEC "query integer": `^(0|[1-9][0-9]*)$` that fits in a signed 64-bit integer.
+ pub fn parse_query_integer(value: &str) -> Option<i64> {
+     let ok = value == "0"
+         || (value
+             .as_bytes()
+             .first()
+             .is_some_and(|b| (b'1'..=b'9').contains(b))
+             && value.bytes().all(|b| b.is_ascii_digit()));
+-    if !ok {
++    if  /* ~ changed by cargo-mutants ~ */ok {
+         return None;
+     }
+     value.parse::<i64>().ok()
+ }
+ 
+ /// Reads one optional integer parameter from a raw query string and checks its range.
+ /// Absent -> `default`. Repeated, malformed or out-of-range -> 400.
+ pub fn integer_param(

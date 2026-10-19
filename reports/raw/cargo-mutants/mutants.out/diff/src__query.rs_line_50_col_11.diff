@@ -1,0 +1,21 @@
+--- src/query.rs
++++ replace += with -= in percent_decode
+@@ -42,17 +42,17 @@
+             && i + 2 < b.len()
+             && let (Some(h), Some(l)) = (hex_value(b[i + 1]), hex_value(b[i + 2]))
+         {
+             out.push(h * 16 + l);
+             i += 3;
+             continue;
+         }
+         out.push(b[i]);
+-        i += 1;
++        i -= /* ~ changed by cargo-mutants ~ */ 1;
+     }
+     out
+ }
+ 
+ /// Decodes a path segment into a code. `None` means the bytes are not valid UTF-8
+ /// (or hold a NUL, which Postgres text cannot store), so no link can have that code.
+ pub fn decode_code(segment: &str) -> Option<String> {
+     let s = String::from_utf8(percent_decode(segment)).ok()?;

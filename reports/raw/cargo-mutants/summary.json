@@ -1,0 +1,19 @@
+{
+ "caught": 174,
+ "missed": 9,
+ "timeout": 7,
+ "unviable": 14,
+ "tool": "cargo-mutants 27.1.0",
+ "command": "SQLX_OFFLINE=true DATABASE_URL=<fresh db> cargo mutants --in-place --timeout 120 (impls/api)",
+ "missedList": [
+  "src/main.rs:13:5: replace main with ()",
+  "src/app.rs:198:5: replace migrate_forever with ()",
+  "src/links.rs:210:42: replace match guard e.is_unique_violation() with true in insert_link",
+  "src/query.rs:10:31: replace - with + in hex_value",
+  "src/query.rs:10:31: replace - with / in hex_value",
+  "src/query.rs:23:59: replace || with && in escapes_are_well_formed",
+  "src/query.rs:26:15: replace += with *= in escapes_are_well_formed",
+  "src/query.rs:42:22: replace < with <= in percent_decode",
+  "src/query.rs:42:18: replace + with * in percent_decode"
+ ]
+}

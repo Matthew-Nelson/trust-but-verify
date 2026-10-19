@@ -1,0 +1,36 @@
+--- src/query.rs
++++ replace percent_decode -> Vec<u8> with vec![0]
+@@ -29,32 +29,17 @@
+         }
+     }
+     true
+ }
+ 
+ /// Percent-decodes once. `+` stays a plus. A malformed escape is kept literally.
+ /// Returns raw bytes, since the result need not be valid UTF-8.
+ pub fn percent_decode(s: &str) -> Vec<u8> {
+-    let b = s.as_bytes();
+-    let mut out = Vec::with_capacity(b.len());
+-    let mut i = 0;
+-    while i < b.len() {
+-        if b[i] == b'%'
+-            && i + 2 < b.len()
+-            && let (Some(h), Some(l)) = (hex_value(b[i + 1]), hex_value(b[i + 2]))
+-        {
+-            out.push(h * 16 + l);
+-            i += 3;
+-            continue;
+-        }
+-        out.push(b[i]);
+-        i += 1;
+-    }
+-    out
++    vec![0] /* ~ changed by cargo-mutants ~ */
+ }
+ 
+ /// Decodes a path segment into a code. `None` means the bytes are not valid UTF-8
+ /// (or hold a NUL, which Postgres text cannot store), so no link can have that code.
+ pub fn decode_code(segment: &str) -> Option<String> {
+     let s = String::from_utf8(percent_decode(segment)).ok()?;
+     if s.contains('\0') { None } else { Some(s) }
+ }

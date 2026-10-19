@@ -1,0 +1,21 @@
+--- src/links.rs
++++ replace > with >= in validate_url
+@@ -69,17 +69,17 @@
+ /// ASCII whitespace as defined by the SPEC: tab, LF, FF, CR and space. Nothing else.
+ fn is_spec_whitespace(c: char) -> bool {
+     matches!(c, '\t' | '\n' | '\u{000C}' | '\r' | ' ')
+ }
+ 
+ /// Validates a destination URL and returns its WHATWG serialization (R-URL-1..4).
+ pub fn validate_url(raw: &str, public_hostname: &str) -> Result<String, ApiError> {
+     let trimmed = raw.trim_matches(is_spec_whitespace);
+-    if trimmed.chars().count() > MAX_URL_CODE_POINTS {
++    if trimmed.chars().count() >= /* ~ changed by cargo-mutants ~ */ MAX_URL_CODE_POINTS {
+         return Err(ApiError::InvalidUrl);
+     }
+     let parsed = Url::parse(trimmed).map_err(|_| ApiError::InvalidUrl)?;
+     if parsed.scheme() != "http" && parsed.scheme() != "https" {
+         return Err(ApiError::InvalidUrl);
+     }
+     match parsed.host_str() {
+         None | Some("") => return Err(ApiError::InvalidUrl),

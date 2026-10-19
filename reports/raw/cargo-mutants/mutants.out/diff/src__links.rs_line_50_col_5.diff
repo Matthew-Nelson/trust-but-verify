@@ -1,0 +1,21 @@
+--- src/links.rs
++++ replace format_time -> String with String::new()
+@@ -42,17 +42,17 @@
+     pub is_custom: bool,
+     pub created_at: DateTime<Utc>,
+     pub click_count: i64,
+     pub last_clicked_at: Option<DateTime<Utc>>,
+ }
+ 
+ /// RFC 3339 in UTC with a `Z` suffix; fractional seconds appear only when non-zero.
+ fn format_time(t: DateTime<Utc>) -> String {
+-    t.to_rfc3339_opts(SecondsFormat::AutoSi, true)
++    String::new() /* ~ changed by cargo-mutants ~ */
+ }
+ 
+ impl LinkRow {
+     pub fn into_link(self, public_base_url: &str) -> Link {
+         Link {
+             short_url: format!("{public_base_url}/{}", self.code),
+             code: self.code,
+             url: self.url,

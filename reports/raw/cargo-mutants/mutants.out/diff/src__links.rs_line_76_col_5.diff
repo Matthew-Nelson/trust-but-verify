@@ -1,0 +1,34 @@
+--- src/links.rs
++++ replace validate_url -> Result<String, ApiError> with Ok(String::new())
+@@ -68,30 +68,17 @@
+ 
+ /// ASCII whitespace as defined by the SPEC: tab, LF, FF, CR and space. Nothing else.
+ fn is_spec_whitespace(c: char) -> bool {
+     matches!(c, '\t' | '\n' | '\u{000C}' | '\r' | ' ')
+ }
+ 
+ /// Validates a destination URL and returns its WHATWG serialization (R-URL-1..4).
+ pub fn validate_url(raw: &str, public_hostname: &str) -> Result<String, ApiError> {
+-    let trimmed = raw.trim_matches(is_spec_whitespace);
+-    if trimmed.chars().count() > MAX_URL_CODE_POINTS {
+-        return Err(ApiError::InvalidUrl);
+-    }
+-    let parsed = Url::parse(trimmed).map_err(|_| ApiError::InvalidUrl)?;
+-    if parsed.scheme() != "http" && parsed.scheme() != "https" {
+-        return Err(ApiError::InvalidUrl);
+-    }
+-    match parsed.host_str() {
+-        None | Some("") => return Err(ApiError::InvalidUrl),
+-        Some(host) if host == public_hostname => return Err(ApiError::InvalidUrl),
+-        Some(_) => {}
+-    }
+-    Ok(parsed.to_string())
++    Ok(String::new()) /* ~ changed by cargo-mutants ~ */
+ }
+ 
+ /// Checks a custom alias: format first (R-ALIAS-1), then the reserved list (R-ALIAS-2).
+ pub fn validate_alias(alias: &str) -> Result<(), ApiError> {
+     let well_formed = (3..=32).contains(&alias.len())
+         && alias
+             .bytes()
+             .all(|b| b.is_ascii_alphanumeric() || b == b'_' || b == b'-');

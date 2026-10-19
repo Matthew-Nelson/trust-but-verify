@@ -1,0 +1,21 @@
+--- src/links.rs
++++ replace match guard e.is_unique_violation() with true in insert_link
+@@ -202,17 +202,17 @@
+         Ok(r) => Ok(Some(LinkRow {
+             code: r.code,
+             url: r.url,
+             is_custom: r.is_custom,
+             created_at: r.created_at,
+             click_count: 0,
+             last_clicked_at: None,
+         })),
+-        Err(sqlx::Error::Database(e)) if e.is_unique_violation() => Ok(None),
++        Err(sqlx::Error::Database(e)) if true /* ~ changed by cargo-mutants ~ */ => Ok(None),
+         Err(e) => Err(e.into()),
+     }
+ }
+ 
+ pub async fn get(state: &AppState, code: Option<String>) -> Result<Response, ApiError> {
+     let Some(code) = code else {
+         return Err(ApiError::NotFound);
+     };

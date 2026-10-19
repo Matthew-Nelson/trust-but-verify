@@ -1,0 +1,39 @@
+--- src/redirect.rs
++++ replace referrer_host -> Option<String> with Some("xyzzy".into())
+@@ -26,35 +26,17 @@
+         referrer_host: referrer_host(headers),
+         country: country(headers, country_header),
+         device: device(headers),
+     }
+ }
+ 
+ /// R-CLICK-1. One `Referer` header that parses as an http(s) URL with a host.
+ fn referrer_host(headers: &HeaderMap) -> Option<String> {
+-    let mut values = headers.get_all(header::REFERER).iter();
+-    let (Some(value), None) = (values.next(), values.next()) else {
+-        return None;
+-    };
+-    let text = std::str::from_utf8(value.as_bytes()).ok()?;
+-    let parsed = Url::parse(text).ok()?;
+-    if parsed.scheme() != "http" && parsed.scheme() != "https" {
+-        return None;
+-    }
+-    let host = parsed.host_str().filter(|h| !h.is_empty())?;
+-    let host = match host.strip_prefix("www.") {
+-        Some(rest) if !rest.is_empty() => rest,
+-        _ => host,
+-    };
+-    // The literal host "direct" would be ambiguous with no referrer, so it is stored as NULL too.
+-    if host == "direct" {
+-        return None;
+-    }
+-    Some(host.to_string())
++    Some("xyzzy".into()) /* ~ changed by cargo-mutants ~ */
+ }
+ 
+ /// R-CLICK-2. Exactly one header, trimmed of spaces and tabs, two ASCII letters.
+ fn country(headers: &HeaderMap, name: &HeaderName) -> Option<String> {
+     let mut values = headers.get_all(name).iter();
+     let (Some(value), None) = (values.next(), values.next()) else {
+         return None;
+     };

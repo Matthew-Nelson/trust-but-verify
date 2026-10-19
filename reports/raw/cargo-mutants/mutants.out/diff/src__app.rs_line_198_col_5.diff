@@ -1,0 +1,36 @@
+--- src/app.rs
++++ replace migrate_forever with ()
+@@ -190,32 +190,17 @@
+     match check {
+         Ok(Ok(_)) => Ok(json_response(StatusCode::OK, &Health { status: "ok" })),
+         _ => Err(ApiError::Unavailable),
+     }
+ }
+ 
+ /// Applies migrations, retrying until the database is reachable. Never gives up (R-HEALTH-2).
+ pub async fn migrate_forever(pool: PgPool) {
+-    loop {
+-        let attempt = tokio::time::timeout(
+-            Duration::from_secs(15),
+-            sqlx::migrate!("./migrations").run(&pool),
+-        )
+-        .await;
+-        match attempt {
+-            Ok(Ok(())) => {
+-                tracing::info!("migrations applied");
+-                return;
+-            }
+-            Ok(Err(e)) => tracing::warn!(error = %e, "migration failed, will retry"),
+-            Err(_) => tracing::warn!("migration timed out, will retry"),
+-        }
+-        tokio::time::sleep(Duration::from_secs(1)).await;
+-    }
++    () /* ~ changed by cargo-mutants ~ */
+ }
+ 
+ #[cfg(test)]
+ mod tests {
+     use super::*;
+ 
+     #[test]
+     fn routes() {

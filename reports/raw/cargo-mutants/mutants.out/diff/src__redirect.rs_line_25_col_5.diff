@@ -1,0 +1,25 @@
+--- src/redirect.rs
++++ replace classify -> ClickInfo with Default::default()
+@@ -17,21 +17,17 @@
+     /// `None` means `direct`.
+     pub referrer_host: Option<String>,
+     /// `None` means `unknown`.
+     pub country: Option<String>,
+     pub device: &'static str,
+ }
+ 
+ pub fn classify(headers: &HeaderMap, country_header: &HeaderName) -> ClickInfo {
+-    ClickInfo {
+-        referrer_host: referrer_host(headers),
+-        country: country(headers, country_header),
+-        device: device(headers),
+-    }
++    Default::default() /* ~ changed by cargo-mutants ~ */
+ }
+ 
+ /// R-CLICK-1. One `Referer` header that parses as an http(s) URL with a host.
+ fn referrer_host(headers: &HeaderMap) -> Option<String> {
+     let mut values = headers.get_all(header::REFERER).iter();
+     let (Some(value), None) = (values.next(), values.next()) else {
+         return None;
+     };

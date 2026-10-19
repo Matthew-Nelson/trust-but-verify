@@ -1,0 +1,46 @@
+--- src/links.rs
++++ replace list -> Result<Response, ApiError> with Ok(Default::default())
+@@ -253,42 +253,17 @@
+ struct LinkPage {
+     items: Vec<Link>,
+     total: i64,
+     limit: i64,
+     offset: i64,
+ }
+ 
+ pub async fn list(state: &AppState, query: Option<&str>) -> Result<Response, ApiError> {
+-    let limit = integer_param(query, "limit", 1, 100, 20)?;
+-    let offset = integer_param(query, "offset", 0, i64::MAX, 0)?;
+-    let rows = sqlx::query_as!(
+-        LinkRow,
+-        r#"SELECT l.code, l.url, l.is_custom, l.created_at,
+-                  (SELECT count(*) FROM clicks c WHERE c.link_id = l.id) AS "click_count!",
+-                  (SELECT max(c.clicked_at) FROM clicks c WHERE c.link_id = l.id) AS last_clicked_at
+-           FROM links l ORDER BY l.created_at DESC, l.id DESC LIMIT $1 OFFSET $2"#,
+-        limit,
+-        offset
+-    )
+-    .fetch_all(&state.pool)
+-    .await?;
+-    let total = sqlx::query_scalar!(r#"SELECT count(*) AS "total!" FROM links"#)
+-        .fetch_one(&state.pool)
+-        .await?;
+-    let page = LinkPage {
+-        items: rows
+-            .into_iter()
+-            .map(|r| r.into_link(&state.config.public_base_url))
+-            .collect(),
+-        total,
+-        limit,
+-        offset,
+-    };
+-    Ok(json_response(StatusCode::OK, &page))
++    Ok(Default::default()) /* ~ changed by cargo-mutants ~ */
+ }
+ 
+ #[cfg(test)]
+ mod tests {
+     use super::*;
+ 
+     const HOST: &str = "localhost";
+ 

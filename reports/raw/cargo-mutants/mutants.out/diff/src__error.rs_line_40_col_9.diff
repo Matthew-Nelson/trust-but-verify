@@ -1,0 +1,21 @@
+--- src/error.rs
++++ replace <impl From<sqlx::Error> for ApiError>::from -> Self with Default::default()
+@@ -32,17 +32,17 @@
+     #[error("database unavailable")]
+     Unavailable,
+     #[error("internal error: {0}")]
+     Internal(String),
+ }
+ 
+ impl From<sqlx::Error> for ApiError {
+     fn from(e: sqlx::Error) -> Self {
+-        ApiError::Internal(e.to_string())
++        Default::default() /* ~ changed by cargo-mutants ~ */
+     }
+ }
+ 
+ fn json_error(status: StatusCode, code: &str, message: &str) -> Response {
+     let body = json!({ "error": { "code": code, "message": message } }).to_string();
+     let mut res = (status, body).into_response();
+     res.headers_mut().insert(
+         header::CONTENT_TYPE,

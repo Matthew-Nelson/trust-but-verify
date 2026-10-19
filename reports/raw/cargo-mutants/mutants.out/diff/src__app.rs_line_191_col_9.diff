@@ -1,0 +1,21 @@
+--- src/app.rs
++++ delete match arm Ok(Ok(_)) in health
+@@ -183,17 +183,17 @@
+ /// Queries the database on every call, with a 2 second limit (R-HEALTH-1, R-HEALTH-3).
+ async fn health(state: &AppState) -> Result<Response, ApiError> {
+     let check = tokio::time::timeout(
+         Duration::from_secs(2),
+         sqlx::query("SELECT 1").execute(&state.pool),
+     )
+     .await;
+     match check {
+-        Ok(Ok(_)) => Ok(json_response(StatusCode::OK, &Health { status: "ok" })),
++         /* ~ changed by cargo-mutants ~ */
+         _ => Err(ApiError::Unavailable),
+     }
+ }
+ 
+ /// Applies migrations, retrying until the database is reachable. Never gives up (R-HEALTH-2).
+ pub async fn migrate_forever(pool: PgPool) {
+     loop {
+         let attempt = tokio::time::timeout(

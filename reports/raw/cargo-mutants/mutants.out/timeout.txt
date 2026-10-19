@@ -1,0 +1,7 @@
+src/links.rs:108:5: replace is_reserved -> bool with true
+src/links.rs:120:12: delete ! in generate_code
+src/query.rs:26:15: replace += with -= in escapes_are_well_formed
+src/query.rs:28:15: replace += with *= in escapes_are_well_formed
+src/query.rs:46:15: replace += with -= in percent_decode
+src/query.rs:46:15: replace += with *= in percent_decode
+src/query.rs:50:11: replace += with *= in percent_decode

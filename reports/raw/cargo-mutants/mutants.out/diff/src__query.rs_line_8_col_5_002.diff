@@ -1,0 +1,25 @@
+--- src/query.rs
++++ replace hex_value -> Option<u8> with Some(1)
+@@ -1,21 +1,16 @@
+ //! Raw path and query-string parsing. Axum's `Query`/`Path` extractors differ from SPEC
+ //! (they turn `+` into a space, accept leading zeros, and allow repeated parameters),
+ //! so this module follows the SPEC "Query integer" definition by hand.
+ 
+ use crate::error::ApiError;
+ 
+ fn hex_value(b: u8) -> Option<u8> {
+-    match b {
+-        b'0'..=b'9' => Some(b - b'0'),
+-        b'a'..=b'f' => Some(b - b'a' + 10),
+-        b'A'..=b'F' => Some(b - b'A' + 10),
+-        _ => None,
+-    }
++    Some(1) /* ~ changed by cargo-mutants ~ */
+ }
+ 
+ /// True if every `%` in `s` is followed by two hex digits.
+ pub fn escapes_are_well_formed(s: &str) -> bool {
+     let b = s.as_bytes();
+     let mut i = 0;
+     while i < b.len() {
+         if b[i] == b'%' {

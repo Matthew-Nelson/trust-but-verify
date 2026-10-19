@@ -1,0 +1,21 @@
+--- src/app.rs
++++ replace || with && in is_dot_segment
+@@ -74,17 +74,17 @@
+     Unmatched {
+         json: bool,
+     },
+ }
+ 
+ /// True for `.` and `..`, spelled with literal dots and/or `%2e` in any case.
+ fn is_dot_segment(segment: &str) -> bool {
+     let lower = segment.to_ascii_lowercase().replace("%2e", ".");
+-    lower == "." || lower == ".."
++    lower == "." && /* ~ changed by cargo-mutants ~ */ lower == ".."
+ }
+ 
+ /// Matches the undecoded path. Dot segments, empty segments and malformed escapes never match.
+ fn match_route(path: &str) -> Route<'_> {
+     let json = path.starts_with("/api/") && path.len() > "/api/".len();
+     let unmatched = Route::Unmatched { json };
+     let Some(rest) = path.strip_prefix('/') else {
+         return unmatched;

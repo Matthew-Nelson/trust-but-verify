@@ -1,0 +1,21 @@
+--- src/links.rs
++++ replace || with && in validate_alias
+@@ -89,17 +89,17 @@
+     Ok(parsed.to_string())
+ }
+ 
+ /// Checks a custom alias: format first (R-ALIAS-1), then the reserved list (R-ALIAS-2).
+ pub fn validate_alias(alias: &str) -> Result<(), ApiError> {
+     let well_formed = (3..=32).contains(&alias.len())
+         && alias
+             .bytes()
+-            .all(|b| b.is_ascii_alphanumeric() || b == b'_' || b == b'-');
++            .all(|b| b.is_ascii_alphanumeric() || b == b'_' && /* ~ changed by cargo-mutants ~ */ b == b'-');
+     if !well_formed {
+         return Err(ApiError::InvalidAlias);
+     }
+     if is_reserved(alias) {
+         return Err(ApiError::AliasReserved);
+     }
+     Ok(())
+ }

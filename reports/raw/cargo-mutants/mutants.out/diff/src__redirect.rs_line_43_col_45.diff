@@ -1,0 +1,21 @@
+--- src/redirect.rs
++++ delete ! in referrer_host
+@@ -35,17 +35,17 @@
+     let (Some(value), None) = (values.next(), values.next()) else {
+         return None;
+     };
+     let text = std::str::from_utf8(value.as_bytes()).ok()?;
+     let parsed = Url::parse(text).ok()?;
+     if parsed.scheme() != "http" && parsed.scheme() != "https" {
+         return None;
+     }
+-    let host = parsed.host_str().filter(|h| !h.is_empty())?;
++    let host = parsed.host_str().filter(|h|  /* ~ changed by cargo-mutants ~ */h.is_empty())?;
+     let host = match host.strip_prefix("www.") {
+         Some(rest) if !rest.is_empty() => rest,
+         _ => host,
+     };
+     // The literal host "direct" would be ambiguous with no referrer, so it is stored as NULL too.
+     if host == "direct" {
+         return None;
+     }

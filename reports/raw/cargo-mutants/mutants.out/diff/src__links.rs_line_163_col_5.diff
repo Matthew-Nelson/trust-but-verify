@@ -1,0 +1,39 @@
+--- src/links.rs
++++ replace create -> Result<Response, ApiError> with Ok(Default::default())
+@@ -155,35 +155,17 @@
+         validate_alias(alias)?;
+     }
+     Ok(CreateRequest { url, alias })
+ }
+ 
+ // ------------------------------------------------------------------ handlers
+ 
+ pub async fn create(state: &AppState, body: &[u8]) -> Result<Response, ApiError> {
+-    let req = parse_create_request(body, &state.config.public_hostname)?;
+-    let row = match req.alias {
+-        Some(alias) => match insert_link(state, &alias, &req.url, true).await? {
+-            Some(row) => row,
+-            None => return Err(ApiError::AliasTaken),
+-        },
+-        None => {
+-            let mut created = None;
+-            for _ in 0..MAX_CODE_ATTEMPTS {
+-                if let Some(row) = insert_link(state, &generate_code(), &req.url, false).await? {
+-                    created = Some(row);
+-                    break;
+-                }
+-            }
+-            created.ok_or_else(|| ApiError::Internal("could not generate a unique code".into()))?
+-        }
+-    };
+-    let link = row.into_link(&state.config.public_base_url);
+-    Ok(json_response(StatusCode::CREATED, &link))
++    Ok(Default::default()) /* ~ changed by cargo-mutants ~ */
+ }
+ 
+ /// Inserts a link. Returns `None` when the code already exists: the database's unique
+ /// constraint decides, so concurrent requests cannot both win (R-ALIAS-5).
+ async fn insert_link(
+     state: &AppState,
+     code: &str,
+     url: &str,

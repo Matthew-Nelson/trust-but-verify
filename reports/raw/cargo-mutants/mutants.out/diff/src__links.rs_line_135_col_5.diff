@@ -1,0 +1,43 @@
+--- src/links.rs
++++ replace parse_create_request -> Result<CreateRequest, ApiError> with Ok(Default::default())
+@@ -127,39 +127,17 @@
+ pub struct CreateRequest {
+     pub url: String,
+     pub alias: Option<String>,
+ }
+ 
+ /// Parses and validates a create request body. Precedence follows R-ERR-2:
+ /// malformed body (400), then URL, then alias format, then reserved.
+ pub fn parse_create_request(body: &[u8], public_hostname: &str) -> Result<CreateRequest, ApiError> {
+-    let bad = || ApiError::BadRequest("Request body must be a JSON object with a 'url' string.");
+-    if body.len() > MAX_BODY_BYTES {
+-        return Err(bad());
+-    }
+-    // serde_json rejects invalid UTF-8 and unpaired surrogate escapes; with duplicate keys the last wins.
+-    let value: Value = serde_json::from_slice(body).map_err(|_| bad())?;
+-    let Value::Object(map) = value else {
+-        return Err(bad());
+-    };
+-    let Some(Value::String(url)) = map.get("url") else {
+-        return Err(bad());
+-    };
+-    let alias = match map.get("alias") {
+-        None | Some(Value::Null) => None,
+-        Some(Value::String(s)) if s.is_empty() => None,
+-        Some(Value::String(s)) => Some(s.clone()),
+-        Some(_) => return Err(bad()),
+-    };
+-    let url = validate_url(url, public_hostname)?;
+-    if let Some(alias) = &alias {
+-        validate_alias(alias)?;
+-    }
+-    Ok(CreateRequest { url, alias })
++    Ok(Default::default()) /* ~ changed by cargo-mutants ~ */
+ }
+ 
+ // ------------------------------------------------------------------ handlers
+ 
+ pub async fn create(state: &AppState, body: &[u8]) -> Result<Response, ApiError> {
+     let req = parse_create_request(body, &state.config.public_hostname)?;
+     let row = match req.alias {
+         Some(alias) => match insert_link(state, &alias, &req.url, true).await? {

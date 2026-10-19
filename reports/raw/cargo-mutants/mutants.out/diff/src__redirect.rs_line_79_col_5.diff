@@ -1,0 +1,37 @@
+--- src/redirect.rs
++++ replace device_from_user_agent -> &'static str with ""
+@@ -71,33 +71,17 @@
+ fn device(headers: &HeaderMap) -> &'static str {
+     let Some(value) = headers.get(header::USER_AGENT) else {
+         return "unknown";
+     };
+     device_from_user_agent(&String::from_utf8_lossy(value.as_bytes()))
+ }
+ 
+ pub fn device_from_user_agent(ua: &str) -> &'static str {
+-    if ua
+-        .trim_matches(|c: char| c.is_ascii_whitespace())
+-        .is_empty()
+-    {
+-        return "unknown";
+-    }
+-    let ua = ua.to_ascii_lowercase();
+-    let has = |words: &[&str]| words.iter().any(|w| ua.contains(w));
+-    if has(&["bot", "crawl", "spider", "preview", "facebookexternalhit"]) {
+-        "bot"
+-    } else if has(&["ipad", "tablet"]) {
+-        "tablet"
+-    } else if has(&["mobi", "iphone", "android"]) {
+-        "mobile"
+-    } else {
+-        "desktop"
+-    }
++    "" /* ~ changed by cargo-mutants ~ */
+ }
+ 
+ // -------------------------------------------------------------------- handler
+ 
+ /// `should_record` is false for HEAD (R-REDIR-7).
+ pub async fn follow(
+     state: &AppState,
+     code: Option<String>,

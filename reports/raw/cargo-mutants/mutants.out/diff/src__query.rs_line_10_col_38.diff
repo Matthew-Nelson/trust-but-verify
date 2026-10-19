@@ -1,0 +1,21 @@
+--- src/query.rs
++++ replace + with - in hex_value
+@@ -2,17 +2,17 @@
+ //! (they turn `+` into a space, accept leading zeros, and allow repeated parameters),
+ //! so this module follows the SPEC "Query integer" definition by hand.
+ 
+ use crate::error::ApiError;
+ 
+ fn hex_value(b: u8) -> Option<u8> {
+     match b {
+         b'0'..=b'9' => Some(b - b'0'),
+-        b'a'..=b'f' => Some(b - b'a' + 10),
++        b'a'..=b'f' => Some(b - b'a' - /* ~ changed by cargo-mutants ~ */ 10),
+         b'A'..=b'F' => Some(b - b'A' + 10),
+         _ => None,
+     }
+ }
+ 
+ /// True if every `%` in `s` is followed by two hex digits.
+ pub fn escapes_are_well_formed(s: &str) -> bool {
+     let b = s.as_bytes();

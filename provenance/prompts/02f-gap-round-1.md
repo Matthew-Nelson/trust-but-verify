@@ -23,3 +23,23 @@ Constraints:
 - Update COVERAGE.md (via `pnpm coverage:manifest`), README.md and SELF_CHECK.md to match.
 
 Final report: what you added (file, test titles), how each test causes the condition and what it asserts, why a conforming api passes, self-check results, any HP-27+ proposals, and anything you decided can't be tested, with the reason.
+
+---
+
+## Follow-up (run 12b), sent via SendMessage after `spec-v1.5`, verbatim
+
+Gap round 1, follow-up: SPEC adopted your proposals. spec/SPEC.md in your workspace is now spec-v1.5.
+
+Same role, same rules, same workspace (/Users/matthewnelson/Workspace/tbv-ws/gap1); read and write only there.
+
+Dispositions:
+- HP-27, HP-28, HP-29: adopted **verbatim**. Check spec/SPEC.md: the R-ERR-7 and R-REDIR-6 rows, the "Configuration" bullet, and the new "Fault injection" bullet in Verification rules.
+- HP-30: **declined**. On an api that answers a database-rejected statement with a non-500 status, your R-ERR-7 test stays inconclusive (pending), as designed.
+
+Please:
+1. Remove the proposal gate. The two fault-injection tests should run by default whenever `API_BIN` and `DATABASE_URL` are set, with the existing skip notes when they're not. Remove `HARNESS_PROPOSALS` and the `pending (gray-box, proposed ...)` note entirely. Keep every `inconclusive (gray-box): ...` outcome as it is.
+2. Check that the tests match the adopted SPEC text exactly. Change anything that doesn't, and report it.
+3. Update COVERAGE.md (via `pnpm coverage:manifest`), README.md, SELF_CHECK.md and the "SPEC" version strings to spec-v1.5. Mark HP-27..29 as adopted and HP-30 as declined in your PROPOSALS.md.
+4. Re-run your self-check on the two tests (nothing listening; Prism spawned as the api). Run nothing else.
+
+Change nothing else. Final report: files changed, the exact diff summary, and the self-check results.

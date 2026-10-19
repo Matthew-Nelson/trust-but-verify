@@ -31,12 +31,10 @@ env:
   PGUSER: verify
   PGHOST: localhost
   # Schemathesis honours proxy variables even for localhost (HR3-02); the tools refuse to run with them.
+  # Actions env keys are case-insensitive, so the lowercase forms are unset in the run step instead.
   HTTP_PROXY: ''
   HTTPS_PROXY: ''
   ALL_PROXY: ''
-  http_proxy: ''
-  https_proxy: ''
-  all_proxy: ''
 
 jobs:
   separation:
@@ -119,6 +117,7 @@ jobs:
         env:
           TIER: ${{ steps.tier.outputs.tier }}
         run: |
+          unset HTTP_PROXY HTTPS_PROXY ALL_PROXY http_proxy https_proxy all_proxy
           case "$TIER" in
             acceptance) make acceptance ;;
             nightly) make nightly ;;

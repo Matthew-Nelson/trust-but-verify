@@ -52,3 +52,16 @@ These are problems found in `spec/SPEC.md` / `spec/openapi.json` (spec-v1) while
 | ID | Problem | Suggested change | Harness interpretation today |
 |---|---|---|---|
 | HP-23 | **Harness false failure, R-UI-1** (`harness/tests/ui/home.spec.ts`, the `[R-UI-1] form has ...` test). It checks `required === false` on **every** control in `form.elements`. `HTMLButtonElement` (and `fieldset`, `output`, `object`) has no `required` property, so a form whose Shorten control is a `<button>` reads `undefined` and fails. SPEC only forbids `required` on the form's controls; a `<button>` can't carry it. | No SPEC change. Harness: assert `required !== true` (or check only `input`, `select` and `textarea`). The holdout's R-UI-1 variant checks only the two textboxes and is not affected (checked by the coordinator; the seal is unchanged). | `harness-v1` stays frozen. The web implementation uses `<input type="submit" value="Shorten">`, which has role button, name "Shorten" and `required === false`. That is SPEC-conformant, not a workaround that weakens anything. Fix at the next harness revision. |
+
+## From the api implementer (run 8, 2026-10-18), copied verbatim except for the IDs
+
+The agent numbered these HP-23 and HP-24 on branch `impl-api`, in parallel with the web implementer's HP-23 above. They are renumbered HP-24 and HP-25 here; the branch copy is replaced at merge.
+
+Both items concern `pnpm fuzz` (R-OAS-1) against the Rust api. The api was not changed to work around them.
+
+| ID | Problem | Suggested change | Behavior I implemented |
+|---|---|---|---|
+| HP-24 | **R-OAS-1 / R-ERR-3**: Schemathesis's `negative_data_rejection` check sends an undefined query parameter (`GET|HEAD /api/links?offset=0&x-schemathesis-unknown-property=42`) and expects a 4xx. R-ERR-3 says "Parameters an endpoint doesn't define are ignored", so 200 is the specified answer. The run fails with 2 failures for any api that follows R-ERR-3. | Exclude `negative_data_rejection` from the fuzz run (or only for additional-properties-in-query cases), and say so in "Verification rules / Fuzzing". | Unknown query parameters are ignored (200), per R-ERR-3. |
+| HP-25 | **R-OAS-1 / Fuzzing**: `scripts/fuzz.mjs` passes `--max-redirects 0`. Schemathesis 4.29.1 then reports every 302 as `Network Error: Exceeded 0 redirects.`, so `GET /{code}` and `HEAD /{code}` always error once a code exists, even though the 302 is exactly what R-REDIR-1 requires. 2 errors on a correct api. | Allow the 302 in the fuzz run (for example, a Schemathesis hook or check that treats a 302 without following it as a response), or drop `--max-redirects 0`. | `GET|HEAD /{code}` return 302 with `Location` and `Cache-Control: no-store`, per R-REDIR-1/2. |
+
+**Disposed in `spec-v1.4`:** see `spec/reviews/06-disposition.md` (HP-24 and HP-25 accepted as SPEC contradictions; HP-23 is a harness-only fix).

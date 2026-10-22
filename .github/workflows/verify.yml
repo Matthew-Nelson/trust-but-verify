@@ -3,8 +3,9 @@
 #               every suite once (public, holdout, fuzz, UI), and the harness/impls separation rule.
 #   nightly     (daily and on demand): are there flaky failures? Acceptance x3 on fresh databases,
 #               plus the mutant run when harness/, holdout/ or mutants/ changed in the last day.
-#   release     (tags `verified-*` / `v*`, or manual): the full evidence pipeline (make verify),
-#               the HTML report on GitHub Pages and the raw evidence as an artifact.
+#   release     (tags `verified-*` / `v*`, or manual): the full evidence pipeline (make verify) and the
+#               raw evidence as an artifact. The HTML report goes to GitHub Pages only when the repo
+#               variable PUBLISH_PAGES is 'true' (publishing is an owner decision; Pages must be enabled).
 # The mutant run measures the TESTS, not the app, so it only needs re-running when the tests or the
 # mutants change.
 name: verify
@@ -140,7 +141,7 @@ jobs:
 
   pages:
     needs: run
-    if: startsWith(github.ref, 'refs/tags/') || (github.event_name == 'workflow_dispatch' && inputs.tier == 'release')
+    if: vars.PUBLISH_PAGES == 'true' && (startsWith(github.ref, 'refs/tags/') || (github.event_name == 'workflow_dispatch' && inputs.tier == 'release'))
     runs-on: ubuntu-latest
     permissions:
       pages: write

@@ -16,13 +16,21 @@
 #   make mutants     clean baselines x3 + every mutant   -> reports/raw/mutants/$(ROUND)/
 #   make trace       traceability matrix                 -> reports/raw/trace.json
 #   make report      reports/VERIFICATION.md and .html
+#
+# Committed rounds (run-0 is the first-shot record) are evidence and are never overwritten: by default
+# a mutant run writes the next free run-N, so `make verify` from a clean clone adds a reproduction round.
 
-ROUND ?= run-0
+NEXT_ROUND = run-$(words $(wildcard reports/raw/mutants/run-*))
+ROUND ?= $(NEXT_ROUND)
 BASELINES ?= 3
 
 .PHONY: verify acceptance nightly setup checks mutants trace report clean-work
 
-verify: setup checks mutants trace report
+# Sub-makes, so trace and report see the round the mutant run just wrote (make caches directory listings).
+verify: setup checks
+	$(MAKE) mutants ROUND=$(NEXT_ROUND)
+	$(MAKE) trace
+	$(MAKE) report
 
 acceptance: setup checks
 	node tools/acceptance.mjs
@@ -42,6 +50,8 @@ checks:
 	node tools/checks.mjs
 
 mutants:
+	@case "$(ROUND)" in run-*) if [ -e reports/raw/mutants/$(ROUND)/results.json ]; then \
+	  echo "reports/raw/mutants/$(ROUND) is a recorded round; pick another ROUND"; exit 1; fi ;; esac
 	node tools/mutate.mjs --baseline $(BASELINES) --out reports/raw/mutants/$(ROUND)
 
 # Requirement status comes from the newest round's clean baselines; mutant verdicts from every round

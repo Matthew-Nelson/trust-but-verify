@@ -23,8 +23,9 @@ const rounds = readdirSync(join(RAW, 'mutants'))
 const checks = existsSync(join(RAW, 'checks.json')) ? read(join(RAW, 'checks.json')) : null;
 const cargoMutants = existsSync(join(RAW, 'cargo-mutants', 'summary.json')) ? read(join(RAW, 'cargo-mutants', 'summary.json')) : null;
 const fuzzRuns = [];
+// Fuzz counts come from the same round's baselines as the traceability matrix (the newest round).
 for (const r of trace.runs) {
-  const dir = join(RAW, 'mutants', rounds[0]?.name ?? 'run-0', r);
+  const dir = join(RAW, 'mutants', rounds[rounds.length - 1]?.name ?? 'run-0', r);
   const log = readText(join(dir, 'fuzz.log'));
   const m = log?.match(/(\d+) generated, (\d+) passed/);
   if (m) fuzzRuns.push({ run: r, generated: Number(m[1]), passed: Number(m[2]) });
@@ -52,7 +53,8 @@ P(`| Requirements | ${Object.entries(trace.statusCounts).map(([k, v]) => `${v} $
 P(`| Public suites (api, invariants, UI), ${trace.runs.length / 2} repeated clean runs each | ${sum(['api', 'invariants', 'ui'], 'passedAllRuns')} of ${sum(['api', 'invariants', 'ui'], 'tests')} tests passed in every run |`);
 P(`| Holdout (hidden until after \`impl-v1\`) | ${sum(['holdout', 'holdout-ui'], 'passedAllRuns')} of ${sum(['holdout', 'holdout-ui'], 'tests')} tests passed in every run |`);
 if (fuzzRuns.length) P(`| Fuzzing (Schemathesis, R-OAS-1) | ${fuzzRuns.map((f) => `${f.passed}/${f.generated}`).join(', ')} generated cases passed per run |`);
-for (const r of rounds) P(`| Mutants, ${r.name}${r.harnessTag ? ` (${r.harnessTag})` : ''} | **${killed(r).length} of ${valid(r).length} killed** (${pct(killed(r).length, valid(r).length)}); ${killed(r).filter((x) => x.targeted).length} by a test carrying the mutant's requirement ID |`);
+const roundLabel = (r) => [r.harnessTag, r.host && `${r.host.where}, ${r.host.platform}, ${r.host.cpus} CPUs`].filter(Boolean).join('; ');
+for (const r of rounds) P(`| Mutants, ${r.name}${roundLabel(r) ? ` (${roundLabel(r)})` : ''} | **${killed(r).length} of ${valid(r).length} killed** (${pct(killed(r).length, valid(r).length)}); ${killed(r).filter((x) => x.targeted).length} by a test carrying the mutant's requirement ID |`);
 if (checks) P(`| Static and implementer checks | ${checks.results.filter((c) => c.ok).length} of ${checks.results.length} pass (${checks.results.filter((c) => !c.ok).map((c) => c.name).join(', ') || 'none failing'}) |`);
 if (cargoMutants) P(`| cargo-mutants (implementer's own tests, context only) | ${cargoMutants.caught} caught, ${cargoMutants.missed} missed, ${cargoMutants.timeout} timeout, ${cargoMutants.unviable} unviable |`);
 P('');
@@ -65,7 +67,13 @@ P('');
 
 P('## Mutants', '');
 if (rounds.length > 1) {
-  P(`**How to read the rounds.** ${first.name} measured the harness as frozen before anyone saw a mutant: that is the first-shot number. Its survivors were then described in spec terms only (requirement and undetected behavior, no patch) to a fresh harness author who never saw the implementation or the mutants, the resulting tests were reviewed blind, and ${final.name} re-ran every mutant against the new harness with fresh baselines. Later rounds are therefore not independent of earlier ones: they show the gaps were closable from the spec, not that the harness would have caught these bugs unaided.`, '');
+  // A round on a new harness tag follows a gap round; a round on the same tag as the one before is a reproduction.
+  const gapRounds = rounds.slice(1).filter((r, i) => r.harnessTag !== rounds[i].harnessTag).map((r) => r.name);
+  const reproRounds = rounds.slice(1).filter((r, i) => r.harnessTag === rounds[i].harnessTag).map((r) => r.name);
+  const s = [`**How to read the rounds.** ${first.name} measured the harness as frozen before anyone saw a mutant: that is the first-shot number.`];
+  if (gapRounds.length) s.push(`Its survivors were then described in spec terms only (requirement and undetected behavior, no patch) to a fresh harness author who never saw the implementation or the mutants, the resulting tests were reviewed blind, and ${gapRounds.join(', ')} re-ran every mutant against the new harness with fresh baselines. Those rounds are therefore not independent of earlier ones: they show the gaps were closable from the spec, not that the harness would have caught these bugs unaided.`);
+  if (reproRounds.length) s.push(`${reproRounds.join(', ')} re-ran the same harness as the round before, with fresh baselines and no test changes: a reproduction, possibly on a different machine (see the summary), not a new gap round. Where a reproduction disagrees with the round before, the mutant's requirement is sensitive to the environment.`);
+  P(s.join(' '), '');
 }
 P('Each mutant is a realistic bug written by a red team (Fable) that never saw the harness or the holdout. A mutant is **killed** when a test that passed in every clean baseline run fails; tests that failed in any baseline are excluded (unstable). **Targeted** means a killing test carries the mutant\'s requirement ID; **incidental** means only tests for other requirements caught it.', '');
 const idx = opt(join(REPO, 'mutants', 'INDEX.md')) ?? '';

@@ -11,6 +11,7 @@
 // One worktree at a fixed path (.work/mutant-wt) is reused, so the api binary keeps one path.
 import { spawnSync } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import { cpus } from 'node:os';
 import { basename, join } from 'node:path';
 import { REPO, assertNoProxy, freshDb, log, runSuites, startApi, startWeb } from './lib.mjs';
 
@@ -31,6 +32,8 @@ const DB = { main: 'tbv_mut', fuzz: 'tbv_mut_fuzz' };
 const TAG = 'impl-v1';
 // The newest harness tag reachable from HEAD: which frozen harness this round measured.
 const HARNESS_TAG = spawnSync('git', ['-C', REPO, 'describe', '--tags', '--abbrev=0', '--match', 'harness-v*'], { encoding: 'utf8' }).stdout.trim() || null;
+// Where the round ran: race-dependent kills (R-ALIAS-5) have differed between a laptop and a CI runner.
+const HOST = { where: process.env.GITHUB_ACTIONS ? 'GitHub Actions' : 'local', platform: process.platform, arch: process.arch, cpus: cpus().length };
 
 function sh(cmd, argv, opts = {}) {
   const r = spawnSync(cmd, argv, { encoding: 'utf8', maxBuffer: 256 * 1024 * 1024, ...opts });
@@ -189,7 +192,7 @@ async function main() {
     };
     results.push(res);
     log(`  -> ${verdict}${verdict === 'killed' ? (targeted ? ' (targeted)' : ' (incidental)') : ''} ${JSON.stringify(bySuite)}`);
-    writeFileSync(join(OUT, 'results.json'), JSON.stringify({ tag: TAG, harnessTag: HARNESS_TAG, baselines: BASELINES, unstable: Object.fromEntries(Object.entries(unstable).map(([k, v]) => [k, [...v]])), results }, null, 1));
+    writeFileSync(join(OUT, 'results.json'), JSON.stringify({ tag: TAG, harnessTag: HARNESS_TAG, host: HOST, baselines: BASELINES, unstable: Object.fromEntries(Object.entries(unstable).map(([k, v]) => [k, [...v]])), results }, null, 1));
   }
   resetWorktree();
   const killed = results.filter((r) => r.verdict === 'killed');

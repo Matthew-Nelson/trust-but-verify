@@ -58,10 +58,10 @@ Roles use **different models** where possible, so their blind spots are less lik
 | Was it overfitted to the visible tests? | **Holdout suite**: the same requirements with different inputs, hidden until after `impl-v1`. A gap between public and holdout pass rates is the overfitting signal | Yes |
 | Does it honor the contract on inputs nobody thought of? | **Schemathesis** property-based fuzzing from `openapi.json` | Yes. A third-party tool, not an LLM |
 | Does it hold up under concurrency? | Invariant tests: exactly one winner in an alias race; zero lost clicks across 500 concurrent redirects | Yes |
-| **Can the tests actually catch bugs?** | **Mutant zoo**: about 20 plausible bugs written by a red team that never saw the tests. Kill rate, and whether the *targeted* requirement's test is the one that caught it | Yes |
+| **Can the tests actually catch bugs?** | **Mutant zoo**: plausible bugs (37 in this round; the plan said about 20) written by a red team that never saw the tests. Kill rate, and whether the *targeted* requirement's test is the one that caught it | Yes |
 | How thorough are the implementer's own tests? | `cargo-mutants` against the Rust unit and integration tests (reported separately; it measures the implementer's tests, not the harness) | No. Reported for context only |
-| Known hazards in code and dependencies? | Rust compiler, `clippy -D warnings`, `#![forbid(unsafe_code)]`, `cargo audit`, `cargo deny` | Yes. Tools |
-| Can anyone reproduce this? | `make verify` from a clean clone; GitHub Actions on every push; report published to GitHub Pages | Yes |
+| Known hazards in code and dependencies? | Rust compiler, `clippy -D warnings`, `#![forbid(unsafe_code)]`, `cargo audit` (`cargo deny` was planned but is not run; npm dependencies are not audited) | Yes. Tools |
+| Can anyone reproduce this? | `make verify` from a clean clone (it adds a new mutant round and never overwrites a recorded one); GitHub Actions on every push; report published to GitHub Pages on release once the owner turns publishing on | Yes |
 | Does it do what a person expects? | A written human acceptance checklist I run against the live app | Yes. Me |
 
 ## Testability as a design input

@@ -25,7 +25,7 @@ AI agents can now build working software in any language. The scarce skill is no
 
 **Open item.** One full API run at `impl-v1` (before verification) failed 4 tests during an unexplained ~3 s database stall. It was not reproduced in 18 later full runs (10 re-runs at `impl-v1`, 7 verification baselines, 1 acceptance run). See the report's limits section.
 
-Full report: [`reports/VERIFICATION.md`](reports/VERIFICATION.md) (HTML: `reports/VERIFICATION.html`, published to GitHub Pages on release). Isolation audit: [`reports/AUDIT.md`](reports/AUDIT.md). Hands-on checklist for a person: [`reports/HUMAN_ACCEPTANCE.md`](reports/HUMAN_ACCEPTANCE.md).
+Full report: [`reports/VERIFICATION.md`](reports/VERIFICATION.md) (HTML: `reports/VERIFICATION.html`; the release tier can publish it to GitHub Pages, which is not turned on yet). Isolation audit: [`reports/AUDIT.md`](reports/AUDIT.md). Hands-on checklist for a person: [`reports/HUMAN_ACCEPTANCE.md`](reports/HUMAN_ACCEPTANCE.md).
 
 ## How it got here
 

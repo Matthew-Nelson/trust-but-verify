@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Mutant runner. For each patch in mutants/: reset a worktree to impl-v1, apply the patch, build,
+// Mutant runner. For each patch in mutants/: reset a worktree to the newest impl-v* tag, apply the patch, build,
 // start the service against fresh databases, run the suites, and classify the mutant as killed or
 // survived against clean baseline runs of the same pipeline.
 //
@@ -29,7 +29,8 @@ const API_BIN = join(WT, 'impls', 'api', 'target', 'release', 'shortlink-api');
 const WEB = join(WT, 'impls', 'web');
 const PORTS = { api: 8180, fuzz: 8181, web: 3100 };
 const DB = { main: 'tbv_mut', fuzz: 'tbv_mut_fuzz' };
-const TAG = 'impl-v1';
+// The newest implementation tag reachable from HEAD (impl-v1, or a later patch release such as impl-v1.1).
+const TAG = spawnSync('git', ['-C', REPO, 'describe', '--tags', '--abbrev=0', '--match', 'impl-v*'], { encoding: 'utf8' }).stdout.trim() || 'impl-v1';
 // The newest harness tag reachable from HEAD: which frozen harness this round measured.
 const HARNESS_TAG = spawnSync('git', ['-C', REPO, 'describe', '--tags', '--abbrev=0', '--match', 'harness-v*'], { encoding: 'utf8' }).stdout.trim() || null;
 // Where the round ran: race-dependent kills (R-ALIAS-5) have differed between a laptop and a CI runner.
@@ -137,7 +138,7 @@ async function main() {
   const patches = readdirSync(join(REPO, 'mutants')).filter((f) => f.endsWith('.patch')).sort();
   const mutants = patches.map((f) => mutantMeta(join(REPO, 'mutants', f))).filter((m) => !ONLY || ONLY.some((o) => m.name.startsWith(o)));
 
-  // Baselines: clean impl-v1 through the same pipeline, for each kind that is needed.
+  // Baselines: the clean implementation tag through the same pipeline, for each kind that is needed.
   const baseline = { api: [], web: [] };
   const kinds = [...new Set(mutants.map((m) => m.kind))];
   if (BASELINE_FROM) {

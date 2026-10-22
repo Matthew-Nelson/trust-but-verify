@@ -45,7 +45,7 @@ const specStatus = readFileSync(join(REPO, 'spec', 'SPEC.md'), 'utf8').split('\n
 const specTag = (specStatus.match(/spec-v[0-9.]*[0-9]/g) ?? ['spec']).sort((a, b) => a.localeCompare(b, 'en', { numeric: true })).pop();
 
 P('# Verification report', '');
-P(`Generated ${new Date().toISOString()} by \`tools/report.mjs\` from the raw evidence in \`reports/raw/\`. Implementation \`impl-v1\`, spec \`${specTag}\`, harness \`${final?.harnessTag ?? '?'}\`, holdout seal 3.`, '');
+P(`Generated ${new Date().toISOString()} by \`tools/report.mjs\` from the raw evidence in \`reports/raw/\`. Implementation \`${final?.tag ?? 'impl-v1'}\`, spec \`${specTag}\`, harness \`${final?.harnessTag ?? '?'}\`, holdout seal 3.`, '');
 
 P('## Summary', '');
 P('| Evidence | Result |', '|---|---|');

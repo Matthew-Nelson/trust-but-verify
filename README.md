@@ -23,7 +23,12 @@ AI agents can now build working software in any language. The scarce skill is no
 
 **Read the mutant line carefully.** The first-shot number, 34 of 37, measures the tests exactly as they were frozen before anyone saw a bug. All three misses were in the two requirements the tests openly said they had no test for. Their descriptions, in spec terms only, went to a fresh test author who never saw the code or the bugs. The resulting tests were reviewed blind, and the re-run caught all 37. That shows the gaps could be closed from the spec. It doesn't show the original tests would have caught those bugs.
 
-**Open item.** One full API run at `impl-v1` (before verification) failed 4 tests during an unexplained ~3 s database stall. It was not reproduced in 18 later full runs (10 re-runs at `impl-v1`, 7 verification baselines, 1 acceptance run). See the report's limits section.
+**Open items.** The table above is the `verified-v1` evidence, which was collected locally. Later runs on GitHub Actions (2-CPU Linux runners) found two problems that are still open:
+- **R-UI-10 (accessibility), intermittent on CI.** `[R-UI-10] / after a success` failed in 2 of 6 CI baselines with the axe violation `serious document-title`. It passed in all 12 nightly acceptance runs and has never failed locally, including under CPU throttling, parallel load and cold starts. The cause is unknown: either the page briefly has no `<title>` after a create, or axe reads the page mid-update. Neither the tests nor the app were changed to make it pass.
+- **R-ALIAS-5 (alias race), weak on slow clients.** The alias-race test caught the check-then-upsert mutant (#18) in 1 of 2 CI mutant rounds. Locally, starving the test process of CPU reproduces this: 8 of 24 trials caught the mutant, and in 2 of 8 runs no trial did. The 20 requests stop arriving together when the client is slow. A fix was written, but the work stopped before blind review and before the fix was run against the mutant, so `harness/` is still `harness-v1.2`.
+- **Database stall.** One full API run at `impl-v1` (before verification) failed 4 tests during an unexplained ~3 s database stall. It was not reproduced in 18 later full runs (10 re-runs at `impl-v1`, 7 verification baselines, 1 acceptance run). See the report's limits section.
+
+Details of all three are in [`provenance/LOG.md`](provenance/LOG.md).
 
 Full report: [`reports/VERIFICATION.md`](reports/VERIFICATION.md) (HTML: `reports/VERIFICATION.html`; the release tier can publish it to GitHub Pages, which is not turned on yet). Isolation audit: [`reports/AUDIT.md`](reports/AUDIT.md). Hands-on checklist for a person: [`reports/HUMAN_ACCEPTANCE.md`](reports/HUMAN_ACCEPTANCE.md).
 
@@ -47,7 +52,7 @@ Full report: [`reports/VERIFICATION.md`](reports/VERIFICATION.md) (HTML: `report
 3. **Hidden holdout.** Part of the suite stays hidden from the implementers and is revealed only afterward. A passing public suite with a failing holdout would mean the code was tuned to the tests.
 4. **Testing the tests.** A red-team agent that never saw the tests plants realistic bugs (37 here). The harness must catch every one. Any it misses go back, in spec terms only, to a fresh test author.
 5. **Non-AI checks.** Property-based fuzzing (Schemathesis), concurrency invariants, the Rust compiler, and dependency audits.
-6. **Reproducible.** `make verify` from a clean clone. CI runs a fast acceptance tier on every push, a nightly flakiness and mutant check, and the full pipeline on each release.
+6. **Reproducible.** `make verify` from a clean clone. The CI workflow defines a fast acceptance tier on every push, a nightly flakiness and mutant check, and the full pipeline on each release. It is currently disabled to save CI minutes; re-enable it with `gh workflow enable verify.yml`.
 
 The full method, including what this does **not** prove: [`METHOD.md`](METHOD.md). Every prompt given to every agent: [`provenance/`](provenance/).
 

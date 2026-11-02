@@ -30,7 +30,7 @@ AI agents can now build working software in any language. The scarce skill is no
 
 Details of all three are in [`provenance/LOG.md`](provenance/LOG.md).
 
-Full report: [`reports/VERIFICATION.md`](reports/VERIFICATION.md) (HTML: `reports/VERIFICATION.html`; the release tier can publish it to GitHub Pages, which is not turned on yet). Isolation audit: [`reports/AUDIT.md`](reports/AUDIT.md). Hands-on checklist for a person: [`reports/HUMAN_ACCEPTANCE.md`](reports/HUMAN_ACCEPTANCE.md).
+Full report: [`reports/VERIFICATION.md`](reports/VERIFICATION.md) (HTML: `reports/VERIFICATION.html`; the release tier can publish it to GitHub Pages, which is not turned on yet). Isolation audit: [`reports/AUDIT.md`](reports/AUDIT.md). Hands-on checklist for a person: [`reports/HUMAN_ACCEPTANCE.md`](reports/HUMAN_ACCEPTANCE.md), run by Matthew on 2026-11-02 against `impl-v1.1`: 15 of 15 passed.
 
 ## How it got here
 

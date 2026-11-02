@@ -234,3 +234,5 @@ What remains is the environment: Linux Chromium on a 2-CPU GitHub runner. Neithe
 - HP-31 was **declined** by Matthew ("no spec change needed").
 
 **Not imported.** `harness/` is unchanged at `harness-v1.2`, so the R-ALIAS-5 weakness on slow clients is still open. The unreviewed work is in `~/tbv-sandbox/gap2`, and the reviewer workspace in `~/tbv-sandbox/review5`. To finish later: blind review, then measure mutant 18 with a starved client, then import as `harness-v1.3`.
+
+**Human acceptance (Matthew, 2026-11-02).** `reports/HUMAN_ACCEPTANCE.md` run by hand against `impl-v1.1` (no `impls/` change since that tag), locally, using the checklist's start-up steps (fresh `shortlink_accept` database, production web build). **15 of 15 passed.** Overall: yes, it behaves as a person would expect. Nothing surprising was noted. Matthew filled in the pass/fail column; at his request the coordinator filled in the sign-off fields (date, overall, surprises) from what he reported. This was a by-eye check, so it says nothing about the millisecond-scale R-UI-10 `<title>` question, which stays open.
